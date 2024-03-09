@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AvaloniaApplication4.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaApplication4.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="AvaloniaApplication4"
+        WindowState="Maximized">
+    
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Grid ColumnDefinitions="100,*" RowDefinitions="*,*,*"  Margin="0" ShowGridLines="True">
+     <Border Background="Aquamarine">
+         <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*" ShowGridLines="True">
+			 <Button Grid.Column="1"
+                     Grid.Row="0"
+                     Width="25"
+                     Height="25"
+                     HorizontalAlignment="Center"/>
+             <Button Grid.Column="1"
+                     Grid.Row="1"
+                     Width="25"
+                     Height="25"
+                     HorizontalAlignment="Center"/>
+             <Button Grid.Column="1"
+                     Grid.Row="2"
+                     Width="25"
+                     Height="25"
+                     HorizontalAlignment="Center"/>
+         </Grid>
+     </Border>
+    </Grid>
+    
+</Window>
