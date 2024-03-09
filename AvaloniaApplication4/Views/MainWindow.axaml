@@ -35,6 +35,8 @@
                      HorizontalAlignment="Center"/>
          </Grid>
      </Border>
+
+        <Border Grid.Column="1" Grid.Row="0" Background="Gray"></Border>
     </Grid>
     
 </Window>
