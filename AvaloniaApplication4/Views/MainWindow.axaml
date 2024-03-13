@@ -54,7 +54,6 @@
                         >
                     <Image Source="../Assets/prosto.jpg"
                            Stretch="UniformToFill"
-                           Width="375"
                     ></Image>
                 </Border>
                 <Border Grid.Column="0" Grid.ColumnSpan="4"
