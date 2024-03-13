@@ -48,13 +48,11 @@
                         Grid.ColumnSpan="4"
                         Background="White"
                         CornerRadius="15"
-                       
                         ClipToBounds="True"
                         HorizontalAlignment="Center"
                         >
                     <Image Source="../Assets/prosto.jpg"
                            Stretch="UniformToFill"
-                           Width="375"
                     ></Image>
                 </Border>
                 <Border Grid.Column="0" Grid.ColumnSpan="4"
