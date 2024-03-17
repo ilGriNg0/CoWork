@@ -3,6 +3,7 @@
         xmlns:vm="using:AvaloniaApplication4.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AvaloniaApplication4.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
         x:Class="AvaloniaApplication4.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -15,96 +16,28 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <Grid ColumnDefinitions="100,*,*,*" RowDefinitions="*,*,*"  Margin="0" ShowGridLines="True" MinHeight="450" MinWidth="800">
-     <Border Background="Aquamarine">
-         <Grid ColumnDefinitions="*,*,*" RowDefinitions="*,*,*,*" ShowGridLines="True">
-			 <Button Grid.Column="1"
-                     Grid.Row="1"
-                     Width="25"
-                     Height="25"
-                     HorizontalAlignment="Center"/>
-             <Button Grid.Column="1"
-                     Grid.Row="2"
-                     Width="25"
-                     Height="25"
-                     HorizontalAlignment="Center"/>
-             <Button Grid.Column="1"
-                     Grid.Row="3"
-                     Width="25"
-                     Height="25"
-                     HorizontalAlignment="Center"/>
-         </Grid>
-     </Border>
-        <Border Grid.Column="1"
-                Grid.Row="1"
-                Background="#A5A5A5"
-                BoxShadow="5 5 5 0 Gray"
-                CornerRadius="15"
-                MinHeight="100"
-                MinWidth="250"
-                >
-            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*" ShowGridLines="True">
-                <Border Grid.RowSpan="2"
-                        Grid.ColumnSpan="4"
-                        Background="White"
-                        CornerRadius="15"
-                        ClipToBounds="True"
-                        HorizontalAlignment="Center"
-                        >
-                    <Image Source="../Assets/prosto.jpg"
-                           Stretch="UniformToFill"
-                    ></Image>
-                </Border>
-                <Border Grid.Column="0" Grid.ColumnSpan="4"
-                        Grid.Row="2">
-                    <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*" ShowGridLines="True">
-						<TextBlock Grid.Column="0"
-                                   Grid.Row="0"
-                                   Text="Просто"
-                                   Foreground="White"
-                                   FontSize="20"
-                                   FontWeight="DemiBold"
-                                   HorizontalAlignment="Center"
-                        ></TextBlock>
-                    </Grid>
-                </Border>
-				<Border Grid.Column="0" Grid.ColumnSpan="4"
-                        Grid.Row="3">
-                    <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*" ShowGridLines="True">
-                        <PathIcon Data="{StaticResource person_regular}"
-                                  Grid.Column="3"
-                                  Grid.Row="0"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  ToolTip.Tip="Рабочее место">
-                        </PathIcon>
-                        <PathIcon Data="{StaticResource people_team_regular}"
-                                  Grid.Column="3"
-                                  Grid.Row="1"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Center"
-                                  ToolTip.Tip="Переговорная">
-                        </PathIcon>
-                        <TextBlock Text="$$"
-                                   FontWeight="Light"
-                                   FontStyle="Oblique"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"
-                                   Grid.Row="0"
-                                   Grid.Column="3"/>
-                        <TextBlock Text="$$"
-                                   FontWeight="Light"
-                                   FontStyle="Oblique"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"
-                                   Grid.Row="1"
-                                   Grid.Column="3"/>
-                    </Grid>
-                </Border>
-
-
-            </Grid>
-        </Border>
-    </Grid>
+    <SplitView PaneBackground="#9C9C9C"
+               Background="#434B4D"
+               PanePlacement="Left"
+               DisplayMode="CompactInline">
+        <SplitView.Pane>
+            <StackPanel>
+               <ListBox ItemsSource="{Binding cards}" SelectedItem="{Binding CardOpen}">
+                   <ListBox.ItemTemplate>
+                       <DataTemplate DataType="{x:Type local:CardModel}">
+                           <StackPanel Orientation="Horizontal">
+							   <TextBlock Text="{Binding Label}"></TextBlock>
+                           </StackPanel>
+                       </DataTemplate>
+                   </ListBox.ItemTemplate>
+               </ListBox>
+            </StackPanel>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Border>
+                <TransitioningContentControl Content="{Binding Page}"></TransitioningContentControl>
+            </Border>
+        </SplitView.Content>
+    </SplitView>
     
 </Window>

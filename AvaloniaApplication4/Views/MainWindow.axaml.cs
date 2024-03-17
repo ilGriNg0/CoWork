@@ -1,4 +1,8 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
+using Avalonia.Markup.Xaml;
+using AvaloniaApplication4.ViewModels;
 
 namespace AvaloniaApplication4.Views
 {
