@@ -19,7 +19,9 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private ViewModelBase _page = new CardViewModel();
 
-       
+        [ObservableProperty]
+        private bool is_open;
+
         [ObservableProperty] private CardModel? _cardOpen;
       
         public ObservableCollection<CardModel> cards { get; } = new()
