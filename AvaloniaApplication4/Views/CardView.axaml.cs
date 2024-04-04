@@ -14,16 +14,24 @@ namespace AvaloniaApplication4.Views
         public CardView()
         {
             InitializeComponent();
-          
         }
 
         private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
         {
             var viewModel = new CardViewModel();
+            var mn = new MainWindow();
+            //var mm = new isMain();
+            bool opn;
             if (Bord.IsEnabled)
             {
-                viewModel.IsOpen = false;
+                //viewModel.IsOpen = false;
                 ContentControl.Content = viewModel?.Base;
+                //mm.ViewModel.Ism = new MainWindowViewModel();
+                //mm.ViewModel.Ism.Is_open = false;
+                //mm.Is_open = false;
+                //opn = mm.Is_open;
+                ////mn.btn.IsVisible = false;
+                //new isMain(mm.ViewModel, opn);
             }
 
         }

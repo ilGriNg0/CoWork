@@ -17,16 +17,17 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     <SplitView PaneBackground="#9C9C9C"
-               Background="#434B4D"
+               Background="Black"
                PanePlacement="Left"
                DisplayMode="CompactInline">
         <SplitView.Pane>
             <StackPanel>
-               <ListBox ItemsSource="{Binding cards}" SelectedItem="{Binding CardOpen}">
+                <Button x:Name="btn" IsVisible="{Binding Is_open}" Command="{Binding button_pushCommand }"></Button>
+                <ListBox ItemsSource="{Binding _Mains}" SelectedItem="{Binding IsMain}">
                    <ListBox.ItemTemplate>
-                       <DataTemplate DataType="{x:Type local:CardModel}">
+                       <DataTemplate DataType="{x:Type vm:IsMain}">
                            <StackPanel Orientation="Horizontal">
-							   <TextBlock Text="{Binding Label}"></TextBlock>
+		                      
                            </StackPanel>
                        </DataTemplate>
                    </ListBox.ItemTemplate>
@@ -35,7 +36,7 @@
         </SplitView.Pane>
         <SplitView.Content>
             <Border>
-                <TransitioningContentControl Content="{Binding Page}"></TransitioningContentControl>
+                <TransitioningContentControl x:Name="Control_page" Content="{Binding Page}"></TransitioningContentControl>
             </Border>
         </SplitView.Content>
     </SplitView>
