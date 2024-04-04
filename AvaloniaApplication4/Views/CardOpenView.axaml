@@ -3,6 +3,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaApplication4.Views.CardOpenView">
-  Welcome to Avalonia!
+             xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+             x:Class="AvaloniaApplication4.Views.CardOpenView"
+             x:DataType="vm:CardOpenViewModel">
+
+    <ScrollViewer Background="#434B4D">
+           <Grid ColumnDefinitions="*,*,*"
+                 RowDefinitions="*,*,*" ShowGridLines="True" >
+                 <Border Grid.Row="0" 
+                         Grid.Column="0"
+                         CornerRadius="15"
+                         ClipToBounds="True"
+                         Margin="10"
+                         >
+					 <Image Source="../Assets/prosto.jpg"
+                            Stretch="UniformToFill">
+                     </Image>
+                 </Border>
+			   <Border Grid.Row="0"
+                       Grid.Column="1"
+                       Padding="5">
+                   <Grid RowDefinitions="*,*" ShowGridLines="False">
+                   </Grid>
+                  
+               </Border>
+               <Border Grid.Row="0"
+                       Grid.Column="2">
+				   <Grid RowDefinitions="*,*" ShowGridLines="True">
+                       <Image Grid.Row="0" Source="../Assets/prosto.jpg"></Image>
+                   </Grid>
+               </Border>
+               <TransitioningContentControl Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding DocViewModelBase}"></TransitioningContentControl>
+               <TabControl Grid.ColumnSpan="3" Grid.Row="2">
+                   <TabItem  Header="Бронирование на час"  FontSize="15"  Foreground="White" HorizontalAlignment="Center">
+                       <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ShowGridLines="True">
+                           <Border Grid.Row="0" Grid.Column="0" Background="Gray" CornerRadius="15">
+                               <TextBlock Text="200$$"></TextBlock>
+                           </Border>
+                       </Grid>
+                   </TabItem>
+                   <TabItem Header="Броинрование переговорной"  FontSize="15" Foreground="White" HorizontalAlignment="Center">
+                       <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ShowGridLines="True">
+                           <Border Grid.Row="0" Grid.Column="0" Background="Gray" CornerRadius="15">
+                               <TextBlock Text="1200$$"></TextBlock>
+                           </Border>
+                       </Grid>
+                   </TabItem>
+               </TabControl>
+           </Grid>
+    </ScrollViewer>
 </UserControl>
