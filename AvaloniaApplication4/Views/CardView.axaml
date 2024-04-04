@@ -11,7 +11,7 @@
     <Grid ColumnDefinitions="*,*,*"
           RowDefinitions="*,*,*,*" ShowGridLines="True">
                     <Border   x:Name="Bord"
-                              IsEnabled="{Binding  IsOpen}"
+                              IsEnabled="True"
                               Grid.Column="0"
                               Grid.Row="1"
                               Background="#A5A5A5"

@@ -20,7 +20,7 @@
                Background="Black"
                PanePlacement="Left"
                DisplayMode="CompactInline"
-			   x:Name="SplitView">
+               x:Name="View">
         <SplitView.Pane>
             <StackPanel>
 				<Button Content="Home" Command="{Binding NavigateCommand}" CommandParameter="CardViewModel"/>

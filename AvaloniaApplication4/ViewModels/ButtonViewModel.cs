@@ -7,19 +7,19 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace AvaloniaApplication4.ViewModels;
 
-//public class ButtonViewModel : ViewModelBase
-//{
-//    [RelayCommand]
-//    private void onPointerPressed(object? sender, PointerPressedEventArgs e)
-//    {
-//        var viewModel = new CardViewModel();
-//        CardView cr = new();
-//        if (cr.Bord.IsEnabled)
-//        {
-//            viewModel.IsOpen = false;
-//            cr.ContentControl.Content = viewModel?.Base;
-//        }
-//    }
-//    public RelayCommand Command { get; }
-   
-//}
+public class ButtonViewModel : ViewModelBase
+{
+    //[RelayCommand] 
+    //private void Pointer_Pressed(object? sender, PointerPressedEventArgs e)
+    //{
+    //    var viewModel = new CardViewModel();
+    //    CardView cr = new();
+    //    if (cr.Bord.IsEnabled)
+    //    {
+    //        viewModel.IsOpen = false;
+    //        cr.ContentControl.Content = viewModel?.Base;
+    //    }
+    //}
+    
+
+}

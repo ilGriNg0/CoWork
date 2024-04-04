@@ -4,6 +4,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using AvaloniaApplication4.ViewModels;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AvaloniaApplication4.Views
 {

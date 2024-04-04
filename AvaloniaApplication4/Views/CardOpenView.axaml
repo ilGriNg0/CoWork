@@ -4,12 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+             xmlns:material="using:Material.Icons.Avalonia"
              x:Class="AvaloniaApplication4.Views.CardOpenView"
-             x:DataType="vm:CardOpenViewModel">
+             x:DataType="vm:CardOpenViewModel"
+             MinHeight="450" MinWidth="800">
 
     <ScrollViewer Background="#434B4D">
-           <Grid ColumnDefinitions="*,*,*"
-                 RowDefinitions="*,*,*" ShowGridLines="True" >
+        <Grid ColumnDefinitions="*,*,*"
+              RowDefinitions="*,*,*" ShowGridLines="True" >
                  <Border Grid.Row="0" 
                          Grid.Column="0"
                          CornerRadius="15"
@@ -22,13 +24,25 @@
 				
 					 
                  </Border>
-			   <Border Grid.Row="0"
-                       Grid.Column="1"
-                       Padding="5">
-                   <Grid RowDefinitions="*,*" ShowGridLines="False">
-                   </Grid>
-                  
-               </Border>
+			    
+                <Panel Grid.Row="0" Grid.Column="1">
+                    <Carousel x:Name="carousel">
+                        <Carousel.PageTransition>
+                            <CompositePageTransition>
+								<PageSlide Duration="0:00:01.500" Orientation="Horizontal" />
+                            </CompositePageTransition>
+                        </Carousel.PageTransition>
+                        <Carousel.Items>
+                            <Image Margin="40" Source="../Assets/prosto.jpg"></Image>
+                            <Image Margin="40" Source="../Assets/prostoLogo.jpg"></Image>
+                        </Carousel.Items>
+                        <Panel Background="Aqua">
+                            <Button Background="BlanchedAlmond" Click="Button_OnClick_Previous">&lt;</Button>
+							<Button Background="White" Click="Button_OnClick_Next"
+                                    HorizontalAlignment="Right">&gt;</Button>
+                        </Panel>
+                    </Carousel>
+                </Panel>
                <Border Grid.Row="0"
                        Grid.Column="2">
 				   <Grid RowDefinitions="*,*" ShowGridLines="True">
@@ -42,5 +56,6 @@
 			   </ScrollViewer>
 			   
            </Grid>
+   
     </ScrollViewer>
 </UserControl>
