@@ -5,7 +5,8 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaApplication4.Views.DockPanelView"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
-             x:DataType="vm:DockPanelViewModel">
+             xmlns:material="using:Material.Icons.Avalonia"
+			 x:DataType="vm:DockPanelViewModel">
 	<DockPanel>
 		<Grid ColumnDefinitions="100, *"
 			  RowDefinitions="*,*,*"
@@ -43,7 +44,7 @@
 						Margin="15 5 25 5">
 					<TextBlock Text="Ноутбук"
 							   Margin="5">
-						<PathIcon Data="{StaticResource laptop_regular}"></PathIcon>
+						<material:MaterialIcon Height="25" Width="25" Kind="Laptop"></material:MaterialIcon>
 					</TextBlock>
 				</Border>
 				<Border Background="AliceBlue"
@@ -51,7 +52,7 @@
 						Margin="15 5 25 5">
 					<TextBlock Text="Принтер МФУ"
 							   Margin="5">
-						<PathIcon Data="{StaticResource print_regular}"></PathIcon>
+						<material:MaterialIcon Height="25" Width="25" Kind="Printer"/>
 					</TextBlock>
 				</Border>
 				<Border Background="AliceBlue"
@@ -59,7 +60,7 @@
 						Margin="15 5 25 5">
 					<TextBlock Text="Флипчарт"
 							   Margin="5">
-						<PathIcon Data="{StaticResource laptop_regular}"></PathIcon>
+						<material:MaterialIcon Height="25" Width="25" Kind="Presentation"/>
 					</TextBlock>
 				</Border>
 				<Border Background="AliceBlue"
@@ -67,7 +68,7 @@
 						Margin="15 5 25 5">
 					<TextBlock Text="Расходные материалы"
 							   Margin="5">
-						<PathIcon Data="{StaticResource document_copy_regular}"></PathIcon>
+						<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
 					</TextBlock>
 				</Border>
                 <Border Background="AliceBlue"
@@ -75,7 +76,7 @@
                         Margin="15 5 25 5">
                     <TextBlock Text="Расходные материалы"
                                Margin="5">
-                        <PathIcon Data="{StaticResource document_copy_regular}"></PathIcon>
+						<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
                     </TextBlock>
                 </Border>
                 <Border Background="AliceBlue"
@@ -83,7 +84,7 @@
                         Margin="15 5 25 5">
                     <TextBlock Text="Расходные материалы"
                                Margin="5">
-                        <PathIcon Data="{StaticResource document_copy_regular}"></PathIcon>
+						<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
                     </TextBlock>
                 </Border>
                 <Border Background="AliceBlue"
@@ -91,7 +92,7 @@
                         Margin="15 5 25 5">
                     <TextBlock Text="Расходные материалы"
                                Margin="5">
-                        <PathIcon Data="{StaticResource document_copy_regular}"></PathIcon>
+						<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
                     </TextBlock>
                 </Border>
 			</WrapPanel>
