@@ -4,31 +4,49 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http.Headers;
 using System.Reactive;
+using System.Reactive.Concurrency;
 using System.Runtime.CompilerServices;
 using Avalonia.Media.Imaging;
 using Avalonia.Skia.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Npgsql;
 using ReactiveUI;
-using AvaloniaApplication4.Models;
 namespace AvaloniaApplication4.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        ////public Bitmap? Image_bitmap_source { get; } = ImageLoad.Load("/Assets/prosto.jpg");
         
         [ObservableProperty]
-        private ViewModelBase _page = new CardViewModel();
+        private ViewModelBase _currentPage = new CardViewModel();
 
        
-        [ObservableProperty] private CardModel? _cardOpen;
+        [ObservableProperty] 
+        private ListItemTemplate? _selectedListItem;
       
-        public ObservableCollection<CardModel> cards { get; } = new()
+        public ObservableCollection<ListItemTemplate> Items { get; } = new()
         {
-           new CardModel(typeof(CardViewModel))
+           new ListItemTemplate(typeof(CardViewModel)),
+           new ListItemTemplate(typeof(LogOrRegViewModel)) 
         };
+
+        partial void OnSelectedListItemChanged(ListItemTemplate? value)
+        {
+            if (value is null) return;
+            var instance = Activator.CreateInstance(value.ModelType);
+            if (instance is null) return;
+            CurrentPage = (ViewModelBase)instance;
+        }
+    }
+
+    public class ListItemTemplate
+    {
+        public ListItemTemplate(Type type)
+        {
+            ModelType = type;
+            Label = type.Name.Replace("ViewModel", "");
+        }
+
+        public string Label { get; }
+        public Type ModelType { get; }
     }
 }
-//< Image Grid.ColumnSpan = "2"
-//Grid.RowSpan = "2"
-//Source = "{Binding Image_bitmap_source}"
-//Stretch = "Fill" ></ Image >

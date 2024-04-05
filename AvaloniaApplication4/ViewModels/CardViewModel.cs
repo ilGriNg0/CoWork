@@ -5,8 +5,4 @@ namespace AvaloniaApplication4.ViewModels;
 
 public partial class CardViewModel : ViewModelBase
 {
-    //[ObservableProperty]
-    //private ViewModelBase _open = new CardOpenViewModel();
-    [ObservableProperty]
-    private ViewModelBase _base = new CardOpenViewModel();
 }
