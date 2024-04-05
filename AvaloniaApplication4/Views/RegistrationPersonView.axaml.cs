@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace AvaloniaApplication4.Views
 {
-    public partial class LogOrRegView : UserControl
+    public partial class RegistrationPersonView : UserControl
     {
-        public LogOrRegView()
+        public RegistrationPersonView()
         {
             InitializeComponent();
         }
