@@ -29,4 +29,11 @@
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Views\LoginView.axaml.cs">
+      <DependentUpon>LoginView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

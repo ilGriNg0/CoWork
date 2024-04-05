@@ -26,15 +26,13 @@ namespace AvaloniaApplication4.ViewModels
         public ObservableCollection<ListItemTemplate> Items { get; } = new()
         {
            new ListItemTemplate(typeof(CardViewModel)),
-           new ListItemTemplate(typeof(LogOrRegViewModel)) 
+           new ListItemTemplate(typeof(LoginViewModel)) 
         };
 
         partial void OnSelectedListItemChanged(ListItemTemplate? value)
         {
             if (value is null) return;
-            var instance = Activator.CreateInstance(value.ModelType);
-            if (instance is null) return;
-            CurrentPage = (ViewModelBase)instance;
+            CurrentPage = (ViewModelBase)value.Instance;
         }
     }
 
@@ -44,8 +42,9 @@ namespace AvaloniaApplication4.ViewModels
         {
             ModelType = type;
             Label = type.Name.Replace("ViewModel", "");
+            Instance = Activator.CreateInstance(type);
         }
-
+        public object Instance { get; }
         public string Label { get; }
         public Type ModelType { get; }
     }
