@@ -20,8 +20,8 @@
                Background="#434B4D"
                PanePlacement="Left"
                DisplayMode="CompactInline"
-			   CompactPaneLength="180">
-        <SplitView.Pane >
+			   CompactPaneLength="100">
+        <SplitView.Pane>
             <StackPanel>
                <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
                    <ListBox.ItemTemplate>

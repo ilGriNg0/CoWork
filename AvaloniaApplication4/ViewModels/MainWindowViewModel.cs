@@ -26,7 +26,9 @@ namespace AvaloniaApplication4.ViewModels
         public ObservableCollection<ListItemTemplate> Items { get; } = new()
         {
            new ListItemTemplate(typeof(CardViewModel)),
-           new ListItemTemplate(typeof(LoginViewModel)) 
+           new ListItemTemplate(typeof(LoginViewModel)),
+           new ListItemTemplate(typeof(RegistrationBusinessViewModel)),
+           new ListItemTemplate(typeof(RegistrationPersonViewModel))
         };
 
         partial void OnSelectedListItemChanged(ListItemTemplate? value)
