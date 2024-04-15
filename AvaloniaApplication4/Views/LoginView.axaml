@@ -6,26 +6,199 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaApplication4.Views.LoginView"
 			 x:DataType="vm:LoginViewModel">
-	<DockPanel>
-		<TextBlock Text="Login" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center"
-				   Margin="0 10 0 20"
-				   FontSize="26" FontWeight="Medium" />
-		<Button Content="Login" Background="Aqua" DockPanel.Dock="Bottom"
-				HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-				Margin="0 10 0 0" Height="50" FontSize="18"
-				Command="{Binding LoginCommand}"/>
-		<StackPanel Spacing="10">
-			<TextBox
-				Padding="10" Margin="5" Height="50" VerticalContentAlignment="Center"
-				Watermark="Email" AcceptsReturn="False"
-				FontSize="16" MaxLines="1" Text="{Binding Email}">
-			</TextBox>
-			<TextBox
-				Padding="10" Margin="5" Height="50" VerticalContentAlignment="Center"
-				Watermark="Password" AcceptsReturn="False"
-				FontSize="16" MaxLines="1" Text="{Binding Password}"
-				PasswordChar="*">
-			</TextBox>	
+	<Grid
+		ColumnDefinitions="*,*">
+		<DockPanel
+			Background="#D94D04"
+			Grid.Column="0">
+			
+			<!--Изображенние-->
+			<Image
+				DockPanel.Dock="Top"
+				Source="../Assets/table.png"
+				Margin="250 150 250 250">
+			</Image>
+
+			<!--Надпись-->
+			<StackPanel>
+				<TextBlock
+					DockPanel.Dock="Bottom"
+					Margin="0 -150 0 0"
+					Foreground="#ffffff"
+					FontSize="32"
+					FontWeight="700"
+					TextAlignment="Center"
+					LetterSpacing="0"
+					LineHeight="38"
+					FontFamily="Source Sans Pro">
+					CoWorkNow - Find Your<LineBreak/>Ideal Workspace.
+				</TextBlock>
+				
+				<TextBlock
+					DockPanel.Dock="Bottom"
+					Margin="0 -50 0 0"
+					Foreground="#ffffff"
+					FontSize="15"
+					FontWeight="700"
+					TextAlignment="Center"
+					LetterSpacing="0"
+					FontFamily="Gelion">
+					Discover and book coworking spaces effortlessly.
+				</TextBlock>
+			</StackPanel>
+		</DockPanel>
+
+		<StackPanel
+			Grid.Column="1"
+			Background="#161616">
+			
+			<!--Название-->
+			<TextBlock
+				Margin="40"
+				Foreground="#ffffff"
+				FontSize="32"
+				FontWeight="700"
+				TextAlignment="Center"
+				LetterSpacing="0"
+				LineHeight="38"
+				FontFamily="Source Sans Pro"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center">
+				CoWork
+			</TextBlock>
+
+			<TextBlock
+				Margin="20 -40 40 0"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Center"
+				Foreground="#ffffff"
+				FontSize="15"
+				FontWeight="700"
+				TextAlignment="Center"
+				LetterSpacing="0"
+				FontFamily="Gelion">
+				Explore Spaces
+			</TextBlock>
+
+			<!--Логин-->
+			<TextBlock
+				Margin="210 150 0 0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Foreground="#ffffff"
+				FontSize="32"
+				FontWeight="700"
+				LineHeight="50"
+				FontFamily="Source Sans Pro"
+				
+				TextAlignment="Left">
+				Log in
+			</TextBlock>
+
+			<!--Поля и надписи-->
+			<StackPanel
+				Margin="210 20 0 0">
+				<TextBlock
+					Margin="0 0 0 30"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#ffffff"
+					FontSize="18"
+					FontFamily="Gelion">
+					Membership Id
+				</TextBlock>
+
+				<TextBox
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					FontSize="18"
+					FontFamily="Gelion"
+					
+					TextAlignment="Left"
+					CornerRadius="50"
+					Height="50"
+					Width="352"
+					VerticalContentAlignment="Center"
+					Watermark="Enter your email"
+					AcceptsReturn="False"
+					MaxLines="1"
+					Text="{Binding Email}">
+				</TextBox>
+
+				<TextBlock
+					Margin="0 30 0 30"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#ffffff"
+					FontSize="18"
+					FontFamily="Gelion">
+					Password
+				</TextBlock>
+
+				<TextBox
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					FontSize="18"
+					FontFamily="Gelion"
+					
+					TextAlignment="Left"
+					CornerRadius="50"
+					Height="50"
+					Width="352"
+					VerticalContentAlignment="Center"
+					Watermark="Enter password"
+					AcceptsReturn="False"
+					MaxLines="1"
+					PasswordChar="*"
+					Text="{Binding Password}">
+				</TextBox>
+			</StackPanel>
+
+			<!--Кнопка-->
+			<Button
+				x:Name="loginBut"
+				Margin="210 20 0 0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				FontSize="18"
+				FontFamily="Gelion"
+				HorizontalContentAlignment="Center"
+				VerticalContentAlignment="Center"
+				
+				CornerRadius="50"
+				Height="60"
+				Width="352"
+				Command="{Binding LoginCommand}">
+				Login
+				<Button.Styles>
+					<Style Selector="Button">
+						<Setter Property="Background" Value="#ffffff" />
+					</Style>
+					<Style Selector="Button:pointerover /template/ ContentPresenter">
+						<Setter Property="Background" Value="#D94D04" />
+					</Style>
+				</Button.Styles>
+				<Button.Transitions>
+					<Transitions>
+						<BrushTransition Property="Background" Duration="0:0:36"/>
+					</Transitions>
+				</Button.Transitions>
+			</Button>
+
+			<TextBlock
+				Margin="210 10 0 0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Foreground="#ffffff"
+				FontSize="15"
+				FontStyle="Italic"
+				FontWeight="700"
+				LineHeight="50"
+				FontFamily="Gelion"
+				
+				TextAlignment="Left">
+				Forgot your password?
+			</TextBlock>
 		</StackPanel>
-	</DockPanel>
+	</Grid>
 </UserControl>
