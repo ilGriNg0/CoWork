@@ -19,19 +19,13 @@ namespace AvaloniaApplication4.Views
         private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
         {
             var viewModel = new CardViewModel();
-            var mn = new MainWindow();
-            //var mm = new isMain();
-            bool opn;
+            var mm = new MainWindowViewModel();
+ 
             if (Bord.IsEnabled)
-            {
-                //viewModel.IsOpen = false;
+            { 
+                mm.Is_open = false;
                 ContentControl.Content = viewModel?.Base;
-                //mm.ViewModel.Ism = new MainWindowViewModel();
-                //mm.ViewModel.Ism.Is_open = false;
-                //mm.Is_open = false;
-                //opn = mm.Is_open;
-                ////mn.btn.IsVisible = false;
-                //new isMain(mm.ViewModel, opn);
+
             }
 
         }

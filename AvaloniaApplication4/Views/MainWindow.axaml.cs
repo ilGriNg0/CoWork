@@ -9,11 +9,12 @@ namespace AvaloniaApplication4.Views
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainWindowViewModel vm)
         {
+            DataContext = vm;
             InitializeComponent();
         }
-
+        public MainWindow() : this(new MainWindowViewModel()) { }
         //private void Btn_OnClick(object? sender, RoutedEventArgs e)
         //{
         //    var main_page = new CardViewModel();

@@ -19,19 +19,11 @@
     <SplitView PaneBackground="#9C9C9C"
                Background="Black"
                PanePlacement="Left"
-               DisplayMode="CompactInline">
+               DisplayMode="CompactInline"
+			   x:Name="SplitView">
         <SplitView.Pane>
             <StackPanel>
-                <Button x:Name="btn" IsVisible="{Binding Is_open}" Command="{Binding button_pushCommand }"></Button>
-                <ListBox ItemsSource="{Binding _Mains}" SelectedItem="{Binding IsMain}">
-                   <ListBox.ItemTemplate>
-                       <DataTemplate DataType="{x:Type vm:IsMain}">
-                           <StackPanel Orientation="Horizontal">
-		                      
-                           </StackPanel>
-                       </DataTemplate>
-                   </ListBox.ItemTemplate>
-               </ListBox>
+				<Button Content="Home" Command="{Binding NavigateCommand}" CommandParameter="CardViewModel"/>
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>

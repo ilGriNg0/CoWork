@@ -17,8 +17,10 @@
                          Margin="10"
                          >
 					 <Image Source="../Assets/prosto.jpg"
-                            Stretch="UniformToFill">
-                     </Image>
+						        Stretch="UniformToFill">
+					 </Image>
+				
+					 
                  </Border>
 			   <Border Grid.Row="0"
                        Grid.Column="1"
@@ -34,22 +36,11 @@
                    </Grid>
                </Border>
                <TransitioningContentControl Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding DocViewModelBase}"></TransitioningContentControl>
-               <TabControl Grid.ColumnSpan="3" Grid.Row="2">
-                   <TabItem  Header="Бронирование на час"  FontSize="15"  Foreground="White" HorizontalAlignment="Center">
-                       <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ShowGridLines="True">
-                           <Border Grid.Row="0" Grid.Column="0" Background="Gray" CornerRadius="15">
-                               <TextBlock Text="200$$"></TextBlock>
-                           </Border>
-                       </Grid>
-                   </TabItem>
-                   <TabItem Header="Броинрование переговорной"  FontSize="15" Foreground="White" HorizontalAlignment="Center">
-                       <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ShowGridLines="True">
-                           <Border Grid.Row="0" Grid.Column="0" Background="Gray" CornerRadius="15">
-                               <TextBlock Text="1200$$"></TextBlock>
-                           </Border>
-                       </Grid>
-                   </TabItem>
-               </TabControl>
+			   <ScrollViewer Grid.Row="2" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Visible">
+				   <TransitioningContentControl Grid.Row="2" Grid.ColumnSpan="3"  Content="{Binding TabViewModelBase}">
+				   </TransitioningContentControl>
+			   </ScrollViewer>
+			   
            </Grid>
     </ScrollViewer>
 </UserControl>

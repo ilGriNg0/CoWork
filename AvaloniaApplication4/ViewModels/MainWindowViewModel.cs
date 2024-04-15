@@ -14,6 +14,7 @@ using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
 using CommunityToolkit.Mvvm.Input;
 using AvaloniaApplication4.Views;
+using System.Windows.Input;
 
 namespace AvaloniaApplication4.ViewModels
 {
@@ -22,34 +23,55 @@ namespace AvaloniaApplication4.ViewModels
         ////public Bitmap? Image_bitmap_source { get; } = ImageLoad.Load("/Assets/prosto.jpg");
         [ObservableProperty]
         private ViewModelBase _page = new CardViewModel();
-
+       
         [ObservableProperty]
-        private bool is_open = true;
+        private static bool is_open = true;
 
         [ObservableProperty]
         private CardModel? _cardOpen;
 
-        [ObservableProperty] private IsMain? _isMain;
-        partial void ismm(IsMain? ism);
-        partial void ismm(IsMain? ism)
+       
+        private static string Namespace()
         {
-            if (ism is null)
-            {
-                return;
-            }
-
-            var instance = Activator.CreateInstance(ism.Type);
-            if (instance is null)
-            {
-                return;
-            }
-
-            _page = (ViewModelBase)instance;
+            Type tp = typeof(MainWindowViewModel);
+            string yNameSpc = tp.Namespace;
+            return yNameSpc;
         }
-        public ObservableCollection<IsMain> _Mains { get; } = new()
+        public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
+
+  
+        public void Navigate(string? pageViewModel)
         {
-            new IsMain(typeof(CardViewModel))
-        };
+            string namspc = Namespace();
+            Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
+            if (viewModelType != null)
+            {
+                ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
+                Page = viewModel;
+            }
+        }
+        //[ObservableProperty] private IsMain? _isMain;
+
+        //partial void OnIsMainChanged(IsMain? value)
+        //{
+        //    if (value is null)
+        //    {
+        //        return;
+        //    }
+
+        //    var instance = Activator.CreateInstance(value.Type);
+        //    if (instance is null)
+        //    {
+        //        return;
+        //    }
+
+        //    Page = (ViewModelBase)instance;
+        //}
+        //public ObservableCollection<IsMain> Cards { get; } = new()
+        //{
+        //    new IsMain(typeof(CardViewModel)),
+
+        //};
         //[RelayCommand]
         //private void back_page()
         //{
@@ -67,26 +89,26 @@ namespace AvaloniaApplication4.ViewModels
         //};
 
 
-        [RelayCommand]
-        private void button_push()
-        {
-            var main_page = new CardViewModel();
-            var main_ = new MainWindow();
-            var main2 = new MainWindowViewModel();
-            main2.Page = main_page;
-            main_.Control_page.Content = main2.Page;
-        }
+        //[RelayCommand]
+        //private void button_push()
+        //{
+        //    var main_page = new CardViewModel();
+        //    var main_ = new MainWindow();
+        //    var main2 = new MainWindowViewModel();
+        //    main2.Page = main_page;
+        //    main_.Control_page.Content = main2.Page;
+        //}
     }
-    public partial class IsMain 
-    {
-        public Type Type { get; }
-        public string Title { get; }
-        public IsMain(Type tp)
-        {
-            Type = tp;
-            Title = tp.Name.Replace("ViewModel", "");
-        }
-    }
+    //public partial class IsMain 
+    //{
+    //    public Type Type { get; }
+    //    public string Title { get; }
+    //    public IsMain(Type tp)
+    //    {
+    //        Type = tp;
+    //        Title = tp.Name.Replace("ViewModel", "");
+    //    }
+    //}
 }
 
 
