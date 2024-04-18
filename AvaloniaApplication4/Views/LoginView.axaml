@@ -11,95 +11,110 @@
 		<DockPanel
 			Background="#D94D04"
 			Grid.Column="0">
-			
-			<!--Изображенние-->
-			<Image
-				DockPanel.Dock="Top"
-				Source="../Assets/table.png"
-				Margin="250 150 250 250">
-			</Image>
+			<Grid
+				RowDefinitions="2*,*">
+				
+				<!--Изображенние-->
+				<Image
+					Grid.Row="0"
+					DockPanel.Dock="Top"
+					Source="../Assets/table.png"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Bottom"
+					Height="400"
+					Margin="50">
+				</Image>
 
-			<!--Надпись-->
-			<StackPanel>
+				<!--Надпись-->
+				<StackPanel
+					Grid.Row="1">
+					<TextBlock
+						DockPanel.Dock="Bottom"
+					
+						Foreground="#ffffff"
+						FontSize="32"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="38"
+						FontFamily="Source Sans Pro">
+						CoWorkNow - Find Your<LineBreak/>Ideal Workspace.
+					</TextBlock>
+				
+					<TextBlock
+						DockPanel.Dock="Bottom"
+						Foreground="#ffffff"
+						FontSize="15"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						FontFamily="Gelion"
+						Margin="20">
+						Discover and book coworking spaces effortlessly.
+					</TextBlock>
+				</StackPanel>
+			</Grid>
+		</DockPanel>
+
+		<Grid
+			Grid.Column="1"
+			ColumnDefinitions="1*, 2*, 1*"
+			RowDefinitions="*, 2*, *"
+			Background="#161616">
+			
+			<!--Название-->
+			<StackPanel
+				Grid.Column="2"
+				Grid.Row="0"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center">
 				<TextBlock
-					DockPanel.Dock="Bottom"
-					Margin="0 -150 0 0"
 					Foreground="#ffffff"
 					FontSize="32"
 					FontWeight="700"
 					TextAlignment="Center"
 					LetterSpacing="0"
 					LineHeight="38"
-					FontFamily="Source Sans Pro">
-					CoWorkNow - Find Your<LineBreak/>Ideal Workspace.
+					FontFamily="Source Sans Pro"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center">
+					CoWork
 				</TextBlock>
-				
+
 				<TextBlock
-					DockPanel.Dock="Bottom"
-					Margin="0 -50 0 0"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center"
 					Foreground="#ffffff"
 					FontSize="15"
 					FontWeight="700"
 					TextAlignment="Center"
 					LetterSpacing="0"
 					FontFamily="Gelion">
-					Discover and book coworking spaces effortlessly.
+					Explore Spaces
 				</TextBlock>
 			</StackPanel>
-		</DockPanel>
-
-		<StackPanel
-			Grid.Column="1"
-			Background="#161616">
-			
-			<!--Название-->
-			<TextBlock
-				Margin="40"
-				Foreground="#ffffff"
-				FontSize="32"
-				FontWeight="700"
-				TextAlignment="Center"
-				LetterSpacing="0"
-				LineHeight="38"
-				FontFamily="Source Sans Pro"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Center">
-				CoWork
-			</TextBlock>
-
-			<TextBlock
-				Margin="20 -40 40 0"
-				HorizontalAlignment="Right"
-				VerticalAlignment="Center"
-				Foreground="#ffffff"
-				FontSize="15"
-				FontWeight="700"
-				TextAlignment="Center"
-				LetterSpacing="0"
-				FontFamily="Gelion">
-				Explore Spaces
-			</TextBlock>
-
-			<!--Логин-->
-			<TextBlock
-				Margin="210 150 0 0"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Left"
-				Foreground="#ffffff"
-				FontSize="32"
-				FontWeight="700"
-				LineHeight="50"
-				FontFamily="Source Sans Pro"
-				
-				TextAlignment="Left">
-				Log in
-			</TextBlock>
 
 			<!--Поля и надписи-->
 			<StackPanel
-				Margin="210 20 0 0">
+				Grid.Column="1"
+				Grid.Row="1">
+
+				<!--Логин-->
 				<TextBlock
-					Margin="0 0 0 30"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#ffffff"
+					FontSize="32"
+					FontWeight="700"
+					LineHeight="50"
+					FontFamily="Source Sans Pro"
+				
+					TextAlignment="Left">
+					Log in
+				</TextBlock>
+
+				<TextBlock
+					Margin="0 20"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
 					Foreground="#ffffff"
@@ -126,7 +141,7 @@
 				</TextBox>
 
 				<TextBlock
-					Margin="0 30 0 30"
+					Margin="0 20"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
 					Foreground="#ffffff"
@@ -136,6 +151,7 @@
 				</TextBlock>
 
 				<TextBox
+					Margin="0 0 0 10"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
 					FontSize="18"
@@ -152,53 +168,53 @@
 					PasswordChar="*"
 					Text="{Binding Password}">
 				</TextBox>
+				
+				<!--Кнопка-->
+				<Button
+					Margin="0 5"
+					x:Name="loginBut"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					FontSize="18"
+					FontFamily="Gelion"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+		
+					CornerRadius="50"
+					Height="60"
+					Width="352"
+					Command="{Binding LoginCommand}">
+					Login
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#ffffff" />
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#D94D04" />
+						</Style>
+					</Button.Styles>
+					<Button.Transitions>
+						<Transitions>
+							<BrushTransition Property="Background" Duration="0:0:0.1"/>
+						</Transitions>
+					</Button.Transitions>
+				</Button>
+
+				<TextBlock
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#ffffff"
+					FontSize="15"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="50"
+					FontFamily="Gelion"
+				
+					TextAlignment="Left">
+					Forgot your password?
+				</TextBlock>
 			</StackPanel>
 
-			<!--Кнопка-->
-			<Button
-				x:Name="loginBut"
-				Margin="210 20 0 0"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Left"
-				FontSize="18"
-				FontFamily="Gelion"
-				HorizontalContentAlignment="Center"
-				VerticalContentAlignment="Center"
-				
-				CornerRadius="50"
-				Height="60"
-				Width="352"
-				Command="{Binding LoginCommand}">
-				Login
-				<Button.Styles>
-					<Style Selector="Button">
-						<Setter Property="Background" Value="#ffffff" />
-					</Style>
-					<Style Selector="Button:pointerover /template/ ContentPresenter">
-						<Setter Property="Background" Value="#D94D04" />
-					</Style>
-				</Button.Styles>
-				<Button.Transitions>
-					<Transitions>
-						<BrushTransition Property="Background" Duration="0:0:36"/>
-					</Transitions>
-				</Button.Transitions>
-			</Button>
-
-			<TextBlock
-				Margin="210 10 0 0"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Left"
-				Foreground="#ffffff"
-				FontSize="15"
-				FontStyle="Italic"
-				FontWeight="700"
-				LineHeight="50"
-				FontFamily="Gelion"
-				
-				TextAlignment="Left">
-				Forgot your password?
-			</TextBlock>
-		</StackPanel>
+		</Grid>
 	</Grid>
 </UserControl>
