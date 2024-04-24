@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:AvaloniaApplication4.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
         x:Class="AvaloniaApplication4.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
+        xmlns:material="using:Material.Icons.Avalonia"
+		x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaApplication4"
         WindowState="Maximized" CanResize="True" MinHeight="450" MinWidth="800">
@@ -23,7 +24,9 @@
 			   x:Name="SplitView">
         <SplitView.Pane>
             <StackPanel>
-				<Button Content="Home" Command="{Binding NavigateCommand}" CommandParameter="CardViewModel"/>
+				<Button HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
+					<material:MaterialIcon Width="20" Height="20"  Kind="Home"/>
+				</Button>
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>

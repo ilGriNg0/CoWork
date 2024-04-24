@@ -10,7 +10,7 @@
 	<DockPanel>
 		<Grid ColumnDefinitions="100, *"
 			  RowDefinitions="*,*,*"
-			  ShowGridLines="True">
+			  ShowGridLines="False">
 			<Image Grid.Row="0"
 				   Grid.Column="0"
 				   Stretch="UniformToFill"

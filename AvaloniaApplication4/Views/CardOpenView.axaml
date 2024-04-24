@@ -9,7 +9,7 @@
 
     <ScrollViewer Background="#434B4D">
            <Grid ColumnDefinitions="*,*,*"
-                 RowDefinitions="*,*,*" ShowGridLines="True" >
+                 RowDefinitions="*,*,*" ShowGridLines="False" >
                  <Border Grid.Row="0" 
                          Grid.Column="0"
                          CornerRadius="15"

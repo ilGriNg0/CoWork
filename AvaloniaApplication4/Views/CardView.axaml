@@ -9,7 +9,7 @@
              x:DataType="vm:CardViewModel">
   
     <Grid ColumnDefinitions="*,*,*"
-          RowDefinitions="*,*,*,*" ShowGridLines="True">
+          RowDefinitions="*,*,*,*" ShowGridLines="False">
                     <Border   x:Name="Bord"
                               IsEnabled="{Binding  IsOpen}"
                               Grid.Column="0"
