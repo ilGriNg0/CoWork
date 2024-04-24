@@ -10,92 +10,103 @@
 	<DockPanel>
 		<Grid ColumnDefinitions="100, *"
 			  RowDefinitions="*,*,*"
-			  ShowGridLines="True">
+			  ShowGridLines="False">
 			<Image Grid.Row="0"
 				   Grid.Column="0"
 				   Stretch="UniformToFill"
 				   Source="../Assets/prostoLogo.jpg"
 				   Margin="10"/>
-			<TextBlock Grid.Row="0" Grid.Column="1"
+			<Border Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" CornerRadius="30" Background="#0a0a0a">
+				<Grid RowDefinitions="*,*"
+					  ShowGridLines="True"
+					  >
+					<TextBlock Grid.Row="0"
 					   Text="Просто"
 					   FontSize="20"
 					   FontWeight="DemiBold"
 					   Foreground="White"
-					   Padding="9"
-                                   >
-			</TextBlock>
-			<TextBlock Grid.Row="0" Grid.Column="1"
+					   Padding="9">
+					</TextBlock>
+					<TextBlock Grid.Row="1" 
 					   TextWrapping="Wrap"
 					   Foreground="White"
 					   FontWeight="UltraBold"
 					   FontSize="13"
-					   Padding="11"
-					   Margin="20"
 					   HorizontalAlignment="Center"
 					   Text="Проект ПРОСТО в Санкт-Петербурге, реализуемый Комитетом по молодежной политике, направлен на поддержку самореализации молодежи, раскрытие их потенциала для развития города, интеграцию в общество и укрепление их роли в жизни города и страны.">
-			</TextBlock>
+					</TextBlock>
+				</Grid>
+			</Border>
 
-			<WrapPanel Grid.ColumnSpan="2"
+			<Border CornerRadius="30"
+					Background="#0a0a0a"
+					Grid.ColumnSpan="2"
+					Grid.Row="1"
+					HorizontalAlignment="Center"
+					Margin="0 10 0 0">
+				<WrapPanel Grid.ColumnSpan="2"
 					 Grid.Row="1"
 					 HorizontalAlignment="Center"
-					 Orientation="Horizontal">
-				<Border Background="AliceBlue"
-						CornerRadius="15"
-						Margin="15 5 25 5">
-					<TextBlock Text="Ноутбук"
-							   Margin="5">
-						<material:MaterialIcon Height="25" Width="25" Kind="Laptop"></material:MaterialIcon>
-					</TextBlock>
-				</Border>
-				<Border Background="AliceBlue"
-						CornerRadius="15"
-						Margin="15 5 25 5">
-					<TextBlock Text="Принтер МФУ"
-							   Margin="5">
-						<material:MaterialIcon Height="25" Width="25" Kind="Printer"/>
-					</TextBlock>
-				</Border>
-				<Border Background="AliceBlue"
-						CornerRadius="15"
-						Margin="15 5 25 5">
-					<TextBlock Text="Флипчарт"
-							   Margin="5">
-						<material:MaterialIcon Height="25" Width="25" Kind="Presentation"/>
-					</TextBlock>
-				</Border>
-				<Border Background="AliceBlue"
-						CornerRadius="15"
-						Margin="15 5 25 5">
-					<TextBlock Text="Расходные материалы"
-							   Margin="5">
-						<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
-					</TextBlock>
-				</Border>
-                <Border Background="AliceBlue"
-                        CornerRadius="15"
-                        Margin="15 5 25 5">
-                    <TextBlock Text="Расходные материалы"
-                               Margin="5">
-						<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
-                    </TextBlock>
-                </Border>
-                <Border Background="AliceBlue"
-                        CornerRadius="15"
-                        Margin="15 5 25 5">
-                    <TextBlock Text="Расходные материалы"
-                               Margin="5">
-						<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
-                    </TextBlock>
-                </Border>
-                <Border Background="AliceBlue"
-                        CornerRadius="15"
-                        Margin="15 5 25 5">
-                    <TextBlock Text="Расходные материалы"
-                               Margin="5">
-						<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
-                    </TextBlock>
-                </Border>
-			</WrapPanel>
+					 Orientation="Horizontal"
+						   VerticalAlignment="Center">
+					<Border Background="AliceBlue"
+							CornerRadius="30"
+							Margin="15 5 25 5">
+						<TextBlock Text="Ноутбук"
+								   Margin="5">
+							<material:MaterialIcon Height="25" Width="25" Kind="Laptop"></material:MaterialIcon>
+						</TextBlock>
+					</Border>
+					<Border Background="AliceBlue"
+							CornerRadius="30"
+							Margin="15 5 25 5">
+						<TextBlock Text="Принтер МФУ"
+								   Margin="5">
+							<material:MaterialIcon Height="25" Width="25" Kind="Printer"/>
+						</TextBlock>
+					</Border>
+					<Border Background="AliceBlue"
+							CornerRadius="30"
+							Margin="15 5 25 5">
+						<TextBlock Text="Флипчарт"
+								   Margin="5">
+							<material:MaterialIcon Height="25" Width="25" Kind="Presentation"/>
+						</TextBlock>
+					</Border>
+					<Border Background="AliceBlue"
+							CornerRadius="30"
+							Margin="15 5 25 5">
+						<TextBlock Text="Расходные материалы"
+								   Margin="5">
+							<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
+						</TextBlock>
+					</Border>
+					<Border Background="AliceBlue"
+							CornerRadius="30"
+							Margin="15 5 25 5">
+						<TextBlock Text="Расходные материалы"
+								   Margin="5">
+							<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
+						</TextBlock>
+					</Border>
+					<Border Background="AliceBlue"
+							CornerRadius="30"
+							Margin="15 5 25 5">
+						<TextBlock Text="Расходные материалы"
+								   Margin="5">
+							<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
+						</TextBlock>
+					</Border>
+					<Border Background="AliceBlue"
+							CornerRadius="30"
+							Margin="15 5 25 5">
+						<TextBlock Text="Расходные материалы"
+								   Margin="5">
+							<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
+						</TextBlock>
+					</Border>
+				</WrapPanel>
+			</Border>
 		</Grid>
 	</DockPanel>
 </UserControl>

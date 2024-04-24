@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:AvaloniaApplication4.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400"
         x:Class="AvaloniaApplication4.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
+        xmlns:material="using:Material.Icons.Avalonia"
+		x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaApplication4"
-        WindowState="Maximized" CanResize="True" MinHeight="450" MinWidth="800">
+        WindowState="Maximized" CanResize="True" MinHeight="450" MinWidth="800" 
+       >
     
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -23,11 +25,13 @@
                x:Name="View">
         <SplitView.Pane>
             <StackPanel>
-				<Button Content="Home" Command="{Binding NavigateCommand}" CommandParameter="CardViewModel"/>
+				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
+					<material:MaterialIcon Width="25" Height="" Kind="Home"/>
+				</Button>
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>
-            <Border>
+            <Border CornerRadius="30" Background="#1c1c1c" Margin="15">
                 <TransitioningContentControl x:Name="Control_page" Content="{Binding Page}"></TransitioningContentControl>
             </Border>
         </SplitView.Content>

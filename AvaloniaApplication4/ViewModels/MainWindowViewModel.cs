@@ -44,12 +44,15 @@ namespace AvaloniaApplication4.ViewModels
         {
             string namspc = Namespace();
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
+         
             if (viewModelType != null)
             {
                 ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
                 Page = viewModel;
             }
         }
+
+       
         //[ObservableProperty] private IsMain? _isMain;
 
         //partial void OnIsMainChanged(IsMain? value)

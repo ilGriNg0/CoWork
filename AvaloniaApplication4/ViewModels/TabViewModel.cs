@@ -13,7 +13,7 @@ public partial class TabViewModel : ViewModelBase
     private static void NavigateCards(string? parametr)
     {
         MainWindowViewModel mainWindowViewModel = new();
-        mainWindowViewModel.Navigate(parametr);
+        //mainWindowViewModel.Navigate(parametr);
 
     }
     //TabView tb = new();

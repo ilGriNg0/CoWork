@@ -12,12 +12,12 @@ namespace AvaloniaApplication4.Views
 
         private void Button_OnClick_Previous(object? sender, RoutedEventArgs e)
         {
-            carousel.Previous();
+            slides.Previous();
         }
 
         private void Button_OnClick_Next(object? sender, RoutedEventArgs e)
         {
-           carousel.Next();
+            slides.Next();
         }
     }
 }
