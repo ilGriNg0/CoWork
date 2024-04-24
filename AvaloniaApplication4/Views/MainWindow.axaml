@@ -10,7 +10,8 @@
 		x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaApplication4"
-        WindowState="Maximized" CanResize="True" MinHeight="450" MinWidth="800">
+        WindowState="Maximized" CanResize="True" MinHeight="450" MinWidth="800" 
+       >
     
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -21,16 +22,21 @@
                Background="Black"
                PanePlacement="Left"
                DisplayMode="CompactInline"
-			   x:Name="SplitView">
+               x:Name="View">
         <SplitView.Pane>
             <StackPanel>
+<<<<<<< HEAD
 				<Button HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
 					<material:MaterialIcon Width="20" Height="20"  Kind="Home"/>
+=======
+				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
+					<material:MaterialIcon Width="25" Height="" Kind="Home"/>
+>>>>>>> becc6a9e08366f87d0a688a9cebb68a1779e64ec
 				</Button>
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>
-            <Border>
+            <Border CornerRadius="30" Background="#1c1c1c" Margin="15">
                 <TransitioningContentControl x:Name="Control_page" Content="{Binding Page}"></TransitioningContentControl>
             </Border>
         </SplitView.Content>

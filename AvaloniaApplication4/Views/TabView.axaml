@@ -10,7 +10,7 @@
 	<ScrollViewer HorizontalAlignment="Left">
 
 			<StackPanel
-			Orientation="Horizontal"  Background="Black">
+			Orientation="Horizontal">
 				<Border
 					Height="200"
 					Width="300"

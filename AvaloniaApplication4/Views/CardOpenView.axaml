@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+             xmlns:material="using:Material.Icons.Avalonia"
              x:Class="AvaloniaApplication4.Views.CardOpenView"
-             x:DataType="vm:CardOpenViewModel">
+             x:DataType="vm:CardOpenViewModel"
+             MinHeight="450" MinWidth="800">
 
+<<<<<<< HEAD
     <ScrollViewer Background="#434B4D">
            <Grid ColumnDefinitions="*,*,*"
                  RowDefinitions="*,*,*" ShowGridLines="False" >
@@ -15,32 +18,64 @@
                          CornerRadius="15"
                          ClipToBounds="True"
                          Margin="10"
+=======
+    <ScrollViewer>
+		<Border Background="#1c1c1c" CornerRadius="30">
+			<Grid ClipToBounds="True" ColumnDefinitions="*,*,*"
+              RowDefinitions="*,*,*" ShowGridLines="False" >
+				<Border Grid.Row="0"
+						Grid.Column="0"
+						CornerRadius="15"
+						ClipToBounds="True"
+						Margin="10"
+>>>>>>> becc6a9e08366f87d0a688a9cebb68a1779e64ec
                          >
-					 <Image Source="../Assets/prosto.jpg"
-						        Stretch="UniformToFill">
-					 </Image>
-				
-					 
-                 </Border>
-			   <Border Grid.Row="0"
-                       Grid.Column="1"
-                       Padding="5">
-                   <Grid RowDefinitions="*,*" ShowGridLines="False">
-                   </Grid>
-                  
-               </Border>
-               <Border Grid.Row="0"
-                       Grid.Column="2">
-				   <Grid RowDefinitions="*,*" ShowGridLines="True">
-                       <Image Grid.Row="0" Source="../Assets/prosto.jpg"></Image>
-                   </Grid>
-               </Border>
-               <TransitioningContentControl Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding DocViewModelBase}"></TransitioningContentControl>
-			   <ScrollViewer Grid.Row="2" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Visible">
-				   <TransitioningContentControl Grid.Row="2" Grid.ColumnSpan="3"  Content="{Binding TabViewModelBase}">
-				   </TransitioningContentControl>
-			   </ScrollViewer>
-			   
-           </Grid>
+					<Image Source="../Assets/prosto.jpg"
+						   Stretch="UniformToFill">
+					</Image>
+				</Border>
+				<WrapPanel Grid.Column="1"  Grid.ColumnSpan="2" HorizontalAlignment="Center">
+					<Carousel Name="slides" Width="500" >
+						<Carousel.PageTransition >
+							<CompositePageTransition>
+								<PageSlide Duration="0:00:01.500" Orientation="Horizontal" />
+							</CompositePageTransition>
+						</Carousel.PageTransition>
+						<Carousel.Items>
+							<Border
+						
+						CornerRadius="15"
+						ClipToBounds="True"
+						Margin="30"
+                         >
+								<Image Source="../Assets/prosto.jpg"
+									   Stretch="UniformToFill">
+								</Image>
+							</Border>
+							<Border
+						CornerRadius="15"
+						ClipToBounds="True"
+						Margin="30"
+                         >
+								<Image Source="../Assets/prosto.jpg"
+									   Stretch="UniformToFill">
+								</Image>
+							</Border>
+						</Carousel.Items>
+					</Carousel>
+					<WrapPanel  VerticalAlignment="Bottom" HorizontalAlignment="Left">
+						<Button HorizontalAlignment="Left"  Background="White" Click="Button_OnClick_Previous">&lt;</Button>
+						<Button  Background="White" Click="Button_OnClick_Next"
+								HorizontalAlignment="Right">&gt;</Button>
+					</WrapPanel>
+				</WrapPanel>
+				<TransitioningContentControl Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding DocViewModelBase}"></TransitioningContentControl>
+				<ScrollViewer Grid.Row="2" Grid.ColumnSpan="3" HorizontalScrollBarVisibility="Visible">
+					<TransitioningContentControl Grid.Row="2" Grid.ColumnSpan="3"  Content="{Binding TabViewModelBase}">
+					</TransitioningContentControl>
+				</ScrollViewer>
+
+			</Grid>
+		</Border>
     </ScrollViewer>
 </UserControl>
