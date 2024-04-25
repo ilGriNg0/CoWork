@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\spaceman.png" />
     <None Remove="Assets\table.png" />
+    <None Remove="Assets\woodcutter.png" />
   </ItemGroup>
 
 

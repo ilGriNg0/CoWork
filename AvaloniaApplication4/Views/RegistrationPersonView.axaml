@@ -2,7 +2,393 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" 
              x:Class="AvaloniaApplication4.Views.RegistrationPersonView">
-  Welcome to Avalonia!
+	<DockPanel
+		Background="#161616">
+		<Grid
+			RowDefinitions="2*, *, 12*, 2*"
+			ShowGridLines="True">
+			
+			<!--Надпись-->
+			<TextBlock
+				DockPanel.Dock="Top"
+				Grid.Row="0"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Bottom"
+				Foreground="#ffffff"
+				FontSize="45"
+				FontWeight="700"
+				TextAlignment="Center"
+				LetterSpacing="0"
+				LineHeight="70"
+				FontFamily="Source Sans Pro">
+				Choose Your Side
+			</TextBlock>
+
+			<!--Название компании-->
+			<StackPanel
+				Grid.Row="0"
+				Margin="30"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom">
+				
+				<TextBlock
+					Foreground="#ffffff"
+					FontSize="32"
+					FontWeight="700"
+					TextAlignment="Center"
+					LetterSpacing="0"
+					LineHeight="38"
+					FontFamily="Source Sans Pro"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center">
+					CoWork
+				</TextBlock>
+
+				<TextBlock
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center"
+					Foreground="#ffffff"
+					FontSize="15"
+					FontWeight="700"
+					TextAlignment="Center"
+					LetterSpacing="0"
+					FontFamily="Gelion">
+					Explore Spaces
+				</TextBlock>
+			</StackPanel>
+			
+			<Grid
+				Grid.Row="2"
+				ColumnDefinitions="4*, 5*, 2*, 5*, 4*"
+				ShowGridLines="True">
+
+				<!--Первая карточка-->
+				<Border
+					x:Name="woodcutter"
+					Grid.Column="1"
+					Background="#D94D04"
+					CornerRadius="50"
+					IsVisible="True">
+					<DockPanel>
+						<StackPanel
+							DockPanel.Dock="Top">
+							
+							<TextBlock
+								Margin="30"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="28"
+								FontWeight="700"
+								LineHeight="36"
+								FontFamily="Source Sans Pro"
+								TextAlignment="Left">
+								Create Your <LineBreak/>Perfect Workplace.
+							</TextBlock>
+
+							<Image
+								DockPanel.Dock="Left"
+								Source="../Assets/woodcutter.png"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Margin="80 40 80 55">
+							</Image>
+						</StackPanel>
+						
+						<Button
+							Margin="50 0 50 30"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							FontSize="18"
+							FontFamily="Gelion"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							CornerRadius="50"
+							Height="60"
+							Width="300"
+							Click="Create_Click">
+							Create
+							
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="#ffffff" />
+									<Setter Property="Foreground" Value="#161616" />
+								</Style>
+								<Style Selector="Button:pointerover /template/ ContentPresenter">
+									<Setter Property="Background" Value="#161616" />
+									<Setter Property="Foreground" Value="#ffffff" />
+								</Style>
+							</Button.Styles>
+							
+							<Button.Transitions>
+								<Transitions>
+									<BrushTransition Property="Background" Duration="0:0:0.1"/>
+								</Transitions>
+							</Button.Transitions>
+							
+						</Button>
+					</DockPanel>
+				</Border>
+
+				<!--Дубликат первой карточки-->
+				<Border
+					x:Name="woodcutter1"
+					Grid.Column="1"
+					Background="#D94D04"
+					CornerRadius="50"
+					IsVisible="False">
+					<DockPanel>
+						<StackPanel
+							DockPanel.Dock="Top">
+
+							<TextBlock
+								Margin="30 30 30 50"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="28"
+								FontWeight="700"
+								LineHeight="36"
+								FontFamily="Source Sans Pro"
+								TextAlignment="Left">
+								Create Your <LineBreak/>Perfect Workplace.
+							</TextBlock>
+
+							<!--Поля бизнеса-->
+							<TextBox
+								Classes="Pole"
+								Watermark="Company name">
+							</TextBox>
+							
+							<TextBox
+								Classes="Pole"
+								Watermark="Email">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Phone">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Password"
+								PasswordChar="*">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Confirm password"
+								PasswordChar="*">
+							</TextBox>
+							
+						</StackPanel>
+
+						<Button
+							Margin="50 0 50 30"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							FontSize="18"
+							FontFamily="Gelion"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							CornerRadius="50"
+							Height="60"
+							Width="300"
+							Click="Create_Click">
+							Create
+
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="#ffffff" />
+									<Setter Property="Foreground" Value="#161616" />
+								</Style>
+								<Style Selector="Button:pointerover /template/ ContentPresenter">
+									<Setter Property="Background" Value="#161616" />
+									<Setter Property="Foreground" Value="#ffffff" />
+								</Style>
+							</Button.Styles>
+
+							<Button.Transitions>
+								<Transitions>
+									<BrushTransition Property="Background" Duration="0:0:0.1"/>
+								</Transitions>
+							</Button.Transitions>
+
+						</Button>
+					</DockPanel>
+				</Border>
+
+				<!--Вторая карточка-->
+				<Border
+					x:Name="spaceman"
+					Grid.Column="3"
+					Background="#D94D04"
+					CornerRadius="50"
+					IsVisible="True">
+					
+					<DockPanel>
+						<StackPanel
+							DockPanel.Dock="Top">
+							
+							<TextBlock
+								Margin="30"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="28"
+								FontWeight="700"
+								LineHeight="36"
+								FontFamily="Source Sans Pro"
+								TextAlignment="Left">
+								Find Yourself <LineBreak/> In Creative Space.
+							</TextBlock>
+							
+							<Image
+								DockPanel.Dock="Left"
+								Source="../Assets/spaceman.png"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Margin="20 0 80 55">
+							</Image>
+						</StackPanel>
+
+						<Button
+							Margin="50 -20 50 30"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							FontSize="18"
+							FontFamily="Gelion"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							CornerRadius="50"
+							Height="60"
+							Width="300"
+							Click="Find_Click">
+							Find
+
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="#ffffff" />
+									<Setter Property="Foreground" Value="#161616" />
+								</Style>
+								<Style Selector="Button:pointerover /template/ ContentPresenter">
+									<Setter Property="Background" Value="#161616" />
+									<Setter Property="Foreground" Value="#ffffff" />
+								</Style>
+							</Button.Styles>
+
+							<Button.Transitions>
+								<Transitions>
+									<BrushTransition Property="Background" Duration="0:0:0.1"/>
+								</Transitions>
+							</Button.Transitions>
+
+						</Button>
+					</DockPanel>
+				</Border>
+
+				<!--Дубликат второй карточки-->
+				<Border
+					x:Name="spaceman1"
+					Grid.Column="3"
+					Background="#D94D04"
+					CornerRadius="50"
+					IsVisible="False">
+
+					<DockPanel>
+						<StackPanel
+							DockPanel.Dock="Top">
+
+							<TextBlock
+								Margin="30 30 30 10"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="28"
+								FontWeight="700"
+								LineHeight="36"
+								FontFamily="Source Sans Pro"
+								TextAlignment="Left">
+								Find Yourself <LineBreak/> In Creative Space.
+							</TextBlock>
+
+							<!--Поля персоны-->
+							<TextBox
+								Classes="Pole"
+								Watermark="First name">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Last name">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Phone">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Date of birth">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Email">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Password"
+								PasswordChar="*">
+							</TextBox>
+
+							<TextBox
+								Classes="Pole"
+								Watermark="Confirm password"
+								PasswordChar="*">
+							</TextBox>
+						</StackPanel>
+
+						<Button
+							Margin="50 0 50 30"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							FontSize="18"
+							FontFamily="Gelion"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							CornerRadius="50"
+							Height="60"
+							Width="300"
+							Click="Find_Click">
+							Find
+
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="#ffffff" />
+									<Setter Property="Foreground" Value="#161616" />
+								</Style>
+								<Style Selector="Button:pointerover /template/ ContentPresenter">
+									<Setter Property="Background" Value="#161616" />
+									<Setter Property="Foreground" Value="#ffffff" />
+								</Style>
+							</Button.Styles>
+
+							<Button.Transitions>
+								<Transitions>
+									<BrushTransition Property="Background" Duration="0:0:0.1"/>
+								</Transitions>
+							</Button.Transitions>
+
+						</Button>
+					</DockPanel>
+				</Border>
+			</Grid>
+		</Grid>
+	</DockPanel>
 </UserControl>
