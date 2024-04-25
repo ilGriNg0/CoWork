@@ -1,18 +1,20 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+	<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:AvaloniaApplication4.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
              x:Class="AvaloniaApplication4.Views.LoginView"
 			 x:DataType="vm:LoginViewModel">
 	<Grid
-		ColumnDefinitions="*,*">
+		ColumnDefinitions="*,*"
+		ShowGridLines="True">
 		<DockPanel
 			Background="#D94D04"
 			Grid.Column="0">
 			<Grid
-				RowDefinitions="2*,*">
+				RowDefinitions="2*,*"
+				ShowGridLines="True">
 				
 				<!--Изображенние-->
 				<Image
@@ -22,7 +24,7 @@
 					HorizontalAlignment="Center"
 					VerticalAlignment="Bottom"
 					Height="400"
-					Margin="50">
+					Margin="200 0 200 50">
 				</Image>
 
 				<!--Надпись-->
@@ -60,6 +62,7 @@
 			Grid.Column="1"
 			ColumnDefinitions="1*, 2*, 1*"
 			RowDefinitions="*, 2*, *"
+			ShowGridLines="True"
 			Background="#161616">
 			
 			<!--Название-->
@@ -133,6 +136,7 @@
 					CornerRadius="50"
 					Height="50"
 					Width="352"
+					Margin="0 0 0 0"
 					VerticalContentAlignment="Center"
 					Watermark="Enter your email"
 					AcceptsReturn="False"
@@ -172,7 +176,6 @@
 				<!--Кнопка-->
 				<Button
 					Margin="0 5"
-					x:Name="loginBut"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
 					FontSize="18"
@@ -188,9 +191,11 @@
 					<Button.Styles>
 						<Style Selector="Button">
 							<Setter Property="Background" Value="#ffffff" />
+							<Setter Property="Foreground" Value="#161616" />
 						</Style>
 						<Style Selector="Button:pointerover /template/ ContentPresenter">
 							<Setter Property="Background" Value="#D94D04" />
+							<Setter Property="Foreground" Value="#ffffff" />
 						</Style>
 					</Button.Styles>
 					<Button.Transitions>
