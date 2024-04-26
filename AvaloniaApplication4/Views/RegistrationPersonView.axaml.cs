@@ -21,8 +21,13 @@ namespace AvaloniaApplication4.Views
         }
 
         public void Find_Click(object source, RoutedEventArgs args)
-        {
-            if (this.GetControl<Border>("woodcutter1").IsVisible)
+        {   
+            if (this.GetControl<Border>("spaceman1").IsVisible)
+            {
+                Debug.WriteLine("ok");
+                return;
+            }
+            else if (this.GetControl<Border>("woodcutter1").IsVisible)
             {
                 this.GetControl<Border>("woodcutter1").IsVisible = false;
                 this.GetControl<Border>("woodcutter").IsVisible = true;
@@ -32,8 +37,12 @@ namespace AvaloniaApplication4.Views
         }
         public void Create_Click(object source, RoutedEventArgs args)
         {
-            //this.GetControl<Image>("spaceman").IsVisible = false;
-            if (this.GetControl<Border>("spaceman1").IsVisible)
+            if (this.GetControl<Border>("woodcutter1").IsVisible)
+            {
+                Debug.WriteLine("not ok");
+                return;
+            }
+            else if (this.GetControl<Border>("spaceman1").IsVisible)
             {
                 this.GetControl<Border>("spaceman1").IsVisible = false;
                 this.GetControl<Border>("spaceman").IsVisible = true;
