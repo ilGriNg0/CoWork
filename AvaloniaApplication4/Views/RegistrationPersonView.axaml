@@ -14,8 +14,8 @@
 			<TextBlock
 				DockPanel.Dock="Top"
 				Grid.Row="0"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Bottom"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Center"
 				Foreground="#ffffff"
 				FontSize="45"
 				FontWeight="700"
@@ -167,10 +167,10 @@
 								Watermark="Email">
 							</TextBox>
 
-							<TextBox
+							<MaskedTextBox
 								Classes="Pole"
-								Watermark="Phone">
-							</TextBox>
+								Mask="\P\h\o\n\e\ +7-000-000-00-00">
+							</MaskedTextBox>
 
 							<TextBox
 								Classes="Pole"
@@ -326,15 +326,15 @@
 								Watermark="Last name">
 							</TextBox>
 
-							<TextBox
+							<MaskedTextBox
 								Classes="Pole"
-								Watermark="Phone">
-							</TextBox>
+								Mask="Phone +7-000-000-00-00">
+							</MaskedTextBox>
 
-							<TextBox
+							<MaskedTextBox
 								Classes="Pole"
-								Watermark="Date of birth">
-							</TextBox>
+								Mask="\D\a\t\e\ \o\f\ \b\i\r\t\h\ 90/90/0000">
+							</MaskedTextBox>
 
 							<TextBox
 								Classes="Pole"
