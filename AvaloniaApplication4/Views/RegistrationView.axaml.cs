@@ -1,0 +1,277 @@
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data.Converters;
+using Avalonia.Data;
+using Avalonia.Interactivity;
+using Avalonia.Layout;
+using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Diagnostics;
+using System.Drawing.Printing;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Xml.Schema;
+using Avalonia.Media;
+using System.Net.Sockets;
+using System.Net;
+using Tmds.DBus.Protocol;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia;
+using Npgsql;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Collections.Generic;
+
+namespace AvaloniaApplication4.Views
+{
+    public partial class RegistrationView : UserControl
+    {
+        public SolidColorBrush newbrush = new(Colors.Red);
+        public SolidColorBrush lastbrush = new(Colors.Black);
+
+        public bool phoneper = false;
+        public bool dateper = false;
+        public bool phonebus = false;
+
+        public int person = 127;
+        public int business = 31;
+
+        public RegistrationView()
+        {
+            InitializeComponent();
+        }
+
+        static int SetBit(int num, int nbit, int bit)
+        {
+            int mask = (1 << nbit);
+
+            if (bit == 1)
+                num = num | mask;
+            else
+                num = (num | mask) ^ mask;
+
+            return num;
+        }
+
+        public void Find_Click(object source, RoutedEventArgs args)
+        {   
+            if (this.GetControl<Border>("spaceman1").IsVisible)
+            {
+                Debug.WriteLine("ok");
+                return;
+            }
+            else if (this.GetControl<Border>("woodcutter1").IsVisible)
+            {
+                this.GetControl<Border>("woodcutter1").IsVisible = false;
+                this.GetControl<Border>("woodcutter").IsVisible = true;
+            }
+            this.GetControl<Border>("spaceman1").IsVisible = true;
+            this.GetControl<Border>("spaceman").IsVisible = false;
+        }
+
+        public void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            switch(textBox.Name)
+            {
+                case "Firstper":
+                    if (textBox.Text == null || textBox.Text == "") { textBox.BorderBrush = newbrush; person = SetBit(person, 0, 1); }
+                        else { textBox.BorderBrush = lastbrush; person = SetBit(person, 0, 0); }
+                    break;
+
+                case "Lastper":
+                    if (textBox.Text == null || textBox.Text == "") { textBox.BorderBrush = newbrush; person = SetBit(person, 1, 1); }
+                        else { textBox.BorderBrush = lastbrush; person = SetBit(person, 1, 0); }
+                    break;
+
+                case "Emailper":
+                    if (textBox.Text == null || textBox.Text == "" || !CheckEmail(textBox.Text)) { textBox.BorderBrush = newbrush; person = SetBit(person, 2, 1); }
+                        else { textBox.BorderBrush = lastbrush; person = SetBit(person, 2, 0); }
+                    break;
+
+                case "Phoneper":
+                    if (phoneper && Regex.Matches(textBox.Text, "_").Count != 0) { textBox.BorderBrush = newbrush; person = SetBit(person, 3, 1); }
+                        else { textBox.BorderBrush = lastbrush; phoneper = true; person = SetBit(person, 3, 0); }
+                    break;
+
+                
+                case "Dateper":
+                    if (dateper && (Regex.Matches(textBox.Text, "_").Count != 0 || !CheckDate(textBox.Text.Split("h ")[1]))) { textBox.BorderBrush = newbrush; person = SetBit(person, 4, 1); }
+                        else { textBox.BorderBrush = lastbrush; dateper = true; person = SetBit(person, 4, 0); }
+                    break;
+
+                case "Password1per":
+                    var pass2p = this.GetControl<TextBox>("Password2per");
+                    if (textBox.Text == null || textBox.Text.Length < 8) { textBox.BorderBrush = newbrush; person = SetBit(person, 5, 1); }
+                        else { textBox.BorderBrush = lastbrush; person = SetBit(person, 5, 0); }
+                    if (pass2p.Text != null && !textBox.Text.Equals(pass2p.Text)) { pass2p.BorderBrush = newbrush; person = SetBit(person, 6, 1); }
+                        else { pass2p.BorderBrush = lastbrush; person = SetBit(person, 6, 0); }
+                    break;
+
+                case "Password2per":
+                    if (!textBox.Text.Equals(this.GetControl<TextBox>("Password1per").Text)) { textBox.BorderBrush = newbrush; person = SetBit(person, 6, 1); }
+                        else { textBox.BorderBrush = lastbrush; person = SetBit(person, 6, 0); }
+                    break;
+
+
+                case "Namebus":
+                    if (textBox.Text == null || textBox.Text == "") { textBox.BorderBrush = newbrush; business = SetBit(business, 0, 1); }
+                        else { textBox.BorderBrush = lastbrush; business = SetBit(business, 0, 0); }
+                    break;
+
+                case "Phonebus":
+                    if (phonebus && Regex.Matches(textBox.Text, "_").Count != 0) { textBox.BorderBrush = newbrush; business = SetBit(business, 1, 1); }
+                        else { textBox.BorderBrush = lastbrush; phonebus = true; business = SetBit(business, 1, 0); }
+                    break;
+
+                case "Emailbus":
+                    if (textBox.Text == null || textBox.Text == "" || !CheckEmail(textBox.Text)) { textBox.BorderBrush = newbrush; business = SetBit(business, 2, 1); }
+                        else { textBox.BorderBrush = lastbrush; business = SetBit(business, 2, 0); }
+                    break;
+
+                case "Password1bus":
+                    var pass2b = this.GetControl<TextBox>("Password2bus");
+                    if (textBox.Text == null || textBox.Text.Length < 8) { textBox.BorderBrush = newbrush; business = SetBit(business, 3, 1); }
+                        else { textBox.BorderBrush = lastbrush; business = SetBit(business, 3, 0); }
+                    if (pass2b.Text != null && !textBox.Text.Equals(pass2b.Text)) { pass2b.BorderBrush = newbrush; business = SetBit(business, 4, 1); }
+                        else { pass2b.BorderBrush = lastbrush; business = SetBit(business, 4, 0); }
+                    break;
+
+                case "Password2bus":
+                    if (!textBox.Text.Equals(this.GetControl<TextBox>("Password1bus").Text)) { textBox.BorderBrush = newbrush; business = SetBit(business, 4, 1); }
+                        else { textBox.BorderBrush = lastbrush; business = SetBit(business, 4, 0); }
+                    break;
+            }
+            
+        }
+        public void Find_all_Click(object source, RoutedEventArgs args)
+        {
+            if (person == 0)
+            {
+                var email = this.GetControl<TextBox>("Emailper");
+                var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+
+                var con = new NpgsqlConnection(cs);
+                con.Open();
+                var sql = $"SELECT count(*) FROM main_users WHERE email = '{email.Text}';";
+                var cmd = new NpgsqlCommand(sql, con);
+                var version = cmd.ExecuteScalar();
+
+                if (version.ToString() == "0")
+                {
+                    sql = $"SELECT count(*) FROM main_businesses WHERE email = '{email.Text}';";
+                    cmd = new NpgsqlCommand(sql, con);
+                    version = cmd.ExecuteScalar();
+
+                    if (version.ToString() == "0")
+                    {
+                        var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация персонального аккаунта", ButtonEnum.Ok);
+                        var result = box.ShowAsync();
+                        sql = $"INSERT INTO main_users(email, password, first_name, last_name, phone_number, date_of_birth) " +
+                            $"VALUES ('{email.Text}', '{this.GetControl<TextBox>("Password1per").Text}', '{this.GetControl<TextBox>("Firstper").Text}', '{this.GetControl<TextBox>("Lastper").Text}', " +
+                            $"'{this.GetControl<TextBox>("Phoneper").Text.Split("ne ")[1]}', '{DateTime.Parse(this.GetControl<TextBox>("Dateper").Text.Split("th ")[1]).ToShortDateString()}');";
+                        cmd = new NpgsqlCommand(sql, con);
+                        version = cmd.ExecuteScalar();
+                    }
+                    else
+                    {
+                        var box = MessageBoxManager.GetMessageBoxStandard("Ошибка регистрации пользователя", $"На {email.Text} уже зарегистрирован бизнес-аккаунт", ButtonEnum.Ok);
+                        var result = box.ShowAsync();
+                    }
+                }
+                else
+                {
+                    var box = MessageBoxManager.GetMessageBoxStandard("Ошибка регистрации пользователя", $"На {email.Text} уже зарегистрирован персональный аккаунт", ButtonEnum.Ok);
+                    var result = box.ShowAsync();
+                }
+                con.Close();
+            }
+        }
+        public bool CheckEmail(string email)
+        {
+                string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+                Regex re = new(strRegex);
+                if (re.IsMatch(email))
+                    return true;
+                else
+                    return false;
+        }
+
+        public bool CheckDate(string date)
+        {
+            try
+            {
+                if (DateTime.Now.Year - DateTime.Parse(date).Year > 14 && DateTime.Now.Year - DateTime.Parse(date).Year < 100) return true;
+            }
+            catch(Exception e)
+            {
+            }
+            return false;
+        }
+
+        public void Create_all_Click(object source, RoutedEventArgs args)
+        {
+            if (business == 0)
+            {
+                var email = this.GetControl<TextBox>("Emailbus");
+                var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+
+                var con = new NpgsqlConnection(cs);
+                con.Open();
+                var sql = $"SELECT count(*) FROM main_businesses WHERE email = '{email.Text}';";
+                var cmd = new NpgsqlCommand(sql, con);
+                var version = cmd.ExecuteScalar();
+
+                if (version.ToString() == "0")
+                {
+                    sql = $"SELECT count(*) FROM main_users WHERE email = '{email.Text}';";
+                    cmd = new NpgsqlCommand(sql, con);
+                    version = cmd.ExecuteScalar();
+
+                    if (version.ToString() == "0")
+                    {
+                        var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация бизнес-аккаунта", ButtonEnum.Ok);
+                        var result = box.ShowAsync();
+                        sql = $"INSERT INTO main_businesses(email, password, company_name, phone_number) " +
+                            $"VALUES ('{email.Text}', '{this.GetControl<TextBox>("Password1bus").Text}', '{this.GetControl<TextBox>("Namebus").Text}', '{this.GetControl<TextBox>("Phonebus").Text.Split("ne ")[1]}');";
+                        Debug.WriteLine(sql);
+                        cmd = new NpgsqlCommand(sql, con);
+                        version = cmd.ExecuteScalar();
+                    }
+                    else
+                    {
+                        var box = MessageBoxManager.GetMessageBoxStandard("Ошибка регистрации бизнеса", $"На {email.Text} уже зарегистрирован персональный аккаунт", ButtonEnum.Ok);
+                        var result = box.ShowAsync();
+                    }
+                }
+                else
+                {
+                    var box = MessageBoxManager.GetMessageBoxStandard("Ошибка регистрации бизнеса", $"На {email.Text} уже зарегистрирован бизнес-аккаунт", ButtonEnum.Ok);
+                    var result = box.ShowAsync();
+                }
+                con.Close();
+            }
+        }
+
+        public void Create_Click(object source, RoutedEventArgs args)
+        {
+            if (this.GetControl<Border>("woodcutter1").IsVisible)
+            {
+                Debug.WriteLine("not ok");
+                return;
+            }
+            else if (this.GetControl<Border>("spaceman1").IsVisible)
+            {
+                this.GetControl<Border>("spaceman1").IsVisible = false;
+                this.GetControl<Border>("spaceman").IsVisible = true;
+            }
+            this.GetControl<Border>("woodcutter").IsVisible = false;
+            this.GetControl<Border>("woodcutter1").IsVisible = true;
+        }
+    }
+}
