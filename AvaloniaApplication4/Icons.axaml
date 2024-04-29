@@ -18,6 +18,8 @@
 		  <Setter Property="VerticalAlignment" Value="Center"/>
 		  <Setter Property="HorizontalAlignment" Value="Center"/>
 		  <Setter Property="FontSize" Value="18"/>
+		  <Setter Property="BorderThickness" Value="5"/>
+		  <Setter Property="BorderBrush" Value="#161616"/>
 		  <Setter Property="FontFamily" Value="Gelion"/>
 		  <Setter Property="Foreground" Value="#161616"/>
 		  <Setter Property="TextAlignment" Value="Left"/>
@@ -25,6 +27,8 @@
 		  <Setter Property="Height" Value="50"/>
 		  <Setter Property="Width" Value="300"/>
 		  <Setter Property="Margin" Value="0 15 0 0"/>
+		  <Setter Property="MaxLength" Value="50"/>
+		  <Setter Property="ToolTip.Placement" Value="Pointer"/>
 		  <Setter Property="VerticalContentAlignment" Value="Center"/>
 		  <Setter Property="AcceptsReturn" Value="False"/>
 		  <Setter Property="MaxLines" Value="1"/>

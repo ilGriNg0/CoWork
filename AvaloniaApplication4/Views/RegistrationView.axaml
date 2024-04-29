@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" 
-             x:Class="AvaloniaApplication4.Views.RegistrationPersonView">
+             x:Class="AvaloniaApplication4.Views.RegistrationView">
 	<DockPanel
 		Background="#161616">
 		<Grid
@@ -14,8 +14,8 @@
 			<TextBlock
 				DockPanel.Dock="Top"
 				Grid.Row="0"
-				HorizontalAlignment="Stretch"
-				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Bottom"
 				Foreground="#ffffff"
 				FontSize="45"
 				FontWeight="700"
@@ -158,30 +158,45 @@
 
 							<!--Поля бизнеса-->
 							<TextBox
+								x:Name="Namebus"
 								Classes="Pole"
-								Watermark="Company name">
+								Watermark="Company name"
+								ToolTip.Tip="Пример: Google"
+								TextChanged="TextBox_TextChanged">
 							</TextBox>
 							
 							<TextBox
+								x:Name="Emailbus"
 								Classes="Pole"
-								Watermark="Email">
+								Watermark="Email"
+								ToolTip.Tip="Пример: owner@google.com"
+								TextChanged="TextBox_TextChanged">
 							</TextBox>
 
 							<MaskedTextBox
+								x:Name="Phonebus"
 								Classes="Pole"
-								Mask="\P\h\o\n\e\ +7-000-000-00-00">
+								Mask="\P\h\o\n\e\ +7-000-000-00-00"
+								ToolTip.Tip="Пример: +7-000-000-00-00"
+								TextChanged="TextBox_TextChanged">
 							</MaskedTextBox>
 
 							<TextBox
+								x:Name="Password1bus"
 								Classes="Pole"
 								Watermark="Password"
-								PasswordChar="*">
+								PasswordChar="*"
+								ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG"
+								TextChanged="TextBox_TextChanged">
 							</TextBox>
 
 							<TextBox
+								x:Name="Password2bus"
 								Classes="Pole"
 								Watermark="Confirm password"
-								PasswordChar="*">
+								PasswordChar="*"
+								ToolTip.Tip="Повторите пароль"
+								TextChanged="TextBox_TextChanged">
 							</TextBox>
 							
 						</StackPanel>
@@ -197,7 +212,7 @@
 							CornerRadius="50"
 							Height="60"
 							Width="300"
-							Click="Create_Click">
+							Click="Create_all_Click">
 							Create
 
 							<Button.Styles>
@@ -317,40 +332,61 @@
 
 							<!--Поля персоны-->
 							<TextBox
+								x:Name="Firstper"
 								Classes="Pole"
-								Watermark="First name">
+								Watermark="First name"
+								ToolTip.Tip="Пример: Иван"
+								TextChanged="TextBox_TextChanged">
 							</TextBox>
 
 							<TextBox
+								x:Name="Lastper"
 								Classes="Pole"
-								Watermark="Last name">
+								Watermark="Last name"
+								ToolTip.Tip="Пример: Иванов"
+								TextChanged="TextBox_TextChanged">
 							</TextBox>
-
-							<MaskedTextBox
+							
+							<TextBox
+								x:Name="Emailper"
 								Classes="Pole"
-								Mask="Phone +7-000-000-00-00">
+								Watermark="Email"
+								ToolTip.Tip="Пример: ivanivanov@gmail.com"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+							
+							<MaskedTextBox
+								x:Name="Phoneper"
+								Classes="Pole"
+								Mask="Phone +7-000-000-00-00"
+								ToolTip.Tip="Пример +7-777-777-77-77"
+								TextChanged="TextBox_TextChanged">
 							</MaskedTextBox>
 
 							<MaskedTextBox
+								x:Name="Dateper"
 								Classes="Pole"
-								Mask="\D\a\t\e\ \o\f\ \b\i\r\t\h\ 90/90/0000">
+								Mask="\D\a\t\e\ \o\f\ \b\i\r\t\h\ 90/90/0000"
+								ToolTip.Tip="Пример: 20.20.2020"
+								TextChanged="TextBox_TextChanged">
 							</MaskedTextBox>
-
+							
 							<TextBox
-								Classes="Pole"
-								Watermark="Email">
-							</TextBox>
-
-							<TextBox
+								x:Name="Password1per"
 								Classes="Pole"
 								Watermark="Password"
-								PasswordChar="*">
+								PasswordChar="*"
+								ToolTip.Tip="Минимум 8 символов Пример: Qwerty12@"
+								TextChanged="TextBox_TextChanged">
 							</TextBox>
 
 							<TextBox
+								x:Name="Password2per"
 								Classes="Pole"
 								Watermark="Confirm password"
-								PasswordChar="*">
+								PasswordChar="*"
+								ToolTip.Tip="Повторите пароль"
+								TextChanged="TextBox_TextChanged">
 							</TextBox>
 						</StackPanel>
 
@@ -365,7 +401,7 @@
 							CornerRadius="50"
 							Height="60"
 							Width="300"
-							Click="Find_Click">
+							Click="Find_all_Click">
 							Find
 
 							<Button.Styles>

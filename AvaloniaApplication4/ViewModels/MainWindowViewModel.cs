@@ -28,7 +28,7 @@ namespace AvaloniaApplication4.ViewModels
            new ListItemTemplate(typeof(CardViewModel)),
            new ListItemTemplate(typeof(LoginViewModel)),
            new ListItemTemplate(typeof(RegistrationBusinessViewModel)),
-           new ListItemTemplate(typeof(RegistrationPersonViewModel))
+           new ListItemTemplate(typeof(RegistrationViewModel))
         };
 
         partial void OnSelectedListItemChanged(ListItemTemplate? value)
