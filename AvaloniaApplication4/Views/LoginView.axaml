@@ -40,19 +40,19 @@
 						LetterSpacing="0"
 						LineHeight="38"
 						FontFamily="Source Sans Pro">
-						CoWorkNow - Find Your<LineBreak/>Ideal Workspace.
+						CoWorkNow - Найди свое <LineBreak/>Идеальное рабочее место.
 					</TextBlock>
 				
 					<TextBlock
 						DockPanel.Dock="Bottom"
 						Foreground="#ffffff"
-						FontSize="15"
+						FontSize="18"
 						FontWeight="700"
 						TextAlignment="Center"
 						LetterSpacing="0"
 						FontFamily="Gelion"
 						Margin="20">
-						Discover and book coworking spaces effortlessly.
+						Открывай и бронируй сейчас.
 					</TextBlock>
 				</StackPanel>
 			</Grid>
@@ -60,7 +60,7 @@
 
 		<Grid
 			Grid.Column="1"
-			ColumnDefinitions="1*, 2*, 1*"
+			ColumnDefinitions="1.5*, 2*, 1.5*"
 			RowDefinitions="*, 2*, *"
 			ShowGridLines="True"
 			Background="#161616">
@@ -113,7 +113,7 @@
 					FontFamily="Source Sans Pro"
 				
 					TextAlignment="Left">
-					Log in
+					Вход
 				</TextBlock>
 
 				<TextBlock
@@ -123,10 +123,11 @@
 					Foreground="#ffffff"
 					FontSize="18"
 					FontFamily="Gelion">
-					Membership Id
+					Email аккаунта
 				</TextBlock>
 
 				<TextBox
+					x:Name="Emaillog"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
 					FontSize="18"
@@ -138,10 +139,9 @@
 					Width="352"
 					Margin="0 0 0 0"
 					VerticalContentAlignment="Center"
-					Watermark="Enter your email"
+					Watermark="Введите email"
 					AcceptsReturn="False"
-					MaxLines="1"
-					Text="{Binding Email}">
+					MaxLines="1">
 				</TextBox>
 
 				<TextBlock
@@ -151,10 +151,11 @@
 					Foreground="#ffffff"
 					FontSize="18"
 					FontFamily="Gelion">
-					Password
+					Пароль аккаунта
 				</TextBlock>
 
 				<TextBox
+					x:Name="Passwordlog"
 					Margin="0 0 0 10"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Left"
@@ -166,12 +167,41 @@
 					Height="50"
 					Width="352"
 					VerticalContentAlignment="Center"
-					Watermark="Enter password"
+					Watermark="Введите пароль"
 					AcceptsReturn="False"
 					MaxLines="1"
-					PasswordChar="*"
-					Text="{Binding Password}">
+					PasswordChar="*">
 				</TextBox>
+				
+				<TextBlock
+					x:Name="Error1log"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#D94D04"
+					FontSize="15"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="30"
+					FontFamily="Gelion"
+					IsVisible="False"
+					TextAlignment="Left">
+					На этот email нет регистрации.
+				</TextBlock>
+				
+				<TextBlock
+					x:Name="Error2log"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#D94D04"
+					FontSize="15"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="30"
+					FontFamily="Gelion"
+					IsVisible="False"
+					TextAlignment="Left">
+					Требуется другой пароль.
+				</TextBlock>
 				
 				<!--Кнопка-->
 				<Button
@@ -186,8 +216,8 @@
 					CornerRadius="50"
 					Height="60"
 					Width="352"
-					Command="{Binding LoginCommand}">
-					Login
+					Click="Login_Click">
+					Войти
 					<Button.Styles>
 						<Style Selector="Button">
 							<Setter Property="Background" Value="#ffffff" />
@@ -216,7 +246,7 @@
 					FontFamily="Gelion"
 				
 					TextAlignment="Left">
-					Forgot your password?
+					Забыли свой пароль?
 				</TextBlock>
 			</StackPanel>
 

@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace AvaloniaApplication4.Views
 {
-    public partial class RegistrationBusinessView : UserControl
+    public partial class PersonalAccountView : UserControl
     {
-        public RegistrationBusinessView()
+        public PersonalAccountView()
         {
             InitializeComponent();
         }

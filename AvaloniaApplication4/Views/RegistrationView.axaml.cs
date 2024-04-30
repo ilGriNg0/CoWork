@@ -99,7 +99,7 @@ namespace AvaloniaApplication4.Views
 
                 
                 case "Dateper":
-                    if (dateper && (Regex.Matches(textBox.Text, "_").Count != 0 || !CheckDate(textBox.Text.Split("h ")[1]))) { textBox.BorderBrush = newbrush; person = SetBit(person, 4, 1); }
+                    if (dateper && (Regex.Matches(textBox.Text, "_").Count != 0 || !CheckDate(textBox.Text.Split("ия ")[1]))) { textBox.BorderBrush = newbrush; person = SetBit(person, 4, 1); }
                         else { textBox.BorderBrush = lastbrush; dateper = true; person = SetBit(person, 4, 0); }
                     break;
 
@@ -172,20 +172,19 @@ namespace AvaloniaApplication4.Views
                         var result = box.ShowAsync();
                         sql = $"INSERT INTO main_users(email, password, first_name, last_name, phone_number, date_of_birth) " +
                             $"VALUES ('{email.Text}', '{this.GetControl<TextBox>("Password1per").Text}', '{this.GetControl<TextBox>("Firstper").Text}', '{this.GetControl<TextBox>("Lastper").Text}', " +
-                            $"'{this.GetControl<TextBox>("Phoneper").Text.Split("ne ")[1]}', '{DateTime.Parse(this.GetControl<TextBox>("Dateper").Text.Split("th ")[1]).ToShortDateString()}');";
+                            $"'{this.GetControl<TextBox>("Phoneper").Text.Split("он ")[1]}', '{DateTime.Parse(this.GetControl<TextBox>("Dateper").Text.Split("ия ")[1]).ToShortDateString()}');";
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
+                        this.GetControl<TextBlock>("Errorper").IsVisible = false;
                     }
                     else
                     {
-                        var box = MessageBoxManager.GetMessageBoxStandard("Ошибка регистрации пользователя", $"На {email.Text} уже зарегистрирован бизнес-аккаунт", ButtonEnum.Ok);
-                        var result = box.ShowAsync();
+                        this.GetControl<TextBlock>("Errorper").IsVisible = true;
                     }
                 }
                 else
                 {
-                    var box = MessageBoxManager.GetMessageBoxStandard("Ошибка регистрации пользователя", $"На {email.Text} уже зарегистрирован персональный аккаунт", ButtonEnum.Ok);
-                    var result = box.ShowAsync();
+                    this.GetControl<TextBlock>("Errorper").IsVisible = true;
                 }
                 con.Close();
             }
@@ -238,21 +237,20 @@ namespace AvaloniaApplication4.Views
                         var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация бизнес-аккаунта", ButtonEnum.Ok);
                         var result = box.ShowAsync();
                         sql = $"INSERT INTO main_businesses(email, password, company_name, phone_number) " +
-                            $"VALUES ('{email.Text}', '{this.GetControl<TextBox>("Password1bus").Text}', '{this.GetControl<TextBox>("Namebus").Text}', '{this.GetControl<TextBox>("Phonebus").Text.Split("ne ")[1]}');";
+                            $"VALUES ('{email.Text}', '{this.GetControl<TextBox>("Password1bus").Text}', '{this.GetControl<TextBox>("Namebus").Text}', '{this.GetControl<TextBox>("Phonebus").Text.Split("ка ")[1]}');";
                         Debug.WriteLine(sql);
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
+                        this.GetControl<TextBlock>("Errorbus").IsVisible = false;
                     }
                     else
                     {
-                        var box = MessageBoxManager.GetMessageBoxStandard("Ошибка регистрации бизнеса", $"На {email.Text} уже зарегистрирован персональный аккаунт", ButtonEnum.Ok);
-                        var result = box.ShowAsync();
+                        this.GetControl<TextBlock>("Errorbus").IsVisible = true;
                     }
                 }
                 else
                 {
-                    var box = MessageBoxManager.GetMessageBoxStandard("Ошибка регистрации бизнеса", $"На {email.Text} уже зарегистрирован бизнес-аккаунт", ButtonEnum.Ok);
-                    var result = box.ShowAsync();
+                    this.GetControl<TextBlock>("Errorbus").IsVisible = true;
                 }
                 con.Close();
             }
@@ -262,7 +260,6 @@ namespace AvaloniaApplication4.Views
         {
             if (this.GetControl<Border>("woodcutter1").IsVisible)
             {
-                Debug.WriteLine("not ok");
                 return;
             }
             else if (this.GetControl<Border>("spaceman1").IsVisible)
