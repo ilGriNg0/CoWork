@@ -24,7 +24,7 @@ namespace AvaloniaApplication4.Views
             var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
             var email = this.GetControl<TextBox>("Emaillog");
             var password = this.GetControl<TextBox>("Passwordlog");
-
+            if (password.Text == null || password.Text.Equals("") || email.Text == null || email.Text.Equals("")) return;
             var con = new NpgsqlConnection(cs);
             con.Open();
 
