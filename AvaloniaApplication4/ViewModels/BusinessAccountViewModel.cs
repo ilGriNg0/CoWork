@@ -7,7 +7,8 @@ using System.Diagnostics.Tracing;
 
 namespace AvaloniaApplication4.ViewModels
 {
-    public partial class RegistrationBusinessViewModel : ViewModelBase
+    public partial class BusinessAccountViewModel : ViewModelBase
     {
+
     }
 }

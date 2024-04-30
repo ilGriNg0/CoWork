@@ -39,8 +39,14 @@
 
 
   <ItemGroup>
+    <Compile Update="Views\PersonalAccountView.axaml.cs">
+      <DependentUpon>PersonalAccountView.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\LoginView.axaml.cs">
       <DependentUpon>LoginView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\BusinessAccountView.axaml.cs">
+      <DependentUpon>BusinessAccountView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\RegistrationView.axaml.cs">
       <DependentUpon>RegistrationView.axaml</DependentUpon>

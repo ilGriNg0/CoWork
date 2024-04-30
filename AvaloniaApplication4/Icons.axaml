@@ -18,7 +18,7 @@
 		  <Setter Property="VerticalAlignment" Value="Center"/>
 		  <Setter Property="HorizontalAlignment" Value="Center"/>
 		  <Setter Property="FontSize" Value="18"/>
-		  <Setter Property="BorderThickness" Value="5"/>
+		  <Setter Property="BorderThickness" Value="3"/>
 		  <Setter Property="BorderBrush" Value="#161616"/>
 		  <Setter Property="FontFamily" Value="Gelion"/>
 		  <Setter Property="Foreground" Value="#161616"/>
