@@ -49,7 +49,7 @@ namespace AvaloniaApplication4.Views
             int mask = (1 << nbit);
 
             if (bit == 1)
-                num = num | mask;
+                num |= mask;
             else
                 num = (num | mask) ^ mask;
 
@@ -60,7 +60,6 @@ namespace AvaloniaApplication4.Views
         {   
             if (this.GetControl<Border>("spaceman1").IsVisible)
             {
-                Debug.WriteLine("ok");
                 return;
             }
             else if (this.GetControl<Border>("woodcutter1").IsVisible)
@@ -93,13 +92,13 @@ namespace AvaloniaApplication4.Views
                     break;
 
                 case "Phoneper":
-                    if (phoneper && Regex.Matches(textBox.Text, "_").Count != 0) { textBox.BorderBrush = newbrush; person = SetBit(person, 3, 1); }
+                    if (phoneper && MyRegex().Matches(textBox.Text).Count != 0) { textBox.BorderBrush = newbrush; person = SetBit(person, 3, 1); }
                         else { textBox.BorderBrush = lastbrush; phoneper = true; person = SetBit(person, 3, 0); }
                     break;
 
                 
                 case "Dateper":
-                    if (dateper && (Regex.Matches(textBox.Text, "_").Count != 0 || !CheckDate(textBox.Text.Split("ия ")[1]))) { textBox.BorderBrush = newbrush; person = SetBit(person, 4, 1); }
+                    if (dateper && (MyRegex().Matches(textBox.Text).Count != 0 || !CheckDate(textBox.Text.Split("ия ")[1]))) { textBox.BorderBrush = newbrush; person = SetBit(person, 4, 1); }
                         else { textBox.BorderBrush = lastbrush; dateper = true; person = SetBit(person, 4, 0); }
                     break;
 
@@ -123,7 +122,7 @@ namespace AvaloniaApplication4.Views
                     break;
 
                 case "Phonebus":
-                    if (phonebus && Regex.Matches(textBox.Text, "_").Count != 0) { textBox.BorderBrush = newbrush; business = SetBit(business, 1, 1); }
+                    if (phonebus && MyRegex().Matches(textBox.Text).Count != 0) { textBox.BorderBrush = newbrush; business = SetBit(business, 1, 1); }
                         else { textBox.BorderBrush = lastbrush; phonebus = true; business = SetBit(business, 1, 0); }
                     break;
 
@@ -169,12 +168,12 @@ namespace AvaloniaApplication4.Views
                     if (version.ToString() == "0")
                     {
                         var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация персонального аккаунта", ButtonEnum.Ok);
-                        var result = box.ShowAsync();
+                        box.ShowAsync();
                         sql = $"INSERT INTO main_users(email, password, first_name, last_name, phone_number, date_of_birth) " +
                             $"VALUES ('{email.Text}', '{this.GetControl<TextBox>("Password1per").Text}', '{this.GetControl<TextBox>("Firstper").Text}', '{this.GetControl<TextBox>("Lastper").Text}', " +
                             $"'{this.GetControl<TextBox>("Phoneper").Text.Split("он ")[1]}', '{DateTime.Parse(this.GetControl<TextBox>("Dateper").Text.Split("ия ")[1]).ToShortDateString()}');";
                         cmd = new NpgsqlCommand(sql, con);
-                        version = cmd.ExecuteScalar();
+                        cmd.ExecuteScalar();
                         this.GetControl<TextBlock>("Errorper").IsVisible = false;
                     }
                     else
@@ -189,7 +188,7 @@ namespace AvaloniaApplication4.Views
                 con.Close();
             }
         }
-        public bool CheckEmail(string email)
+        public static bool CheckEmail(string email)
         {
                 string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
                 @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
@@ -201,13 +200,13 @@ namespace AvaloniaApplication4.Views
                     return false;
         }
 
-        public bool CheckDate(string date)
+        public static bool CheckDate(string date)
         {
             try
             {
                 if (DateTime.Now.Year - DateTime.Parse(date).Year > 14 && DateTime.Now.Year - DateTime.Parse(date).Year < 100) return true;
             }
-            catch(Exception e)
+            catch (Exception)
             {
             }
             return false;
@@ -235,12 +234,11 @@ namespace AvaloniaApplication4.Views
                     if (version.ToString() == "0")
                     {
                         var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация бизнес-аккаунта", ButtonEnum.Ok);
-                        var result = box.ShowAsync();
+                        box.ShowAsync();
                         sql = $"INSERT INTO main_businesses(email, password, company_name, phone_number) " +
                             $"VALUES ('{email.Text}', '{this.GetControl<TextBox>("Password1bus").Text}', '{this.GetControl<TextBox>("Namebus").Text}', '{this.GetControl<TextBox>("Phonebus").Text.Split("ка ")[1]}');";
-                        Debug.WriteLine(sql);
                         cmd = new NpgsqlCommand(sql, con);
-                        version = cmd.ExecuteScalar();
+                        cmd.ExecuteScalar();
                         this.GetControl<TextBlock>("Errorbus").IsVisible = false;
                     }
                     else
@@ -270,5 +268,8 @@ namespace AvaloniaApplication4.Views
             this.GetControl<Border>("woodcutter").IsVisible = false;
             this.GetControl<Border>("woodcutter1").IsVisible = true;
         }
+
+        [GeneratedRegex("_")]
+        private static partial Regex MyRegex();
     }
 }

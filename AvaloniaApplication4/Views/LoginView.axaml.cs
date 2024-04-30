@@ -46,7 +46,7 @@ namespace AvaloniaApplication4.Views
                     if (version.ToString() == "1")
                     {
                         var box = MessageBoxManager.GetMessageBoxStandard("", "Успешный вход в бизнес-аккаунт", ButtonEnum.Ok);
-                        var result = box.ShowAsync();
+                        box.ShowAsync();
                         this.GetControl<TextBlock>("Error1log").IsVisible = false;
                         this.GetControl<TextBlock>("Error2log").IsVisible = false;
                     }
@@ -70,7 +70,7 @@ namespace AvaloniaApplication4.Views
                 if (version.ToString() == "1")
                 {
                     var box = MessageBoxManager.GetMessageBoxStandard("", "Успешный вход в персональный аккаунт", ButtonEnum.Ok);
-                    var result = box.ShowAsync();
+                    box.ShowAsync();
                     this.GetControl<TextBlock>("Error1log").IsVisible = false;
                     this.GetControl<TextBlock>("Error2log").IsVisible = false;
                 }
