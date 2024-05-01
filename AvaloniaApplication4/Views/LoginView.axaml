@@ -244,7 +244,7 @@
 					FontWeight="700"
 					LineHeight="50"
 					FontFamily="Gelion"
-				
+					PointerPressed="Forgot_PointerPressed"
 					TextAlignment="Left">
 					Забыли свой пароль?
 				</TextBlock>

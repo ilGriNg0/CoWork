@@ -19,11 +19,17 @@ namespace AvaloniaApplication4.Views
             InitializeComponent();
         }
 
+        private void Forgot_PointerPressed(object sender, PointerPressedEventArgs e)
+        {
+            return;
+        }
+
         public void Login_Click(object source, RoutedEventArgs args)
         {
             var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
             var email = this.GetControl<TextBox>("Emaillog");
             var password = this.GetControl<TextBox>("Passwordlog");
+
             if (password.Text == null || password.Text.Equals("") || email.Text == null || email.Text.Equals("")) return;
             var con = new NpgsqlConnection(cs);
             con.Open();
@@ -82,6 +88,10 @@ namespace AvaloniaApplication4.Views
             }
 
             con.Close();
+        }
+
+        private void TextBlock_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+        {
         }
     }
 }

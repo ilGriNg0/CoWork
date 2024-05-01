@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace AvaloniaApplication4.Views
 {
@@ -7,6 +8,11 @@ namespace AvaloniaApplication4.Views
         public PersonalAccountView()
         {
             InitializeComponent();
+        }
+
+        private void Change_PointerPressed(object sender, PointerPressedEventArgs e)
+        {
+            return;
         }
     }
 }
