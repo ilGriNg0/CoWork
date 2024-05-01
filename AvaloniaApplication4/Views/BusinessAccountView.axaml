@@ -2,7 +2,166 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" Background="#161616"
              x:Class="AvaloniaApplication4.Views.BusinessAccountView">
-	
+	<Grid
+		ColumnDefinitions="2*, 3*"
+		ShowGridLines="True">
+		<DockPanel
+			Grid.Column="0">
+			<StackPanel
+				DockPanel.Dock="Top"
+				Spacing="30">
+				<StackPanel
+					Orientation="Horizontal"
+					Margin="100 50 0 0"
+					Spacing="50">
+					<Border
+						HorizontalAlignment="Left"
+						BorderBrush="#D94D04"
+						Background="#D94D04"
+						BorderThickness="10"
+						Width="200"
+						Height="200"
+						ClipToBounds="True"
+						CornerRadius="270">
+						<Image
+							Source="../Assets/prosto.jpg"
+							Height="270"
+							Width="400">
+						</Image>
+					</Border>
+
+					<TextBlock
+						Foreground="#ffffff"
+						FontSize="60"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="90"
+						FontFamily="Source Sans Pro"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+						Название
+					</TextBlock>
+				</StackPanel>
+
+				<TextBox
+					Classes="Poleacc"
+					Margin="0 40 0 0"
+					Watermark="Email компании"
+					ToolTip.Tip="Пример: owner@google.com">
+				</TextBox>
+
+				<MaskedTextBox
+					Classes="Poleacc"
+					Mask="Поддержка +7-000-000-00-00"
+					ToolTip.Tip="Пример: +7-000-000-00-00">
+				</MaskedTextBox>
+
+				<TextBox
+					Classes="Poleacc"
+					Watermark="Пароль"
+					PasswordChar="*"
+					ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG">
+				</TextBox>
+
+				<TextBlock
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					Foreground="#ffffff"
+					FontSize="25"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="50"
+					FontFamily="Gelion"
+					TextAlignment="Left">
+					Изменить данные
+				</TextBlock>
+
+				<Button
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					FontSize="25"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					FontFamily="Gelion"
+					CornerRadius="50"
+					Height="70"
+					Width="400"
+					Margin="0 0 0 0">
+					Выйти
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#ffffff" />
+							<Setter Property="Foreground" Value="#161616" />
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#D94D04" />
+							<Setter Property="Foreground" Value="#ffffff" />
+						</Style>
+					</Button.Styles>
+					<Button.Transitions>
+						<Transitions>
+							<BrushTransition Property="Background" Duration="0:0:0.1"/>
+						</Transitions>
+					</Button.Transitions>
+				</Button>
+			</StackPanel>
+			
+			<StackPanel
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Margin="100 400 0 0"
+				Grid.Column="0"
+				Orientation="Horizontal"
+				Spacing="100">
+				<Border
+					Width="700"
+					Height="500"
+					Background="#D94D04"
+					CornerRadius="50">
+				</Border>
+
+				<Border
+					Width="700"
+					Height="500"
+					Background="#D94D04"
+					CornerRadius="50">
+				</Border>
+			</StackPanel>
+		</DockPanel>
+
+		<StackPanel
+			Grid.Column="1"
+			Grid.Row="0">
+			<TextBlock
+				Margin="0 50 0 0"
+				Foreground="#ffffff"
+				FontSize="40"
+				FontWeight="700"
+				TextAlignment="Center"
+				LetterSpacing="0"
+				LineHeight="90"
+				FontFamily="Source Sans Pro"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center">
+				Будущие бронирования
+			</TextBlock>
+
+			<DataGrid 
+				Margin="20"
+				ItemsSource="{Binding People}"
+				AutoGenerateColumns="True"
+				IsReadOnly="True"
+				GridLinesVisibility="All"
+				FontSize="26"
+				FontFamily="Gelion"
+				Foreground="#D94D04"
+				BorderThickness="1"
+				BorderBrush="#ffffff">
+			</DataGrid>
+		</StackPanel>
+
+	</Grid>
 </UserControl>
