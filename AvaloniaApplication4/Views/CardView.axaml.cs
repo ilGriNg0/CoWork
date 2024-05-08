@@ -30,7 +30,27 @@ namespace AvaloniaApplication4.Views
             }
 
         }
+        private void Border2_PointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            var viewModel = new CardViewModel();
+            
 
+          
+                ContentControl.Content = viewModel?.Base2_card;
+
+            
+
+        }
+        private void Border3_PointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            var viewModel = new CardViewModel();
+          
+          
+                ContentControl.Content = viewModel?.Base3_card;
+
+           
+
+        }
 
 
     }

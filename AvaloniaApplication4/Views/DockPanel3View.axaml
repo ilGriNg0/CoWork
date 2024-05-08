@@ -3,28 +3,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvaloniaApplication4.Views.DockPanelView"
+             x:Class="AvaloniaApplication4.Views.DockPanel3View"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
              xmlns:material="using:Material.Icons.Avalonia"
-			 x:DataType="vm:DockPanelViewModel">
+			 x:DataType="vm:DockPanel3ViewModel">
 	<DockPanel>
 		<Grid ColumnDefinitions="100, *"
 			  RowDefinitions="*,*,*"
-			  ShowGridLines="False">
+			  ShowGridLines="True">
 			<Image Grid.Row="0"
 				   Grid.Column="0"
 				   Stretch="UniformToFill"
-				   Source="../Assets/prostoLogo.jpg"
-				   Margin="10"/>
+				   Source="avares://AvaloniaApplication4/Assets/photo.png"
+				   Margin="5"/>
 			<Border Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" CornerRadius="30" Background="#0a0a0a">
 				<Grid RowDefinitions="*,*"
 					  ShowGridLines="True"
 					  >
-					<ItemsControl  Grid.Row="0" ItemsSource="{Binding Border1}">
+					<ItemsControl Grid.Row="0" ItemsSource="{Binding Border3}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<TextBlock Grid.Row="0"
+								<TextBlock
 									Text="{Binding Name_cowork}"
+									FontFamily="Source Sans Pro"
 									FontSize="20"
 									FontWeight="DemiBold"
 									Foreground="White"
@@ -33,23 +34,22 @@
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>
-
-					<ItemsControl  Grid.Row="1" ItemsSource="{Binding Border1}">
+					<ItemsControl Grid.Row="1" ItemsSource="{Binding Border3}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<TextBlock Grid.Row="1" 
+								<TextBlock
 									TextWrapping="Wrap"
+									FontFamily="Source Sans Pro"
 									Foreground="White"
 									FontWeight="UltraBold"
 									FontSize="13"
-									FontFamily="Source Sans Pro"
 									HorizontalAlignment="Center"
 									Text="{Binding Info_cowork}">
-					</TextBlock>
+								</TextBlock>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>
-					
+
 				</Grid>
 			</Border>
 

@@ -53,65 +53,29 @@ namespace AvaloniaApplication4.ViewModels
         }
 
        
-        //[ObservableProperty] private IsMain? _isMain;
-
-        //partial void OnIsMainChanged(IsMain? value)
-        //{
-        //    if (value is null)
-        //    {
-        //        return;
-        //    }
-
-        //    var instance = Activator.CreateInstance(value.Type);
-        //    if (instance is null)
-        //    {
-        //        return;
-        //    }
-
-        //    Page = (ViewModelBase)instance;
-        //}
-        //public ObservableCollection<IsMain> Cards { get; } = new()
-        //{
-        //    new IsMain(typeof(CardViewModel)),
-
-        //};
-        //[RelayCommand]
-        //private void back_page()
-        //{
-        //    MainWindow mnWindow = new();
-        //    is_open = open.IsOpen;
-        //    mnWindow.btn.IsVisible = !is_open;
-        //    if (is_open)
-        //    {
-        //        is_open = !is_open;
-        //    }
-        //}
-        //public ObservableCollection<CardModel> cards { get; } = new()
-        //{
-        //   new CardModel(typeof(CardViewModel))
-        //};
-
-
-        //[RelayCommand]
-        //private void button_push()
-        //{
-        //    var main_page = new CardViewModel();
-        //    var main_ = new MainWindow();
-        //    var main2 = new MainWindowViewModel();
-        //    main2.Page = main_page;
-        //    main_.Control_page.Content = main2.Page;
-        //}
+       
     }
-    //public partial class IsMain 
-    //{
-    //    public Type Type { get; }
-    //    public string Title { get; }
-    //    public IsMain(Type tp)
-    //    {
-    //        Type = tp;
-    //        Title = tp.Name.Replace("ViewModel", "");
-    //    }
-    //}
+   public partial  class JsonClass : ObservableObject
+    {
+        [ObservableProperty]
+        private int _id;
+
+        [ObservableProperty]
+        private string? _name_cowork;
+
+        [ObservableProperty]
+
+        private string? _info_cowork;
+        [ObservableProperty]
+        private string? _location_metro_cowork;
+        [ObservableProperty]
+        private string? _price_day_cowork;
+        [ObservableProperty]
+        private string? _price_meetingroom_cowork;
+    
+
+
+    }
 }
 
 
