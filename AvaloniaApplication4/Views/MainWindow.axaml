@@ -37,7 +37,7 @@
         </SplitView.Pane>
         <SplitView.Content>
             <Border CornerRadius="30" Background="#1c1c1c" Margin="15">
-                <TransitioningContentControl x:Name="Control_page" Content="{Binding Page}"></TransitioningContentControl>
+				<ContentControl Content="{Binding Page}" ></ContentControl>
             </Border>
         </SplitView.Content>
     </SplitView>
