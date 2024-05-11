@@ -10,28 +10,10 @@ namespace AvaloniaApplication4.Views
 {
     public partial class CardView : UserControl
     {
-        
         public CardView()
         {
             InitializeComponent();
         }
-
-        private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
-        {
-            var viewModel = new CardViewModel();
-            var mm = new MainWindowViewModel();
- 
-            if (Bord.IsEnabled)
-            { 
-                mm.Is_open = false;
-                ContentControl.Content = viewModel?.Base;
-
-            }
-
-        }
-
-
-
     }
             
 }

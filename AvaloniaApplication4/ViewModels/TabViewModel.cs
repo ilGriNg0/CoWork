@@ -8,14 +8,6 @@ namespace AvaloniaApplication4.ViewModels;
 
 public partial class TabViewModel : ViewModelBase
 {
-    
-    public ICommand NavigateCardsCommand => new RelayCommand<string>(NavigateCards);
-    private static void NavigateCards(string? parametr)
-    {
-        MainWindowViewModel mainWindowViewModel = new();
-        mainWindowViewModel.Navigate(parametr);
-
-    }
     //TabView tb = new();
     //[ObservableProperty] private string _NameButton;
 

@@ -21,7 +21,6 @@
                               MinHeight="100"
                               MinWidth="250"
                               HorizontalAlignment="Left"
-                              PointerPressed="InputElement_OnPointerPressed"
                               >
                         <Grid  ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*" ShowGridLines="False">
 							<Border Grid.RowSpan="2"
@@ -97,7 +96,6 @@
                               MinHeight="100"
                               MinWidth="250"
                               HorizontalAlignment="Left"
-                              PointerPressed="InputElement_OnPointerPressed"
                               >
 			<Grid  ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*" ShowGridLines="False">
 				<Border Grid.RowSpan="2"
@@ -170,8 +168,7 @@
             CornerRadius="15"
             MinHeight="100"
             MinWidth="250"
-            HorizontalAlignment="Left"
-            PointerPressed="InputElement_OnPointerPressed">
+            HorizontalAlignment="Left">
 			<Grid  ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*" ShowGridLines="False">
 				<Border Grid.RowSpan="2"
 						Grid.ColumnSpan="4"
