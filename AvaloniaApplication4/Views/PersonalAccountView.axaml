@@ -19,14 +19,13 @@
 					<Border
 						HorizontalAlignment="Left"
 						BorderBrush="#D94D04"
-						Background="#D94D04"
-						BorderThickness="10"
+						BorderThickness="15"
 						Width="200"
 						Height="200"
 						ClipToBounds="True"
 						CornerRadius="270">
 						<Image
-							Source="../Assets/VZ.jpg"
+							Source="../Assets/nophoto.png"
 							Height="270"
 							Width="400">
 						</Image>
@@ -42,8 +41,8 @@
 							LineHeight="60"
 							FontFamily="Source Sans Pro"
 							HorizontalAlignment="Left"
-							VerticalAlignment="Center">
-							Имя
+							VerticalAlignment="Center"
+							Text="{Binding First}">
 						</TextBlock>
 
 						<TextBlock
@@ -55,8 +54,8 @@
 							LineHeight="60"
 							FontFamily="Source Sans Pro"
 							HorizontalAlignment="Left"
-							VerticalAlignment="Center">
-							Фамилия
+							VerticalAlignment="Center"
+							Text="{Binding Last}">
 						</TextBlock>
 
 						<TextBlock
@@ -68,8 +67,8 @@
 							LineHeight="60"
 							FontFamily="Source Sans Pro"
 							HorizontalAlignment="Left"
-							VerticalAlignment="Center">
-							Дата рождения
+							VerticalAlignment="Center"
+							Text="{Binding Date}">
 						</TextBlock>
 					</StackPanel>
 				</StackPanel>
@@ -78,21 +77,40 @@
 					Classes="Poleacc"
 					Margin="0 40 0 0"
 					Watermark="Email"
-					ToolTip.Tip="Пример: ivanivanov@gmail.com">
+					ToolTip.Tip="Пример: ivanivanov@gmail.com"
+					Text="{Binding Email}"
+					Foreground="#ffffff"
+					IsEnabled="False">
 				</TextBox>
 
 				<MaskedTextBox
 					Classes="Poleacc"
 					Mask="Телефон +7-000-000-00-00"
-					ToolTip.Tip="Пример +7-777-777-77-77">
+					ToolTip.Tip="Пример +7-777-777-77-77"
+					Text="{Binding Phone}"
+					Foreground="#ffffff"
+					IsEnabled="False">
 				</MaskedTextBox>
 
-				<TextBox
-					Classes="Poleacc"
-					Watermark="Пароль"
-					PasswordChar="*"
-					ToolTip.Tip="Минимум 8 символов Пример: Qwerty12@">
-				</TextBox>
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center"
+					Spacing="20">
+
+					<TextBox
+						Classes="Poleacc"
+						Watermark="Пароль"
+						ToolTip.Tip="Минимум 8 символов Пример: Qwerty12@"
+						Text="{Binding Password}"
+						Foreground="#ffffff"
+						IsEnabled="False"
+						Margin="50 0 0 0"
+						PasswordChar="{Binding Charac}">
+					</TextBox>
+					<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+					</CheckBox>
+				</StackPanel>
 
 				<TextBlock
 					VerticalAlignment="Center"
@@ -118,7 +136,8 @@
 					CornerRadius="50"
 					Height="70"
 					Width="400"
-					Margin="0 0 0 0">
+					Margin="0 0 0 0"
+					Click="Exit_Click">
 					Выйти
 					<Button.Styles>
 						<Style Selector="Button">
@@ -162,9 +181,12 @@
 						Будущие бронирования
 					</TextBlock>
 
+					<ScrollViewer
+						HorizontalScrollBarVisibility="Visible">
 					<StackPanel
 						Orientation="Horizontal"
-						Spacing="30">
+						Spacing="30"
+						Margin="0 0 0 20">
 						<Border
 							Width="350"
 							Height="350"
@@ -179,7 +201,22 @@
 							CornerRadius="50">
 
 						</Border>
+						<Border
+							Width="350"
+							Height="350"
+							Background="#D94D04"
+							CornerRadius="50">
+
+						</Border>
+						<Border
+							Height="350"
+							Width="350"
+							Background="#D94D04"
+							CornerRadius="50">
+
+						</Border>
 					</StackPanel>
+					</ScrollViewer>
 				</StackPanel>
 
 				<StackPanel
@@ -199,9 +236,26 @@
 						Прошедшие бронирования
 					</TextBlock>
 
+					<ScrollViewer
+						HorizontalScrollBarVisibility="Visible">
 					<StackPanel
 						Orientation="Horizontal"
-						Spacing="30">
+						Spacing="30"
+						Margin="0 0 0 20">
+						<Border
+							Height="350"
+							Width="350"
+							Background="#D94D04"
+							CornerRadius="50">
+
+						</Border>
+						<Border
+							Height="350"
+							Width="350"
+							Background="#D94D04"
+							CornerRadius="50">
+
+						</Border>
 						<Border
 							Height="350"
 							Width="350"
@@ -217,6 +271,7 @@
 
 						</Border>
 					</StackPanel>
+					</ScrollViewer>
 				</StackPanel>
 			</Grid>
 		</DockPanel>

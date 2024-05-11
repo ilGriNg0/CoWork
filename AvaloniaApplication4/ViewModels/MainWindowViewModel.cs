@@ -8,6 +8,8 @@ using System.Reactive.Concurrency;
 using System.Runtime.CompilerServices;
 using Avalonia.Media.Imaging;
 using Avalonia.Skia.Helpers;
+using AvaloniaApplication4.Models;
+using AvaloniaApplication4.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Npgsql;
 using ReactiveUI;
@@ -15,18 +17,18 @@ namespace AvaloniaApplication4.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        private readonly ObservableCollection<ListItemTemplate> items =
+        private ObservableCollection<ListItemTemplate>  items =
         [
            new ListItemTemplate(typeof(CardViewModel)),
            new ListItemTemplate(typeof(LoginViewModel)),
-           new ListItemTemplate(typeof(RegistrationViewModel)),
-           new ListItemTemplate(typeof(BusinessAccountViewModel)),
-           new ListItemTemplate(typeof(PersonalAccountViewModel))
         ];
-        [ObservableProperty]
-        private ViewModelBase _currentPage = new CardViewModel();
 
-       
+        //public ObservableCollection<ListItemTemplate> ItemTemplates { get; set; }
+
+        
+        [ObservableProperty]
+        public ViewModelBase _currentPage = new CardViewModel();
+
         [ObservableProperty] 
         private ListItemTemplate? _selectedListItem;
 
@@ -34,7 +36,12 @@ namespace AvaloniaApplication4.ViewModels
         partial void OnSelectedListItemChanged(ListItemTemplate? value)
         {
             if (value is null) return;
-            CurrentPage = (ViewModelBase)value.Instance;
+            if (value.Instance is LoginViewModel && User.Model != null) CurrentPage = User.Model;
+            else CurrentPage = (ViewModelBase)value.Instance;
+        }
+        public MainWindowViewModel()
+        {
+            User.Main = this;
         }
     }
 

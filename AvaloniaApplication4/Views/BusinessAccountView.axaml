@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" Background="#161616"
              x:Class="AvaloniaApplication4.Views.BusinessAccountView">
+	<ScrollViewer>
 	<Grid
-		ColumnDefinitions="2*, 3*"
+		RowDefinitions="*, *"
 		ShowGridLines="True">
 		<DockPanel
-			Grid.Column="0">
+			Grid.Row="0">
+			<Grid
+				ColumnDefinitions="2*, 3*"
+				ShowGridLines="True">
 			<StackPanel
 				DockPanel.Dock="Top"
 				Spacing="30">
@@ -20,18 +24,19 @@
 						HorizontalAlignment="Left"
 						BorderBrush="#D94D04"
 						Background="#D94D04"
-						BorderThickness="10"
+						BorderThickness="15"
 						Width="200"
 						Height="200"
 						ClipToBounds="True"
 						CornerRadius="270">
 						<Image
-							Source="../Assets/prosto.jpg"
+							x:Name="imagebus"
+							Source="../Assets/nophotos.jpg"
 							Height="270"
 							Width="400">
 						</Image>
 					</Border>
-
+					
 					<TextBlock
 						Foreground="#ffffff"
 						FontSize="60"
@@ -41,30 +46,52 @@
 						LineHeight="90"
 						FontFamily="Source Sans Pro"
 						HorizontalAlignment="Center"
-						VerticalAlignment="Center">
-						Название
+						VerticalAlignment="Center"
+						Text="{Binding Company}">
 					</TextBlock>
 				</StackPanel>
 
 				<TextBox
+					x:Name="Emailbus"
 					Classes="Poleacc"
 					Margin="0 40 0 0"
 					Watermark="Email компании"
-					ToolTip.Tip="Пример: owner@google.com">
+					ToolTip.Tip="Пример: owner@google.com"
+					Text="{Binding Email}"
+					IsEnabled="False"
+					Foreground="#ffffff">
 				</TextBox>
 
 				<MaskedTextBox
+					x:Name="Phonebus"
 					Classes="Poleacc"
 					Mask="Поддержка +7-000-000-00-00"
-					ToolTip.Tip="Пример: +7-000-000-00-00">
+					ToolTip.Tip="Пример: +7-000-000-00-00"
+					Text="{Binding Phone}"
+					IsEnabled="False"
+					Foreground="#ffffff">
 				</MaskedTextBox>
 
-				<TextBox
-					Classes="Poleacc"
-					Watermark="Пароль"
-					PasswordChar="*"
-					ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG">
-				</TextBox>
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center"
+					Spacing="20">
+					
+					<TextBox
+						x:Name="Passwordbus"
+						Classes="Poleacc"
+						Watermark="Пароль"
+						ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG"
+						Text="{Binding Password}"
+						IsEnabled="False"
+						Margin="50 0 0 0"
+						PasswordChar="{Binding Charac}"
+						Foreground="#ffffff">
+					</TextBox>
+					<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+					</CheckBox>
+				</StackPanel>
 
 				<TextBlock
 					VerticalAlignment="Center"
@@ -75,7 +102,8 @@
 					FontWeight="700"
 					LineHeight="50"
 					FontFamily="Gelion"
-					TextAlignment="Left">
+					TextAlignment="Left"
+					PointerPressed="Change_PointerPressed">
 					Изменить данные
 				</TextBlock>
 
@@ -89,7 +117,8 @@
 					CornerRadius="50"
 					Height="70"
 					Width="400"
-					Margin="0 0 0 0">
+					Margin="0 0 0 0"
+					Click="Exit_Click">
 					Выйти
 					<Button.Styles>
 						<Style Selector="Button">
@@ -101,67 +130,88 @@
 							<Setter Property="Foreground" Value="#ffffff" />
 						</Style>
 					</Button.Styles>
-					<Button.Transitions>
-						<Transitions>
-							<BrushTransition Property="Background" Duration="0:0:0.1"/>
-						</Transitions>
-					</Button.Transitions>
 				</Button>
 			</StackPanel>
-			
-			<StackPanel
-				HorizontalAlignment="Left"
-				VerticalAlignment="Center"
-				Margin="100 400 0 0"
-				Grid.Column="0"
-				Orientation="Horizontal"
-				Spacing="100">
-				<Border
-					Width="700"
-					Height="500"
-					Background="#D94D04"
-					CornerRadius="50">
-				</Border>
 
-				<Border
-					Width="700"
-					Height="500"
-					Background="#D94D04"
-					CornerRadius="50">
-				</Border>
-			</StackPanel>
+			<StackPanel
+				Grid.Column="1">
+					<TextBlock
+						Margin="0 50 0 0"
+						Foreground="#ffffff"
+						FontSize="40"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="90"
+						FontFamily="Source Sans Pro"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+						Будущие бронирования
+					</TextBlock>
+
+					<DataGrid
+						Margin="20"
+						Height="500"
+						ItemsSource="{Binding Bookings}"
+						AutoGenerateColumns="True"
+						IsReadOnly="True"
+						GridLinesVisibility="All"
+						FontSize="26"
+						FontFamily="Gelion"
+						Foreground="#D94D04"
+						BorderThickness="1"
+						BorderBrush="#ffffff">
+					</DataGrid>
+				</StackPanel>
+			</Grid>
 		</DockPanel>
 
+		<TextBlock
+			Grid.Row="1"
+						Margin="150 50 0 50"
+						Foreground="#ffffff"
+						FontSize="40"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="90"
+						FontFamily="Source Sans Pro"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top">
+			Ваши коворкинги
+		</TextBlock>
+		
+		<ScrollViewer
+			HorizontalScrollBarVisibility="Visible"
+			Grid.Row="1">
 		<StackPanel
-			Grid.Column="1"
-			Grid.Row="0">
-			<TextBlock
-				Margin="0 50 0 0"
-				Foreground="#ffffff"
-				FontSize="40"
-				FontWeight="700"
-				TextAlignment="Center"
-				LetterSpacing="0"
-				LineHeight="90"
-				FontFamily="Source Sans Pro"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center">
-				Будущие бронирования
-			</TextBlock>
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Margin="100 150 100 20"
+				Orientation="Horizontal"
+				Spacing="100">
+			<Border
+				Width="700"
+				Height="500"
+				Background="#D94D04"
+				CornerRadius="50">
+			</Border>
 
-			<DataGrid 
-				Margin="20"
-				ItemsSource="{Binding People}"
-				AutoGenerateColumns="True"
-				IsReadOnly="True"
-				GridLinesVisibility="All"
-				FontSize="26"
-				FontFamily="Gelion"
-				Foreground="#D94D04"
-				BorderThickness="1"
-				BorderBrush="#ffffff">
-			</DataGrid>
+			<Border
+				Width="700"
+				Height="500"
+				Background="#D94D04"
+				CornerRadius="50">
+			</Border>
+			
+			<Border
+				Width="700"
+				Height="500"
+				Background="#D94D04"
+				CornerRadius="50">
+			</Border>
 		</StackPanel>
-
+		</ScrollViewer>
 	</Grid>
+	</ScrollViewer>
 </UserControl>
