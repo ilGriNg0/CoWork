@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+			 xmlns:material="using:Material.Icons.Avalonia"
+             x:Class="AvaloniaApplication4.Views.TabView"
+             x:DataType="vm:TabViewModel">
+	<ScrollViewer HorizontalAlignment="Left">
+
+			<StackPanel
+			Orientation="Horizontal"  Background="Black">
+				<Border
+					Height="200"
+					Width="300"
+					Background="Azure"
+					CornerRadius="15"
+					Margin="10"
+					ClipToBounds="True">
+					<Grid RowDefinitions="*,*" ShowGridLines="True">
+						<Image Grid.Row="0"
+							   Source="/Assets/prosto.jpg"
+							   Stretch="UniformToFill">
+						</Image>
+						<StackPanel Grid.Row="1">
+							<TextBlock Text="Скоростной интренет" FontSize="12">
+								<material:MaterialIcon Width="20" Height="20" Kind="Wifi"/>
+							</TextBlock>
+							<TextBlock Text="Флипчарт" FontSize="12">
+								<material:MaterialIcon Width="20" Height="20" Kind="Presentation"/>	
+							</TextBlock>
+							<TextBlock Text="Услуга офис-менеджера" FontSize="12">
+								<material:MaterialIcon Width="20" Height="20" Kind="AccountHeart"/>
+							</TextBlock>
+							<Button x:Name="Button1" Command="{Binding NavigateCardsCommand}" CommandParameter="Card1ViewModel" CornerRadius="15" HorizontalAlignment="Stretch" Content="Buy" />
+							
+						</StackPanel>
+					</Grid>
+				</Border>
+				<Border
+				Height="200"
+				Width="300"
+				Background="Azure"
+				CornerRadius="15"
+				Margin="10">
+
+				</Border>
+				<Border
+				Height="200"
+				Width="300"
+				Background="Azure"
+				CornerRadius="15"
+				Margin="10">
+
+				</Border>
+				<Border
+				Height="200"
+				Width="300"
+				Background="Azure"
+				CornerRadius="15"
+				Margin="10">
+
+				</Border>
+				<Border
+				Height="200"
+				Width="300"
+				Background="Azure"
+				CornerRadius="15"
+				Margin="10">
+
+				</Border>
+			</StackPanel>
+	
+		
+	</ScrollViewer>
+</UserControl>

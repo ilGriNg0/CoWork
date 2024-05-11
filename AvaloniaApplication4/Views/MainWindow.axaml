@@ -16,26 +16,18 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
     <SplitView PaneBackground="#9C9C9C"
-               Background="#434B4D"
+               Background="Black"
                PanePlacement="Left"
                DisplayMode="CompactInline"
-			   CompactPaneLength="100">
+			   x:Name="SplitView">
         <SplitView.Pane>
             <StackPanel>
-               <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
-                   <ListBox.ItemTemplate>
-                       <DataTemplate DataType="{x:Type vm:ListItemTemplate}">
-                           <StackPanel Orientation="Horizontal">
-							   <TextBlock Text="{Binding Label}"></TextBlock>
-                           </StackPanel>
-                       </DataTemplate>
-                   </ListBox.ItemTemplate>
-               </ListBox>
+				<Button Content="Home" Command="{Binding NavigateCommand}" CommandParameter="CardViewModel"/>
             </StackPanel>
         </SplitView.Pane>
         <SplitView.Content>
             <Border>
-                <TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
+                <TransitioningContentControl x:Name="Control_page" Content="{Binding Page}"></TransitioningContentControl>
             </Border>
         </SplitView.Content>
     </SplitView>

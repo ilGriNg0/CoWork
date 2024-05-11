@@ -2,7 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="AvaloniaApplication4.App"
              xmlns:local="using:AvaloniaApplication4"
-             RequestedThemeVariant="Light">
+             xmlns:material="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
@@ -11,6 +12,7 @@
   
     <Application.Styles>
         <FluentTheme />
+		<material:MaterialIconStyles/>
         <StyleInclude Source="avares://AvaloniaApplication4/Icons.axaml"></StyleInclude>
 		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"></StyleInclude>
     </Application.Styles>
