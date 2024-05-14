@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+			 x:Class="AvaloniaApplication4.Views.AddCardView"
+			 x:DataType="vm:AddCardViewModel">
+	<ScrollViewer>
+		<Border Background="#1c1c1c" CornerRadius="30">
+			<Grid Margin="10" RowDefinitions="*,*,*" ColumnDefinitions="*,*,*" ShowGridLines="True">
+				<Border Padding="" Grid.Row="1" CornerRadius="30" Grid.ColumnSpan="3" Background="Orange">
+					<Grid RowDefinitions="*,*" ColumnDefinitions="*,3*" ShowGridLines="True">
+						<StackPanel Grid.Column="1" Grid.Row="0">
+							<TextBlock Grid.Column="1" Grid.Row="0" Text="Name cowork"></TextBlock>
+							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Name_cowork, Mode=TwoWay}"></TextBox>
+						</StackPanel>
+						<StackPanel Grid.Column="1" Grid.Row="1">
+							<TextBlock Grid.Column="1" Grid.Row="0" Text="Info cowork"></TextBlock>
+							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Info_cowork, Mode=TwoWay}"></TextBox>
+						</StackPanel>
+					</Grid>
+				</Border>
+				<Border Margin="20" Grid.Row="2" CornerRadius="30"  Background="Orange">
+					<Grid RowDefinitions="*,*,*" ShowGridLines="False">
+						<StackPanel Margin="7" Grid.Column="1" Grid.Row="0">
+							<TextBlock  Grid.Column="1" Grid.Row="0" Text="Бронь на 1 персону cowork"></TextBlock>
+							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_day_cowork, Mode=TwoWay}"></TextBox>
+						</StackPanel>
+						<StackPanel Margin="7" Grid.Column="1" Grid.Row="1">
+							<TextBlock Grid.Column="1" Grid.Row="0" Text="Переговорная цена cowork"></TextBlock>
+							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_meetingroom_cowork, Mode=TwoWay}"></TextBox>
+						</StackPanel>
+						<StackPanel Margin="7" Grid.Column="1" Grid.Row="2">
+							<TextBlock Grid.Column="1" Grid.Row="0" Text="Метро cowork"></TextBlock>
+							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Location_metro_cowork, Mode=TwoWay}"></TextBox>
+						</StackPanel>
+					</Grid>
+				</Border>
+				<Border Margin="20" Grid.Row="2" Grid.Column="1" CornerRadius="30"  Background="Orange">
+					<Grid RowDefinitions="*,*,*" ShowGridLines="True">
+						<StackPanel Grid.Row="1">
+							<TextBlock Grid.Column="1" Grid.Row="" Text="Доп услуги cowork"></TextBlock>
+							<TextBox Grid.Column="1" Grid.Row="0"></TextBox>
+						</StackPanel>
+					</Grid>
+				</Border>
+				<StackPanel  Grid.Row="2" Grid.Column="3">
+					<TextBlock Text="{Binding ErrorMessage}" Foreground="Red"></TextBlock>
+					<Button Command="{Binding SaveCommand}" CommandParameter="" Grid.Row="2" Grid.Column="3" Width="50" Height="30" Background="Orange" HorizontalAlignment="Center" Content="Save"></Button>
+				</StackPanel>
+				
+			</Grid>
+		</Border>
+	</ScrollViewer>
+</UserControl>

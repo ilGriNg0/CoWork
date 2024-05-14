@@ -33,7 +33,7 @@
 							<TextBlock Text="Услуга офис-менеджера" FontSize="12">
 								<material:MaterialIcon Width="20" Height="20" Kind="AccountHeart"/>
 							</TextBlock>
-							<Button x:Name="Button1" Command="{Binding NavigateCardsCommand}" CommandParameter="Card1ViewModel" CornerRadius="15" HorizontalAlignment="Stretch" Content="Buy" />
+							<Button x:Name="Button1" Command="{Binding NavigateCardsCommand}" CommandParameter="Card2ViewModel"  CornerRadius="15" HorizontalAlignment="Stretch" Content="Buy" />
 							
 						</StackPanel>
 					</Grid>

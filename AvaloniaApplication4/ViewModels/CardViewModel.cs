@@ -1,9 +1,13 @@
 ﻿
+using Avalonia.Controls;
 using Avalonia.Controls.Documents;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 
 namespace AvaloniaApplication4.ViewModels;
 
@@ -18,6 +22,11 @@ public partial class CardViewModel : ViewModelBase
     [ObservableProperty]
     private ViewModelBase _base3_card = new Card2ViewModel();
 
+    
+
+    [ObservableProperty]
+    private ViewModelBase _card_add = new AddCardViewModel();
+    
     ConnectingBD connecting = new();
 
     [ObservableProperty]
@@ -34,10 +43,38 @@ public partial class CardViewModel : ViewModelBase
 
     [ObservableProperty]
     private List<JsonClass> _border3 = new();
+
+    public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
+
+    public string Namespace()
+    {
+        Type tp = typeof(CardViewModel);
+        string? yNameSpc = tp.Namespace;
+        return yNameSpc;
+    }
+
+   
+   
+ 
     public CardViewModel()
     {
         connecting.ReadBd();
         OnDataLoad();
+    }
+    public void Navigate(string? pageViewModel)
+    {
+        var main = MainWindowViewModel.Instance;
+
+        main.Navigate(pageViewModel);
+        //string namspc = Namespace();
+        //Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
+
+        //if (viewModelType != null)
+        //{
+        //    ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
+        //    Base = viewModel;
+
+        //}
     }
     public void OnDataLoad()
     {

@@ -11,7 +11,7 @@ public partial class DockPanelViewModel : ViewModelBase
 {
     ConnectingBD connecting = new ConnectingBD();
     [ObservableProperty]
-    private Dictionary<int, List<JsonClass>> _data;
+    private Dictionary<int, List<JsonClass>>? _data;
 
     [ObservableProperty]
     private List<JsonClass> _peopleCollection = new();
@@ -30,7 +30,7 @@ public partial class DockPanelViewModel : ViewModelBase
 
         foreach (var item in Data)
         {
-            PeopleCollection.AddRange(item.Value.Where(p => p.Id > 0 && p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty));
+            PeopleCollection.AddRange(item.Value.Where(p => p.Id == 1));
             //var Items = item.Value.Where(p => p.Id > 0 && p.Name != string.Empty);
             //foreach (var collect in Items)
             //{
@@ -38,7 +38,6 @@ public partial class DockPanelViewModel : ViewModelBase
             //}
         }
         add();
-
     }
     public void add()
     {

@@ -15,6 +15,8 @@ using AvaloniaApplication4.ViewModels;
 using CommunityToolkit.Mvvm.Input;
 using AvaloniaApplication4.Views;
 using System.Windows.Input;
+using Avalonia.Controls;
+using System.Reflection.Metadata.Ecma335;
 
 namespace AvaloniaApplication4.ViewModels
 {
@@ -23,18 +25,47 @@ namespace AvaloniaApplication4.ViewModels
         ////public Bitmap? Image_bitmap_source { get; } = ImageLoad.Load("/Assets/prosto.jpg");
         [ObservableProperty]
         private ViewModelBase _page = new CardViewModel();
-       
+
         [ObservableProperty]
         private static bool is_open = true;
 
         [ObservableProperty]
         private CardModel? _cardOpen;
 
+        [ObservableProperty]
+        private string? _content;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event Action<string>? ContentUpdate;
+        public void update(string? content)
+        {
+            string namspc = Namespace();
+            Type viewModelType = Type.GetType(namspc + "." + content);
+            ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
+            Page = null;
+
+        }
+        private static MainWindowViewModel? _instance;
        
-        private static string Namespace()
+        public static MainWindowViewModel Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new MainWindowViewModel();
+                }
+                return _instance;
+            }
+         
+
+        }
+  
+
+        public  string Namespace()
         {
             Type tp = typeof(MainWindowViewModel);
-            string yNameSpc = tp.Namespace;
+            string? yNameSpc = tp.Namespace;
             return yNameSpc;
         }
         public ICommand NavigateCommand => new RelayCommand<string>(Navigate);

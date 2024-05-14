@@ -1,8 +1,10 @@
 ﻿using AvaloniaApplication4.ViewModels;
 using Newtonsoft.Json;
 using Npgsql;
+using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +19,20 @@ namespace AvaloniaApplication4.Models
         public event Action<Dictionary<int, List<JsonClass>>>? DataLoaded;
 
 
-
+        public async Task WriteBd(ObservableCollection<JsonClass> collection)
+        {
+            var json_collect = JsonConvert.SerializeObject(collection);
+            await using (var connect = new NpgsqlConnection(connect_host))
+            {
+                connect.Open();
+                string command_add = "INSERT INTO json_cards_info (json_cards) VALUES (@json)";
+                await using (var command = new NpgsqlCommand(command_add, connect))
+                {
+                    command.Parameters.Add(new NpgsqlParameter("@json", NpgsqlDbType.Json) { Value = json_collect });
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
 
         public async Task ReadBd()
         {

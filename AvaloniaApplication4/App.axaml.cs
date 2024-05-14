@@ -19,7 +19,7 @@ namespace AvaloniaApplication4
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = MainWindowViewModel.Instance,
                 };
             }
 

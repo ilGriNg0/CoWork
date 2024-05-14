@@ -1,6 +1,9 @@
-﻿using AvaloniaApplication4.Views;
+﻿using Avalonia.Controls;
+using AvaloniaApplication4.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Input;
 using System.Xml.Serialization;
 
@@ -8,12 +11,36 @@ namespace AvaloniaApplication4.ViewModels;
 
 public partial class TabViewModel : ViewModelBase
 {
-    
+    public static MainWindowViewModel mainWindowViewModel1;
+ 
+    public ICommand ReqUpdCommand { get; set; }
+    public TabViewModel(MainWindowViewModel mainWindowViewModel)
+    {
+        mainWindowViewModel1 = mainWindowViewModel;
+        ReqUpdCommand = new RelayCommand(ReqUpd);
+    }
+    private void ReqUpd()
+    {
+        mainWindowViewModel1.update("CardViewModel");
+    }
+    public TabViewModel() { }
     public ICommand NavigateCardsCommand => new RelayCommand<string>(NavigateCards);
     private static void NavigateCards(string? parametr)
     {
         MainWindowViewModel mainWindowViewModel = new();
-        //mainWindowViewModel.Navigate(parametr);
+        string namspc = mainWindowViewModel.Namespace();
+        Type viewModelType = Type.GetType(namspc + "." + parametr);
+
+        if (viewModelType != null)
+        {
+            var viewModel = Activator.CreateInstance(viewModelType);
+            if(viewModel is ViewModelBase vm) 
+            {
+                mainWindowViewModel.Page = (ViewModelBase)viewModel;
+            }
+          
+           
+        }
 
     }
     //TabView tb = new();
@@ -53,4 +80,23 @@ public partial class TabViewModel : ViewModelBase
     //    TabViewModel tabViewModel = new(); 
 
     //}
+    public class RelayCommand : ICommand
+    {
+        private readonly Action _execute;
+
+        public RelayCommand(Action execute)
+        {
+            _execute = execute;
+        }
+
+        public bool CanExecute(object parameter) => true;
+
+        public void Execute(object parameter)
+        {
+            _execute();
+        }
+
+        public event EventHandler? CanExecuteChanged;
+    }
+
 }

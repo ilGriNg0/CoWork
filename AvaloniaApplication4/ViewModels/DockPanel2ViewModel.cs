@@ -24,7 +24,7 @@ namespace AvaloniaApplication4.ViewModels
         private List<JsonClass> _border2 = new();
         public DockPanel2ViewModel()
         {
-           connecting.ReadBd();
+            connecting.ReadBd();
             OnDataLoad();
         }
         public void OnDataLoad()
@@ -34,7 +34,7 @@ namespace AvaloniaApplication4.ViewModels
 
             foreach (var item in Data)
             {
-                PeopleCollection.AddRange(item.Value.Where(p => p.Id > 0 && p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty));
+                PeopleCollection.AddRange(item.Value.Where(p => p.Id==2));
                 //var Items = item.Value.Where(p => p.Id > 0 && p.Name != string.Empty);
                 //foreach (var collect in Items)
                 //{
