@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Add Resources Here -->
+	<Style x:Key="Styles" Selector="Button">
+		<Setter Property="Background" Value="Orange"></Setter>
+	</Style>
+	<SolidColorBrush x:Key="Warning">Yellow</SolidColorBrush>
+</ResourceDictionary>

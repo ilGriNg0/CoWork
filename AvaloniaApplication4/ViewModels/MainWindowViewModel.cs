@@ -35,8 +35,7 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string? _content;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        public event Action<string>? ContentUpdate;
+        
         public void update(string? content)
         {
             string namspc = Namespace();
@@ -86,7 +85,7 @@ namespace AvaloniaApplication4.ViewModels
        
        
     }
-   public partial  class JsonClass : ObservableObject
+   public partial class JsonClass : ObservableObject
     {
         [ObservableProperty]
         private int _id;
@@ -103,10 +102,12 @@ namespace AvaloniaApplication4.ViewModels
         private string? _price_day_cowork;
         [ObservableProperty]
         private string? _price_meetingroom_cowork;
-    
-
+        [ObservableProperty]
+        private string? _path_photo;
 
     }
+
+    
 }
 
 

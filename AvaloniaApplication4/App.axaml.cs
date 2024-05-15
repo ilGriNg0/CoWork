@@ -1,8 +1,12 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
 using AvaloniaApplication4.Views;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
 
 namespace AvaloniaApplication4
 {
@@ -21,9 +25,14 @@ namespace AvaloniaApplication4
                 {
                     DataContext = MainWindowViewModel.Instance,
                 };
+             
+            
+                
             }
 
             base.OnFrameworkInitializationCompleted();
         }
+       
     }
+  
 }

@@ -4,11 +4,47 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+			 xmlns:material="using:Material.Icons.Avalonia"
 			 x:Class="AvaloniaApplication4.Views.AddCardView"
 			 x:DataType="vm:AddCardViewModel">
 	<ScrollViewer>
 		<Border Background="#1c1c1c" CornerRadius="30">
 			<Grid Margin="10" RowDefinitions="*,*,*" ColumnDefinitions="*,*,*" ShowGridLines="True">
+
+				<Button Background="#cccccc" Command="{Binding AddPhotoCommand}" CommandParameter="" CornerRadius="20"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
+					<TextBlock Text="Добавить фото">
+						<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
+					</TextBlock>
+					
+				</Button>
+				<Border   Grid.Column="1" Grid.Row="0">
+					<Grid RowDefinitions="*,*">
+						<Button Background="#cccccc" CornerRadius="20" Grid.Row="0" HorizontalAlignment="Center">
+							<TextBlock Text="Добавить фото">
+								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
+							</TextBlock>
+						</Button>
+						<Button Background="#cccccc" CornerRadius="20" Grid.Row="1" HorizontalAlignment="Center">
+							<TextBlock Text="Добавить фото">
+								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
+							</TextBlock>
+						</Button>
+					</Grid>
+				</Border>
+				<Border  Grid.Column="2" Grid.Row="0">
+					<Grid RowDefinitions="*,*">
+						<Button Background="#cccccc" CornerRadius="20" Grid.Row="0" HorizontalAlignment="Center">
+							<TextBlock Text="Добавить фото">
+								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
+							</TextBlock>
+						</Button>
+						<Button Background="#cccccc" CornerRadius="20" Grid.Row="1" HorizontalAlignment="Center">
+							<TextBlock Text="Добавить фото">
+								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
+							</TextBlock>
+						</Button>
+					</Grid>
+				</Border>
 				<Border Padding="" Grid.Row="1" CornerRadius="30" Grid.ColumnSpan="3" Background="Orange">
 					<Grid RowDefinitions="*,*" ColumnDefinitions="*,3*" ShowGridLines="True">
 						<StackPanel Grid.Column="1" Grid.Row="0">
@@ -47,7 +83,7 @@
 				</Border>
 				<StackPanel  Grid.Row="2" Grid.Column="3">
 					<TextBlock Text="{Binding ErrorMessage}" Foreground="Red"></TextBlock>
-					<Button Command="{Binding SaveCommand}" CommandParameter="" Grid.Row="2" Grid.Column="3" Width="50" Height="30" Background="Orange" HorizontalAlignment="Center" Content="Save"></Button>
+					<Button CornerRadius="20" Command="{Binding SaveCommand}" CommandParameter="" Grid.Row="2" Grid.Column="3" Width="50" Height="30" Background="#cccccc" HorizontalAlignment="Center" Content="Save"></Button>
 				</StackPanel>
 				
 			</Grid>
