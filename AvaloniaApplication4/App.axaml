@@ -20,6 +20,6 @@
         <FluentTheme />
 		<material:MaterialIconStyles/>
         <StyleInclude Source="avares://AvaloniaApplication4/Icons.axaml"></StyleInclude>
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"></StyleInclude>
     </Application.Styles>
-            
 </Application>

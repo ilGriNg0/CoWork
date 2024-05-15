@@ -1,0 +1,255 @@
+	<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:AvaloniaApplication4.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+             x:Class="AvaloniaApplication4.Views.LoginView"
+			 x:DataType="vm:LoginViewModel">
+	<Grid
+		ColumnDefinitions="*,*"
+		ShowGridLines="True">
+		<DockPanel
+			Background="#D94D04"
+			Grid.Column="0">
+			<Grid
+				RowDefinitions="2*,*"
+				ShowGridLines="True">
+				
+				<!--Изображенние-->
+				<Image
+					Grid.Row="0"
+					DockPanel.Dock="Top"
+					Source="../Assets/table.png"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Bottom"
+					Height="400"
+					Margin="200 0 200 50">
+				</Image>
+
+				<!--Надпись-->
+				<StackPanel
+					Grid.Row="1">
+					<TextBlock
+						DockPanel.Dock="Bottom"
+					
+						Foreground="#ffffff"
+						FontSize="32"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="38"
+						FontFamily="Source Sans Pro">
+						CoWorkNow - Найди свое <LineBreak/>Идеальное рабочее место.
+					</TextBlock>
+				
+					<TextBlock
+						DockPanel.Dock="Bottom"
+						Foreground="#ffffff"
+						FontSize="18"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						FontFamily="Gelion"
+						Margin="20">
+						Открывай и бронируй сейчас.
+					</TextBlock>
+				</StackPanel>
+			</Grid>
+		</DockPanel>
+
+		<Grid
+			Grid.Column="1"
+			ColumnDefinitions="1.5*, 2*, 1.5*"
+			RowDefinitions="*, 2*, *"
+			ShowGridLines="True"
+			Background="#161616">
+			
+			<!--Название-->
+			<StackPanel
+				Grid.Column="2"
+				Grid.Row="0"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center">
+				<TextBlock
+					Foreground="#ffffff"
+					FontSize="32"
+					FontWeight="700"
+					TextAlignment="Center"
+					LetterSpacing="0"
+					LineHeight="38"
+					FontFamily="Source Sans Pro"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center">
+					CoWork
+				</TextBlock>
+
+				<TextBlock
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center"
+					Foreground="#ffffff"
+					FontSize="15"
+					FontWeight="700"
+					TextAlignment="Center"
+					LetterSpacing="0"
+					FontFamily="Gelion">
+					Explore Spaces
+				</TextBlock>
+			</StackPanel>
+
+			<!--Поля и надписи-->
+			<StackPanel
+				Grid.Column="1"
+				Grid.Row="1">
+
+				<!--Логин-->
+				<TextBlock
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#ffffff"
+					FontSize="32"
+					FontWeight="700"
+					LineHeight="50"
+					FontFamily="Source Sans Pro"
+				
+					TextAlignment="Left">
+					Вход
+				</TextBlock>
+
+				<TextBlock
+					Margin="0 20"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#ffffff"
+					FontSize="18"
+					FontFamily="Gelion">
+					Email аккаунта
+				</TextBlock>
+
+				<TextBox
+					x:Name="Emaillog"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					FontSize="18"
+					FontFamily="Gelion"
+					
+					TextAlignment="Left"
+					CornerRadius="50"
+					Height="50"
+					Width="352"
+					Margin="0 0 0 0"
+					VerticalContentAlignment="Center"
+					Watermark="Введите email"
+					AcceptsReturn="False"
+					MaxLines="1">
+				</TextBox>
+
+				<TextBlock
+					Margin="0 20"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#ffffff"
+					FontSize="18"
+					FontFamily="Gelion">
+					Пароль аккаунта
+				</TextBlock>
+
+				<TextBox
+					x:Name="Passwordlog"
+					Margin="0 0 0 10"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					FontSize="18"
+					FontFamily="Gelion"
+					
+					TextAlignment="Left"
+					CornerRadius="50"
+					Height="50"
+					Width="352"
+					VerticalContentAlignment="Center"
+					Watermark="Введите пароль"
+					AcceptsReturn="False"
+					MaxLines="1"
+					PasswordChar="*">
+				</TextBox>
+				
+				<TextBlock
+					x:Name="Error1log"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#D94D04"
+					FontSize="15"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="30"
+					FontFamily="Gelion"
+					IsVisible="False"
+					TextAlignment="Left">
+					На этот email нет регистрации.
+				</TextBlock>
+				
+				<TextBlock
+					x:Name="Error2log"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#D94D04"
+					FontSize="15"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="30"
+					FontFamily="Gelion"
+					IsVisible="False"
+					TextAlignment="Left">
+					Требуется другой пароль.
+				</TextBlock>
+				
+				<!--Кнопка-->
+				<Button
+					Margin="0 5"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					FontSize="18"
+					FontFamily="Gelion"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+		
+					CornerRadius="50"
+					Height="60"
+					Width="352"
+					Click="Login_Click">
+					Войти
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#ffffff" />
+							<Setter Property="Foreground" Value="#161616" />
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#D94D04" />
+							<Setter Property="Foreground" Value="#ffffff" />
+						</Style>
+					</Button.Styles>
+					<Button.Transitions>
+						<Transitions>
+							<BrushTransition Property="Background" Duration="0:0:0.1"/>
+						</Transitions>
+					</Button.Transitions>
+				</Button>
+
+				<TextBlock
+					VerticalAlignment="Center"
+					HorizontalAlignment="Left"
+					Foreground="#ffffff"
+					FontSize="15"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="50"
+					FontFamily="Gelion"
+					PointerPressed="Forgot_PointerPressed"
+					TextAlignment="Left">
+					Забыли свой пароль?
+				</TextBlock>
+			</StackPanel>
+
+		</Grid>
+	</Grid>
+</UserControl>

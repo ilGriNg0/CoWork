@@ -1,0 +1,461 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" 
+             x:Class="AvaloniaApplication4.Views.RegistrationView">
+	<DockPanel
+		Background="#161616">
+		<Grid
+			RowDefinitions="2*, *, 12*, 2*"
+			ShowGridLines="True">
+			
+			<!--Надпись-->
+			<TextBlock
+				DockPanel.Dock="Top"
+				Grid.Row="0"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Bottom"
+				Foreground="#ffffff"
+				FontSize="45"
+				FontWeight="700"
+				TextAlignment="Center"
+				LetterSpacing="0"
+				LineHeight="70"
+				FontFamily="Source Sans Pro">
+				Выбери свою сторону
+			</TextBlock>
+
+			<!--Название компании-->
+			<StackPanel
+				Grid.Row="0"
+				Margin="30"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom">
+				
+				<TextBlock
+					Foreground="#ffffff"
+					FontSize="32"
+					FontWeight="700"
+					TextAlignment="Center"
+					LetterSpacing="0"
+					LineHeight="38"
+					FontFamily="Source Sans Pro"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center">
+					CoWork
+				</TextBlock>
+
+				<TextBlock
+					HorizontalAlignment="Right"
+					VerticalAlignment="Center"
+					Foreground="#ffffff"
+					FontSize="15"
+					FontWeight="700"
+					TextAlignment="Center"
+					LetterSpacing="0"
+					FontFamily="Gelion">
+					Explore Spaces
+				</TextBlock>
+			</StackPanel>
+			
+			<Grid
+				Grid.Row="2"
+				ColumnDefinitions="4*, 5*, 2*, 5*, 4*"
+				ShowGridLines="True">
+
+				<!--Первая карточка-->
+				<Border
+					x:Name="woodcutter"
+					Grid.Column="1"
+					Background="#D94D04"
+					CornerRadius="50"
+					IsVisible="True">
+					<DockPanel>
+						<StackPanel
+							DockPanel.Dock="Top">
+							
+							<TextBlock
+								Margin="30"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="28"
+								FontWeight="700"
+								LineHeight="36"
+								FontFamily="Source Sans Pro"
+								TextAlignment="Left">
+								Создай свое <LineBreak/>Идеальное место.
+							</TextBlock>
+
+							<Image
+								DockPanel.Dock="Left"
+								Source="../Assets/woodcutter.png"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Margin="80 40 80 55">
+							</Image>
+						</StackPanel>
+						
+						<Button
+							Margin="50 0 50 30"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							FontSize="18"
+							FontFamily="Gelion"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							CornerRadius="50"
+							Height="60"
+							Width="300"
+							Click="Create_Click">
+							Создать
+							
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="#ffffff" />
+									<Setter Property="Foreground" Value="#161616" />
+								</Style>
+								<Style Selector="Button:pointerover /template/ ContentPresenter">
+									<Setter Property="Background" Value="#161616" />
+									<Setter Property="Foreground" Value="#ffffff" />
+								</Style>
+							</Button.Styles>
+							
+							<Button.Transitions>
+								<Transitions>
+									<BrushTransition Property="Background" Duration="0:0:0.1"/>
+								</Transitions>
+							</Button.Transitions>
+							
+						</Button>
+					</DockPanel>
+				</Border>
+
+				<!--Дубликат первой карточки-->
+				<Border
+					x:Name="woodcutter1"
+					Grid.Column="1"
+					Background="#D94D04"
+					CornerRadius="50"
+					IsVisible="False">
+					<DockPanel>
+						<StackPanel
+							DockPanel.Dock="Top">
+
+							<TextBlock
+								Margin="30 30 30 50"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="28"
+								FontWeight="700"
+								LineHeight="36"
+								FontFamily="Source Sans Pro"
+								TextAlignment="Left">
+								Создай свое <LineBreak/>Идеальное место.
+							</TextBlock>
+
+							<!--Поля бизнеса-->
+							<TextBox
+								x:Name="Namebus"
+								Classes="Pole"
+								Watermark="Название компании"
+								ToolTip.Tip="Пример: Google"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+							
+							<TextBox
+								x:Name="Emailbus"
+								Classes="Pole"
+								Watermark="Email компании"
+								ToolTip.Tip="Пример: owner@google.com"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+
+							<MaskedTextBox
+								x:Name="Phonebus"
+								Classes="Pole"
+								Mask="Поддержка +7-000-000-00-00"
+								ToolTip.Tip="Пример: +7-000-000-00-00"
+								TextChanged="TextBox_TextChanged">
+							</MaskedTextBox>
+
+							<TextBox
+								x:Name="Password1bus"
+								Classes="Pole"
+								Watermark="Пароль"
+								PasswordChar="*"
+								ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+
+							<TextBox
+								x:Name="Password2bus"
+								Classes="Pole"
+								Watermark="Пароль еще раз"
+								PasswordChar="*"
+								ToolTip.Tip="Повторите пароль"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+
+							<TextBlock
+								x:Name="Errorbus"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="15"
+								FontStyle="Italic"
+								FontWeight="700"
+								LineHeight="50"
+								FontFamily="Gelion"
+								Margin="0 15 0 0"
+								IsVisible="False"
+								TextAlignment="Left">
+								На этот email уже есть регистрация.
+							</TextBlock>
+						</StackPanel>
+
+						<Button
+							Margin="50 0 50 30"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							FontSize="18"
+							FontFamily="Gelion"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							CornerRadius="50"
+							Height="60"
+							Width="300"
+							Click="Create_all_Click">
+							Создать
+
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="#ffffff" />
+									<Setter Property="Foreground" Value="#161616" />
+								</Style>
+								<Style Selector="Button:pointerover /template/ ContentPresenter">
+									<Setter Property="Background" Value="#161616" />
+									<Setter Property="Foreground" Value="#ffffff" />
+								</Style>
+							</Button.Styles>
+
+							<Button.Transitions>
+								<Transitions>
+									<BrushTransition Property="Background" Duration="0:0:0.1"/>
+								</Transitions>
+							</Button.Transitions>
+
+						</Button>
+					</DockPanel>
+				</Border>
+
+				<!--Вторая карточка-->
+				<Border
+					x:Name="spaceman"
+					Grid.Column="3"
+					Background="#D94D04"
+					CornerRadius="50"
+					IsVisible="True">
+					
+					<DockPanel>
+						<StackPanel
+							DockPanel.Dock="Top">
+							
+							<TextBlock
+								Margin="30"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="28"
+								FontWeight="700"
+								LineHeight="36"
+								FontFamily="Source Sans Pro"
+								TextAlignment="Left">
+								Найди себя в<LineBreak/>креативной среде.
+							</TextBlock>
+							
+							<Image
+								DockPanel.Dock="Left"
+								Source="../Assets/spaceman.png"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Margin="20 0 80 55">
+							</Image>
+						</StackPanel>
+
+						<Button
+							Margin="50 -20 50 30"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							FontSize="18"
+							FontFamily="Gelion"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							CornerRadius="50"
+							Height="60"
+							Width="300"
+							Click="Find_Click">
+							Найти
+
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="#ffffff" />
+									<Setter Property="Foreground" Value="#161616" />
+								</Style>
+								<Style Selector="Button:pointerover /template/ ContentPresenter">
+									<Setter Property="Background" Value="#161616" />
+									<Setter Property="Foreground" Value="#ffffff" />
+								</Style>
+							</Button.Styles>
+
+							<Button.Transitions>
+								<Transitions>
+									<BrushTransition Property="Background" Duration="0:0:0.1"/>
+								</Transitions>
+							</Button.Transitions>
+
+						</Button>
+					</DockPanel>
+				</Border>
+
+				<!--Дубликат второй карточки-->
+				<Border
+					x:Name="spaceman1"
+					Grid.Column="3"
+					Background="#D94D04"
+					CornerRadius="50"
+					IsVisible="False">
+
+					<DockPanel>
+						<StackPanel
+							DockPanel.Dock="Top">
+
+							<TextBlock
+								Margin="30 30 30 10"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="28"
+								FontWeight="700"
+								LineHeight="36"
+								FontFamily="Source Sans Pro"
+								TextAlignment="Left">
+								Найди себя в<LineBreak/>креативной среде.
+							</TextBlock>
+
+							<!--Поля персоны-->
+							<TextBox
+								x:Name="Firstper"
+								Classes="Pole"
+								Watermark="Имя"
+								ToolTip.Tip="Пример: Иван"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+
+							<TextBox
+								x:Name="Lastper"
+								Classes="Pole"
+								Watermark="Фамилия"
+								ToolTip.Tip="Пример: Иванов"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+							
+							<TextBox
+								x:Name="Emailper"
+								Classes="Pole"
+								Watermark="Email"
+								ToolTip.Tip="Пример: ivanivanov@gmail.com"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+							
+							<MaskedTextBox
+								x:Name="Phoneper"
+								Classes="Pole"
+								Mask="Телефон +7-000-000-00-00"
+								ToolTip.Tip="Пример +7-777-777-77-77"
+								TextChanged="TextBox_TextChanged">
+							</MaskedTextBox>
+
+							<MaskedTextBox
+								x:Name="Dateper"
+								Classes="Pole"
+								Mask="Дата рождения 90/90/0000"
+								ToolTip.Tip="Пример: 20.20.2020"
+								TextChanged="TextBox_TextChanged">
+							</MaskedTextBox>
+							
+							<TextBox
+								x:Name="Password1per"
+								Classes="Pole"
+								Watermark="Пароль"
+								PasswordChar="*"
+								ToolTip.Tip="Минимум 8 символов Пример: Qwerty12@"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+
+							<TextBox
+								x:Name="Password2per"
+								Classes="Pole"
+								Watermark="Пароль еще раз"
+								PasswordChar="*"
+								ToolTip.Tip="Повторите пароль"
+								TextChanged="TextBox_TextChanged">
+							</TextBox>
+							
+							<TextBlock
+								x:Name="Errorper"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								Foreground="#ffffff"
+								FontSize="15"
+								FontStyle="Italic"
+								FontWeight="700"
+								LineHeight="20"
+								FontFamily="Gelion"
+								Margin="0 15 0 0"
+								IsVisible="False"
+								TextAlignment="Left">
+								На этот email уже есть регистрация.
+							</TextBlock>
+						</StackPanel>
+						
+						<Button
+							Margin="50 0 50 30"
+							VerticalAlignment="Bottom"
+							HorizontalAlignment="Center"
+							FontSize="18"
+							FontFamily="Gelion"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							CornerRadius="50"
+							Height="60"
+							Width="300"
+							Click="Find_all_Click">
+							Найти
+
+							<Button.Styles>
+								<Style Selector="Button">
+									<Setter Property="Background" Value="#ffffff" />
+									<Setter Property="Foreground" Value="#161616" />
+								</Style>
+								<Style Selector="Button:pointerover /template/ ContentPresenter">
+									<Setter Property="Background" Value="#161616" />
+									<Setter Property="Foreground" Value="#ffffff" />
+								</Style>
+							</Button.Styles>
+
+							<Button.Transitions>
+								<Transitions>
+									<BrushTransition Property="Background" Duration="0:0:0.1"/>
+								</Transitions>
+							</Button.Transitions>
+
+						</Button>
+					</DockPanel>
+				</Border>
+			</Grid>
+		</Grid>
+	</DockPanel>
+</UserControl>
