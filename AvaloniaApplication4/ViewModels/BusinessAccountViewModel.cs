@@ -51,8 +51,8 @@ namespace AvaloniaApplication4.ViewModels
 
         public BusinessAccountViewModel()
         {
-            //GetInfo();
-            //GetBookings();
+            GetInfo();
+            GetBookings();
             ButtonCommand = new Relay1Command(ButtonClick);
         }
         

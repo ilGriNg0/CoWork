@@ -13,7 +13,7 @@ namespace AvaloniaApplication4.Models
 {
     public partial class ConnectingBD
     {
-        string connect_host = "Host=localhost;Port=5432;Database=cardtest;Username=postgres;Password=123456";
+        string connect_host = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
         public Dictionary<int, List<JsonClass>> keyValuePairs { get; set; } = new Dictionary<int, List<JsonClass>>();
 
         public event Action<Dictionary<int, List<JsonClass>>>? DataLoaded;
