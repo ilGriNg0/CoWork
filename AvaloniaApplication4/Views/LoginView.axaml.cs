@@ -63,7 +63,7 @@ namespace AvaloniaApplication4.Views
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
                         User.Model = new BusinessAccountViewModel();
-                        User.Main.CurrentPage = User.Model;
+                        User.Main.Page = User.Model;
                     }
                     else
                     {
@@ -92,7 +92,7 @@ namespace AvaloniaApplication4.Views
                     version = cmd.ExecuteScalar();
                     User.Id = Int64.Parse(version.ToString());
                     User.Model = new PersonalAccountViewModel();
-                    User.Main.CurrentPage = User.Model;
+                    User.Main.Page = User.Model;
                 }
                 else
                 {
