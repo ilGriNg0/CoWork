@@ -10,16 +10,36 @@
 		x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaApplication4"
-        WindowState="Maximized" CanResize="True">
+        WindowState="Maximized" CanResize="False">
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-    <SplitView PaneBackground="#9C9C9C"
-               Background="Black"
+	<SplitView PaneBackground="#9C9C9C"
+               Background="#434B4D"
                PanePlacement="Left"
                DisplayMode="CompactInline"
+			   CompactPaneLength="100">
+		<SplitView.Pane>
+			<StackPanel>
+				<ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
+					<ListBox.ItemTemplate>
+						<DataTemplate DataType="{x:Type vm:ListItemTemplate}">
+							<StackPanel Orientation="Horizontal">
+								<TextBlock Text="{Binding Label}"></TextBlock>
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</SplitView.Pane>
+		<SplitView.Content>
+			<Border>
+				<TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
+			</Border>
+		</SplitView.Content>
+	</SplitView>
                x:Name="View">
         <SplitView.Pane>
             <StackPanel>

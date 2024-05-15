@@ -5,7 +5,9 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+    <AssemblyName>AvaloniaApplication4</AssemblyName>
+    <RootNamespace>AvaloniaApplication4</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\nophoto.png" />
-    <None Remove="Assets\photo.jpg" />
+    <None Remove="Assets\nophotob.jpg" />
+    <None Remove="Assets\nophotop1.png" />
+    <None Remove="Assets\nophotop2.jpg" />
     <None Remove="Assets\spaceman.png" />
     <None Remove="Assets\table.png" />
-    <None Remove="Assets\VZ.jpg" />
     <None Remove="Assets\woodcutter.png" />
   </ItemGroup>
 
@@ -36,13 +38,9 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.10" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Material.Icons" Version="2.1.9" />
     <PackageReference Include="MessageBox.Avalonia" Version="3.1.5.1" />
     <PackageReference Include="Npgsql" Version="8.0.2" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Models\" />
   </ItemGroup>
 
 

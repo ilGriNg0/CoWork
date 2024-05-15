@@ -9,6 +9,8 @@ using System.Reactive.Concurrency;
 using System.Runtime.CompilerServices;
 using Avalonia.Media.Imaging;
 using Avalonia.Skia.Helpers;
+using AvaloniaApplication4.Models;
+using AvaloniaApplication4.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Npgsql;
 using ReactiveUI;
@@ -24,22 +26,33 @@ namespace AvaloniaApplication4.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
+        private readonly ObservableCollection<ListItemTemplate> items =
+        [
+           new ListItemTemplate(typeof(CardViewModel)),
+           new ListItemTemplate(typeof(LoginViewModel)),
+        ];
+
         ////public Bitmap? Image_bitmap_source { get; } = ImageLoad.Load("/Assets/prosto.jpg");
         [ObservableProperty]
         private ViewModelBase _page = new CardViewModel();
 
         [ObservableProperty]
-        private static bool is_open = true;
+        public ViewModelBase _currentPage = new CardViewModel();
 
         [ObservableProperty]
-        private CardModel? _cardOpen;
+        private ListItemTemplate? _selectedListItem;
 
         [ObservableProperty]
         private string? _content;
 
         
         public void update(string? content)
+        public ObservableCollection<ListItemTemplate> Items => items;
+        partial void OnSelectedListItemChanged(ListItemTemplate? value)
         {
+            if (value is null) return;
+            if (value.Instance is LoginViewModel && User.Model != null) CurrentPage = User.Model;
+            else CurrentPage = (ViewModelBase)value.Instance;
             string namspc = Namespace();
             Type viewModelType = Type.GetType(namspc + "." + content);
             ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
@@ -69,11 +82,11 @@ namespace AvaloniaApplication4.ViewModels
             string? yNameSpc = tp.Namespace;
             return yNameSpc;
         }
-        public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
-
-  
-        public void Navigate(string? pageViewModel)
+        public MainWindowViewModel()
         {
+            User.Main = this;
+        }
+    }
             string namspc = Namespace();
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
          
@@ -107,9 +120,44 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string? _path_photo;
 
-    }
+    public class ListItemTemplate(Type type)
+    {
+        public object Instance { get; } = Activator.CreateInstance(type);
+        public string Label { get; } = type.Name.Replace("ViewModel", "");
+        public Type ModelType { get; } = type;
+        //    MainWindow mnWindow = new();
+}
 
     
+}
+
+
+//< Image Grid.ColumnSpan = "2"
+//Grid.RowSpan = "2"
+//Source = "{Binding Image_bitmap_source}"
+//Stretch = "Fill" ></ Image >        //};
+
+
+        //[RelayCommand]
+        //private void button_push()
+        //{
+        //    var main_page = new CardViewModel();
+        //    var main_ = new MainWindow();
+        //    var main2 = new MainWindowViewModel();
+        //    main2.Page = main_page;
+        //    main_.Control_page.Content = main2.Page;
+        //}
+    }
+    //public partial class IsMain 
+    //{
+    //    public Type Type { get; }
+    //    public string Title { get; }
+    //    public IsMain(Type tp)
+    //    {
+    //        Type = tp;
+    //        Title = tp.Name.Replace("ViewModel", "");
+    //    }
+    //}
 }
 
 

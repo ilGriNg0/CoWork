@@ -4,11 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" Background="#161616"
              x:Class="AvaloniaApplication4.Views.BusinessAccountView">
+	<ScrollViewer>
 	<Grid
-		ColumnDefinitions="2*, 3*"
+		RowDefinitions="*, *"
 		ShowGridLines="True">
 		<DockPanel
-			Grid.Column="0">
+			Grid.Row="0">
+			<Grid
+				ColumnDefinitions="2*, 3*"
+				ShowGridLines="True">
 			<StackPanel
 				DockPanel.Dock="Top"
 				Spacing="30">
@@ -20,18 +24,19 @@
 						HorizontalAlignment="Left"
 						BorderBrush="#D94D04"
 						Background="#D94D04"
-						BorderThickness="10"
+						BorderThickness="15"
 						Width="200"
 						Height="200"
 						ClipToBounds="True"
 						CornerRadius="270">
 						<Image
-							Source="../Assets/prosto.jpg"
+							x:Name="imagebus"
+							Source="../Assets/nophotob.jpg"
 							Height="270"
 							Width="400">
 						</Image>
 					</Border>
-
+					
 					<TextBlock
 						Foreground="#ffffff"
 						FontSize="60"
@@ -41,32 +46,77 @@
 						LineHeight="90"
 						FontFamily="Source Sans Pro"
 						HorizontalAlignment="Center"
-						VerticalAlignment="Center">
-						Название
+						VerticalAlignment="Center"
+						Text="{Binding Company}">
 					</TextBlock>
 				</StackPanel>
 
 				<TextBox
+					x:Name="Emailbus"
 					Classes="Poleacc"
 					Margin="0 40 0 0"
 					Watermark="Email компании"
-					ToolTip.Tip="Пример: owner@google.com">
+					ToolTip.Tip="Пример: owner@google.com"
+					Text="{Binding Email}"
+					IsEnabled="False"
+					Foreground="#ffffff"
+					TextChanged="TextBox_TextChanged">
 				</TextBox>
 
 				<MaskedTextBox
+					x:Name="Phonebus"
 					Classes="Poleacc"
 					Mask="Поддержка +7-000-000-00-00"
-					ToolTip.Tip="Пример: +7-000-000-00-00">
+					ToolTip.Tip="Пример: +7-000-000-00-00"
+					Text="{Binding Phone}"
+					IsEnabled="False"
+					Foreground="#ffffff"
+					TextChanged="TextBox_TextChanged">
 				</MaskedTextBox>
 
-				<TextBox
-					Classes="Poleacc"
-					Watermark="Пароль"
-					PasswordChar="*"
-					ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG">
-				</TextBox>
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center"
+					Spacing="20">
+					
+					<TextBox
+						x:Name="Passwordbus"
+						Classes="Poleacc"
+						Watermark="Пароль"
+						ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG"
+						Text="{Binding Password}"
+						IsEnabled="False"
+						Margin="50 0 0 0"
+						PasswordChar="{Binding Charac}"
+						Foreground="#ffffff"
+						TextChanged="TextBox_TextChanged">
+					</TextBox>
+					<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+					</CheckBox>
+				</StackPanel>
 
 				<TextBlock
+					x:Name="Error"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					Foreground="Red"
+					FontSize="20"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="30"
+					FontFamily="Gelion"
+					TextAlignment="Left"
+					IsVisible="False">
+					Этот Email уже занят
+				</TextBlock>
+
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center"
+					Spacing="30">
+				<TextBlock
+					x:Name="ChangeBlock"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Center"
 					Foreground="#ffffff"
@@ -75,9 +125,27 @@
 					FontWeight="700"
 					LineHeight="50"
 					FontFamily="Gelion"
-					TextAlignment="Left">
+					TextAlignment="Left"
+					PointerPressed="Change_PointerPressed">
 					Изменить данные
 				</TextBlock>
+
+				<TextBlock
+					x:Name="SavingBlock"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					Foreground="#D94D04"
+					FontSize="25"
+					FontStyle="Italic"
+					FontWeight="700"
+					LineHeight="50"
+					FontFamily="Gelion"
+					TextAlignment="Left"
+					IsVisible="False"
+					PointerPressed="Save_PointerPressed">
+					Сохранить
+				</TextBlock>
+				</StackPanel>
 
 				<Button
 					VerticalAlignment="Center"
@@ -89,7 +157,8 @@
 					CornerRadius="50"
 					Height="70"
 					Width="400"
-					Margin="0 0 0 0">
+					Margin="0 0 0 0"
+					Click="Exit_Click">
 					Выйти
 					<Button.Styles>
 						<Style Selector="Button">
@@ -101,67 +170,148 @@
 							<Setter Property="Foreground" Value="#ffffff" />
 						</Style>
 					</Button.Styles>
-					<Button.Transitions>
-						<Transitions>
-							<BrushTransition Property="Background" Duration="0:0:0.1"/>
-						</Transitions>
-					</Button.Transitions>
 				</Button>
 			</StackPanel>
-			
-			<StackPanel
-				HorizontalAlignment="Left"
-				VerticalAlignment="Center"
-				Margin="100 400 0 0"
-				Grid.Column="0"
-				Orientation="Horizontal"
-				Spacing="100">
-				<Border
-					Width="700"
-					Height="500"
-					Background="#D94D04"
-					CornerRadius="50">
-				</Border>
 
-				<Border
-					Width="700"
-					Height="500"
-					Background="#D94D04"
-					CornerRadius="50">
-				</Border>
-			</StackPanel>
+			<StackPanel
+				Grid.Column="1">
+					<TextBlock
+						Margin="0 50 0 0"
+						Foreground="#ffffff"
+						FontSize="40"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="90"
+						FontFamily="Source Sans Pro"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center">
+						Будущие бронирования
+					</TextBlock>
+
+				<ScrollViewer HorizontalScrollBarVisibility="Visible">
+					<ItemsControl ItemsSource="{Binding Coworkings}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Horizontal" Spacing="30" Margin="20 0 0 20"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<!-- Привязываем команду к событию Click кнопки -->
+								<Button
+									VerticalAlignment="Center"
+									HorizontalAlignment="Center"
+									FontSize="20"
+									HorizontalContentAlignment="Center"
+									VerticalContentAlignment="Center"
+									FontFamily="Gelion"
+									CornerRadius="50"
+									Height="40"
+									Width="100"
+									Content="{Binding}" 
+									Command="{Binding DataContext.ButtonCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
+									CommandParameter="{Binding}">
+									<Button.Styles>
+										<Style Selector="Button">
+											<Setter Property="Background" Value="#ffffff" />
+											<Setter Property="Foreground" Value="#161616" />
+										</Style>
+										<Style Selector="Button:pointerover /template/ ContentPresenter">
+											<Setter Property="Background" Value="#D94D04" />
+											<Setter Property="Foreground" Value="#ffffff" />
+										</Style>
+									</Button.Styles>
+									</Button>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+
+
+				<DataGrid
+						Margin="20"
+						Height="500"
+						ItemsSource="{Binding Bookings}"
+						AutoGenerateColumns="true"
+						IsReadOnly="True"
+						GridLinesVisibility="All"
+						FontSize="26"
+						FontFamily="Gelion"
+						Foreground="#D94D04"
+						BorderThickness="1"
+						BorderBrush="#ffffff">
+					</DataGrid>
+				</StackPanel>
+			</Grid>
 		</DockPanel>
 
-		<StackPanel
-			Grid.Column="1"
-			Grid.Row="0">
-			<TextBlock
-				Margin="0 50 0 0"
-				Foreground="#ffffff"
-				FontSize="40"
-				FontWeight="700"
-				TextAlignment="Center"
-				LetterSpacing="0"
-				LineHeight="90"
-				FontFamily="Source Sans Pro"
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center">
-				Будущие бронирования
-			</TextBlock>
+		<TextBlock
+			Grid.Row="1"
+						Margin="150 50 0 50"
+						Foreground="#ffffff"
+						FontSize="40"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="90"
+						FontFamily="Source Sans Pro"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top">
+			Ваши коворкинги
+		</TextBlock>
+		
+		<ScrollViewer
+			HorizontalScrollBarVisibility="Visible"
+			Grid.Row="1">
+			<ItemsControl
+				ItemsSource="{Binding Bookings}">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center"
+							Margin="100 150 100 20"
+							Orientation="Horizontal"
+							Spacing="100"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<Border
+							Width="700"
+							Height="500"
+							Background="#D94D04"
+							CornerRadius="50">
+							<Grid ShowGridLines="True">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="3*"/>
+									<RowDefinition Height="*"/>
+								</Grid.RowDefinitions>
 
-			<DataGrid 
-				Margin="20"
-				ItemsSource="{Binding People}"
-				AutoGenerateColumns="True"
-				IsReadOnly="True"
-				GridLinesVisibility="All"
-				FontSize="26"
-				FontFamily="Gelion"
-				Foreground="#D94D04"
-				BorderThickness="1"
-				BorderBrush="#ffffff">
-			</DataGrid>
-		</StackPanel>
+								<!-- Первая половина с текстовыми полями -->
+								<StackPanel Grid.Row="1">
+									<TextBlock
+										Margin="0 5 0 0"
+										Foreground="#ffffff"
+										Classes="Info"
+										Text="{Binding Date}"/>
+									<TextBlock
+										Classes="Info"
+										Text="{Binding Time}"/>
+								</StackPanel>
 
+								<!-- Вторая половина с изображением -->
+								<StackPanel Grid.Row="2">
+									<Image
+										Source="{Binding ImagePath}"/>
+								</StackPanel>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
 	</Grid>
+	</ScrollViewer>
 </UserControl>
