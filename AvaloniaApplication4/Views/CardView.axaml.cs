@@ -23,7 +23,7 @@ namespace AvaloniaApplication4.Views
 
             if (Bord.IsEnabled)
             {
-                mm.Is_open = false;
+               
                 ContentControl.Content = viewModel?.Base;
 
             }

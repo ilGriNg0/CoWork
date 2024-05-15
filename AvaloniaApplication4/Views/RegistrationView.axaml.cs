@@ -18,9 +18,6 @@ using Avalonia.Media;
 using System.Net.Sockets;
 using System.Net;
 using Tmds.DBus.Protocol;
-using MsBox.Avalonia.Dto;
-using MsBox.Avalonia.Enums;
-using MsBox.Avalonia;
 using Npgsql;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
@@ -50,7 +47,7 @@ namespace AvaloniaApplication4.Views
         private void HasAccount_PointerPressed(object sender, PointerPressedEventArgs e)
         {
             User.Model = new LoginViewModel();
-            User.Main.CurrentPage = User.Model;
+            User.Main.Page = User.Model;
         }
 
         static int SetBit(int num, int nbit, int bit)

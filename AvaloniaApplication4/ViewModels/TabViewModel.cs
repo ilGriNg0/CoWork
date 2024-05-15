@@ -14,33 +14,19 @@ public partial class TabViewModel : ViewModelBase
     public static MainWindowViewModel mainWindowViewModel1;
  
     public ICommand ReqUpdCommand { get; set; }
-    public TabViewModel(MainWindowViewModel mainWindowViewModel)
+    public TabViewModel()
     {
-        mainWindowViewModel1 = mainWindowViewModel;
-        ReqUpdCommand = new RelayCommand(ReqUpd);
+        
     }
-    private void ReqUpd()
-    {
-        mainWindowViewModel1.update("CardViewModel");
-    }
-    public TabViewModel() { }
+    //private void ReqUpd()
+    //{
+    //    mainWindowViewModel1.update("CardViewModel");
+    //}
+   
     public ICommand NavigateCardsCommand => new RelayCommand<string>(NavigateCards);
     private static void NavigateCards(string? parametr)
     {
-        MainWindowViewModel mainWindowViewModel = new();
-        string namspc = mainWindowViewModel.Namespace();
-        Type viewModelType = Type.GetType(namspc + "." + parametr);
-
-        if (viewModelType != null)
-        {
-            var viewModel = Activator.CreateInstance(viewModelType);
-            if(viewModel is ViewModelBase vm) 
-            {
-                mainWindowViewModel.Page = (ViewModelBase)viewModel;
-            }
-          
-           
-        }
+       
 
     }
     //TabView tb = new();

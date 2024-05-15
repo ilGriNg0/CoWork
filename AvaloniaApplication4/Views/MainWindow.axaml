@@ -17,12 +17,17 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 	<SplitView PaneBackground="#9C9C9C"
-               Background="#434B4D"
-               PanePlacement="Left"
-               DisplayMode="CompactInline"
-			   CompactPaneLength="100">
+           Background="Black"
+           PanePlacement="Left"
+           DisplayMode="CompactInline"
+           x:Name="View">
 		<SplitView.Pane>
 			<StackPanel>
+				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
+					<material:MaterialIcon Width="25" Height="" Kind="Home"/>
+				</Button>
+				<Button HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="LoginViewModel" ></Button>
+				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="BusinessAccountViewModel" ></Button>
 				<ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
 					<ListBox.ItemTemplate>
 						<DataTemplate DataType="{x:Type vm:ListItemTemplate}">
@@ -35,24 +40,10 @@
 			</StackPanel>
 		</SplitView.Pane>
 		<SplitView.Content>
-			<Border>
-				<TransitioningContentControl Content="{Binding CurrentPage}"></TransitioningContentControl>
+			<Border CornerRadius="30" Background="#1c1c1c" Margin="15">
+				<ContentControl Content="{Binding Page}" ></ContentControl>
 			</Border>
 		</SplitView.Content>
 	</SplitView>
-               x:Name="View">
-        <SplitView.Pane>
-            <StackPanel>
-				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
-					<material:MaterialIcon Width="25" Height="" Kind="Home"/>
-				</Button>
-            </StackPanel>
-        </SplitView.Pane>
-        <SplitView.Content>
-            <Border CornerRadius="30" Background="#1c1c1c" Margin="15">
-				<ContentControl Content="{Binding Page}" ></ContentControl>
-            </Border>
-        </SplitView.Content>
-    </SplitView>
     
 </Window>

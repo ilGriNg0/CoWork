@@ -4,8 +4,6 @@ using Avalonia.Media;
 using Avalonia.OpenGL;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MsBox.Avalonia.Enums;
-using MsBox.Avalonia;
 using Npgsql;
 using System;
 using Avalonia.Interactivity;
@@ -29,7 +27,7 @@ namespace AvaloniaApplication4.Views
         private void NoAccount_PointerPressed(object sender, PointerPressedEventArgs e)
         {
             User.Model = new RegistrationViewModel();
-            User.Main.CurrentPage = User.Model;
+            User.Main.Page = User.Model;
         }
 
         public void Login_Click(object source, RoutedEventArgs args)
