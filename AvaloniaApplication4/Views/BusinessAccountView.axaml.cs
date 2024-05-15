@@ -32,37 +32,37 @@ namespace AvaloniaApplication4.Views
 
         private void Change_PointerPressed(object sender, PointerPressedEventArgs e)
         {
-            if (!Emailbus.IsEnabled)
+            if (!this.GetControl<TextBox>("Emailbus").IsEnabled)
             {
-                Emailbus.IsEnabled = true;
-                Phonebus.IsEnabled = true;
-                Passwordbus.IsEnabled = true;
+                this.GetControl<TextBox>("Emailbus").IsEnabled = true;
+                this.GetControl<TextBox>("Phonebus").IsEnabled = true;
+                this.GetControl<TextBox>("Passwordbus").IsEnabled = true;
 
-                Emailbus.Foreground = lastbrush;
-                Phonebus.Foreground = lastbrush;
-                Passwordbus.Foreground = lastbrush;
+                this.GetControl<TextBox>("Emailbus").Foreground = lastbrush;
+                this.GetControl<TextBox>("Phonebus").Foreground = lastbrush;
+                this.GetControl<TextBox>("Passwordbus").Foreground = lastbrush;
 
-                ChangeBlock.Text = "Отмена";
+                this.GetControl<TextBlock>("ChangeBlock").Text = "Отмена";
 
-                SavingBlock.IsVisible = true;
+                this.GetControl<TextBlock>("SavingBlock").IsVisible = true;
             }
             else
             {
-                Emailbus.IsEnabled = false;
-                Phonebus.IsEnabled = false;
-                Passwordbus.IsEnabled = false;
+                this.GetControl<TextBox>("Emailbus").IsEnabled = false;
+                this.GetControl<TextBox>("Phonebus").IsEnabled = false;
+                this.GetControl<TextBox>("Passwordbus").IsEnabled = false;
 
-                Emailbus.Foreground = oldbrush;
-                Phonebus.Foreground = oldbrush;
-                Passwordbus.Foreground = oldbrush;
+                this.GetControl<TextBox>("Emailbus").Foreground = oldbrush;
+                this.GetControl<TextBox>("Phonebus").Foreground = oldbrush;
+                this.GetControl<TextBox>("Passwordbus").Foreground = oldbrush;
 
-                ChangeBlock.Text = "Изменить данные";
-                SavingBlock.IsVisible = false;
-                Error.IsVisible = false;
+                this.GetControl<TextBlock>("ChangeBlock").Text = "Изменить данные";
+                this.GetControl<TextBlock>("SavingBlock").IsVisible = false;
+                this.GetControl<TextBlock>("Error").IsVisible = false;
 
-                Emailbus.Text = User.Email;
-                Phonebus.Text = User.Phone;
-                Passwordbus.Text = User.Password;
+                this.GetControl<TextBox>("Emailbus").Text = User.Email;
+                this.GetControl<TextBox>("Phonebus").Text = User.Phone;
+                this.GetControl<TextBox>("Passwordbus").Text = User.Password;
             }
         }
 
@@ -105,46 +105,46 @@ namespace AvaloniaApplication4.Views
 
         private void Save_PointerPressed(object sender, PointerPressedEventArgs e)
         {
-            if (Emailbus.BorderBrush != newbrush && Phonebus.BorderBrush != newbrush && Passwordbus.BorderBrush != newbrush)
-                if (Emailbus.Text != User.Email || Phonebus.Text != User.Phone || Passwordbus.Text != User.Password) 
+            if (this.GetControl<TextBox>("Emailbus").BorderBrush != newbrush && this.GetControl<TextBox>("Phonebus").BorderBrush != newbrush && this.GetControl<TextBox>("Passwordbus").BorderBrush != newbrush)
+                if (this.GetControl<TextBox>("Emailbus").Text != User.Email || this.GetControl<TextBox>("Phonebus").Text != User.Phone || this.GetControl<TextBox>("Passwordbus").Text != User.Password) 
                 {
                     var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
                     var con = new NpgsqlConnection(cs);
                     con.Open();
 
-                    var sql1 = $"SELECT count(*) FROM main_users WHERE email = '{Emailbus.Text.ToLower()}';";
+                    var sql1 = $"SELECT count(*) FROM main_users WHERE email = '{this.GetControl<TextBox>("Emailbus").Text.ToLower()}';";
                     var cmd1 = new NpgsqlCommand(sql1, con);
                     var version1 = cmd1.ExecuteScalar();
-                    var sql2 = $"SELECT count(*) FROM main_businesses WHERE email = '{Emailbus.Text.ToLower()}';";
+                    var sql2 = $"SELECT count(*) FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emailbus").Text.ToLower()}';";
                     var cmd2 = new NpgsqlCommand(sql2, con);
                     var version2 = cmd2.ExecuteScalar();
 
-                    if (version1.ToString() != version2.ToString() && Emailbus.Text != User.Email)
+                    if (version1.ToString() != version2.ToString() && this.GetControl<TextBox>("Emailbus").Text != User.Email)
                     {
                         Error.IsVisible = true;
                         return;
                     }
 
-                    sql1 = $"UPDATE main_businesses SET email = '{Emailbus.Text.ToLower()}', phone_number = '{Phonebus.Text.Split("ка ")[1]}', password = '{Passwordbus.Text}' WHERE id = {User.Id};";
+                    sql1 = $"UPDATE main_businesses SET email = '{this.GetControl<TextBox>("Emailbus").Text.ToLower()}', phone_number = '{this.GetControl<TextBox>("Phonebus").Text.Split("ка ")[1]}', password = '{this.GetControl<TextBox>("Passwordbus").Text}' WHERE id = {User.Id};";
 
-                    User.Email = Emailbus.Text;
-                    User.Password = Passwordbus.Text;
-                    User.Phone = Phonebus.Text.Split("ка ")[1].Split("+7")[1].Replace("-", "");
+                    User.Email = this.GetControl<TextBox>("Emailbus").Text;
+                    User.Password = this.GetControl<TextBox>("Passwordbus").Text;
+                    User.Phone = this.GetControl<TextBox>("Phonebus").Text.Split("ка ")[1].Split("+7")[1].Replace("-", "");
 
                     cmd1 = new NpgsqlCommand(sql1, con);
                     cmd1.ExecuteScalar();
 
-                    Emailbus.IsEnabled = false;
-                    Phonebus.IsEnabled = false;
-                    Passwordbus.IsEnabled = false;
+                    this.GetControl<TextBox>("Emailbus").IsEnabled = false;
+                    this.GetControl<TextBox>("Phonebus").IsEnabled = false;
+                    this.GetControl<TextBox>("Passwordbus").IsEnabled = false;
 
-                    Emailbus.Foreground = oldbrush;
-                    Phonebus.Foreground = oldbrush;
-                    Passwordbus.Foreground = oldbrush;
+                    this.GetControl<TextBox>("Emailbus").Foreground = oldbrush;
+                    this.GetControl<TextBox>("Phonebus").Foreground = oldbrush;
+                    this.GetControl<TextBox>("Passwordbus").Foreground = oldbrush;
 
-                    ChangeBlock.Text = "Изменить данные";
-                    SavingBlock.IsVisible = false;
-                    Error.IsVisible = false;
+                    this.GetControl<TextBlock>("ChangeBlock").Text = "Изменить данные";
+                    this.GetControl<TextBlock>("SavingBlock").IsVisible = false;
+                    this.GetControl<TextBlock>("Error").IsVisible = false;
                 }
         }
     }

@@ -67,17 +67,17 @@ namespace AvaloniaApplication4.Views
 
         public void Find_Click(object source, RoutedEventArgs args)
         {   
-            if (spaceman1.IsVisible)
+            if (this.GetControl<Border>("spaceman1").IsVisible)
             {
                 return;
             }
-            else if (woodcutter1.IsVisible)
+            else if (this.GetControl<Border>("woodcutter1").IsVisible)
             {
-                woodcutter1.IsVisible = false;
-                woodcutter.IsVisible = true;
+                this.GetControl<Border>("woodcutter1").IsVisible = false;
+                this.GetControl<Border>("woodcutter").IsVisible = true;
             }
-            spaceman1.IsVisible = true;
-            spaceman.IsVisible = false;
+            this.GetControl<Border>("spaceman1").IsVisible = true;
+            this.GetControl<Border>("spaceman").IsVisible = false;
         }
 
         public void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -114,12 +114,12 @@ namespace AvaloniaApplication4.Views
                 case "Password1per":
                     if (textBox.Text == null || textBox.Text.Length < 8) { textBox.BorderBrush = newbrush; person = SetBit(person, 5, 1); }
                         else { textBox.BorderBrush = lastbrush; person = SetBit(person, 5, 0); }
-                    if (Password2per.Text != null && !textBox.Text.Equals(Password2per.Text)) { Password2per.BorderBrush = newbrush; person = SetBit(person, 6, 1); }
-                        else { Password2per.BorderBrush = lastbrush; person = SetBit(person, 6, 0); }
+                    if (this.GetControl<TextBox>("Password2per").Text != null && !textBox.Text.Equals(this.GetControl<TextBox>("Password2per").Text)) { this.GetControl<TextBox>("Password2per").BorderBrush = newbrush; person = SetBit(person, 6, 1); }
+                        else { this.GetControl<TextBox>("Password2per").BorderBrush = lastbrush; person = SetBit(person, 6, 0); }
                     break;
 
                 case "Password2per":
-                    if (!textBox.Text.Equals(Password1per.Text)) { textBox.BorderBrush = newbrush; person = SetBit(person, 6, 1); }
+                    if (!textBox.Text.Equals(this.GetControl<TextBox>("Password1per").Text)) { textBox.BorderBrush = newbrush; person = SetBit(person, 6, 1); }
                         else { textBox.BorderBrush = lastbrush; person = SetBit(person, 6, 0); }
                     break;
 
@@ -142,12 +142,12 @@ namespace AvaloniaApplication4.Views
                 case "Password1bus":
                     if (textBox.Text == null || textBox.Text.Length < 8) { textBox.BorderBrush = newbrush; business = SetBit(business, 3, 1); }
                         else { textBox.BorderBrush = lastbrush; business = SetBit(business, 3, 0); }
-                    if (Password2bus.Text != null && !textBox.Text.Equals(Password2bus.Text)) { Password2bus.BorderBrush = newbrush; business = SetBit(business, 4, 1); }
-                        else { Password2bus.BorderBrush = lastbrush; business = SetBit(business, 4, 0); }
+                    if (this.GetControl<TextBox>("Password2bus").Text != null && !textBox.Text.Equals(this.GetControl<TextBox>("Password2bus").Text)) { this.GetControl<TextBox>("Password2bus").BorderBrush = newbrush; business = SetBit(business, 4, 1); }
+                        else { this.GetControl<TextBox>("Password2bus").BorderBrush = lastbrush; business = SetBit(business, 4, 0); }
                     break;
 
                 case "Password2bus":
-                    if (!textBox.Text.Equals(Password1bus.Text)) { textBox.BorderBrush = newbrush; business = SetBit(business, 4, 1); }
+                    if (!textBox.Text.Equals(this.GetControl<TextBox>("Password1bus").Text)) { textBox.BorderBrush = newbrush; business = SetBit(business, 4, 1); }
                         else { textBox.BorderBrush = lastbrush; business = SetBit(business, 4, 0); }
                     break;
             }
@@ -161,43 +161,40 @@ namespace AvaloniaApplication4.Views
 
                 var con = new NpgsqlConnection(cs);
                 con.Open();
-                var sql = $"SELECT count(*) FROM main_users WHERE email = '{Emailper.Text.ToLower()}';";
+                var sql = $"SELECT count(*) FROM main_users WHERE email = '{this.GetControl<TextBox>("Emailper").Text.ToLower()}';";
                 var cmd = new NpgsqlCommand(sql, con);
                 var version = cmd.ExecuteScalar();
 
                 if (version.ToString() == "0")
                 {
-                    sql = $"SELECT count(*) FROM main_businesses WHERE email = '{Emailper.Text.ToLower()}';";
+                    sql = $"SELECT count(*) FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emailper").Text.ToLower()}';";
                     cmd = new NpgsqlCommand(sql, con);
                     version = cmd.ExecuteScalar();
 
                     if (version.ToString() == "0")
                     {
                         sql = $"INSERT INTO main_users(email, password, first_name, last_name, phone_number, date_of_birth) " +
-                            $"VALUES ('{Emailper.Text.ToLower()}', '{Password1per.Text}', '{Firstper.Text}', '{Lastper.Text}', " +
-                            $"'{Phoneper.Text.Split("он ")[1]}', '{DateTime.Parse(Dateper.Text.Split("ия ")[1]).ToShortDateString()}');";
+                            $"VALUES ('{this.GetControl<TextBox>("Emailper").Text.ToLower()}', '{this.GetControl<TextBox>("Password1per").Text}', '{this.GetControl<TextBox>("Firstper").Text}', '{this.GetControl<TextBox>("Lastper").Text}', " +
+                            $"'{this.GetControl<TextBox>("Phoneper").Text.Split("он ")[1]}', '{DateTime.Parse(this.GetControl<TextBox>("Dateper").Text.Split("ия ")[1]).ToShortDateString()}');";
                         cmd = new NpgsqlCommand(sql, con);
                         cmd.ExecuteScalar();
-                        Errorper.IsVisible = false;
+                        this.GetControl<TextBlock>("Errorper").IsVisible = false;
 
-                        sql = $"SELECT id FROM main_users WHERE email = '{Emailper.Text.ToLower()}';";
+                        sql = $"SELECT id FROM main_users WHERE email = '{this.GetControl<TextBox>("Emailper").Text.ToLower()}';";
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
                         User.Model = new PersonalAccountViewModel();
                         User.Main.CurrentPage = User.Model;
-
-                        var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация персонального аккаунта", ButtonEnum.Ok);
-                        box.ShowAsync();
                     }
                     else
                     {
-                        Errorper.IsVisible = true;
+                        this.GetControl<TextBlock>("Errorper").IsVisible = true;
                     }
                 }
                 else
                 {
-                    Errorper.IsVisible = true;
+                    this.GetControl<TextBlock>("Errorper").IsVisible = true;
                 }
                 con.Close();
             }
@@ -234,42 +231,39 @@ namespace AvaloniaApplication4.Views
 
                 var con = new NpgsqlConnection(cs);
                 con.Open();
-                var sql = $"SELECT count(*) FROM main_businesses WHERE email = '{Emailbus.Text.ToLower()}';";
+                var sql = $"SELECT count(*) FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emailbus").Text.ToLower()}';";
                 var cmd = new NpgsqlCommand(sql, con);
                 var version = cmd.ExecuteScalar();
 
                 if (version.ToString() == "0")
                 {
-                    sql = $"SELECT count(*) FROM main_users WHERE email = '{Emailbus.Text.ToLower()}';";
+                    sql = $"SELECT count(*) FROM main_users WHERE email = '{this.GetControl<TextBox>("Emailbus").Text.ToLower()}';";
                     cmd = new NpgsqlCommand(sql, con);
                     version = cmd.ExecuteScalar();
 
                     if (version.ToString() == "0")
                     {
                         sql = $"INSERT INTO main_businesses(email, password, company_name, phone_number) " +
-                            $"VALUES ('{Emailbus.Text.ToLower()}', '{Password1bus.Text}', '{Namebus.Text}', '{Phonebus.Text.Split("ка ")[1]}');";
+                            $"VALUES ('{this.GetControl<TextBox>("Emailbus").Text.ToLower()}', '{this.GetControl<TextBox>("Password1bus").Text}', '{this.GetControl<TextBox>("Namebus").Text}', '{this.GetControl<TextBox>("Phonebus").Text.Split("ка ")[1]}');";
                         cmd = new NpgsqlCommand(sql, con);
                         cmd.ExecuteScalar();
                         Errorbus.IsVisible = false;
 
-                        sql = $"SELECT id FROM main_businesses WHERE email = '{Emailbus.Text.ToLower()}';";
+                        sql = $"SELECT id FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emailbus").Text.ToLower()}';";
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
                         User.Model = new BusinessAccountViewModel();
                         User.Main.CurrentPage = User.Model;
-
-                        var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация бизнес-аккаунта", ButtonEnum.Ok);
-                        box.ShowAsync();
                     }
                     else
                     {
-                        Errorbus.IsVisible = true;
+                        this.GetControl<TextBlock>("Errorbus").IsVisible = true;
                     }
                 }
                 else
                 {
-                    Errorbus.IsVisible = true;
+                    this.GetControl<TextBlock>("Errorbus").IsVisible = true;
                 }
                 con.Close();
             }
@@ -277,17 +271,17 @@ namespace AvaloniaApplication4.Views
 
         public void Create_Click(object source, RoutedEventArgs args)
         {
-            if (woodcutter1.IsVisible)
+            if (this.GetControl<Border>("woodcutter1").IsVisible)
             {
                 return;
             }
-            else if (spaceman1.IsVisible)
+            else if (this.GetControl<Border>("spaceman1").IsVisible)
             {
-                spaceman1.IsVisible = false;
-                spaceman.IsVisible = true;
+                this.GetControl<Border>("spaceman1").IsVisible = false;
+                this.GetControl<Border>("spaceman").IsVisible = true;
             }
-            woodcutter.IsVisible = false;
-            woodcutter1.IsVisible = true;
+            this.GetControl<Border>("woodcutter").IsVisible = false;
+            this.GetControl<Border>("woodcutter1").IsVisible = true;
         }
 
         [GeneratedRegex("_")]

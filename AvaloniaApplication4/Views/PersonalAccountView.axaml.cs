@@ -27,37 +27,37 @@ namespace AvaloniaApplication4.Views
 
         private void Change_PointerPressed(object sender, PointerPressedEventArgs e)
         {
-            if (!EmailBox.IsEnabled)
+            if (!this.GetControl<TextBox>("EmailBox").IsEnabled)
             {
-                EmailBox.IsEnabled = true;
-                PhoneBox.IsEnabled = true;
-                PasswordBox.IsEnabled = true;
+                this.GetControl<TextBox>("EmailBox").IsEnabled = true;
+                this.GetControl<TextBox>("PhoneBox").IsEnabled = true;
+                this.GetControl<TextBox>("PasswordBox").IsEnabled = true;
 
-                EmailBox.Foreground = lastbrush;
-                PhoneBox.Foreground = lastbrush;
-                PasswordBox.Foreground = lastbrush;
+                this.GetControl<TextBox>("EmailBox").Foreground = lastbrush;
+                this.GetControl<TextBox>("PhoneBox").Foreground = lastbrush;
+                this.GetControl<TextBox>("PasswordBox").Foreground = lastbrush;
 
-                ChangeBlock.Text = "Отмена";
+                this.GetControl<TextBlock>("ChangeBlock").Text = "Отмена";
 
-                SavingBlock.IsVisible = true;
+                this.GetControl<TextBlock>("SavingBlock").IsVisible = true;
             }
             else
             {
-                EmailBox.IsEnabled = false;
-                PhoneBox.IsEnabled = false;
-                PasswordBox.IsEnabled = false;
+                this.GetControl<TextBox>("EmailBox").IsEnabled = false;
+                this.GetControl<TextBox>("PhoneBox").IsEnabled = false;
+                this.GetControl<TextBox>("PasswordBox").IsEnabled = false;
 
-                EmailBox.Foreground = oldbrush;
-                PhoneBox.Foreground = oldbrush;
-                PasswordBox.Foreground = oldbrush;
+                this.GetControl<TextBox>("EmailBox").Foreground = oldbrush;
+                this.GetControl<TextBox>("PhoneBox").Foreground = oldbrush;
+                this.GetControl<TextBox>("PasswordBox").Foreground = oldbrush;
 
-                ChangeBlock.Text = "Изменить данные";
-                SavingBlock.IsVisible = false;
-                Error.IsVisible = false;
+                this.GetControl<TextBlock>("ChangeBlock").Text = "Изменить данные";
+                this.GetControl<TextBlock>("SavingBlock").IsVisible = false;
+                this.GetControl<TextBlock>("Error").IsVisible = false;
 
-                EmailBox.Text = User.Email;
-                PhoneBox.Text = User.Phone;
-                PasswordBox.Text = User.Password;
+                this.GetControl<TextBox>("EmailBox").Text = User.Email;
+                this.GetControl<TextBox>("PhoneBox").Text = User.Phone;
+                this.GetControl<TextBox>("PasswordBox").Text = User.Password;
             }
         }
 
@@ -100,46 +100,46 @@ namespace AvaloniaApplication4.Views
 
         private void Save_PointerPressed(object sender, PointerPressedEventArgs e)
         {
-            if (EmailBox.BorderBrush != newbrush && PhoneBox.BorderBrush != newbrush && PasswordBox.BorderBrush != newbrush)
-                if (EmailBox.Text != User.Email || PhoneBox.Text != User.Phone || PasswordBox.Text != User.Password)
+            if (this.GetControl<TextBox>("EmailBox").BorderBrush != newbrush && this.GetControl<TextBox>("PhoneBox").BorderBrush != newbrush && this.GetControl<TextBox>("PasswordBox").BorderBrush != newbrush)
+                if (this.GetControl<TextBox>("EmailBox").Text != User.Email || this.GetControl<TextBox>("PhoneBox").Text != User.Phone || this.GetControl<TextBox>("PasswordBox").Text != User.Password)
                 {
                     var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
 
                     var con = new NpgsqlConnection(cs);
                     con.Open();
-                    var sql1 = $"SELECT count(*) FROM main_users WHERE email = '{EmailBox.Text.ToLower()}';";
+                    var sql1 = $"SELECT count(*) FROM main_users WHERE email = '{this.GetControl<TextBox>("EmailBox").Text.ToLower()}';";
                     var cmd1 = new NpgsqlCommand(sql1, con);
                     var version1 = cmd1.ExecuteScalar();
-                    var sql2 = $"SELECT count(*) FROM main_businesses WHERE email = '{EmailBox.Text.ToLower()}';";
+                    var sql2 = $"SELECT count(*) FROM main_businesses WHERE email = '{this.GetControl<TextBox>("EmailBox").Text.ToLower()}';";
                     var cmd2 = new NpgsqlCommand(sql2, con);
                     var version2 = cmd2.ExecuteScalar();
-                    if (version1.ToString() != version2.ToString() && EmailBox.Text != User.Email)
+                    if (version1.ToString() != version2.ToString() && this.GetControl<TextBox>("EmailBox").Text != User.Email)
                     {
-                        Error.IsVisible = true;
+                        this.GetControl<TextBlock>("Error").IsVisible = true;
                         return;
                     }
 
 
-                    sql1 = $"UPDATE main_users SET email = '{EmailBox.Text.ToLower()}', phone_number = '{PhoneBox.Text.Split("он ")[1]}', password = '{PasswordBox.Text}' WHERE id = {User.Id};";
+                    sql1 = $"UPDATE main_users SET email = '{this.GetControl<TextBox>("EmailBox").Text.ToLower()}', phone_number = '{this.GetControl<TextBox>("PhoneBox").Text.Split("он ")[1]}', password = '{this.GetControl<TextBox>("PasswordBox").Text}' WHERE id = {User.Id};";
 
-                    User.Email = EmailBox.Text;
-                    User.Password = PasswordBox.Text;
-                    User.Phone = PhoneBox.Text.Split("он ")[1].Split("+7")[1].Replace("-", "");
+                    User.Email = this.GetControl<TextBox>("EmailBox").Text;
+                    User.Password = this.GetControl<TextBox>("PasswordBox").Text;
+                    User.Phone = this.GetControl<TextBox>("PhoneBox").Text.Split("он ")[1].Split("+7")[1].Replace("-", "");
 
                     cmd1 = new NpgsqlCommand(sql1, con);
                     cmd1.ExecuteScalar();
 
-                    EmailBox.IsEnabled = false;
-                    PhoneBox.IsEnabled = false;
-                    PasswordBox.IsEnabled = false;
+                    this.GetControl<TextBox>("EmailBox").IsEnabled = false;
+                    this.GetControl<TextBox>("PhoneBox").IsEnabled = false;
+                    this.GetControl<TextBox>("PasswordBox").IsEnabled = false;
 
-                    EmailBox.Foreground = oldbrush;
-                    PhoneBox.Foreground = oldbrush;
-                    PasswordBox.Foreground = oldbrush;
+                    this.GetControl<TextBox>("EmailBox").Foreground = oldbrush;
+                    this.GetControl<TextBox>("PhoneBox").Foreground = oldbrush;
+                    this.GetControl<TextBox>("PasswordBox").Foreground = oldbrush;
 
-                    ChangeBlock.Text = "Изменить данные";
-                    SavingBlock.IsVisible = false;
-                    Error.IsVisible = false;
+                    this.GetControl<TextBlock>("ChangeBlock").Text = "Изменить данные";
+                    this.GetControl<TextBlock>("SavingBlock").IsVisible = false;
+                    this.GetControl<TextBlock>("Error").IsVisible = false;
                 }
         }
     }

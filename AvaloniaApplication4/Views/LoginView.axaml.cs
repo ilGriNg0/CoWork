@@ -36,76 +36,70 @@ namespace AvaloniaApplication4.Views
         {
             var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
 
-            if (Passwordlog.Text == null || Passwordlog.Text.Equals("") || Emaillog.Text == null || Emaillog.Text.Equals("")) return;
+            if (this.GetControl<TextBox>("Passwordlog").Text == null || this.GetControl<TextBox>("Passwordlog").Text.Equals("") || this.GetControl<TextBox>("Emaillog").Text == null || this.GetControl<TextBox>("Emaillog").Text.Equals("")) return;
             var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = $"SELECT count(*) FROM main_users WHERE email = '{Emaillog.Text.ToLower()}';";
+            var sql = $"SELECT count(*) FROM main_users WHERE email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
 
             var cmd = new NpgsqlCommand(sql, con);
             var version = cmd.ExecuteScalar();
 
             if (version.ToString() == "0")
             {
-                sql = $"SELECT count(*) FROM main_businesses WHERE email = '{Emaillog.Text.ToLower()}';";
+                sql = $"SELECT count(*) FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                 cmd = new NpgsqlCommand(sql, con);
                 version = cmd.ExecuteScalar();
                 if (version.ToString() == "1")
                 {
-                    sql = $"SELECT count(*) FROM main_businesses WHERE password = '{Passwordlog.Text}' AND email = '{Emaillog.Text.ToLower()}';";
+                    sql = $"SELECT count(*) FROM main_businesses WHERE password = '{this.GetControl<TextBox>("Passwordlog").Text}' AND email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                     cmd = new NpgsqlCommand(sql, con);
                     version = cmd.ExecuteScalar();
                     if (version.ToString() == "1")
                     {
-                        Error1log.IsVisible = false;
-                        Error2log.IsVisible = false;
+                        this.GetControl<TextBlock>("Error1log").IsVisible = false;
+                        this.GetControl<TextBlock>("Error2log").IsVisible = false;
 
-                        sql = $"SELECT id FROM main_businesses WHERE email = '{Emaillog.Text.ToLower()}';";
+                        sql = $"SELECT id FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
                         User.Model = new BusinessAccountViewModel();
                         User.Main.CurrentPage = User.Model;
-
-                        var box = MessageBoxManager.GetMessageBoxStandard("", "Успешный вход в бизнес-аккаунт", ButtonEnum.Ok);
-                        box.ShowAsync();
                     }
                     else
                     {
-                        Error2log.IsVisible = true;
-                        Error1log.IsVisible = false;
+                        this.GetControl<TextBlock>("Error2log").IsVisible = true;
+                        this.GetControl<TextBlock>("Error1log").IsVisible = false;
                     }
                 }
                 else
                 {
-                    Error1log.IsVisible = true;
-                    Error2log.IsVisible = false;
+                    this.GetControl<TextBlock>("Error1log").IsVisible = true;
+                    this.GetControl<TextBlock>("Error2log").IsVisible = false;
                 }
             }
             else
             {
-                sql = $"SELECT count(*) FROM main_users WHERE password = '{Passwordlog.Text}' AND email = '{Emaillog.Text.ToLower()}';";
+                sql = $"SELECT count(*) FROM main_users WHERE password = '{this.GetControl<TextBox>("Passwordlog").Text}' AND email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                 cmd = new NpgsqlCommand(sql, con);
                 version = cmd.ExecuteScalar();
                 if (version.ToString() == "1")
                 {
-                    Error1log.IsVisible = false;
-                    Error2log.IsVisible = false;
+                    this.GetControl<TextBlock>("Error1log").IsVisible = false;
+                    this.GetControl<TextBlock>("Error2log").IsVisible = false;
 
-                    sql = $"SELECT id FROM main_users WHERE email = '{Emaillog.Text.ToLower()}';";
+                    sql = $"SELECT id FROM main_users WHERE email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                     cmd = new NpgsqlCommand(sql, con);
                     version = cmd.ExecuteScalar();
                     User.Id = Int64.Parse(version.ToString());
                     User.Model = new PersonalAccountViewModel();
                     User.Main.CurrentPage = User.Model;
-
-                    var box = MessageBoxManager.GetMessageBoxStandard("", "Успешный вход в персональный аккаунт", ButtonEnum.Ok);
-                    box.ShowAsync();
                 }
                 else
                 {
-                    Error2log.IsVisible = true;
-                    Error1log.IsVisible = false;
+                    this.GetControl<TextBlock>("Error2log").IsVisible = true;
+                    this.GetControl<TextBlock>("Error1log").IsVisible = false;
                 }
             }
 
