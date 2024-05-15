@@ -7,11 +7,10 @@ namespace AvaloniaApplication4.ViewModels;
 
 public partial class CardOpenViewModel : ViewModelBase
 {
-   static MainWindowViewModel mainWindowViewModel = new();
     [ObservableProperty]
     private ViewModelBase _docViewModelBase = new DockPanelViewModel();
 
   
     [ObservableProperty]
-    private ViewModelBase _tabViewModelBase = new TabViewModel(mainWindowViewModel);
+    private ViewModelBase _tabViewModelBase = new TabViewModel();
 }

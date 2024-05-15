@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+    <AvaloniaUseCompiledBindingsByDefault>True</AvaloniaUseCompiledBindingsByDefault>
     <AssemblyName>AvaloniaApplication4</AssemblyName>
     <RootNamespace>AvaloniaApplication4</RootNamespace>
   </PropertyGroup>
@@ -14,25 +14,28 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\nophotob.jpg" />
-    <None Remove="Assets\nophotop1.png" />
-    <None Remove="Assets\nophotop2.jpg" />
-    <None Remove="Assets\spaceman.png" />
-    <None Remove="Assets\table.png" />
-    <None Remove="Assets\woodcutter.png" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Views\PersonalAccountView.axaml.cs">
+			<DependentUpon>PersonalAccountView.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\LoginView.axaml.cs">
+			<DependentUpon>LoginView.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\BusinessAccountView.axaml.cs">
+			<DependentUpon>BusinessAccountView.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\RegistrationView.axaml.cs">
+			<DependentUpon>RegistrationView.axaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
 
-  <ItemGroup>
+	<ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.10" />
     <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.10" />
     <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
-    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.10" />
     <PackageReference Include="Avalonia" Version="11.0.10" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.10" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.10" />
@@ -45,18 +48,7 @@
 
 
   <ItemGroup>
-    <Compile Update="Views\PersonalAccountView.axaml.cs">
-      <DependentUpon>PersonalAccountView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\LoginView.axaml.cs">
-      <DependentUpon>LoginView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\BusinessAccountView.axaml.cs">
-      <DependentUpon>BusinessAccountView.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\RegistrationView.axaml.cs">
-      <DependentUpon>RegistrationView.axaml</DependentUpon>
-    </Compile>
+    
     <PackageReference Include="Material.Icons.Avalonia" Version="2.1.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql" Version="8.0.3" />

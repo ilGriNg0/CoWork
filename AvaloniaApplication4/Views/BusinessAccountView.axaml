@@ -3,7 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" Background="#161616"
-             x:Class="AvaloniaApplication4.Views.BusinessAccountView">
+             xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+			 x:Class="AvaloniaApplication4.Views.BusinessAccountView"
+			 x:DataType="vm:BusinessAccountViewModel"
+			>
 	<ScrollViewer>
 	<Grid
 		RowDefinitions="*, *"
@@ -210,7 +213,7 @@
 									Height="40"
 									Width="100"
 									Content="{Binding}" 
-									Command="{Binding DataContext.ButtonCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" 
+									
 									CommandParameter="{Binding}">
 									<Button.Styles>
 										<Style Selector="Button">
@@ -289,23 +292,7 @@
 									<RowDefinition Height="*"/>
 								</Grid.RowDefinitions>
 
-								<!-- Первая половина с текстовыми полями -->
-								<StackPanel Grid.Row="1">
-									<TextBlock
-										Margin="0 5 0 0"
-										Foreground="#ffffff"
-										Classes="Info"
-										Text="{Binding Date}"/>
-									<TextBlock
-										Classes="Info"
-										Text="{Binding Time}"/>
-								</StackPanel>
-
-								<!-- Вторая половина с изображением -->
-								<StackPanel Grid.Row="2">
-									<Image
-										Source="{Binding ImagePath}"/>
-								</StackPanel>
+								
 							</Grid>
 						</Border>
 					</DataTemplate>

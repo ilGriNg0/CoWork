@@ -28,15 +28,7 @@
 				</Button>
 				<Button HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="LoginViewModel" ></Button>
 				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="BusinessAccountViewModel" ></Button>
-				<ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedListItem}">
-					<ListBox.ItemTemplate>
-						<DataTemplate DataType="{x:Type vm:ListItemTemplate}">
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="{Binding Label}"></TextBlock>
-							</StackPanel>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
+				
 			</StackPanel>
 		</SplitView.Pane>
 		<SplitView.Content>

@@ -30,11 +30,6 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private ViewModelBase _page = new CardViewModel();
 
-        [ObservableProperty]
-        private ViewModelBase _login = new LoginViewModel();
-
-        [ObservableProperty]
-        private ViewModelBase _business = new BusinessAccountViewModel();
 
         //public ObservableCollection<ListItemTemplate> Items => items;
         //private readonly ObservableCollection<ListItemTemplate> items =
@@ -59,14 +54,20 @@ namespace AvaloniaApplication4.ViewModels
         }
         public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
 
-      
+      public MainWindowViewModel() 
+        {
+            User.Main = this;
+        }
 
         public void Navigate(string? pageViewModel)
         {
             string namspc = Namespace();
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-
-            if (viewModelType != null)
+            if(pageViewModel == "LoginViewModel" && User.Model != null)
+            {
+                 Page = User.Model;
+            }
+            else
             {
                 ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
                 Page = viewModel;

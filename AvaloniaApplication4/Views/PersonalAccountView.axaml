@@ -3,7 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
-             x:Class="AvaloniaApplication4.Views.PersonalAccountView" Background="#161616">
+             xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+			 x:Class="AvaloniaApplication4.Views.PersonalAccountView" Background="#161616"
+			 x:DataType="vm:PersonalAccountViewModel">
 	<Grid
 		ColumnDefinitions="2*, 3*"
 		ShowGridLines="True">
@@ -278,10 +280,7 @@
 											</StackPanel>
 
 											<!-- Вторая половина с изображением -->
-											<StackPanel Grid.Row="2">
-												<Image
-													Source="{Binding ImagePath}"/>
-											</StackPanel>
+											
 										</Grid>
 									</Border>
 								</DataTemplate>
@@ -360,11 +359,7 @@
 													Text="{Binding Time}"/>
 											</StackPanel>
 
-											<!-- Вторая половина с изображением -->
-											<StackPanel Grid.Row="2">
-												<Image
-													Source="{Binding ImagePath}"/>
-											</StackPanel>
+											
 										</Grid>
 									</Border>
 								</DataTemplate>

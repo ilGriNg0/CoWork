@@ -21,12 +21,10 @@ namespace AvaloniaApplication4.Views
             var viewModel = new CardViewModel();
             var mm = new MainWindowViewModel();
 
-            if (Bord.IsEnabled)
-            {
-               
+            
                 ContentControl.Content = viewModel?.Base;
 
-            }
+            
 
         }
         private void Border2_PointerPressed(object? sender, PointerPressedEventArgs e)

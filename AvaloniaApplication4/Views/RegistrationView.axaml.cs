@@ -244,8 +244,7 @@ namespace AvaloniaApplication4.Views
                             $"VALUES ('{this.GetControl<TextBox>("Emailbus").Text.ToLower()}', '{this.GetControl<TextBox>("Password1bus").Text}', '{this.GetControl<TextBox>("Namebus").Text}', '{this.GetControl<TextBox>("Phonebus").Text.Split("ка ")[1]}');";
                         cmd = new NpgsqlCommand(sql, con);
                         cmd.ExecuteScalar();
-                        Errorbus.IsVisible = false;
-
+                        this.GetControl<TextBlock>("Errorbus").IsVisible = false;
                         sql = $"SELECT id FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emailbus").Text.ToLower()}';";
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
