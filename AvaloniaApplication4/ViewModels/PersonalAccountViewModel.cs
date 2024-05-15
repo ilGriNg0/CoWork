@@ -55,7 +55,7 @@ namespace AvaloniaApplication4.ViewModels
 
         public void GetInfo()
         {
-            var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+            var cs = User.Connect;
             var con = new NpgsqlConnection(cs);
             con.Open();
 
@@ -84,7 +84,7 @@ namespace AvaloniaApplication4.ViewModels
         private bool _visibl2 = true;
         public void GetBookings()
         {
-            var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+            var cs = User.Connect;
             var con = new NpgsqlConnection(cs);
             con.Open();
 

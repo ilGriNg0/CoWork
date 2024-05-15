@@ -27,7 +27,7 @@
 					<material:MaterialIcon Width="25" Height="" Kind="Home"/>
 				</Button>
 				<Button HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="LoginViewModel" ></Button>
-				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="BusinessAccountViewModel" ></Button>
+				
 				
 			</StackPanel>
 		</SplitView.Pane>

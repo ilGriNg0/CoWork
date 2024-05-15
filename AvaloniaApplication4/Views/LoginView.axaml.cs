@@ -32,7 +32,7 @@ namespace AvaloniaApplication4.Views
 
         public void Login_Click(object source, RoutedEventArgs args)
         {
-            var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+            var cs = User.Connect;
 
             if (this.GetControl<TextBox>("Passwordlog").Text == null || this.GetControl<TextBox>("Passwordlog").Text.Equals("") || this.GetControl<TextBox>("Emaillog").Text == null || this.GetControl<TextBox>("Emaillog").Text.Equals("")) return;
             var con = new NpgsqlConnection(cs);

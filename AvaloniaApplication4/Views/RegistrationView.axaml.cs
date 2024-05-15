@@ -154,7 +154,7 @@ namespace AvaloniaApplication4.Views
         {
             if (person == 0)
             {
-                var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+                var cs = User.Connect;
 
                 var con = new NpgsqlConnection(cs);
                 con.Open();
@@ -224,7 +224,7 @@ namespace AvaloniaApplication4.Views
         {
             if (business == 0)
             {
-                var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+                var cs = User.Connect;
 
                 var con = new NpgsqlConnection(cs);
                 con.Open();
