@@ -21,23 +21,29 @@ using AvaloniaApplication4.Views;
 using System.Windows.Input;
 using Avalonia.Controls;
 using System.Reflection.Metadata.Ecma335;
+using static AvaloniaApplication4.ViewModels.JsonClass;
 
 namespace AvaloniaApplication4.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        private readonly ObservableCollection<ListItemTemplate> items =
-        [
-           new ListItemTemplate(typeof(CardViewModel)),
-           new ListItemTemplate(typeof(LoginViewModel)),
-        ];
-
-        ////public Bitmap? Image_bitmap_source { get; } = ImageLoad.Load("/Assets/prosto.jpg");
         [ObservableProperty]
         private ViewModelBase _page = new CardViewModel();
 
         [ObservableProperty]
-        public ViewModelBase _currentPage = new CardViewModel();
+        private ViewModelBase _login = new LoginViewModel();
+
+        [ObservableProperty]
+        private ViewModelBase _business = new BusinessAccountViewModel();
+
+        //public ObservableCollection<ListItemTemplate> Items => items;
+        //private readonly ObservableCollection<ListItemTemplate> items =
+        //[
+        //   new ListItemTemplate(typeof(CardViewModel)),
+        //   new ListItemTemplate(typeof(LoginViewModel)),
+        //];
+
+        ////public Bitmap? Image_bitmap_source { get; } = ImageLoad.Load("/Assets/prosto.jpg");
 
         [ObservableProperty]
         private ListItemTemplate? _selectedListItem;
@@ -45,20 +51,42 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string? _content;
 
-        
-        public void update(string? content)
-        public ObservableCollection<ListItemTemplate> Items => items;
-        partial void OnSelectedListItemChanged(ListItemTemplate? value)
+        public string Namespace()
         {
-            if (value is null) return;
-            if (value.Instance is LoginViewModel && User.Model != null) CurrentPage = User.Model;
-            else CurrentPage = (ViewModelBase)value.Instance;
-            string namspc = Namespace();
-            Type viewModelType = Type.GetType(namspc + "." + content);
-            ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
-            Page = null;
-
+            Type tp = typeof(MainWindowViewModel);
+            string? yNameSpc = tp.Namespace;
+            return yNameSpc;
         }
+        public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
+
+      
+
+        public void Navigate(string? pageViewModel)
+        {
+            string namspc = Namespace();
+            Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
+
+            if (viewModelType != null)
+            {
+                ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
+                Page = viewModel;
+            }
+        }
+
+       
+        //public void update(string? content);
+        //public ObservableCollection<ListItemTemplate> Items => items;
+        //partial void OnSelectedListItemChanged(ListItemTemplate? value)
+        //{
+        //    if (value is null) return;
+        //    if (value.Instance is LoginViewModel && User.Model != null) CurrentPage = User.Model;
+        //    else CurrentPage = (ViewModelBase)value.Instance;
+        //    string namspc = Namespace();
+        //    Type viewModelType = Type.GetType(namspc + "." + content);
+        //    ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
+        //    Page = null;
+
+        //}
         private static MainWindowViewModel? _instance;
        
         public static MainWindowViewModel Instance
@@ -76,26 +104,14 @@ namespace AvaloniaApplication4.ViewModels
         }
   
 
-        public  string Namespace()
-        {
-            Type tp = typeof(MainWindowViewModel);
-            string? yNameSpc = tp.Namespace;
-            return yNameSpc;
-        }
-        public MainWindowViewModel()
-        {
-            User.Main = this;
-        }
-    }
-            string namspc = Namespace();
-            Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-         
-            if (viewModelType != null)
-            {
-                ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
-                Page = viewModel;
-            }
-        }
+       
+        //public MainWindowViewModel()
+        //{
+        //    User.Main = this;
+        //}
+    
+  
+        
 
        
        
@@ -158,7 +174,6 @@ namespace AvaloniaApplication4.ViewModels
     //        Title = tp.Name.Replace("ViewModel", "");
     //    }
     //}
-}
 
 
 //< Image Grid.ColumnSpan = "2"

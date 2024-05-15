@@ -18,9 +18,6 @@ using Avalonia.Media;
 using System.Net.Sockets;
 using System.Net;
 using Tmds.DBus.Protocol;
-using MsBox.Avalonia.Dto;
-using MsBox.Avalonia.Enums;
-using MsBox.Avalonia;
 using Npgsql;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
@@ -50,7 +47,7 @@ namespace AvaloniaApplication4.Views
         private void HasAccount_PointerPressed(object sender, PointerPressedEventArgs e)
         {
             User.Model = new LoginViewModel();
-            User.Main.CurrentPage = User.Model;
+            User.Main.Page = User.Model;
         }
 
         static int SetBit(int num, int nbit, int bit)
@@ -67,7 +64,7 @@ namespace AvaloniaApplication4.Views
 
         public void Find_Click(object source, RoutedEventArgs args)
         {   
-            if (spaceman1.IsVisible)
+            if (this.GetControl<Border>("spaceman1").IsVisible)
             {
                 return;
             }
@@ -185,7 +182,7 @@ namespace AvaloniaApplication4.Views
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
                         User.Model = new PersonalAccountViewModel();
-                        User.Main.CurrentPage = User.Model;
+                        User.Main.Page = User.Model;
 
                         var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация персонального аккаунта", ButtonEnum.Ok);
                         box.ShowAsync();
@@ -257,7 +254,7 @@ namespace AvaloniaApplication4.Views
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
                         User.Model = new BusinessAccountViewModel();
-                        User.Main.CurrentPage = User.Model;
+                        User.Main.Page = User.Model;
 
                         var box = MessageBoxManager.GetMessageBoxStandard("", "Успешная регистрация бизнес-аккаунта", ButtonEnum.Ok);
                         box.ShowAsync();
