@@ -52,7 +52,7 @@ namespace AvaloniaApplication4.Views
                 version = cmd.ExecuteScalar();
                 if (version.ToString() == "1")
                 {
-                    sql = $"SELECT count(*) FROM main_businesses WHERE password = '{Passwordlog.Text}' AND  email = '{Emaillog.Text.ToLower()}';";
+                    sql = $"SELECT count(*) FROM main_businesses WHERE password = '{Passwordlog.Text}' AND email = '{Emaillog.Text.ToLower()}';";
                     cmd = new NpgsqlCommand(sql, con);
                     version = cmd.ExecuteScalar();
                     if (version.ToString() == "1")
@@ -64,7 +64,6 @@ namespace AvaloniaApplication4.Views
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
-                        User.Type = "businesses";
                         User.Model = new BusinessAccountViewModel();
                         User.Main.CurrentPage = User.Model;
 
@@ -85,7 +84,7 @@ namespace AvaloniaApplication4.Views
             }
             else
             {
-                sql = $"SELECT count(*) FROM main_users WHERE password = '{Passwordlog.Text}' AND  email = '{Emaillog.Text.ToLower()}';";
+                sql = $"SELECT count(*) FROM main_users WHERE password = '{Passwordlog.Text}' AND email = '{Emaillog.Text.ToLower()}';";
                 cmd = new NpgsqlCommand(sql, con);
                 version = cmd.ExecuteScalar();
                 if (version.ToString() == "1")
@@ -97,7 +96,6 @@ namespace AvaloniaApplication4.Views
                     cmd = new NpgsqlCommand(sql, con);
                     version = cmd.ExecuteScalar();
                     User.Id = Int64.Parse(version.ToString());
-                    User.Type = "users";
                     User.Model = new PersonalAccountViewModel();
                     User.Main.CurrentPage = User.Model;
 

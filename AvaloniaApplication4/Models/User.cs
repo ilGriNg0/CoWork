@@ -9,12 +9,11 @@ namespace AvaloniaApplication4.Models
 {
     public class User
     {
-        public static long Id { get; set;}
-        public static string Type { get; set;}
-        public static string Phone { get; set;}
-        public static string Email { get; set;}
-        public static string Password { get; set;}
-        public static ViewModelBase Model { get; set;}
-        public static MainWindowViewModel Main {  get; set;}
+        public static long Id { get; set; }
+        public static string Phone { get; set; }
+        public static string Email { get; set; }
+        public static string Password { get; set; }
+        public static ViewModelBase Model { get; set; }
+        public static MainWindowViewModel Main {  get; set; }
     }
 }

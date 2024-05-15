@@ -24,14 +24,11 @@ namespace AvaloniaApplication4.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
-        private ObservableCollection<ListItemTemplate> items =
+        private readonly ObservableCollection<ListItemTemplate> items =
         [
            new ListItemTemplate(typeof(CardViewModel)),
            new ListItemTemplate(typeof(LoginViewModel)),
         ];
-
-        //public ObservableCollection<ListItemTemplate> ItemTemplates { get; set; }
-
 
         [ObservableProperty]
         public ViewModelBase _currentPage = new CardViewModel();

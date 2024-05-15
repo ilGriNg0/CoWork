@@ -6,6 +6,8 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+    <AssemblyName>AvaloniaApplication4</AssemblyName>
+    <RootNamespace>AvaloniaApplication4</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,12 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\nophoto.png" />
-    <None Remove="Assets\nophotos.jpg" />
-    <None Remove="Assets\photo.jpg" />
+    <None Remove="Assets\nophotob.jpg" />
+    <None Remove="Assets\nophotop1.png" />
+    <None Remove="Assets\nophotop2.jpg" />
     <None Remove="Assets\spaceman.png" />
     <None Remove="Assets\table.png" />
-    <None Remove="Assets\VZ.jpg" />
     <None Remove="Assets\woodcutter.png" />
   </ItemGroup>
 

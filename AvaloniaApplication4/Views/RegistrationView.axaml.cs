@@ -184,7 +184,6 @@ namespace AvaloniaApplication4.Views
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
-                        User.Type = "users";
                         User.Model = new PersonalAccountViewModel();
                         User.Main.CurrentPage = User.Model;
 
@@ -257,7 +256,6 @@ namespace AvaloniaApplication4.Views
                         cmd = new NpgsqlCommand(sql, con);
                         version = cmd.ExecuteScalar();
                         User.Id = Int64.Parse(version.ToString());
-                        User.Type = "businesses";
                         User.Model = new BusinessAccountViewModel();
                         User.Main.CurrentPage = User.Model;
 

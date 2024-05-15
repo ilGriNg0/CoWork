@@ -25,7 +25,7 @@
 						ClipToBounds="True"
 						CornerRadius="270">
 						<Image
-							Source="../Assets/nophoto.png"
+							Source="../Assets/nophotop2.jpg"
 							Height="270"
 							Width="400">
 						</Image>
@@ -74,22 +74,26 @@
 				</StackPanel>
 
 				<TextBox
+					x:Name="EmailBox"
 					Classes="Poleacc"
 					Margin="0 40 0 0"
 					Watermark="Email"
 					ToolTip.Tip="Пример: ivanivanov@gmail.com"
 					Text="{Binding Email}"
 					Foreground="#ffffff"
-					IsEnabled="False">
+					IsEnabled="False"
+					TextChanged="TextBox_TextChanged">
 				</TextBox>
 
 				<MaskedTextBox
+					x:Name="PhoneBox"
 					Classes="Poleacc"
 					Mask="Телефон +7-000-000-00-00"
 					ToolTip.Tip="Пример +7-777-777-77-77"
 					Text="{Binding Phone}"
 					Foreground="#ffffff"
-					IsEnabled="False">
+					IsEnabled="False"
+					TextChanged="TextBox_TextChanged">
 				</MaskedTextBox>
 
 				<StackPanel
@@ -98,6 +102,7 @@
 					Spacing="20">
 
 					<TextBox
+						x:Name="PasswordBox"
 						Classes="Poleacc"
 						Watermark="Пароль"
 						ToolTip.Tip="Минимум 8 символов Пример: Qwerty12@"
@@ -105,7 +110,8 @@
 						Foreground="#ffffff"
 						IsEnabled="False"
 						Margin="50 0 0 0"
-						PasswordChar="{Binding Charac}">
+						PasswordChar="{Binding Charac}"
+						TextChanged="TextBox_TextChanged">
 					</TextBox>
 					<CheckBox
 						IsChecked="{Binding IsChecked, Mode=TwoWay}">
@@ -113,18 +119,55 @@
 				</StackPanel>
 
 				<TextBlock
+					x:Name="Error"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Center"
-					Foreground="#ffffff"
-					FontSize="25"
+					Foreground="Red"
+					FontSize="20"
 					FontStyle="Italic"
 					FontWeight="700"
-					LineHeight="50"
+					LineHeight="30"
 					FontFamily="Gelion"
-					PointerPressed="Change_PointerPressed"
-					TextAlignment="Left">
-					Изменить данные
+					TextAlignment="Left"
+					IsVisible="False">
+					Этот Email уже занят
 				</TextBlock>
+
+				<StackPanel
+					Orientation="Horizontal"
+					HorizontalAlignment="Center"
+					Spacing="30">
+					<TextBlock
+						x:Name="ChangeBlock"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Foreground="#ffffff"
+						FontSize="25"
+						FontStyle="Italic"
+						FontWeight="700"
+						LineHeight="50"
+						FontFamily="Gelion"
+						TextAlignment="Left"
+						PointerPressed="Change_PointerPressed">
+						Изменить данные
+					</TextBlock>
+
+					<TextBlock
+						x:Name="SavingBlock"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Foreground="#D94D04"
+						FontSize="25"
+						FontStyle="Italic"
+						FontWeight="700"
+						LineHeight="50"
+						FontFamily="Gelion"
+						TextAlignment="Left"
+						IsVisible="False"
+						PointerPressed="Save_PointerPressed">
+						Сохранить
+					</TextBlock>
+				</StackPanel>
 				
 				<Button
 					VerticalAlignment="Center"
@@ -181,41 +224,69 @@
 						Будущие бронирования
 					</TextBlock>
 
+					<TextBlock
+						x:Name="NoNext"
+						Margin="0 50 0 0"
+						Foreground="#D94D04"
+						FontSize="35"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="90"
+						FontFamily="Source Sans Pro"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsVisible="{Binding Visibl1}">
+						Хм... Тут пока ничего 🤔
+					</TextBlock>
+
 					<ScrollViewer
 						HorizontalScrollBarVisibility="Visible">
-					<StackPanel
-						Orientation="Horizontal"
-						Spacing="30"
-						Margin="0 0 0 20">
-						<Border
-							Width="350"
-							Height="350"
-							Background="#D94D04"
-							CornerRadius="50">
-						
-						</Border>
-						<Border
-							Width="350"
-							Height="350"
-							Background="#D94D04"
-							CornerRadius="50">
+						<ItemsControl
+							ItemsSource="{Binding Bookings}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel
+										Orientation="Horizontal"
+										Spacing="30"
+										Margin="0 0 0 20"/>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border
+										Background="#D94D04"
+										CornerRadius="50"
+										Height="350"
+										Width="350">
+										<Grid ShowGridLines="True">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="3*"/>
+												<RowDefinition Height="*"/>
+											</Grid.RowDefinitions>
 
-						</Border>
-						<Border
-							Width="350"
-							Height="350"
-							Background="#D94D04"
-							CornerRadius="50">
+											<!-- Первая половина с текстовыми полями -->
+											<StackPanel Grid.Row="1">
+												<TextBlock
+													Margin="0 5 0 0"
+													Foreground="#ffffff"
+													Classes="Info"
+													Text="{Binding Date}"/>
+												<TextBlock
+													Classes="Info"
+													Text="{Binding Time}"/>
+											</StackPanel>
 
-						</Border>
-						<Border
-							Height="350"
-							Width="350"
-							Background="#D94D04"
-							CornerRadius="50">
-
-						</Border>
-					</StackPanel>
+											<!-- Вторая половина с изображением -->
+											<StackPanel Grid.Row="2">
+												<Image
+													Source="{Binding ImagePath}"/>
+											</StackPanel>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
 					</ScrollViewer>
 				</StackPanel>
 
@@ -235,42 +306,70 @@
 						VerticalAlignment="Center">
 						Прошедшие бронирования
 					</TextBlock>
+					
+					<TextBlock
+						x:Name="NoLast"
+						Margin="0 50 0 0"
+						Foreground="#D94D04"
+						FontSize="35"
+						FontWeight="700"
+						TextAlignment="Center"
+						LetterSpacing="0"
+						LineHeight="90"
+						FontFamily="Source Sans Pro"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						IsVisible="{Binding Visibl2}">
+						Похоже, вы еще не захаживали😲
+					</TextBlock>
 
 					<ScrollViewer
 						HorizontalScrollBarVisibility="Visible">
-					<StackPanel
-						Orientation="Horizontal"
-						Spacing="30"
-						Margin="0 0 0 20">
-						<Border
-							Height="350"
-							Width="350"
-							Background="#D94D04"
-							CornerRadius="50">
+						<ItemsControl
+								ItemsSource="{Binding BookingsLast}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel
+										Orientation="Horizontal"
+										Spacing="30"
+										Margin="0 0 0 20"/>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border
+										Background="#D94D04"
+										CornerRadius="50"
+										Height="350"
+										Width="350">
+										<Grid ShowGridLines="True">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="3*"/>
+												<RowDefinition Height="*"/>
+											</Grid.RowDefinitions>
 
-						</Border>
-						<Border
-							Height="350"
-							Width="350"
-							Background="#D94D04"
-							CornerRadius="50">
+											<!-- Первая половина с текстовыми полями -->
+											<StackPanel Grid.Row="1">
+												<TextBlock
+													Margin="0 5 0 0"
+													Foreground="#ffffff"
+													Classes="Info"
+													Text="{Binding Date}"/>
+												<TextBlock
+													Classes="Info"
+													Text="{Binding Time}"/>
+											</StackPanel>
 
-						</Border>
-						<Border
-							Height="350"
-							Width="350"
-							Background="#D94D04"
-							CornerRadius="50">
-
-						</Border>
-						<Border
-							Height="350"
-							Width="350"
-							Background="#D94D04"
-							CornerRadius="50">
-
-						</Border>
-					</StackPanel>
+											<!-- Вторая половина с изображением -->
+											<StackPanel Grid.Row="2">
+												<Image
+													Source="{Binding ImagePath}"/>
+											</StackPanel>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
 					</ScrollViewer>
 				</StackPanel>
 			</Grid>
