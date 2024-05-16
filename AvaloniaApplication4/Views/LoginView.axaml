@@ -257,7 +257,8 @@
 							LineHeight="50"
 							FontFamily="Gelion"
 							PointerPressed="Forgot_PointerPressed"
-							TextAlignment="Left">
+							TextAlignment="Left"
+							IsVisible="False">
 							Забыли свой пароль?
 						</TextBlock>
 						<TextBlock
