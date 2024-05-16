@@ -4,8 +4,10 @@ using Avalonia.Controls.Documents;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData.Binding;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -34,7 +36,8 @@ public partial class CardViewModel : ViewModelBase
 
     [ObservableProperty]
     private List<JsonClass> _peopleCollection = new();
-    
+
+    //public ObservableCollection<JsonClass> Companies { get; set; } = new();
     [ObservableProperty]
     private List<JsonClass> _border1 = new();
     
@@ -84,10 +87,10 @@ public partial class CardViewModel : ViewModelBase
         foreach (var item in Data)
         {
             PeopleCollection.AddRange(item.Value.Where(p => p.Id > 0 && p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty));
-            //var Items = item.Value.Where(p => p.Id > 0 && p.Name != string.Empty);
+            //var Items = item.Value.Where(p => p.Id > 0 && p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty);
             //foreach (var collect in Items)
             //{
-            //    classes.Add(collect);
+            //    Companies.Add(collect);
             //}
         }
         add();

@@ -7,6 +7,7 @@
 			 x:Class="AvaloniaApplication4.Views.BusinessAccountView"
 			 x:DataType="vm:BusinessAccountViewModel"
 			>
+<Border CornerRadius="30" ClipToBounds="True">	
 	<ScrollViewer>
 	<Grid
 		RowDefinitions="*, *"
@@ -310,4 +311,5 @@
 		</ScrollViewer>
 	</Grid>
 	</ScrollViewer>
+</Border>
 </UserControl>

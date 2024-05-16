@@ -13,11 +13,12 @@ namespace AvaloniaApplication4.Models
 {
     public partial class ConnectingBD
     {
-        string connect_host = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+        string connect_host = User.Connect;
         public Dictionary<int, List<JsonClass>> keyValuePairs { get; set; } = new Dictionary<int, List<JsonClass>>();
 
         public event Action<Dictionary<int, List<JsonClass>>>? DataLoaded;
 
+        public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
         public async Task WriteBd(ObservableCollection<JsonClass> collection)
         {
@@ -63,6 +64,29 @@ namespace AvaloniaApplication4.Models
 
             //var cn = new HomePageViewModel(bd);
             //bd.DataLoaded?.Invoke(keyValuePairs);
+        }
+        public async Task ReadBdCompany()
+        {
+           
+            //List<object> types = [];
+      
+            int id = default;
+            await using (var connect = new NpgsqlConnection(connect_host))
+            {
+                connect.Open();
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_bookings", connect))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        id = reader.GetInt32(1);
+                        var item = new IdCompany { Id_Company = id };
+                        idCompanies.Add(item);
+                     
+                    }
+                    reader.Close();
+                }
+            }
         }
 
     }

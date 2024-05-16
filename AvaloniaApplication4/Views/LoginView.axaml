@@ -6,8 +6,9 @@
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
              x:Class="AvaloniaApplication4.Views.LoginView"
 			 x:DataType="vm:LoginViewModel">
-		
-		<Grid
+
+	<Border CornerRadius="30" ClipToBounds="True">
+		<Grid 
 		ColumnDefinitions="*,*"
 		ShowGridLines="True">
 		<DockPanel
@@ -279,4 +280,5 @@
 
 			</Grid>
 	</Grid>
+</Border>
 </UserControl>
