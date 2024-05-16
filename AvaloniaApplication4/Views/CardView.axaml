@@ -33,9 +33,7 @@
 				DockPanel.Dock="Top">
 				CoWork
 			</TextBlock>
-			<Button Content="Add" Command="{Binding NavigateCommand}" CommandParameter="AddCardViewModel" Background="#999999">
-				
-			</Button>
+	
 		</DockPanel>
                     <Border   x:Name="Bord"
                               IsEnabled="True"

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" Background="#161616"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+			 xmlns:material="using:Material.Icons.Avalonia"
 			 x:Class="AvaloniaApplication4.Views.BusinessAccountView"
 			 x:DataType="vm:BusinessAccountViewModel"
 			>
@@ -269,6 +270,31 @@
 		<ScrollViewer
 	HorizontalScrollBarVisibility="Visible"
 	Grid.Row="1">
+			<StackPanel
+				Orientation="Horizontal"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Center"
+				Margin="100 150 100 20"
+				Spacing="100">
+			<Border
+				Width="700"
+				Height="500"
+				CornerRadius="50">
+
+				<Button Width="700"  Command="{Binding NavigateToAddCommand}" CommandParameter="AddCardViewModel" Height="500" CornerRadius="30" >
+					<material:MaterialIcon Width="700" Height="500" Kind="Add"/>
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#D94D04" />
+							
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#D94D04" />
+							<Setter Property="Foreground" Value="#ffffff" />
+						</Style>
+					</Button.Styles>
+				</Button>
+			</Border>
 			<ItemsControl
 				ItemsSource="{Binding Bookings}">
 				<ItemsControl.ItemsPanel>
@@ -276,9 +302,10 @@
 						<StackPanel
 							HorizontalAlignment="Left"
 							VerticalAlignment="Center"
-							Margin="100 150 100 20"
 							Orientation="Horizontal"
-							Spacing="100"/>
+							Spacing="100">
+						</StackPanel>
+						
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.ItemTemplate>
@@ -288,26 +315,12 @@
 							Height="500"
 							Background="#D94D04"
 							CornerRadius="50">
-							<Grid ShowGridLines="True">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="3*"/>
-									<RowDefinition Height="*"/>
-								</Grid.RowDefinitions>
-
-								<!-- Первая половина с текстовыми полями -->
-								<StackPanel Grid.Row="1">
-									
-								</StackPanel>
-
-								<!-- Вторая половина с изображением -->
-								<StackPanel Grid.Row="2">
-									
-								</StackPanel>
-							</Grid>
+							
+							
 						</Border>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
-			</ItemsControl>
+			</ItemsControl></StackPanel>
 		</ScrollViewer>
 	</Grid>
 	</ScrollViewer>

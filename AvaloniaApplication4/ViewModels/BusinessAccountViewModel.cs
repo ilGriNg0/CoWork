@@ -45,7 +45,16 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         public string _password;
 
+        public ICommand NavigateToAddCommand => new RelayCommand<string>(NavigateToAdd);
+
         
+        public void NavigateToAdd(string? pageViewModel)
+        {
+    
+            var mainwindow = MainWindowViewModel.Instance;
+            mainwindow.Navigate(pageViewModel);
+
+        }
         public ObservableCollection<string> Coworkings { get; set; }
         public ICommand ButtonCommand { get; }
 

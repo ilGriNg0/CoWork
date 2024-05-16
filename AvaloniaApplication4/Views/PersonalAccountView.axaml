@@ -8,6 +8,7 @@
 			 x:DataType="vm:PersonalAccountViewModel">
 
 	<Border CornerRadius="30" ClipToBounds="True" >
+		<ScrollViewer>
 	<Grid
 		ColumnDefinitions="2*, 3*"
 		ShowGridLines="True">
@@ -15,7 +16,8 @@
 			Grid.Column="0">
 			<StackPanel 
 				DockPanel.Dock="Top"
-				Spacing="30">
+				Spacing="30"
+				Margin="0 0 0 30">
 				<StackPanel
 					Orientation="Horizontal"
 					Margin="100 50 0 0"
@@ -243,7 +245,7 @@
 						IsVisible="{Binding Visibl1}">
 						Хм... Тут пока ничего 🤔
 					</TextBlock>
-
+					
 					<ScrollViewer
 						HorizontalScrollBarVisibility="Visible">
 						<ItemsControl
@@ -368,13 +370,17 @@
 											
 										</Grid>
 									</Border>
+									
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 						</ItemsControl>
+						
 					</ScrollViewer>
 				</StackPanel>
+			
 			</Grid>
 		</DockPanel>
 	</Grid>
+		</ScrollViewer>
 </Border>
 </UserControl>
