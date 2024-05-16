@@ -108,7 +108,7 @@ namespace AvaloniaApplication4.Views
             if (this.GetControl<TextBox>("Emailbus").BorderBrush != newbrush && this.GetControl<TextBox>("Phonebus").BorderBrush != newbrush && this.GetControl<TextBox>("Passwordbus").BorderBrush != newbrush)
                 if (this.GetControl<TextBox>("Emailbus").Text != User.Email || this.GetControl<TextBox>("Phonebus").Text != User.Phone || this.GetControl<TextBox>("Passwordbus").Text != User.Password) 
                 {
-                    var cs = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+                    var cs = User.Connect;
                     var con = new NpgsqlConnection(cs);
                     con.Open();
 

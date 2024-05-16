@@ -24,11 +24,13 @@
 		<SplitView.Pane>
 			<StackPanel>
 				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
-					<material:MaterialIcon Width="25" Height="" Kind="Home"/>
+					<material:MaterialIcon Width="25" Height="25" Kind="Home"/>
+
 				</Button>
-				<Button HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="LoginViewModel" ></Button>
-				
-				
+				<Button HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="LoginViewModel" >
+					<material:MaterialIcon Width="25" Height="25" Kind="Person"/>
+
+				</Button>
 			</StackPanel>
 		</SplitView.Pane>
 		<SplitView.Content>

@@ -137,18 +137,22 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string? _path_photo;
 
-    public class ListItemTemplate(Type type)
+        public class ListItemTemplate(Type type)
+        {
+            public object Instance { get; } = Activator.CreateInstance(type);
+            public string Label { get; } = type.Name.Replace("ViewModel", "");
+            public Type ModelType { get; } = type;
+            //    MainWindow mnWindow = new();
+        }
+
+
+    }
+
+     public partial class IdCompany : ObservableObject
     {
-        public object Instance { get; } = Activator.CreateInstance(type);
-        public string Label { get; } = type.Name.Replace("ViewModel", "");
-        public Type ModelType { get; } = type;
-        //    MainWindow mnWindow = new();
-}
-
-    
-}
-
-
+        [ObservableProperty]
+        private int _id_Company;
+    }
 //< Image Grid.ColumnSpan = "2"
 //Grid.RowSpan = "2"
 //Source = "{Binding Image_bitmap_source}"

@@ -6,7 +6,7 @@
              x:Class="AvaloniaApplication4.Views.RegistrationView"
 			 xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
 			 x:DataType="vm:RegistrationViewModel">
-	
+	<Border CornerRadius="30" ClipToBounds="True">
 		<DockPanel
 			Background="#161616">
 			<Grid
@@ -496,4 +496,5 @@
 				</Grid>
 			</Grid>
 		</DockPanel>
+	</Border>
 </UserControl>
