@@ -16,7 +16,7 @@ namespace AvaloniaApplication4.Models
         public static ViewModelBase Model { get; set; }
         public static MainWindowViewModel Main {  get; set; }
 
-        public static string Connect { get; set; } = "Host=localhost;Port=5432;Database=coworking;Username=postgres;Password=NoSmoking";
+        public static string Connect { get; set; } = "Host=localhost;Port=5432;Database=cardtest;Username=postgres;Password=123456";
 
     }
 }
