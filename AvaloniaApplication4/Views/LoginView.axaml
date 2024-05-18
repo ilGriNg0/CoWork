@@ -10,13 +10,13 @@
 	<Border CornerRadius="30" ClipToBounds="True">
 		<Grid 
 		ColumnDefinitions="*,*"
-		ShowGridLines="True">
+		ShowGridLines="False">
 		<DockPanel
 			Background="#D94D04"
 			Grid.Column="0">
 			<Grid
 				RowDefinitions="2*,*"
-				ShowGridLines="True">
+				ShowGridLines="False">
 				
 				<!--Изображенние-->
 				<Image
@@ -64,7 +64,7 @@
 				Grid.Column="1"
 				ColumnDefinitions="1.5*, 2*, 1.5*"
 				RowDefinitions="*, 2*, *"
-				ShowGridLines="True"
+				ShowGridLines="False"
 				Background="#161616">
 
 				<!--Название-->

@@ -1,6 +1,8 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform.Storage;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -60,11 +62,37 @@ namespace AvaloniaApplication4.ViewModels
 
         public BusinessAccountViewModel()
         {
+            GetPhoto();
             GetInfo();
             GetBookings();
             ButtonCommand = new Relay1Command(ButtonClick);
         }
-        
+
+        private bool isregphoto = false;
+        public void GetPhoto()
+        {
+            try
+            {
+                var cs = User.Connect;
+                var con = new NpgsqlConnection(cs);
+                con.Open();
+
+                var sql = $"SELECT file FROM main_images WHERE id_coworking = '{User.Id}';";
+
+                var cmd = new NpgsqlCommand(sql, con);
+                NpgsqlDataReader rdr = cmd.ExecuteReader();
+                while(rdr.Read())
+                {
+
+                    PhotoPath = new Bitmap(rdr.GetString(0));
+                    isregphoto = true;
+                    return;
+                }
+            }
+            catch (Exception){}
+            PhotoPath = new Bitmap("Assets\\nophotop1.png");
+        }
+
         private ObservableCollection<Booking> _bookings;
         private List<ObservableCollection<Booking>> _books = new List<ObservableCollection<Booking>>();
         private ObservableCollection<Booking> Bookings
@@ -157,6 +185,61 @@ namespace AvaloniaApplication4.ViewModels
                 Type = type;
                 Date_start = date_start;
                 Date_end = date_end;
+            }
+        }
+
+        public ICommand PhotoClickedCommand => new RelayCommand(add_photo);
+
+        private readonly Window _target = new();
+        public static FilePickerFileType ImageAll { get; } = new("All Images")
+        {
+            Patterns = new[] { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp", "*.webp" },
+            AppleUniformTypeIdentifiers = new[] { "public.image" },
+            MimeTypes = new[] { "image/*" }
+        };
+        public async void add_photo()
+        {
+
+            var files = await _target.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+            {
+                //You can add either custom or from the built-in file types. See "Defining custom file types" on how to create a custom one.
+                FileTypeFilter = new[] { ImageAll, FilePickerFileTypes.TextPlain }
+            });
+            if (files != null && files.Count > 0)
+            {
+                // Получаем путь к первому выбранному файлу
+                var selectedFile = files[0];
+                var filePath = selectedFile.Path.LocalPath;
+
+                var cs = User.Connect;
+                var con = new NpgsqlConnection(cs);
+                string sql;
+
+                con.Open();
+                if (isregphoto)
+                    sql = $"UPDATE main_images SET file = '{filePath}' WHERE id_coworking = '{User.Id}';";
+                else 
+                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filePath}';";
+
+                var cmd = new NpgsqlCommand(sql, con);
+                NpgsqlDataReader rdr = cmd.ExecuteReader();
+
+                PhotoPath = new Bitmap(filePath);
+            }
+        }
+
+        private Bitmap _photoPath;
+
+        public Bitmap PhotoPath
+        {
+            get => _photoPath;
+            set
+            {
+                if (_photoPath != value)
+                {
+                    _photoPath = value;
+                    OnPropertyChanged();
+                }
             }
         }
     }

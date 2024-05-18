@@ -12,12 +12,12 @@
 	<ScrollViewer>
 	<Grid
 		RowDefinitions="*, *"
-		ShowGridLines="True">
+		ShowGridLines="False">
 		<DockPanel
 			Grid.Row="0">
 			<Grid
 				ColumnDefinitions="2*, 3*"
-				ShowGridLines="True">
+				ShowGridLines="False">
 			<StackPanel
 				DockPanel.Dock="Top"
 				Spacing="30">
@@ -27,19 +27,19 @@
 					Spacing="50">
 					<Border
 						HorizontalAlignment="Left"
-						BorderBrush="#D94D04"
-						Background="#D94D04"
-						BorderThickness="15"
 						Width="200"
+						CornerRadius="270"
 						Height="200"
-						ClipToBounds="True"
-						CornerRadius="270">
-						<Image
-							x:Name="imagebus"
-							Source="../Assets/nophotob.jpg"
-							Height="270"
-							Width="400">
-						</Image>
+						ClipToBounds="True">
+						<Button
+							Command="{Binding PhotoClickedCommand}">
+							<Image
+								Source="{Binding PhotoPath}"
+								Width="200"
+								Height="200"
+								Stretch="UniformToFill">
+							</Image>
+						</Button>
 					</Border>
 					
 					<TextBlock
@@ -268,8 +268,8 @@
 		</TextBlock>
 
 		<ScrollViewer
-	HorizontalScrollBarVisibility="Visible"
-	Grid.Row="1">
+			HorizontalScrollBarVisibility="Visible"
+			Grid.Row="1">
 			<StackPanel
 				Orientation="Horizontal"
 				HorizontalAlignment="Left"

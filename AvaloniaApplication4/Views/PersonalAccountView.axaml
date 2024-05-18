@@ -11,7 +11,7 @@
 		<ScrollViewer>
 	<Grid
 		ColumnDefinitions="2*, 3*"
-		ShowGridLines="True">
+		ShowGridLines="False">
 		<DockPanel
 			Grid.Column="0">
 			<StackPanel 
@@ -24,17 +24,19 @@
 					Spacing="50">
 					<Border
 						HorizontalAlignment="Left"
-						BorderBrush="#D94D04"
-						BorderThickness="15"
 						Width="200"
+						CornerRadius="270"
 						Height="200"
-						ClipToBounds="True"
-						CornerRadius="270">
-						<Image
-							Source="../Assets/nophotop2.jpg"
-							Height="270"
-							Width="400">
-						</Image>
+						ClipToBounds="True">
+						<Button
+							Command="{Binding PhotoClickedCommand}">
+							<Image
+								Source="{Binding PhotoPath}"
+								Width="200"
+								Height="200"
+								Stretch="UniformToFill">
+							</Image>
+						</Button>
 					</Border>
 
 					<StackPanel>
@@ -212,7 +214,7 @@
 			Grid.Column="1">
 			<Grid
 				RowDefinitions="*, *"
-				ShowGridLines="True">
+				ShowGridLines="False">
 				<StackPanel
 					Grid.Row="0"
 					HorizontalAlignment="Center">
@@ -265,7 +267,7 @@
 										CornerRadius="50"
 										Height="350"
 										Width="350">
-										<Grid ShowGridLines="True">
+										<Grid ShowGridLines="False">
 											<Grid.RowDefinitions>
 												<RowDefinition Height="3*"/>
 												<RowDefinition Height="*"/>
@@ -346,7 +348,7 @@
 										Height="350"
 										Width="350">
 					
-										<Grid ShowGridLines="True">
+										<Grid ShowGridLines="False">
 											<Grid.RowDefinitions>
 												<RowDefinition Height="3*"/>
 												<RowDefinition Height="*"/>

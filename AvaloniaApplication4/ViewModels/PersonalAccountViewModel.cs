@@ -1,4 +1,6 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform.Storage;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,10 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using static AvaloniaApplication4.ViewModels.BusinessAccountViewModel;
 
 namespace AvaloniaApplication4.ViewModels
@@ -60,10 +64,36 @@ namespace AvaloniaApplication4.ViewModels
         public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
         public PersonalAccountViewModel()
         {
+            GetPhoto();
             GetInfo();
             ReadBdCompany();
             AddInfo();
             GetBookings();
+        }
+
+        private bool isregphoto = false;
+        public void GetPhoto()
+        {
+            try
+            {
+                var cs = User.Connect;
+                var con = new NpgsqlConnection(cs);
+                con.Open();
+
+                var sql = $"SELECT file FROM main_images WHERE id_coworking = '{User.Id}';";
+
+                var cmd = new NpgsqlCommand(sql, con);
+                NpgsqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+
+                    PhotoPath = new Bitmap(rdr.GetString(0));
+                    isregphoto = true;
+                    return;
+                }
+            }
+            catch (Exception) { }
+            PhotoPath = new Bitmap("Assets\\nophotop1.png");
         }
 
         public void GetInfo()
@@ -213,5 +243,60 @@ namespace AvaloniaApplication4.ViewModels
                 Time = $"{date_start.ToString("HH:mm")}-{date_end.ToString("HH:mm")}";
             }
         }
+        public ICommand PhotoClickedCommand => new RelayCommand(add_photo);
+
+        private readonly Window _target = new();
+        public static FilePickerFileType ImageAll { get; } = new("All Images")
+        {
+            Patterns = new[] { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp", "*.webp" },
+            AppleUniformTypeIdentifiers = new[] { "public.image" },
+            MimeTypes = new[] { "image/*" }
+        };
+        public async void add_photo()
+        {
+
+            var files = await _target.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+            {
+                //You can add either custom or from the built-in file types. See "Defining custom file types" on how to create a custom one.
+                FileTypeFilter = new[] { ImageAll, FilePickerFileTypes.TextPlain }
+            });
+            if (files != null && files.Count > 0)
+            {
+                // Получаем путь к первому выбранному файлу
+                var selectedFile = files[0];
+                var filePath = selectedFile.Path.LocalPath;
+
+                var cs = User.Connect;
+                var con = new NpgsqlConnection(cs);
+                string sql;
+
+                con.Open();
+                if (isregphoto)
+                    sql = $"UPDATE main_images SET file = '{filePath}' WHERE id_coworking = '{User.Id}';";
+                else
+                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filePath}';";
+
+                var cmd = new NpgsqlCommand(sql, con);
+                NpgsqlDataReader rdr = cmd.ExecuteReader();
+
+                PhotoPath = new Bitmap(filePath);
+            }
+        }
+
+        private Bitmap _photoPath;
+
+        public Bitmap PhotoPath
+        {
+            get => _photoPath;
+            set
+            {
+                if (_photoPath != value)
+                {
+                    _photoPath = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
     }
 }
