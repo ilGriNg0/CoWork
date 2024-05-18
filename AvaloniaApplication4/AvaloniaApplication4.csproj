@@ -8,6 +8,7 @@
     <AvaloniaUseCompiledBindingsByDefault>False</AvaloniaUseCompiledBindingsByDefault>
     <AssemblyName>AvaloniaApplication4</AssemblyName>
     <RootNamespace>AvaloniaApplication4</RootNamespace>
+    <ApplicationIcon>Assets\avalonia-logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

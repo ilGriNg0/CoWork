@@ -33,11 +33,12 @@
 				DockPanel.Dock="Top">
 				CoWork
 			</TextBlock>
-			<Button Content="Add" Command="{Binding NavigateCommand}" CommandParameter="AddCardViewModel" Background="#999999">
+	
+		
 				
 			</Button>
 		</DockPanel>
-                    <Border   x:Name="Bord"
+                    <Border  x:Name="Bord"
                               IsEnabled="True"
                               Grid.Column="0"
                               Grid.Row="1"
@@ -331,6 +332,7 @@
 				</Border>
 			</Grid>
 		</Border>
+		
 	
                     <TransitioningContentControl  Grid.ColumnSpan="4" Grid.RowSpan="4" x:Name="ContentControl"/>
 					

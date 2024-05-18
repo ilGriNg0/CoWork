@@ -4,35 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
-			 x:Class="AvaloniaApplication4.Views.PersonalAccountView" Background="#161616"
+			 x:Class="AvaloniaApplication4.Views.PersonalAccountView" 
 			 x:DataType="vm:PersonalAccountViewModel">
 
 	<Border CornerRadius="30" ClipToBounds="True" >
+		<ScrollViewer>
 	<Grid
 		ColumnDefinitions="2*, 3*"
-		ShowGridLines="True">
+		ShowGridLines="False">
 		<DockPanel
 			Grid.Column="0">
 			<StackPanel 
 				DockPanel.Dock="Top"
-				Spacing="30">
+				Spacing="30"
+				Margin="0 0 0 30">
 				<StackPanel
 					Orientation="Horizontal"
 					Margin="100 50 0 0"
 					Spacing="50">
 					<Border
 						HorizontalAlignment="Left"
-						BorderBrush="#D94D04"
-						BorderThickness="15"
 						Width="200"
+						CornerRadius="270"
 						Height="200"
-						ClipToBounds="True"
-						CornerRadius="270">
-						<Image
-							Source="../Assets/nophotop2.jpg"
-							Height="270"
-							Width="400">
-						</Image>
+						ClipToBounds="True">
+						<Button
+							Command="{Binding PhotoClickedCommand}">
+							<Image
+								Source="{Binding PhotoPath}"
+								Width="200"
+								Height="200"
+								Stretch="UniformToFill">
+							</Image>
+						</Button>
 					</Border>
 
 					<StackPanel>
@@ -210,7 +214,7 @@
 			Grid.Column="1">
 			<Grid
 				RowDefinitions="*, *"
-				ShowGridLines="True">
+				ShowGridLines="False">
 				<StackPanel
 					Grid.Row="0"
 					HorizontalAlignment="Center">
@@ -243,7 +247,7 @@
 						IsVisible="{Binding Visibl1}">
 						Хм... Тут пока ничего 🤔
 					</TextBlock>
-
+					
 					<ScrollViewer
 						HorizontalScrollBarVisibility="Visible">
 						<ItemsControl
@@ -263,12 +267,15 @@
 										CornerRadius="50"
 										Height="350"
 										Width="350">
-										<Grid ShowGridLines="True">
+										<Grid ShowGridLines="False">
 											<Grid.RowDefinitions>
 												<RowDefinition Height="3*"/>
 												<RowDefinition Height="*"/>
 											</Grid.RowDefinitions>
-
+											<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}" Foreground="White"
+											   FontSize="20"
+											   FontWeight="DemiBold"
+											   HorizontalAlignment="Center" ></TextBlock>
 											<!-- Первая половина с текстовыми полями -->
 											<StackPanel Grid.Row="1">
 												<TextBlock
@@ -344,12 +351,12 @@
 										Height="350"
 										Width="350">
 					
-										<Grid ShowGridLines="True">
+										<Grid ShowGridLines="False">
 											<Grid.RowDefinitions>
 												<RowDefinition Height="3*"/>
 												<RowDefinition Height="*"/>
 											</Grid.RowDefinitions>
-											<TextBlock Grid.Row="0" Text="{Binding NameCowork}" Foreground="White"
+											<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}" Foreground="White"
 											   FontSize="20"
 											   FontWeight="DemiBold"
 											   HorizontalAlignment="Center" ></TextBlock>
@@ -368,13 +375,17 @@
 											
 										</Grid>
 									</Border>
+									
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 						</ItemsControl>
+						
 					</ScrollViewer>
 				</StackPanel>
+			
 			</Grid>
 		</DockPanel>
 	</Grid>
+		</ScrollViewer>
 </Border>
 </UserControl>

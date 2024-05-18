@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080" 
+             mc:Ignorable="d" d:DesignWidth="1366" d:DesignHeight="768" 
              x:Class="AvaloniaApplication4.Views.RegistrationView"
 			 xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
 			 x:DataType="vm:RegistrationViewModel">
@@ -11,7 +11,7 @@
 			Background="#161616">
 			<Grid
 				RowDefinitions="2*, *, 12*, 2*"
-				ShowGridLines="True">
+				ShowGridLines="False">
 
 				<!--Надпись-->
 				<TextBlock
@@ -65,7 +65,7 @@
 				<Grid
 					Grid.Row="2"
 					ColumnDefinitions="4*, 5*, 2*, 5*, 4*"
-					ShowGridLines="True">
+					ShowGridLines="False">
 
 					<!--Первая карточка-->
 					<Border
@@ -145,10 +145,9 @@
 						<DockPanel>
 							<StackPanel
 								DockPanel.Dock="Top"
-								>
-
+								Spacing="15">
 								<TextBlock
-									Margin="30 30 30 50"
+									Margin="30 30 30 0"
 									VerticalAlignment="Center"
 									HorizontalAlignment="Center"
 									Foreground="#ffffff"
@@ -157,7 +156,7 @@
 									LineHeight="36"
 									FontFamily="Source Sans Pro"
 									TextAlignment="Left">
-									Создай свое <LineBreak/>Идеальное место.<LineBreak/>(Для бизнеса)
+									Создай свое <LineBreak/>Идеальное место.
 								</TextBlock>
 
 								<!--Поля бизнеса-->
@@ -184,24 +183,26 @@
 									ToolTip.Tip="Пример: +7-000-000-00-00"
 									TextChanged="TextBox_TextChanged">
 								</MaskedTextBox>
-
+								
 								<StackPanel
-								Orientation="Horizontal"
-								HorizontalAlignment="Center"
-								Spacing="20">
-								<TextBox
-									Margin="50 15 0 0"
-									x:Name="Password1bus"
-									Classes="Pole"
-									Watermark="Пароль"
-									PasswordChar="{Binding Charac}"
-									ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG"
-									TextChanged="TextBox_TextChanged">
-								</TextBox>
-								<CheckBox
-									IsChecked="{Binding IsChecked, Mode=TwoWay}">
-								</CheckBox>
-									</StackPanel>
+									Orientation="Horizontal"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Spacing="20">
+									<TextBox
+										Width="260"
+										x:Name="Password1bus"
+										Classes="Pole"
+										Watermark="Пароль"
+										PasswordChar="{Binding Charac}"
+										ToolTip.Tip="Минимум 8 символов Пример: Google1elgooG"
+										TextChanged="TextBox_TextChanged">
+									</TextBox>
+									<CheckBox
+										Width="20"
+										IsChecked="{Binding IsChecked, Mode=TwoWay}">
+									</CheckBox>
+								</StackPanel>
 								
 								<TextBox
 									x:Name="Password2bus"
@@ -222,7 +223,6 @@
 									FontWeight="700"
 									LineHeight="50"
 									FontFamily="Gelion"
-									Margin="0 15 0 0"
 									IsVisible="False"
 									TextAlignment="Left">
 									На этот email уже есть регистрация.
@@ -274,7 +274,8 @@
 
 						<DockPanel>
 							<StackPanel
-								DockPanel.Dock="Top">
+								DockPanel.Dock="Top"
+								Spacing="15">
 
 								<TextBlock
 									Margin="30"
@@ -286,7 +287,7 @@
 									LineHeight="36"
 									FontFamily="Source Sans Pro"
 									TextAlignment="Left">
-									Найди себя в<LineBreak/>креативной среде.<LineBreak/>(Для работяг)
+									Найди себя в<LineBreak/>Креативной среде.<LineBreak/>(Для работяг)
 								</TextBlock>
 
 								<Image
@@ -294,12 +295,12 @@
 									Source="../Assets/spaceman.png"
 									HorizontalAlignment="Center"
 									VerticalAlignment="Center"
-									Margin="20 -20 80 55">
+									Margin="30 0 70 55">
 								</Image>
 							</StackPanel>
 
 							<Button
-								Margin="50 -20 50 30"
+								Margin="50 0 50 30"
 								VerticalAlignment="Bottom"
 								HorizontalAlignment="Center"
 								FontSize="18"
@@ -343,10 +344,11 @@
 
 						<DockPanel>
 							<StackPanel
-								DockPanel.Dock="Top">
+								DockPanel.Dock="Top"
+								Spacing="15">
 
 								<TextBlock
-									Margin="30 30 30 10"
+									Margin="30 30 30 0"
 									VerticalAlignment="Center"
 									HorizontalAlignment="Center"
 									Foreground="#ffffff"
@@ -355,8 +357,9 @@
 									LineHeight="36"
 									FontFamily="Source Sans Pro"
 									TextAlignment="Left">
-									Найди себя в<LineBreak/>креативной среде.<LineBreak/>(Для работяг)
+									Найди себя в<LineBreak/>Креативной среде.
 								</TextBlock>
+								
 								
 										<!--Поля персоны-->
 										<TextBox
@@ -402,9 +405,10 @@
 								<StackPanel
 									Orientation="Horizontal"
 									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
 									Spacing="20">
 										<TextBox
-											Margin="50 15 0 0"
+											Width="260"
 											x:Name="Password1per"
 											Classes="Pole"
 											Watermark="Пароль"
@@ -413,6 +417,7 @@
 											TextChanged="TextBox_TextChanged">
 										</TextBox>
 										<CheckBox
+											Width="20"
 											IsChecked="{Binding IsChecked, Mode=TwoWay}">
 										</CheckBox>
 								</StackPanel>
@@ -436,7 +441,6 @@
 											FontWeight="700"
 											LineHeight="20"
 											FontFamily="Gelion"
-											Margin="0 15 0 0"
 											IsVisible="False"
 											TextAlignment="Left">
 											На этот email уже есть регистрация.
