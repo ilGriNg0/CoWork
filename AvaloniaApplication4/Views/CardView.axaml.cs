@@ -19,37 +19,18 @@ namespace AvaloniaApplication4.Views
         private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
         {
             var viewModel = new CardViewModel();
-            var mm = new MainWindowViewModel();
-
-            
-                ContentControl.Content = viewModel?.Base;
-
-            
-
+            ContentControl.Content = viewModel?.Base;
         }
         private void Border2_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
             var viewModel = new CardViewModel();
-
-
-
             ContentControl.Content = viewModel?.Base2_card;
-
-
-
         }
         private void Border3_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
             var viewModel = new CardViewModel();
-
-
             ContentControl.Content = viewModel?.Base3_card;
-
-
-
         }
-
-
     }
             
 }
