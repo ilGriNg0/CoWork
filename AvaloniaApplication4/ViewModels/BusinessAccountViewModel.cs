@@ -83,14 +83,14 @@ namespace AvaloniaApplication4.ViewModels
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
                 while(rdr.Read())
                 {
-
                     PhotoPath = new Bitmap(rdr.GetString(0));
                     isregphoto = true;
                     return;
                 }
+                PhotoPath = new Bitmap("Assets\\nophotop1.png");
             }
             catch (Exception){}
-            PhotoPath = new Bitmap("Assets\\nophotop1.png");
+            
         }
 
         private ObservableCollection<Booking> _bookings;

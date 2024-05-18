@@ -91,9 +91,9 @@ namespace AvaloniaApplication4.ViewModels
                     isregphoto = true;
                     return;
                 }
+                PhotoPath = new Bitmap("Assets\\nophotop1.png");
             }
             catch (Exception) { }
-            PhotoPath = new Bitmap("Assets\\nophotop1.png");
         }
 
         public void GetInfo()
