@@ -54,11 +54,11 @@ namespace AvaloniaApplication4.ViewModels
         }
         public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
 
-      public MainWindowViewModel() 
+        public MainWindowViewModel()
         {
             User.Main = this;
         }
-
+        
         public void Navigate(string? pageViewModel)
         {
             string namspc = Namespace();
