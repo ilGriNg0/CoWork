@@ -33,10 +33,6 @@
 				DockPanel.Dock="Top">
 				CoWork
 			</TextBlock>
-	
-		
-				
-			</Button>
 		</DockPanel>
                     <Border  x:Name="Bord"
                               IsEnabled="True"
