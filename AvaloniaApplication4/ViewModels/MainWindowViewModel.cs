@@ -58,29 +58,38 @@ namespace AvaloniaApplication4.ViewModels
         public MainWindowViewModel()
         {
             User.Main = this;
+            User.Model = new LoginViewModel();
         }
         [ObservableProperty]
         private SolidColorBrush _color1 = new SolidColorBrush(Color.Parse("#D94D04"));
         [ObservableProperty]
-        private SolidColorBrush _color2 = new(Colors.Black);
+        private SolidColorBrush _color2 = new SolidColorBrush(Colors.Black);
 
         public void Navigate(string? pageViewModel)
         {
             string namspc = Namespace();
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-            if (Page.GetType() == viewModelType) return;
-            else if (pageViewModel == "LoginViewModel" && User.Model != null)
+
+            if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black) return;
+            else if (pageViewModel == "LoginViewModel")
             {
+                var bufer = Color1;
+                Color1 = Color2;
+                Color2 = bufer;
                 Page = User.Model;
             }
             else
             {
+                if (Color1.Color == Colors.Black)
+                {
+                    var bufer = Color1;
+                    Color1 = Color2;
+                    Color2 = bufer;
+                }
+                
                 ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
                 Page = viewModel;
             }
-            var bufer = Color1;
-            Color1 = Color2;
-            Color2 = bufer;
         }
 
        
