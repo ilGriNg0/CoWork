@@ -70,17 +70,20 @@ namespace AvaloniaApplication4.ViewModels
             string namspc = Namespace();
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
 
-            if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black) return;
+            if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black && Page == User.Model) return;
             else if (pageViewModel == "LoginViewModel")
             {
-                var bufer = Color1;
-                Color1 = Color2;
-                Color2 = bufer;
-                Page = User.Model;
+                if (Color1.Color != Colors.Black)
+                {
+                    var bufer = Color1;
+                    Color1 = Color2;
+                    Color2 = bufer;
+                }
+                    Page = User.Model;
             }
             else
             {
-                if (Color1.Color == Colors.Black)
+                if (Color1.Color == Colors.Black && viewModelType == typeof(CardViewModel))
                 {
                     var bufer = Color1;
                     Color1 = Color2;
