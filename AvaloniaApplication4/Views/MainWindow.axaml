@@ -8,28 +8,46 @@
         x:Class="AvaloniaApplication4.Views.MainWindow"
         xmlns:material="using:Material.Icons.Avalonia"
 		x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="CoWork"
+        Icon="/Assets/er.ico"
+        Title="CoWork - Explore Spaces"
         WindowState="Maximized" CanResize="True">
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-	<SplitView PaneBackground="#9C9C9C"
+	<SplitView PaneBackground="Black"
            Background="Black"
+		   CompactPaneLength="100"
            PanePlacement="Left"
            DisplayMode="CompactInline"
            x:Name="View">
 		<SplitView.Pane>
-			<StackPanel>
-				<Button HorizontalAlignment="Center"  Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
-					<material:MaterialIcon Width="25" Height="25" Kind="Home"/>
-
+			<StackPanel
+				Margin="0 100 0 0"
+				VerticalAlignment="Top"
+				Spacing="40">
+				<Button HorizontalAlignment="Center"  CornerRadius="270" Command="{Binding NavigateCommand}" CommandParameter="CardViewModel">
+					<material:MaterialIcon Foreground="White" Width="35" Height="35" Kind="Home"/>
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="{Binding Color1}" />
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="{Binding Color1}" />
+						</Style>
+					</Button.Styles>
 				</Button>
-				<Button HorizontalAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="LoginViewModel" >
-					<material:MaterialIcon Width="25" Height="25" Kind="Person"/>
-
+				<Button HorizontalAlignment="Center" CornerRadius="270" Command="{Binding NavigateCommand}" CommandParameter="LoginViewModel" >
+					<material:MaterialIcon Foreground="White" Width="35" Height="35" Kind="Person"/>
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="{Binding Color2}" />
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="{Binding Color2}" />
+						</Style>
+					</Button.Styles>
 				</Button>
 			</StackPanel>
 		</SplitView.Pane>

@@ -8,11 +8,15 @@
     <AvaloniaUseCompiledBindingsByDefault>False</AvaloniaUseCompiledBindingsByDefault>
     <AssemblyName>AvaloniaApplication4</AssemblyName>
     <RootNamespace>AvaloniaApplication4</RootNamespace>
-    <ApplicationIcon>Assets\avalonia-logo.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\er.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\er.ico" />
   </ItemGroup>
 
 	<ItemGroup>

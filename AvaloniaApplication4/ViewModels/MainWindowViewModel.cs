@@ -22,6 +22,7 @@ using System.Windows.Input;
 using Avalonia.Controls;
 using System.Reflection.Metadata.Ecma335;
 using static AvaloniaApplication4.ViewModels.JsonClass;
+using Avalonia.Media;
 
 namespace AvaloniaApplication4.ViewModels
 {
@@ -58,20 +59,28 @@ namespace AvaloniaApplication4.ViewModels
         {
             User.Main = this;
         }
-        
+        [ObservableProperty]
+        private SolidColorBrush _color1 = new SolidColorBrush(Color.Parse("#D94D04"));
+        [ObservableProperty]
+        private SolidColorBrush _color2 = new(Colors.Black);
+
         public void Navigate(string? pageViewModel)
         {
             string namspc = Namespace();
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-            if(pageViewModel == "LoginViewModel" && User.Model != null)
+            if (Page.GetType() == viewModelType) return;
+            else if (pageViewModel == "LoginViewModel" && User.Model != null)
             {
-                 Page = User.Model;
+                Page = User.Model;
             }
             else
             {
                 ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
                 Page = viewModel;
             }
+            var bufer = Color1;
+            Color1 = Color2;
+            Color2 = bufer;
         }
 
        
