@@ -219,7 +219,7 @@ namespace AvaloniaApplication4.ViewModels
                 if (isregphoto)
                     sql = $"UPDATE main_images SET file = '{filePath}' WHERE id_coworking = '{User.Id}';";
                 else 
-                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filePath}';";
+                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filePath}');";
 
                 var cmd = new NpgsqlCommand(sql, con);
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
