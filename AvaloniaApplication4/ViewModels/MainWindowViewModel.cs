@@ -64,13 +64,28 @@ namespace AvaloniaApplication4.ViewModels
         private SolidColorBrush _color1 = new SolidColorBrush(Color.Parse("#D94D04"));
         [ObservableProperty]
         private SolidColorBrush _color2 = new SolidColorBrush(Colors.Black);
-
+        [ObservableProperty]
+        private static bool _clicked_navigate;
         public void Navigate(string? pageViewModel)
         {
             string namspc = Namespace();
+            PersonalAccountViewModel personalAccountViewModel = new();
+            Clicked_navigate = personalAccountViewModel.Pressed;
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-
-            if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black && Page == User.Model) return;
+            bool clicked = false;
+            if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black && Page == User.Model)
+            {
+                
+                if ( Clicked_navigate)
+                { 
+                    Type viewModelType2 = Type.GetType(namspc + "." + "PersonalAccountViewModel");
+                    ViewModelBase viewModel2 = (ViewModelBase)Activator.CreateInstance(viewModelType2);
+                    Page = viewModel2;
+                }
+                    
+                
+               
+            }
             else if (pageViewModel == "LoginViewModel")
             {
                 if (Color1.Color != Colors.Black)
@@ -80,6 +95,7 @@ namespace AvaloniaApplication4.ViewModels
                     Color2 = bufer;
                 }
                     Page = User.Model;
+                
             }
             else
             {
@@ -92,7 +108,10 @@ namespace AvaloniaApplication4.ViewModels
                 
                 ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
                 Page = viewModel;
+                clicked = true;
+              
             }
+         
         }
 
        

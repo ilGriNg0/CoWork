@@ -63,6 +63,8 @@ namespace AvaloniaApplication4.ViewModels
         public string _date;
 
         [ObservableProperty]
+        private static bool _pressed;
+        [ObservableProperty]
         private string? _name;
         private ObservableCollection<JsonClass> _borderCompany1 = new();
 
