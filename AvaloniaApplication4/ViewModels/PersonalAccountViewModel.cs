@@ -84,7 +84,8 @@ namespace AvaloniaApplication4.ViewModels
           
             AddInfo();
             AddBook(BookingsLast);
-            
+            AddBook(Bookings);
+
         }
 
         private bool isregphoto = false;
