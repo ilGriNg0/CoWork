@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
 
 namespace AvaloniaApplication4.Views
 {
@@ -146,6 +147,15 @@ namespace AvaloniaApplication4.Views
                     this.GetControl<TextBlock>("SavingBlock").IsVisible = false;
                     this.GetControl<TextBlock>("Error").IsVisible = false;
                 }
+        }
+        private void BorderBusinessPressed(object? sender, PointerPressedEventArgs e)
+        {
+            if (sender is Border bord && bord.DataContext is JsonClass js)
+            {
+                var viewModel = new DynamicCardsViewModel(js);
+
+                BusinCont.Content = new DynamicCardsView { DataContext = viewModel };
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using Avalonia.Platform.Storage;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DynamicData;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -57,14 +58,18 @@ namespace AvaloniaApplication4.ViewModels
             mainwindow.Navigate(pageViewModel);
 
         }
+        [ObservableProperty]
+        private ObservableCollection<JsonClass> _bookingsBusines = new();
         public ObservableCollection<string> Coworkings { get; set; }
         public ICommand ButtonCommand { get; }
-
+        ConnectingBD connect = new();
         public BusinessAccountViewModel()
         {
             GetPhoto();
             GetInfo();
             GetBookings();
+            connect.ReadPhotoBusinessBd();
+            InsertBookings();
             ButtonCommand = new Relay1Command(ButtonClick);
         }
 
@@ -145,7 +150,35 @@ namespace AvaloniaApplication4.ViewModels
             rdr.Close();
             con.Close();
         }
-
+        public void InsertBookings()
+        {
+            CardViewModel cardViewModel = new CardViewModel();
+          
+            foreach (var item in cardViewModel.Card_Collection)
+            {
+                    if (item.Id > 4)
+                    {
+                        BookingsBusines.Add(item);
+                        insertPhotoBookings();
+                    }
+            }
+        }
+        public void insertPhotoBookings()
+        {
+          CardViewModel cardView = new CardViewModel(); 
+            ConnectingBD connectingdb = new ConnectingBD();
+            foreach (var item in connectingdb.PhotoIDPathBusinessPairs)
+            {
+                if(item.Key.Item2 > 4)
+                {
+                   
+                    foreach (var item2 in BookingsBusines)
+                    {
+                        item2.Path_photo = new Bitmap(item.Value);   
+                    }
+                }
+            }
+        }
         public void GetInfo()
         {
             var cs = User.Connect;

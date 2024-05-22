@@ -14,22 +14,16 @@ namespace AvaloniaApplication4.Views
         public CardView()
         {
             InitializeComponent();
+           
         }
-
-        private void InputElement_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+        private void Border_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
-            var viewModel = new CardViewModel();
-            ContentControl.Content = viewModel?.Base;
-        }
-        private void Border2_PointerPressed(object? sender, PointerPressedEventArgs e)
-        {
-            var viewModel = new CardViewModel();
-            ContentControl.Content = viewModel?.Base2_card;
-        }
-        private void Border3_PointerPressed(object? sender, PointerPressedEventArgs e)
-        {
-            var viewModel = new CardViewModel();
-            ContentControl.Content = viewModel?.Base3_card;
+          
+            if (sender is Border bord && bord.DataContext is JsonClass js)
+            {
+                var viewModel = new DynamicCardsViewModel(js);
+                ContentControl.Content = new DynamicCardsView {DataContext = viewModel };
+            }
         }
     }
             

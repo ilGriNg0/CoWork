@@ -6,6 +6,7 @@ using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
 using Npgsql;
 using System.Text.RegularExpressions;
+using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
 
 namespace AvaloniaApplication4.Views
 {
@@ -141,6 +142,16 @@ namespace AvaloniaApplication4.Views
                     this.GetControl<TextBlock>("SavingBlock").IsVisible = false;
                     this.GetControl<TextBlock>("Error").IsVisible = false;
                 }
+        }
+        private void BorderPersonal_PointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+
+            if (sender is Border bord && bord.DataContext is Booking js)
+            {
+                var viewModel = new DynamicCardsViewModel(js);
+              
+                Cont.Content = new DynamicCardsView { DataContext = viewModel };
+            }
         }
     }
 }

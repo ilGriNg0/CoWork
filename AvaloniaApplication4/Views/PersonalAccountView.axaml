@@ -266,16 +266,22 @@
 										Background="#D94D04"
 										CornerRadius="50"
 										Height="350"
-										Width="350">
+										Width="350"
+										ClipToBounds="True"
+										PointerPressed="BorderPersonal_PointerPressed">
 										<Grid ShowGridLines="False">
 											<Grid.RowDefinitions>
 												<RowDefinition Height="3*"/>
 												<RowDefinition Height="*"/>
 											</Grid.RowDefinitions>
-											<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}" Foreground="White"
-											   FontSize="20"
-											   FontWeight="DemiBold"
-											   HorizontalAlignment="Center" ></TextBlock>
+											<StackPanel Grid.Row="0">
+												<Image  Source="{Binding Path_cowork}" Stretch="UniformToFill"/>
+												<TextBlock  Text="{Binding Name_Cowork}" Foreground="White"
+												   FontSize="20"
+												   FontWeight="DemiBold"
+												   HorizontalAlignment="Center" ></TextBlock>
+											</StackPanel>
+											
 											<!-- Первая половина с текстовыми полями -->
 											<StackPanel Grid.Row="1">
 												<TextBlock
@@ -349,17 +355,25 @@
 										Background="#D94D04"
 										CornerRadius="50"
 										Height="350"
-										Width="350">
+										Width="350"
+										ClipToBounds="True"
+										PointerPressed="BorderPersonal_PointerPressed">
 					
-										<Grid ShowGridLines="False">
+										<Grid ShowGridLines="True">
 											<Grid.RowDefinitions>
 												<RowDefinition Height="3*"/>
 												<RowDefinition Height="*"/>
 											</Grid.RowDefinitions>
-											<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}" Foreground="White"
-											   FontSize="20"
+											<StackPanel Grid.Row="0">
+												<Image ClipToBounds="True"  Source="{Binding Path_cowork}"
+									   Stretch="UniformToFill">
+												</Image>
+												<TextBlock  Text="{Binding Name_Cowork}" Foreground="White"
+											   FontSize="25"
 											   FontWeight="DemiBold"
 											   HorizontalAlignment="Center" ></TextBlock>
+											</StackPanel>
+											
 											<!-- Первая половина с текстовыми полями -->
 											<StackPanel Grid.Row="1">
 												<TextBlock
@@ -385,7 +399,9 @@
 			
 			</Grid>
 		</DockPanel>
+		<ContentControl Grid.ColumnSpan="2"  x:Name="Cont"/>
 	</Grid>
+			
 		</ScrollViewer>
 </Border>
 </UserControl>

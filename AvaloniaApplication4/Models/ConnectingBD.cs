@@ -15,8 +15,9 @@ namespace AvaloniaApplication4.Models
     {
         string connect_host = User.Connect;
         public Dictionary<int, List<JsonClass>> keyValuePairs { get; set; } = new Dictionary<int, List<JsonClass>>();
-
-        public event Action<Dictionary<int, List<JsonClass>>>? DataLoaded;
+        public Dictionary<(int, int), string> PhotoIDPathPairs = new();
+        public Dictionary<(int, int), string> PhotoIDPathBusinessPairs = new();
+      
 
         public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
@@ -34,7 +35,60 @@ namespace AvaloniaApplication4.Models
                 }
             }
         }
-
+        public string cs = User.Connect;
+        public async void ReadPhotoBd()
+        {
+            await using (var connect = new NpgsqlConnection(cs))
+            {
+                connect.Open();
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_images_coworking", connect))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        int id_coworking = reader.GetInt32(1);
+                        string str = reader.GetString(2);
+                        PhotoIDPathPairs.Add((id, id_coworking), str);
+                    }
+                    reader.Close();
+                }
+            }
+        }
+        public async void ReadPhotoBusinessBd()
+        {
+            await using (var connect = new NpgsqlConnection(cs))
+            {
+                connect.Open();
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_images_test", connect))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        int id_coworking = reader.GetInt32(1);
+                        string str = reader.GetString(2);
+                        PhotoIDPathBusinessPairs.Add((id, id_coworking), str);
+                    }
+                    reader.Close();
+                }
+            }
+        }
+        public async Task WriteBusinessBd(string path, int id)
+        {
+           
+            await using (var connect = new NpgsqlConnection(connect_host))
+            {
+                connect.Open();
+                string command_add = "INSERT INTO main_images_test (id_coworking, file) VALUES (@intValue, @text)";
+                await using (var command = new NpgsqlCommand(command_add, connect))
+                {
+                    command.Parameters.Add(new NpgsqlParameter("@intValue", NpgsqlDbType.Integer) {Value = id });
+                    command.Parameters.Add(new NpgsqlParameter("@text", NpgsqlDbType.Text) { Value = path });
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
         public async Task ReadBd()
         {
             ConnectingBD bd = new();

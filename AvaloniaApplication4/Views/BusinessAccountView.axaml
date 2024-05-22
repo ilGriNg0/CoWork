@@ -296,7 +296,7 @@
 				</Button>
 			</Border>
 			<ItemsControl
-				ItemsSource="{Binding Bookings}">
+				ItemsSource="{Binding  BookingsBusines}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<StackPanel
@@ -314,14 +314,29 @@
 							Width="700"
 							Height="500"
 							Background="#D94D04"
-							CornerRadius="50">
+							CornerRadius="50"
+							ClipToBounds="True"
+							PointerPressed="BorderBusinessPressed">
+							<Grid RowDefinitions="7*,*" >
+								<Image Grid.Row="0"  Source="{Binding Path_photo}" Stretch="UniformToFill"/>
+								<TextBlock
+									Grid.Row="1"
+									Foreground="White"
+									FontSize="25"
+									FontWeight="DemiBold"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Center"
+									Text="{Binding Name_cowork}"/>
+							</Grid>
 							
 							
 						</Border>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
-			</ItemsControl></StackPanel>
+			</ItemsControl>
+			</StackPanel>
 		</ScrollViewer>
+		<ContentControl Grid.RowSpan="2"  x:Name="BusinCont"></ContentControl>
 	</Grid>
 	</ScrollViewer>
 </Border>

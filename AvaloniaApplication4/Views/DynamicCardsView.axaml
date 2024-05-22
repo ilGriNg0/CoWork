@@ -1,0 +1,238 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:material="using:Material.Icons.Avalonia"
+			 x:Class="AvaloniaApplication4.Views.DynamicCardsView"
+			 xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
+			 x:DataType="vm:DynamicCardsViewModel">
+	<ScrollViewer>
+		<Border Background="#1c1c1c" CornerRadius="15">
+			<Grid ClipToBounds="True" ColumnDefinitions="2*,*,*"
+              RowDefinitions="*,*,*,*" ShowGridLines="True" >
+				<Border Margin="9" Grid.Row="0" CornerRadius="15" ClipToBounds="True">
+					<ItemsControl Grid.Row="1" HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Image Source="{Binding Path_photo}"></Image>
+
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</Border>
+
+				<Border Grid.Row="0"  Grid.Column="1"  CornerRadius="15" ClipToBounds="True">
+					<Grid  RowDefinitions="*,*">
+						<Border Margin="9"  Grid.Row="0" CornerRadius="15" ClipToBounds="True">
+							<ItemsControl   HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Image Source="{Binding Path_photo}" ></Image>
+
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Border>
+						<Border Margin="9" Grid.Row="1"  CornerRadius="15" ClipToBounds="True">
+							<ItemsControl   HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Image Source="{Binding Path_photo}" ></Image>
+
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Border>
+					</Grid>
+				</Border>
+				
+				<Border Grid.Row="0"  Grid.Column="2" CornerRadius="15" ClipToBounds="True">
+					<Grid RowDefinitions="*,*">
+						<Border Margin="9"  Grid.Row="0" CornerRadius="15" ClipToBounds="True">
+							<ItemsControl  HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Image Source="{Binding Path_photo}" ></Image>
+
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Border>
+						<Border Margin="9"  Grid.Row="1" CornerRadius="15" ClipToBounds="True">
+							<ItemsControl  HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Image Source="{Binding Path_photo}" ></Image>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</Border>
+					</Grid>
+				</Border>
+			
+					<DockPanel Grid.Row="1" Grid.ColumnSpan="3">
+						<Grid ColumnDefinitions="100, *"
+							  RowDefinitions="*,*,*"
+							  ShowGridLines="False">
+							<Image Grid.Row="0"
+								   Grid.Column="0"
+								   Stretch="UniformToFill"
+								   Source="../Assets/prostoLogo.jpg"
+								   Margin="10"/>
+							<Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="10" Background="#0a0a0a">
+								<Grid RowDefinitions="*,*"
+									  ShowGridLines="True">
+									<ItemsControl Grid.Row="0" HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<TextBlock
+													HorizontalAlignment="Left"
+													Text="{Binding Name_cowork}"
+													Foreground="White"
+													FontSize="20"
+													FontWeight="DemiBold"
+													/>
+												
+											</DataTemplate>
+											</ItemsControl.ItemTemplate>
+									</ItemsControl>
+
+									<ItemsControl Grid.Row="1" HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate>
+												<TextBlock Grid.Row="1"
+													TextWrapping="Wrap"
+													Foreground="White"
+													FontWeight="UltraBold"
+													FontSize="13"
+													FontFamily="Source Sans Pro"
+													HorizontalAlignment="Center"
+													ClipToBounds="True"
+													Text="{Binding Info_cowork}">
+												</TextBlock>
+
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+								</Grid>
+							</Border>
+
+							<Border CornerRadius="30"
+									Background="#0a0a0a"
+									Grid.ColumnSpan="2"
+									Grid.Row="1"
+									HorizontalAlignment="Center"
+									Margin="0 10 0 0">
+								<WrapPanel Grid.ColumnSpan="2"
+									 Grid.Row="1"
+									 HorizontalAlignment="Center"
+									 Orientation="Horizontal"
+										   VerticalAlignment="Center">
+									<Border Background="AliceBlue"
+											CornerRadius="30"
+											Margin="15 5 25 5">
+										<TextBlock Text="Ноутбук"
+												   Margin="5">
+											<material:MaterialIcon Height="25" Width="25" Kind="Laptop"></material:MaterialIcon>
+										</TextBlock>
+									</Border>
+									<Border Background="AliceBlue"
+											CornerRadius="30"
+											Margin="15 5 25 5">
+										<TextBlock Text="Принтер МФУ"
+												   Margin="5">
+											<material:MaterialIcon Height="25" Width="25" Kind="Printer"/>
+										</TextBlock>
+									</Border>
+									<Border Background="AliceBlue"
+											CornerRadius="30"
+											Margin="15 5 25 5">
+										<TextBlock Text="Флипчарт"
+												   Margin="5">
+											<material:MaterialIcon Height="25" Width="25" Kind="Presentation"/>
+										</TextBlock>
+									</Border>
+									<Border Background="AliceBlue"
+											CornerRadius="30"
+											Margin="15 5 25 5">
+										<TextBlock Text="Расходные материалы"
+												   Margin="5">
+											<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
+										</TextBlock>
+									</Border>
+									<Border Background="AliceBlue"
+											CornerRadius="30"
+											Margin="15 5 25 5">
+										<TextBlock Text="Расходные материалы"
+												   Margin="5">
+											<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
+										</TextBlock>
+									</Border>
+									<Border Background="AliceBlue"
+											CornerRadius="30"
+											Margin="15 5 25 5">
+										<TextBlock Text="Расходные материалы"
+												   Margin="5">
+											<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
+										</TextBlock>
+									</Border>
+									<Border Background="AliceBlue"
+											CornerRadius="30"
+											Margin="15 5 25 5">
+										<TextBlock Text="Расходные материалы"
+												   Margin="5">
+											<material:MaterialIcon Height="20" Width="20" Kind="FileMultipleOutline"/>
+										</TextBlock>
+									</Border>
+								</WrapPanel>
+							</Border>
+						</Grid>
+					</DockPanel>
+				<ItemsControl Grid.Row="2" HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Border Width="390"  Height="150" Background="Black" CornerRadius="15">
+								<Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*" ShowGridLines="True">
+									<TextBlock  Foreground="White" Text="Тарифы" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+									<TextBlock  Foreground="White" Text="Персональное место" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+									<TextBlock  Foreground="White" Text="{Binding Price_day_cowork}" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+									<TextBlock  Foreground="White" Text="Тарифы" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+									<TextBlock  Foreground="White" Text="Переговорная" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+									<TextBlock  Foreground="White" Text="{Binding Price_meetingroom_cowork}" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+								</Grid>
+							</Border>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+				<ItemsControl Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Border  Background="Black" CornerRadius="15">
+								<Grid RowDefinitions="*,*,*,*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True">
+									<TextBlock Grid.Row="1" Grid.Column="0" Text="ПН" Background="White"/>
+									<TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
+									<TextBlock Grid.Row="2" Grid.Column="0" Text="ВТ" Background="White"/>
+									<TextBlock Grid.Row="2" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
+									<TextBlock Grid.Row="3" Grid.Column="0" Text="СР" Background="White"/>
+									<TextBlock Grid.Row="3" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
+									<TextBlock Grid.Row="4" Grid.Column="0" Text="ЧТ" Background="White"/>
+									<TextBlock Grid.Row="4" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
+									<TextBlock Grid.Row="5" Grid.Column="0" Text="ПТ" Background="White"/>
+									<TextBlock Grid.Row="5" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
+									<TextBlock Grid.Row="6" Grid.Column="0" Text="СБ" Background="White"/>
+									<TextBlock Grid.Row="6" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
+									<TextBlock Grid.Row="6" Grid.Column="1"  Text="{Binding Date_created_snst}" Foreground="White"/>
+									<TextBlock Grid.Row="7" Grid.Column="0" Text="ВС" Background="White"/>
+									<TextBlock Grid.Row="7" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
+									<TextBlock Grid.Row="7" Grid.Column="1"  Text="{Binding Date_created_snst}" Foreground="White"/>
+								</Grid>
+							</Border>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
+			</Grid>
+		</Border>
+	</ScrollViewer>
+</UserControl>

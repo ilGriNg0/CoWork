@@ -117,7 +117,7 @@ namespace AvaloniaApplication4.ViewModels
        
        
     }
-   public partial class JsonClass : ObservableObject
+   public partial class JsonClass :ObservableObject
     {
         [ObservableProperty]
         private int _id;
@@ -129,13 +129,18 @@ namespace AvaloniaApplication4.ViewModels
 
         private string? _info_cowork;
         [ObservableProperty]
-        private string? _location_metro_cowork;
+        private string? _location_cowork;
         [ObservableProperty]
         private string? _price_day_cowork;
         [ObservableProperty]
         private string? _price_meetingroom_cowork;
         [ObservableProperty]
-        private string? _path_photo;
+        private Bitmap?  _path_photo;
+        [ObservableProperty]
+        private string? _date_created;
+        [ObservableProperty]
+        private string? _date_created_snst;
+
 
         public class ListItemTemplate(Type type)
         {
@@ -153,35 +158,6 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private int _id_Company;
     }
-//< Image Grid.ColumnSpan = "2"
-//Grid.RowSpan = "2"
-//Source = "{Binding Image_bitmap_source}"
-//Stretch = "Fill" ></ Image >        //};
 
-
-        //[RelayCommand]
-        //private void button_push()
-        //{
-        //    var main_page = new CardViewModel();
-        //    var main_ = new MainWindow();
-        //    var main2 = new MainWindowViewModel();
-        //    main2.Page = main_page;
-        //    main_.Control_page.Content = main2.Page;
-        //}
-    }
-    //public partial class IsMain 
-    //{
-    //    public Type Type { get; }
-    //    public string Title { get; }
-    //    public IsMain(Type tp)
-    //    {
-    //        Type = tp;
-    //        Title = tp.Name.Replace("ViewModel", "");
-    //    }
-    //}
-
-
-//< Image Grid.ColumnSpan = "2"
-//Grid.RowSpan = "2"
-//Source = "{Binding Image_bitmap_source}"
-//Stretch = "Fill" ></ Image >
+}
+   

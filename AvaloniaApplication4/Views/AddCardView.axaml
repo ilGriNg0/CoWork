@@ -19,12 +19,12 @@
 				</Button>
 				<Border   Grid.Column="1" Grid.Row="0">
 					<Grid RowDefinitions="*,*">
-						<Button Background="#cccccc" CornerRadius="20" Grid.Row="0" HorizontalAlignment="Center">
+						<Button Command="{Binding AddPhotoCommand}" CommandParameter="" Background="#cccccc" CornerRadius="20" Grid.Row="0" HorizontalAlignment="Center">
 							<TextBlock Text="Добавить фото">
 								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
 							</TextBlock>
 						</Button>
-						<Button Background="#cccccc" CornerRadius="20" Grid.Row="1" HorizontalAlignment="Center">
+						<Button Command="{Binding AddPhotoCommand}" CommandParameter="" Background="#cccccc" CornerRadius="20" Grid.Row="1" HorizontalAlignment="Center">
 							<TextBlock Text="Добавить фото">
 								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
 							</TextBlock>
@@ -33,12 +33,12 @@
 				</Border>
 				<Border  Grid.Column="2" Grid.Row="0">
 					<Grid RowDefinitions="*,*">
-						<Button Background="#cccccc" CornerRadius="20" Grid.Row="0" HorizontalAlignment="Center">
+						<Button Command="{Binding AddPhotoCommand}" CommandParameter="" Background="#cccccc" CornerRadius="20" Grid.Row="0" HorizontalAlignment="Center">
 							<TextBlock Text="Добавить фото">
 								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
 							</TextBlock>
 						</Button>
-						<Button Background="#cccccc" CornerRadius="20" Grid.Row="1" HorizontalAlignment="Center">
+						<Button Command="{Binding AddPhotoCommand}" CommandParameter="" Background="#cccccc" CornerRadius="20" Grid.Row="1" HorizontalAlignment="Center">
 							<TextBlock Text="Добавить фото">
 								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
 							</TextBlock>
@@ -68,8 +68,8 @@
 							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_meetingroom_cowork, Mode=TwoWay}"></TextBox>
 						</StackPanel>
 						<StackPanel Margin="7" Grid.Column="1" Grid.Row="2">
-							<TextBlock Grid.Column="1" Grid.Row="0" Text="Метро cowork"></TextBlock>
-							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Location_metro_cowork, Mode=TwoWay}"></TextBox>
+							<TextBlock Grid.Column="1" Grid.Row="0" Text="Адрес вашего коворкинга"></TextBlock>
+							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Location_cowork, Mode=TwoWay}"></TextBox>
 						</StackPanel>
 					</Grid>
 				</Border>

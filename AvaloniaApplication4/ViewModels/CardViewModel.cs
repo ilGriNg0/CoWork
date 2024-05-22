@@ -1,6 +1,7 @@
 ﻿
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
+using Avalonia.Media.Imaging;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -37,6 +38,9 @@ public partial class CardViewModel : ViewModelBase
     [ObservableProperty]
     private List<JsonClass> _peopleCollection = new();
 
+    [ObservableProperty]
+    private ObservableCollection<JsonClass> _card_Collection = new();
+
     //public ObservableCollection<JsonClass> Companies { get; set; } = new();
     [ObservableProperty]
     private List<JsonClass> _border1 = new();
@@ -62,6 +66,7 @@ public partial class CardViewModel : ViewModelBase
     public CardViewModel()
     {
         connecting.ReadBd();
+        connecting.ReadPhotoBd();
         OnDataLoad();
     }
     public void Navigate(string? pageViewModel)
@@ -69,52 +74,70 @@ public partial class CardViewModel : ViewModelBase
         var main = MainWindowViewModel.Instance;
 
         main.Navigate(pageViewModel);
-        //string namspc = Namespace();
-        //Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-
-        //if (viewModelType != null)
-        //{
-        //    ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
-        //    Base = viewModel;
-
-        //}
     }
     public void OnDataLoad()
     {
         Data = connecting.keyValuePairs;
 
+        var photosById = new Dictionary<int, List<string>>();
 
+        // Заполняем словарь фотографиями
+        foreach (var pair in connecting.PhotoIDPathPairs)
+        {
+            if (!photosById.ContainsKey(pair.Key.Item2))
+            {
+                photosById[pair.Key.Item2] = new List<string>();
+            }
+            photosById[pair.Key.Item2].Add(pair.Value);
+        }
         foreach (var item in Data)
         {
-            PeopleCollection.AddRange(item.Value.Where(p => p.Id > 0 && p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty));
-            //var Items = item.Value.Where(p => p.Id > 0 && p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty);
-            //foreach (var collect in Items)
-            //{
-            //    Companies.Add(collect);
-            //}
-        }
-        add();
-
-    }
-    public void add()
-    {
-
-        foreach (var item in PeopleCollection)
-        {
-            switch (item?.Id)
+            //PeopleCollection.AddRange(item.Value.Where(p => p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty));
+            var Items = item.Value.Where(p => p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty);
+            foreach (var collect in Items)
             {
-                case 1:
-                    Border1.Add(item);
-                    break;
-                case 2:
-                    Border2.Add(item);
-                    break;
-                case 3:
-                    Border3.Add(item);
-                    break;
-                default:
-                    break;
+                Card_Collection.Add(collect);
             }
         }
+        // Присваиваем фотографии к людям в коллекции
+        foreach (var item in Card_Collection)
+        {
+            if (photosById.TryGetValue(item.Id, out var photoPaths))
+            {
+                // Если для данного ID есть несколько фото, выбираем первое, второе и так далее
+                for (int i = 0; i < photoPaths.Count; i++)
+                {
+                    // Здесь мы должны удостовериться, что не выходим за границы коллекции
+                    if (i < Card_Collection.Count)
+                    {
+                        Card_Collection[i].Path_photo = new Bitmap(photoPaths[i]);
+                    }
+                }
+            }
+            //foreach (var item in Data)
+            //{
+            //    PeopleCollection.AddRange(item.Value.Where(p =>  p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty));
+            //    var Items = item.Value.Where(p =>  p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty);
+            //    foreach (var collect in Items)
+            //    {
+            //        Card_Collection.Add(collect);
+            //    }
+            //}
+            //foreach (var item2 in Card_Collection)
+            //{
+            //    foreach (var item3 in connecting.PhotoIDPathPairs)
+            //    {
+            //        if(item2.Id == item3.Key.Item2)
+            //        {
+
+            //            item2.Path_photo = new Bitmap(item3.Value);
+            //        }
+
+            //    }
+            //}
+            //add();
+
+        }
     }
+    
 }

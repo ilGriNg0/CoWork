@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using AvaloniaApplication4.ViewModels;
 
 namespace AvaloniaApplication4.Views
 {
@@ -8,6 +9,7 @@ namespace AvaloniaApplication4.Views
         public CardOpenView()
         {
             InitializeComponent();
+           
         }
 
         private void Button_OnClick_Previous(object? sender, RoutedEventArgs e)
