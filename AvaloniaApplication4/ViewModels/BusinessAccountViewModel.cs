@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
+using System.IO;
 using System.Runtime.Intrinsics.Arm;
 using System.Windows.Input;
 using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
@@ -86,16 +87,23 @@ namespace AvaloniaApplication4.ViewModels
 
                 var cmd = new NpgsqlCommand(sql, con);
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
-                while(rdr.Read())
+                while (rdr.Read())
                 {
-                    PhotoPath = new Bitmap(rdr.GetString(0));
                     isregphoto = true;
+                    if (File.Exists(rdr.GetString(0)))
+                        PhotoPath = new Bitmap(rdr.GetString(0));
+                    else goto _L1;
                     return;
                 }
-                PhotoPath = new Bitmap("Assets\\nophotop1.png");
+            _L1: string filepath = AppContext.BaseDirectory + "Assets\\nophotop1.png";
+                if (!File.Exists(filepath))
+                {
+                    Directory.CreateDirectory(filepath.Replace("\\nophotop1.png", ""));
+                    File.Copy(filepath.Replace("\\bin\\Debug\\net8.0", ""), filepath);
+                }
+                PhotoPath = new Bitmap(filepath);
             }
-            catch (Exception){}
-            
+            catch (Exception) { }
         }
 
         private ObservableCollection<Booking> _bookings;
@@ -244,20 +252,29 @@ namespace AvaloniaApplication4.ViewModels
                 var selectedFile = files[0];
                 var filePath = selectedFile.Path.LocalPath;
 
+
+                string filepath = AppContext.BaseDirectory + "Assets\\" + Path.GetFileName(filePath);
+                if (!File.Exists(filepath))
+                {
+                    File.Copy(filePath, filepath);
+                }
+                PhotoPath = new Bitmap(filepath);
+
                 var cs = User.Connect;
                 var con = new NpgsqlConnection(cs);
                 string sql;
 
                 con.Open();
                 if (isregphoto)
-                    sql = $"UPDATE main_images SET file = '{filePath}' WHERE id_coworking = '{User.Id}';";
-                else 
-                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filePath}');";
+                    sql = $"UPDATE main_images SET file = '{filepath}' WHERE id_coworking = '{User.Id}';";
+                else
+                {
+                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filepath}');";
+                    isregphoto = true;
+                }
 
                 var cmd = new NpgsqlCommand(sql, con);
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
-
-                PhotoPath = new Bitmap(filePath);
             }
         }
 

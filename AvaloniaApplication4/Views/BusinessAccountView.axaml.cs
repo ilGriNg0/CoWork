@@ -27,8 +27,8 @@ namespace AvaloniaApplication4.Views
 
         private void Exit_Click(object source, RoutedEventArgs args)
         {
-            User.Model = null;
-            User.Main.Page = new LoginViewModel();
+            User.Model = new LoginViewModel();
+            User.Main.Page = User.Model;
         }
 
         private void Change_PointerPressed(object sender, PointerPressedEventArgs e)
