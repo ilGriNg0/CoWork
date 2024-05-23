@@ -182,7 +182,9 @@ namespace AvaloniaApplication4.ViewModels
                    
                     foreach (var item2 in BookingsBusines)
                     {
-                        item2.Path_photo = new Bitmap(item.Value);   
+                      
+                        item2.Photos.Add(new Bitmap(item.Value));
+                        
                     }
                 }
             }
@@ -207,7 +209,7 @@ namespace AvaloniaApplication4.ViewModels
             con.Close();
         }
 
-        private class Booking
+        private partial class Booking : ObservableObject
         {
             public long Id { get; set; }
             public long Id_coworking { get; set; }
@@ -216,6 +218,9 @@ namespace AvaloniaApplication4.ViewModels
             public string Type { get; set; }
             public DateTime Date_start { get; set; }
             public DateTime Date_end { get; set; }
+       
+            public ObservableCollection<Bitmap> Bitmaps { get; set; } = new();
+ 
 
             public Booking(long id, long id_coworking, long id_user, long price, string type, DateTime date_start, DateTime date_end)
             {

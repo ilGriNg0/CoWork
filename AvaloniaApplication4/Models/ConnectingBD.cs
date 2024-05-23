@@ -41,7 +41,7 @@ namespace AvaloniaApplication4.Models
             await using (var connect = new NpgsqlConnection(cs))
             {
                 connect.Open();
-                await using (var command = new NpgsqlCommand("SELECT * FROM main_images_coworking", connect))
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_images", connect))
                 {
                     var reader = command.ExecuteReader();
                     while (reader.Read())
@@ -60,7 +60,7 @@ namespace AvaloniaApplication4.Models
             await using (var connect = new NpgsqlConnection(cs))
             {
                 connect.Open();
-                await using (var command = new NpgsqlCommand("SELECT * FROM main_images_test", connect))
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_images", connect))
                 {
                     var reader = command.ExecuteReader();
                     while (reader.Read())
@@ -80,7 +80,7 @@ namespace AvaloniaApplication4.Models
             await using (var connect = new NpgsqlConnection(connect_host))
             {
                 connect.Open();
-                string command_add = "INSERT INTO main_images_test (id_coworking, file) VALUES (@intValue, @text)";
+                string command_add = "INSERT INTO main_images (id_coworking, file) VALUES (@intValue, @text)";
                 await using (var command = new NpgsqlCommand(command_add, connect))
                 {
                     command.Parameters.Add(new NpgsqlParameter("@intValue", NpgsqlDbType.Integer) {Value = id });
@@ -91,7 +91,7 @@ namespace AvaloniaApplication4.Models
         }
         public async Task ReadBd()
         {
-            ConnectingBD bd = new();
+
             //List<object> types = [];
             string str = string.Empty;
             int id = default;

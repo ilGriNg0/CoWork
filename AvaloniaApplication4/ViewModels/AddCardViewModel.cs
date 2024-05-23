@@ -26,7 +26,7 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string _errorMessage;
         [ObservableProperty]
-        private Bitmap _photo_Coworking;
+        private ObservableCollection<Bitmap> _photo_Coworking = new();
         public ObservableCollection<JsonClass> jsonClasses { get; set; } = new ObservableCollection<JsonClass>();
         public ICommand SaveCommand => new RelayCommand(add_collect);
 
@@ -65,18 +65,16 @@ namespace AvaloniaApplication4.ViewModels
           
             var files = await _target.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
             {
-
-                //You can add either custom or from the built-in file types. See "Defining custom file types" on how to create a custom one.
                 FileTypeFilter = new[] { ImageAll, FilePickerFileTypes.TextPlain }
             });
             if (files != null && files.Count > 0)
             {
                 var selectedFile = files[0];
                 var filePath = selectedFile.Path.LocalPath;
-   
+
                 connect.WriteBusinessBd(filePath, cardView.Card_Collection.Count + 1);
-                Photo_Coworking = new Bitmap(filePath);
-                Json.Path_photo = Photo_Coworking;
+                Photo_Coworking.Add(new Bitmap(filePath));
+                //Json.Path_photo = Photo_Coworking;
                
             }
                

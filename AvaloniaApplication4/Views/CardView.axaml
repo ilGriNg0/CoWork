@@ -10,7 +10,7 @@
 	
     <Grid ColumnDefinitions="*,*,*"
           RowDefinitions="*,*,*,*" ShowGridLines="False">
-		<DockPanel Grid.Column="0">
+		<DockPanel Grid.ColumnSpan="3">
 			<TextBlock
 				FontFamily="Source Sans Pro"
 				FontSize="25"
@@ -18,7 +18,7 @@
 				FontWeight="600"
 				LineHeight="32"
 				VerticalAlignment="Bottom"
-				HorizontalAlignment="Left"
+				HorizontalAlignment="Center"
 				Margin="10 0 0 0"
 				DockPanel.Dock="Bottom">
 				Coworking Spaces
@@ -30,6 +30,7 @@
 				FontWeight="700"
 				LineHeight="38"
 				Margin="10 0 0 0"
+				HorizontalAlignment="Right"
 				DockPanel.Dock="Top">
 				CoWork
 			</TextBlock>	
@@ -61,9 +62,14 @@
 											ClipToBounds="True"
 											HorizontalAlignment="Center">
 
-										<Image Source="{Binding Path_photo}"
-											   Stretch="UniformToFill">
-										</Image>
+									<ItemsControl   HorizontalAlignment="Center" ItemsSource="{Binding Photos}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Image Source="{Binding }" Stretch="UniformToFill"></Image>
+
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
 									</Border>
 
 									<Border Grid.Column="0" Grid.ColumnSpan="4"

@@ -64,15 +64,8 @@ namespace AvaloniaApplication4.ViewModels
 
         [ObservableProperty]
         private static bool _pressed;
-        [ObservableProperty]
-        private string? _name;
-        private ObservableCollection<JsonClass> _borderCompany1 = new();
 
-        [ObservableProperty]
-        private List<JsonClass> _borderCompany2 = new();
-
-        [ObservableProperty]
-        private List<JsonClass> _borderCompany3 = new();
+       
         public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
         public string cs = User.Connect;
@@ -198,7 +191,7 @@ namespace AvaloniaApplication4.ViewModels
                 {
                     if (item.Key.Item2 == book.id_coworking)
                     {
-                        book.Path_cowork = new Bitmap(item.Value);
+                        book.B_maps.Add(new Bitmap(item.Value));
                     }
                 }
                 //var searchBook = booking.FirstOrDefault(book => item.Key.Item2 == book.id_coworking);
@@ -209,6 +202,7 @@ namespace AvaloniaApplication4.ViewModels
             } 
 
         }
+      
         //public async Task ReadBdCompany()
         //{
 
@@ -237,7 +231,7 @@ namespace AvaloniaApplication4.ViewModels
             await using (var connect = new NpgsqlConnection(cs))
             {
                 connect.Open();
-                await using (var command = new NpgsqlCommand("SELECT * FROM main_images_test", connect))
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_images", connect))
                 {
                     var reader = command.ExecuteReader();
                     while (reader.Read())
@@ -271,7 +265,8 @@ namespace AvaloniaApplication4.ViewModels
                                     foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
                                     {
                                         item3.Name_Cowork = item?.Name_cowork;
-                                        item3.Path_cowork = item.Path_photo;
+                                        //item3.Path_cowork = item.Path_photo;
+                                        item3.B_maps.Add(item.Path_photo);
                                     }
                                 }
                                 else
@@ -279,7 +274,8 @@ namespace AvaloniaApplication4.ViewModels
                                     foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
                                     {
                                         item3.Name_Cowork = item?.Name_cowork;
-                                        item3.Path_cowork = item.Path_photo;
+                                        //item3.Path_cowork = item.Path_photo;
+                                        item3.B_maps.Add(item.Path_photo);
                                     }
                                 }
 
@@ -298,7 +294,8 @@ namespace AvaloniaApplication4.ViewModels
                                     foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
                                     {
                                         item3.Name_Cowork = item?.Name_cowork;
-                                        item3.Path_cowork = item.Path_photo;
+                                        //item3.Path_cowork = item.Path_photo;
+                                        item3.B_maps.Add(item.Path_photo);
                                     }
                                 }
                                 else
@@ -306,7 +303,8 @@ namespace AvaloniaApplication4.ViewModels
                                     foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
                                     {
                                         item3.Name_Cowork = item?.Name_cowork;
-                                        item3.Path_cowork = item.Path_photo;
+                                        //item3.Path_cowork = item.Path_photo;
+                                        item3.B_maps.Add(item.Path_photo);
                                     }
                                 }
                             }
@@ -323,7 +321,8 @@ namespace AvaloniaApplication4.ViewModels
                                     foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
                                     {
                                         item3.Name_Cowork = item?.Name_cowork;
-                                        item3.Path_cowork = item.Path_photo;
+                                        //item3.Path_cowork = item.Path_photo;
+                                        item3.B_maps.Add(item.Path_photo);
                                     }
                                 }
                                 else
@@ -331,7 +330,8 @@ namespace AvaloniaApplication4.ViewModels
                                     foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
                                     {
                                         item3.Name_Cowork = item?.Name_cowork;
-                                        item3.Path_cowork = item.Path_photo;
+                                        //item3.Path_cowork = item.Path_photo;
+                                        item3.B_maps.Add(item.Path_photo);
                                     }
                                 }
                             }
@@ -348,7 +348,8 @@ namespace AvaloniaApplication4.ViewModels
                                     foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
                                     {
                                         item3.Name_Cowork = item?.Name_cowork;
-                                        item3.Path_cowork = item.Path_photo;
+                                        //item3.Path_cowork = item.Path_photo;
+                                        item3.B_maps.Add(item.Path_photo);
                                     }
                                 }
                                 else
@@ -356,7 +357,8 @@ namespace AvaloniaApplication4.ViewModels
                                     foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
                                     {
                                         item3.Name_Cowork = item?.Name_cowork;
-                                        item3.Path_cowork = item.Path_photo;
+                                        //item3.Path_cowork = item.Path_photo;
+                                        item3.B_maps.Add(item.Path_photo);
                                     }
                                 }
                             }
@@ -378,7 +380,8 @@ namespace AvaloniaApplication4.ViewModels
             private Bitmap _path_cowork;
             public string? Date { get; set; }
             public string? Time { get; set; }
-
+            [ObservableProperty]
+            private ObservableCollection<Bitmap> _b_maps = new();
             public int id_coworking {  get; set; }   
            
             public Booking() { }

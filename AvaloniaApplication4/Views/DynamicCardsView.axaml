@@ -11,65 +11,26 @@
 		<Border Background="#1c1c1c" CornerRadius="15">
 			<Grid ClipToBounds="True" ColumnDefinitions="2*,*,*"
               RowDefinitions="*,*,*,*" ShowGridLines="True" >
-				<Border Margin="9" Grid.Row="0" CornerRadius="15" ClipToBounds="True">
-					<ItemsControl Grid.Row="1" HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+				<WrapPanel Orientation="Horizontal">
+					<ItemsControl Grid.Row="1" HorizontalAlignment="Center" ItemsSource="{Binding Photoses}">
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Image Source="{Binding Path_photo}"></Image>
+							
+									<Border Width="100" Height="100">
+										<Image Source="{Binding}" Stretch="UniformToFill"></Image>
+									</Border>
+									
+								
+								
 
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>
-				</Border>
+				</WrapPanel>
 
-				<Border Grid.Row="0"  Grid.Column="1"  CornerRadius="15" ClipToBounds="True">
-					<Grid  RowDefinitions="*,*">
-						<Border Margin="9"  Grid.Row="0" CornerRadius="15" ClipToBounds="True">
-							<ItemsControl   HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Image Source="{Binding Path_photo}" ></Image>
-
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</Border>
-						<Border Margin="9" Grid.Row="1"  CornerRadius="15" ClipToBounds="True">
-							<ItemsControl   HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Image Source="{Binding Path_photo}" ></Image>
-
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</Border>
-					</Grid>
-				</Border>
 				
-				<Border Grid.Row="0"  Grid.Column="2" CornerRadius="15" ClipToBounds="True">
-					<Grid RowDefinitions="*,*">
-						<Border Margin="9"  Grid.Row="0" CornerRadius="15" ClipToBounds="True">
-							<ItemsControl  HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Image Source="{Binding Path_photo}" ></Image>
-
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</Border>
-						<Border Margin="9"  Grid.Row="1" CornerRadius="15" ClipToBounds="True">
-							<ItemsControl  HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
-								<ItemsControl.ItemTemplate>
-									<DataTemplate>
-										<Image Source="{Binding Path_photo}" ></Image>
-									</DataTemplate>
-								</ItemsControl.ItemTemplate>
-							</ItemsControl>
-						</Border>
-					</Grid>
-				</Border>
+				
+				
 			
 					<DockPanel Grid.Row="1" Grid.ColumnSpan="3">
 						<Grid ColumnDefinitions="100, *"
@@ -208,24 +169,22 @@
 				<ItemsControl Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Border  Background="Black" CornerRadius="15">
+							<Border Width="200"  Background="Black" CornerRadius="15">
 								<Grid RowDefinitions="*,*,*,*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True">
 									<TextBlock Grid.Row="1" Grid.Column="0" Text="ПН" Background="White"/>
 									<TextBlock Grid.Row="1" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
-									<TextBlock Grid.Row="2" Grid.Column="0" Text="ВТ" Background="White"/>
+									<TextBlock Grid.Row="2" Grid.Column="0" Text="ВТ" Foreground="White"/>
 									<TextBlock Grid.Row="2" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
-									<TextBlock Grid.Row="3" Grid.Column="0" Text="СР" Background="White"/>
+									<TextBlock Grid.Row="3" Grid.Column="0" Text="СР" Foreground="White"/>
 									<TextBlock Grid.Row="3" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
-									<TextBlock Grid.Row="4" Grid.Column="0" Text="ЧТ" Background="White"/>
+									<TextBlock Grid.Row="4" Grid.Column="0" Text="ЧТ" Foreground="White"/>
 									<TextBlock Grid.Row="4" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
-									<TextBlock Grid.Row="5" Grid.Column="0" Text="ПТ" Background="White"/>
+									<TextBlock Grid.Row="5" Grid.Column="0" Text="ПТ" Foreground="White"/>
 									<TextBlock Grid.Row="5" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
-									<TextBlock Grid.Row="6" Grid.Column="0" Text="СБ" Background="White"/>
+									<TextBlock Grid.Row="6" Grid.Column="0" Text="СБ" Foreground="White"/>
 									<TextBlock Grid.Row="6" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
-									<TextBlock Grid.Row="6" Grid.Column="1"  Text="{Binding Date_created_snst}" Foreground="White"/>
-									<TextBlock Grid.Row="7" Grid.Column="0" Text="ВС" Background="White"/>
+									<TextBlock Grid.Row="7" Grid.Column="0" Text="ВС" Foreground="White"/>
 									<TextBlock Grid.Row="7" Grid.Column="1"  Text="{Binding Date_created}" Foreground="White"/>
-									<TextBlock Grid.Row="7" Grid.Column="1"  Text="{Binding Date_created_snst}" Foreground="White"/>
 								</Grid>
 							</Border>
 						</DataTemplate>
