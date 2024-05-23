@@ -20,6 +20,9 @@
   </ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Views\CreateBookingView.axaml.cs">
+		  <DependentUpon>CreateBookingView.axaml</DependentUpon>
+		</Compile>
 		<Compile Update="Views\PersonalAccountView.axaml.cs">
 			<DependentUpon>PersonalAccountView.axaml</DependentUpon>
 		</Compile>

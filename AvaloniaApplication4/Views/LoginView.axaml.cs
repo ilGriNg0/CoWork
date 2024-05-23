@@ -19,6 +19,12 @@ namespace AvaloniaApplication4.Views
             InitializeComponent();
         }
 
+        public async void Add_Click(object source, RoutedEventArgs args)
+        {
+            var create = new CreateBookingView();
+            ContentContainer.Content = create;
+        }
+
         private void Forgot_PointerPressed(object sender, PointerPressedEventArgs e)
         {
             return;
@@ -50,26 +56,21 @@ namespace AvaloniaApplication4.Views
                 version = cmd.ExecuteScalar();
                 if (version.ToString() == "1")
                 {
-                    sql = $"SELECT count(*) FROM main_businesses WHERE password = '{this.GetControl<TextBox>("Passwordlog").Text}' AND email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
+                    sql = $"SELECT id FROM main_businesses WHERE password = '{this.GetControl<TextBox>("Passwordlog").Text}' AND email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                     cmd = new NpgsqlCommand(sql, con);
-                    version = cmd.ExecuteScalar();
-                    if (version.ToString() == "1")
+                    NpgsqlDataReader rdr = cmd.ExecuteReader();
+                    while(rdr.Read())
                     {
                         this.GetControl<TextBlock>("Error1log").IsVisible = false;
                         this.GetControl<TextBlock>("Error2log").IsVisible = false;
 
-                        sql = $"SELECT id FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
-                        cmd = new NpgsqlCommand(sql, con);
-                        version = cmd.ExecuteScalar();
-                        User.Id = Int64.Parse(version.ToString());
+                        User.Id = rdr.GetInt64(0);
                         User.Model = new BusinessAccountViewModel();
                         User.Main.Page = User.Model;
+                        return;
                     }
-                    else
-                    {
-                        this.GetControl<TextBlock>("Error2log").IsVisible = true;
-                        this.GetControl<TextBlock>("Error1log").IsVisible = false;
-                    }
+                    this.GetControl<TextBlock>("Error2log").IsVisible = true;
+                    this.GetControl<TextBlock>("Error1log").IsVisible = false;
                 }
                 else
                 {
@@ -79,28 +80,22 @@ namespace AvaloniaApplication4.Views
             }
             else
             {
-                sql = $"SELECT count(*) FROM main_users WHERE password = '{this.GetControl<TextBox>("Passwordlog").Text}' AND email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
+                sql = $"SELECT id FROM main_users WHERE password = '{this.GetControl<TextBox>("Passwordlog").Text}' AND email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                 cmd = new NpgsqlCommand(sql, con);
-                version = cmd.ExecuteScalar();
-                if (version.ToString() == "1")
+                NpgsqlDataReader rdr = cmd.ExecuteReader();
+                while(rdr.Read())
                 {
                     this.GetControl<TextBlock>("Error1log").IsVisible = false;
                     this.GetControl<TextBlock>("Error2log").IsVisible = false;
 
-                    sql = $"SELECT id FROM main_users WHERE email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
-                    cmd = new NpgsqlCommand(sql, con);
-                    version = cmd.ExecuteScalar();
-                    User.Id = Int64.Parse(version.ToString());
+                    User.Id = rdr.GetInt64(0);
                     User.Model = new PersonalAccountViewModel();
                     User.Main.Page = User.Model;
+                    return;
                 }
-                else
-                {
-                    this.GetControl<TextBlock>("Error2log").IsVisible = true;
-                    this.GetControl<TextBlock>("Error1log").IsVisible = false;
-                }
+                this.GetControl<TextBlock>("Error2log").IsVisible = true;
+                this.GetControl<TextBlock>("Error1log").IsVisible = false;
             }
-
             con.Close();
         }
     }

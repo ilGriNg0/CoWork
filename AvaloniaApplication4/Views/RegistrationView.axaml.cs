@@ -170,9 +170,10 @@ namespace AvaloniaApplication4.Views
 
                     if (version.ToString() == "0")
                     {
-                        sql = $"INSERT INTO main_users(email, password, first_name, last_name, phone_number, date_of_birth) " +
+                        string img = "Assets\\nophotop1.png";
+                        sql = $"INSERT INTO main_users(email, password, first_name, last_name, phone_number, date_of_birth, img) " +
                             $"VALUES ('{this.GetControl<TextBox>("Emailper").Text.ToLower()}', '{this.GetControl<TextBox>("Password1per").Text}', '{this.GetControl<TextBox>("Firstper").Text}', '{this.GetControl<TextBox>("Lastper").Text}', " +
-                            $"'{this.GetControl<TextBox>("Phoneper").Text.Split("он ")[1]}', '{DateTime.Parse(this.GetControl<TextBox>("Dateper").Text.Split("ия ")[1]).ToShortDateString()}');";
+                            $"'{this.GetControl<TextBox>("Phoneper").Text.Split("он ")[1]}', '{DateTime.Parse(this.GetControl<TextBox>("Dateper").Text.Split("ия ")[1]).ToShortDateString()}', '{img}');";
                         cmd = new NpgsqlCommand(sql, con);
                         cmd.ExecuteScalar();
                         this.GetControl<TextBlock>("Errorper").IsVisible = false;
@@ -240,8 +241,9 @@ namespace AvaloniaApplication4.Views
 
                     if (version.ToString() == "0")
                     {
-                        sql = $"INSERT INTO main_businesses(email, password, company_name, phone_number) " +
-                            $"VALUES ('{this.GetControl<TextBox>("Emailbus").Text.ToLower()}', '{this.GetControl<TextBox>("Password1bus").Text}', '{this.GetControl<TextBox>("Namebus").Text}', '{this.GetControl<TextBox>("Phonebus").Text.Split("ка ")[1]}');";
+                        string img = "Assets\\nophotop1.png";
+                        sql = $"INSERT INTO main_businesses(email, password, company_name, phone_number, img) " +
+                            $"VALUES ('{this.GetControl<TextBox>("Emailbus").Text.ToLower()}', '{this.GetControl<TextBox>("Password1bus").Text}', '{this.GetControl<TextBox>("Namebus").Text}', '{this.GetControl<TextBox>("Phonebus").Text.Split("ка ")[1]}', '{img}');";
                         cmd = new NpgsqlCommand(sql, con);
                         cmd.ExecuteScalar();
                         this.GetControl<TextBlock>("Errorbus").IsVisible = false;

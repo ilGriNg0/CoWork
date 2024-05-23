@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.IO;
 using static AvaloniaApplication4.ViewModels.BusinessAccountViewModel;
+using Tmds.DBus.Protocol;
 
 namespace AvaloniaApplication4.ViewModels
 {
@@ -76,48 +77,51 @@ namespace AvaloniaApplication4.ViewModels
         public string cs = User.Connect;
         public PersonalAccountViewModel()
         {
-            GetPhoto();
+            //GetPhoto();
             GetInfo();
             //ReadBdCompany();
-            ReadPhotoBd();
+            //ReadPhotoBd();
             GetBookings();
           
-            AddInfo();
-            AddBook(BookingsLast);
+            //AddInfo();
+            //AddBook(BookingsLast);
             
         }
-
-        private bool isregphoto = false;
-        public void GetPhoto()
-        {
-            try
-            {
+        //public void GetPhoto()
+        //{
+        //    try
+        //    {
                
-                var con = new NpgsqlConnection(cs);
-                con.Open();
+        //        var con = new NpgsqlConnection(cs);
+        //        con.Open();
 
-                var sql = $"SELECT file FROM main_images WHERE id_coworking = '{User.Id}';";
+        //        var sql = $"SELECT img FROM main_users WHERE id = '{User.Id}';";
 
-                var cmd = new NpgsqlCommand(sql, con);
-                NpgsqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    isregphoto = true;
-                    if (File.Exists(rdr.GetString(0)))
-                        PhotoPath = new Bitmap(rdr.GetString(0));
-                    else goto _L1;
-                    return;
-                }
-                _L1: string filepath = AppContext.BaseDirectory + "Assets\\nophotop1.png";
-                if (!File.Exists(filepath))
-                {
-                    Directory.CreateDirectory(filepath.Replace("\\nophotop1.png", ""));
-                    File.Copy(filepath.Replace("\\bin\\Debug\\net8.0", ""), filepath);
-                }
-                PhotoPath = new Bitmap(filepath);
-            }
-            catch (Exception) { }
-        }
+        //        var cmd = new NpgsqlCommand(sql, con);
+        //        NpgsqlDataReader rdr = cmd.ExecuteReader();
+        //        while(rdr.Read())
+        //        {
+        //            PhotoPath = new Bitmap(rdr.GetString(0));
+        //        }
+
+        //        while (rdr.Read())
+        //        {
+        //            isregphoto = true;
+        //            if (File.Exists(rdr.GetString(0)))
+        //                PhotoPath = new Bitmap(rdr.GetString(0));
+        //            else goto _L1;
+        //            return;
+        //        }
+        //    _L1: string filepath = AppContext.BaseDirectory + "Assets\\nophotop1.png";
+        //        if (!File.Exists(filepath))
+        //        {
+        //            Directory.CreateDirectory(filepath.Replace("\\nophotop1.png", ""));
+        //            File.Copy(filepath.Replace("\\bin\\Debug\\net8.0", ""), filepath);
+        //        }
+        //        PhotoPath = new Bitmap(filepath);
+        //    }
+        //    catch (Exception) { }
+        //}
 
         public void GetInfo()
         {
@@ -136,6 +140,7 @@ namespace AvaloniaApplication4.ViewModels
                 Last = rdr.GetString(4);
                 User.Phone = Phone = rdr.GetString(5).Split("+7")[1].Replace("-", "");
                 Date = rdr.GetDateTime(6).ToString("dd/MM/yyyy");
+                PhotoPath = new Bitmap(rdr.GetString(7));
             }
             rdr.Close();
             con.Close();
@@ -158,7 +163,7 @@ namespace AvaloniaApplication4.ViewModels
             var con = new NpgsqlConnection(cs);
             con.Open();
            
-            var sql = $"SELECT * FROM main_bookings WHERE id_user = '{User.Id}' ORDER BY date_start;";
+            var sql = $"SELECT * FROM main_bookings WHERE id_user_id = '{User.Id}' ORDER BY date_start;";
             var cmd = new NpgsqlCommand(sql, con);
             NpgsqlDataReader rdr = cmd.ExecuteReader();
             var bookings = new List<Booking>();
@@ -166,15 +171,16 @@ namespace AvaloniaApplication4.ViewModels
             
             while (rdr.Read())
             {
-                if (rdr.GetDateTime(5) < DateTime.Now)
+                var date = new DateTimeOffset(rdr.GetDateTime(5));
+                if (date < DateTimeOffset.Now)
                 {
-                    bookingsLast.Insert(0, new Booking(rdr.GetDateTime(5), rdr.GetDateTime(6), rdr.GetInt32(1)));
+                    bookingsLast.Insert(0, new Booking(date, new DateTimeOffset(rdr.GetDateTime(6)), rdr.GetInt32(1)));
                     BookingValuePairs.Add((rdr.GetInt32(0), _book1), rdr.GetInt32(1));
                     Visibl2 = false;
                 }
                 else
                 {
-                    bookings.Add(new Booking(rdr.GetDateTime(5), rdr.GetDateTime(6), rdr.GetInt32(1)));
+                    bookings.Add(new Booking(date, new DateTimeOffset(rdr.GetDateTime(6)), rdr.GetInt32(1)));
                     BookingValuePairs.Add((rdr.GetInt32(0), _book2), rdr.GetInt32(1));
                     Visibl1 = false;
                 }
@@ -234,7 +240,7 @@ namespace AvaloniaApplication4.ViewModels
             await using (var connect = new NpgsqlConnection(cs))
             {
                 connect.Open();
-                await using (var command = new NpgsqlCommand("SELECT * FROM main_images_test", connect))
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_images", connect))
                 {
                     var reader = command.ExecuteReader();
                     while (reader.Read())
@@ -383,7 +389,7 @@ namespace AvaloniaApplication4.ViewModels
             {
                 Name_Cowork = name;
             }
-            public Booking(DateTime date_start, DateTime date_end, int id)
+            public Booking(DateTimeOffset date_start, DateTimeOffset date_end, int id)
             {
                 id_coworking = id;
                 Date = date_start.ToString("dd.MM.yyyy");
@@ -419,7 +425,7 @@ namespace AvaloniaApplication4.ViewModels
                 var filePath = selectedFile.Path.LocalPath;
 
 
-                string filepath = AppContext.BaseDirectory + "Assets\\" + Path.GetFileName(filePath);
+                string filepath = "Assets\\" + Path.GetFileName(filePath);
                 if (!File.Exists(filepath))
                 {
                     File.Copy(filePath, filepath);
@@ -431,13 +437,7 @@ namespace AvaloniaApplication4.ViewModels
                 string sql;
 
                 con.Open();
-                if (isregphoto)
-                    sql = $"UPDATE main_images SET file = '{filepath}' WHERE id_coworking = '{User.Id}';";
-                else
-                {
-                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filepath}');";
-                    isregphoto = true;
-                }
+                sql = $"UPDATE main_users SET img = '{filepath}' WHERE id = '{User.Id}';";
 
                 var cmd = new NpgsqlCommand(sql, con);
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
