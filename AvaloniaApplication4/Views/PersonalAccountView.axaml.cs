@@ -153,7 +153,10 @@ namespace AvaloniaApplication4.Views
                 Cont.Content = new DynamicCardsView { DataContext = viewModel };
             }
             PersonalAccountViewModel personalAccountViewModel = new();
-            personalAccountViewModel.Pressed = true;
+           
+                personalAccountViewModel.Pressed = true;
+            
+            
         }
     }
 }

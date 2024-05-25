@@ -4,25 +4,15 @@ using Avalonia.Platform.Storage;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DynamicData;
-using DynamicData.Kernel;
-using Newtonsoft.Json;
 using Npgsql;
-using ReactiveUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Diagnostics.Tracing;
 using System.IO;
 using System.Linq;
-using System.Net.WebSockets;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.IO;
 using static AvaloniaApplication4.ViewModels.BusinessAccountViewModel;
@@ -66,7 +56,7 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private static bool _pressed;
 
-       
+
         public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
         public string cs = User.Connect;
@@ -77,7 +67,7 @@ namespace AvaloniaApplication4.ViewModels
             //ReadBdCompany();
             //ReadPhotoBd();
             GetBookings();
-          
+
             AddInfo();
             AddBook(BookingsLast);
             AddBook(Bookings);
@@ -121,7 +111,7 @@ namespace AvaloniaApplication4.ViewModels
 
         public void GetInfo()
         {
-           
+
             var con = new NpgsqlConnection(cs);
             con.Open();
 
@@ -145,7 +135,7 @@ namespace AvaloniaApplication4.ViewModels
         private ObservableCollection<Booking> Bookings { get; set; }
         private ObservableCollection<Booking> BookingsLast { get; set; }
 
-       
+
         [ObservableProperty]
         private bool _visibl1 = true;
         [ObservableProperty]
@@ -164,7 +154,7 @@ namespace AvaloniaApplication4.ViewModels
             NpgsqlDataReader rdr = cmd.ExecuteReader();
             var bookings = new List<Booking>();
             var bookingsLast = new List<Booking>();
-            
+
             while (rdr.Read())
             {
                 if (rdr.GetDateTime(7) < DateTimeOffset.Now)
@@ -180,11 +170,11 @@ namespace AvaloniaApplication4.ViewModels
                     Visibl1 = false;
                 }
             }
-         
+
             Bookings = new ObservableCollection<Booking>(bookings);
             BookingsLast = new ObservableCollection<Booking>(bookingsLast);
             //AddBook(Bookings);
-         
+
             rdr.Close();
             con.Close();
         }
@@ -204,10 +194,10 @@ namespace AvaloniaApplication4.ViewModels
                 //{
                 //    searchBook.Path_cowork = item.Value;
                 //}
-            } 
+            }
 
         }
-      
+
         //public async Task ReadBdCompany()
         //{
 
@@ -241,10 +231,10 @@ namespace AvaloniaApplication4.ViewModels
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                       int id = reader.GetInt32(0);
-                       int id_coworking = reader.GetInt32(1);
-                       string str = reader.GetString(2);
-                       PhotoIDPathPairs.Add((id, id_coworking), str);
+                        int id = reader.GetInt32(0);
+                        int id_coworking = reader.GetInt32(1);
+                        string str = reader.GetString(2);
+                        PhotoIDPathPairs.Add((id, id_coworking), str);
                     }
                     reader.Close();
                 }
@@ -252,9 +242,9 @@ namespace AvaloniaApplication4.ViewModels
         }
         public void AddInfo()
         {
-        
+
             CardViewModel card1ViewModel = new CardViewModel();
-           
+
             foreach (var item in card1ViewModel.PeopleCollection)
             {
                 switch (item.Id)
@@ -262,7 +252,7 @@ namespace AvaloniaApplication4.ViewModels
                     case 1:
                         foreach (var item2 in BookingValuePairs)
                         {
-                            if(item.Id == item2.Value)
+                            if (item.Id == item2.Value)
                             {
                                 if (item2.Key.Item2 == _book1)
                                 {
@@ -313,7 +303,7 @@ namespace AvaloniaApplication4.ViewModels
                                     }
                                 }
                             }
-                        } 
+                        }
                         break;
                     case 3:
                         foreach (var item2 in BookingValuePairs)
@@ -368,27 +358,27 @@ namespace AvaloniaApplication4.ViewModels
                                 }
                             }
                         }
-                        break;  
+                        break;
 
                     default:
                         break;
                 }
             }
-          
+
         }
-       
-     
+
+
         public partial class Booking : ObservableObject, IEnumerable
         {
-            public  string Name_Cowork { get; set; }
+            public string Name_Cowork { get; set; }
             [ObservableProperty]
             private Bitmap _path_cowork;
             public string? Date { get; set; }
             public string? Time { get; set; }
             [ObservableProperty]
             private ObservableCollection<Bitmap> _b_maps = new();
-            public int id_coworking {  get; set; }   
-           
+            public int id_coworking { get; set; }
+
             public Booking() { }
             public Booking(string name)
             {

@@ -68,7 +68,7 @@ namespace AvaloniaApplication4.ViewModels
             PersonalAccountViewModel personalAccountViewModel = new();
             Clicked_navigate = personalAccountViewModel.Pressed;
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-            bool clicked = false;
+            bool clicked = true;
             if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black && Page == User.Model)
             {
                 
@@ -77,6 +77,8 @@ namespace AvaloniaApplication4.ViewModels
                     Type viewModelType2 = Type.GetType(namspc + "." + "PersonalAccountViewModel");
                     ViewModelBase viewModel2 = (ViewModelBase)Activator.CreateInstance(viewModelType2);
                     Page = viewModel2;
+                    Clicked_navigate = false;
+                    personalAccountViewModel.Pressed = false;
                 }
                     
                 
