@@ -31,16 +31,6 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private ViewModelBase _page = new CardViewModel();
 
-
-        //public ObservableCollection<ListItemTemplate> Items => items;
-        //private readonly ObservableCollection<ListItemTemplate> items =
-        //[
-        //   new ListItemTemplate(typeof(CardViewModel)),
-        //   new ListItemTemplate(typeof(LoginViewModel)),
-        //];
-
-        ////public Bitmap? Image_bitmap_source { get; } = ImageLoad.Load("/Assets/prosto.jpg");
-
         [ObservableProperty]
         private ListItemTemplate? _selectedListItem;
 
@@ -64,13 +54,34 @@ namespace AvaloniaApplication4.ViewModels
         private SolidColorBrush _color1 = new SolidColorBrush(Color.Parse("#D94D04"));
         [ObservableProperty]
         private SolidColorBrush _color2 = new SolidColorBrush(Colors.Black);
-
+        [ObservableProperty]
+        private static bool _clicked_navigate;
+        /// <summary>
+        /// Рефакторинг #1 :
+        ///  Обратить внимание на создание нового экземпляра PersonalAccountViewModel 
+        ///  Нужно реорганизовать метод
+        /// </summary>
+        /// <param name="Navigate"></param>
         public void Navigate(string? pageViewModel)
         {
             string namspc = Namespace();
+            PersonalAccountViewModel personalAccountViewModel = new();
+            Clicked_navigate = personalAccountViewModel.Pressed;
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-
-            if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black && Page == User.Model) return;
+            bool clicked = false;
+            if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black && Page == User.Model)
+            {
+                
+                if ( Clicked_navigate)
+                { 
+                    Type viewModelType2 = Type.GetType(namspc + "." + "PersonalAccountViewModel");
+                    ViewModelBase viewModel2 = (ViewModelBase)Activator.CreateInstance(viewModelType2);
+                    Page = viewModel2;
+                }
+                    
+                
+               
+            }
             else if (pageViewModel == "LoginViewModel")
             {
                 if (Color1.Color != Colors.Black)
@@ -80,6 +91,7 @@ namespace AvaloniaApplication4.ViewModels
                     Color2 = bufer;
                 }
                     Page = User.Model;
+                
             }
             else
             {
@@ -92,23 +104,12 @@ namespace AvaloniaApplication4.ViewModels
                 
                 ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
                 Page = viewModel;
+                clicked = true;
+              
             }
+         
         }
 
-       
-        //public void update(string? content);
-        //public ObservableCollection<ListItemTemplate> Items => items;
-        //partial void OnSelectedListItemChanged(ListItemTemplate? value)
-        //{
-        //    if (value is null) return;
-        //    if (value.Instance is LoginViewModel && User.Model != null) CurrentPage = User.Model;
-        //    else CurrentPage = (ViewModelBase)value.Instance;
-        //    string namspc = Namespace();
-        //    Type viewModelType = Type.GetType(namspc + "." + content);
-        //    ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
-        //    Page = null;
-
-        //}
         private static MainWindowViewModel? _instance;
        
         public static MainWindowViewModel Instance
@@ -124,19 +125,10 @@ namespace AvaloniaApplication4.ViewModels
          
 
         }
-  
-
-       
         //public MainWindowViewModel()
         //{
         //    User.Main = this;
         //}
-    
-  
-        
-
-       
-       
     }
    public partial class JsonClass :ObservableObject
     {
@@ -161,7 +153,8 @@ namespace AvaloniaApplication4.ViewModels
         private string? _date_created;
         [ObservableProperty]
         private string? _date_created_snst;
-
+        [ObservableProperty]
+        private ObservableCollection<Bitmap> _photos = new();
 
         public class ListItemTemplate(Type type)
         {

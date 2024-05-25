@@ -16,17 +16,7 @@ namespace AvaloniaApplication4.ViewModels;
 
 public partial class CardViewModel : ViewModelBase
 {
-    //[ObservableProperty]
-    //private ViewModelBase _open = new CardOpenViewModel();
-    [ObservableProperty]
-    private ViewModelBase _base = new CardOpenViewModel();
-    [ObservableProperty]
-    private ViewModelBase _base2_card = new Card1ViewModel();
-    [ObservableProperty]
-    private ViewModelBase _base3_card = new Card2ViewModel();
-
-    
-
+ 
     [ObservableProperty]
     private ViewModelBase _card_add = new AddCardViewModel();
     
@@ -41,15 +31,6 @@ public partial class CardViewModel : ViewModelBase
     [ObservableProperty]
     private ObservableCollection<JsonClass> _card_Collection = new();
 
-    //public ObservableCollection<JsonClass> Companies { get; set; } = new();
-    [ObservableProperty]
-    private List<JsonClass> _border1 = new();
-    
-    [ObservableProperty]
-    private List<JsonClass> _border2 = new();
-
-    [ObservableProperty]
-    private List<JsonClass> _border3 = new();
 
     public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
 
@@ -60,9 +41,6 @@ public partial class CardViewModel : ViewModelBase
         return yNameSpc;
     }
 
-   
-   
- 
     public CardViewModel()
     {
         connecting.ReadBd();
@@ -72,7 +50,6 @@ public partial class CardViewModel : ViewModelBase
     public void Navigate(string? pageViewModel)
     {
         var main = MainWindowViewModel.Instance;
-
         main.Navigate(pageViewModel);
     }
     public void OnDataLoad()
@@ -81,7 +58,6 @@ public partial class CardViewModel : ViewModelBase
 
         var photosById = new Dictionary<int, List<string>>();
 
-        // Заполняем словарь фотографиями
         foreach (var pair in connecting.PhotoIDPathPairs)
         {
             if (!photosById.ContainsKey(pair.Key.Item2))
@@ -99,18 +75,17 @@ public partial class CardViewModel : ViewModelBase
                 Card_Collection.Add(collect);
             }
         }
-        // Присваиваем фотографии к людям в коллекции
+
         foreach (var item in Card_Collection)
         {
             if (photosById.TryGetValue(item.Id, out var photoPaths))
             {
-                // Если для данного ID есть несколько фото, выбираем первое, второе и так далее
                 for (int i = 0; i < photoPaths.Count; i++)
                 {
-                    // Здесь мы должны удостовериться, что не выходим за границы коллекции
                     if (i < Card_Collection.Count)
                     {
-                        Card_Collection[i].Path_photo = new Bitmap(photoPaths[i]);
+                        //Card_Collection[i].Path_photo = new Bitmap(photoPaths[i]);
+                        item.Photos.Add(new Bitmap(photoPaths[i]));
                     }
                 }
             }

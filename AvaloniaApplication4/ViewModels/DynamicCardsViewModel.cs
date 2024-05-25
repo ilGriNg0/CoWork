@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private ObservableCollection<JsonClass> _collection = new();
 
-        
+        [ObservableProperty]
+        private ObservableCollection<Bitmap> _photoses = new();
 
        public DynamicCardsViewModel(Booking bk)
         {
@@ -29,11 +31,18 @@ namespace AvaloniaApplication4.ViewModels
         public void LoadData(JsonClass item)
         {
             CardViewModel c_viewModel = new CardViewModel();
+           
             var items = c_viewModel.Card_Collection.FirstOrDefault(p => p.Id == item.Id);
-            if (items != null)
+        
+            if (items != null )
             {
                 Collection.Add(items);
             }
+            foreach (var item_ph in item.Photos)
+            {
+                Photoses.Add(item_ph);
+            }
+
         }
         public void LoadData(Booking item)
         {
@@ -43,6 +52,7 @@ namespace AvaloniaApplication4.ViewModels
             {
                 Collection.Add(items);
             }
+          
         }
     }
 }
