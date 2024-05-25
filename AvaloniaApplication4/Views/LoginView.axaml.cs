@@ -21,7 +21,7 @@ namespace AvaloniaApplication4.Views
 
         public async void Add_Click(object source, RoutedEventArgs args)
         {
-            var create = new CreateBookingView();
+            var create = new CreateBookingViewModel(1, 9, 23);
             ContentContainer.Content = create;
         }
 

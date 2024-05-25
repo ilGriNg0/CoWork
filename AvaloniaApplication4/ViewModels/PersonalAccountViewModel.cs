@@ -159,7 +159,7 @@ namespace AvaloniaApplication4.ViewModels
             var con = new NpgsqlConnection(cs);
             con.Open();
            
-            var sql = $"SELECT * FROM main_bookings WHERE id_user_id = '{User.Id}' ORDER BY date_start;";
+            var sql = $"SELECT * FROM main_bookings WHERE id_user_id = '{User.Id}' ORDER BY date;";
             var cmd = new NpgsqlCommand(sql, con);
             NpgsqlDataReader rdr = cmd.ExecuteReader();
             var bookings = new List<Booking>();
@@ -167,16 +167,15 @@ namespace AvaloniaApplication4.ViewModels
             
             while (rdr.Read())
             {
-                var date = new DateTimeOffset(rdr.GetDateTime(5));
-                if (date < DateTimeOffset.Now)
+                if (rdr.GetDateTime(7) < DateTimeOffset.Now)
                 {
-                    bookingsLast.Insert(0, new Booking(date, new DateTimeOffset(rdr.GetDateTime(6)), rdr.GetInt32(1)));
+                    bookingsLast.Insert(0, new Booking(rdr.GetDateTime(7), rdr.GetTimeSpan(5), rdr.GetTimeSpan(6), rdr.GetInt32(1), rdr.GetInt64(3)));
                     BookingValuePairs.Add((rdr.GetInt32(0), _book1), rdr.GetInt32(1));
                     Visibl2 = false;
                 }
                 else
                 {
-                    bookings.Add(new Booking(date, new DateTimeOffset(rdr.GetDateTime(6)), rdr.GetInt32(1)));
+                    bookings.Add(new Booking(rdr.GetDateTime(7), rdr.GetTimeSpan(5), rdr.GetTimeSpan(6), rdr.GetInt32(1), rdr.GetInt64(3)));
                     BookingValuePairs.Add((rdr.GetInt32(0), _book2), rdr.GetInt32(1));
                     Visibl1 = false;
                 }
@@ -395,11 +394,11 @@ namespace AvaloniaApplication4.ViewModels
             {
                 Name_Cowork = name;
             }
-            public Booking(DateTimeOffset date_start, DateTimeOffset date_end, int id)
+            public Booking(DateTime date, TimeSpan time_start, TimeSpan time_end, int id, long price)
             {
                 id_coworking = id;
-                Date = date_start.ToString("dd.MM.yyyy");
-                Time = $"{date_start.ToString("HH:mm")}-{date_end.ToString("HH:mm")}";
+                Date = date.ToString("dd.MM.yyyy");
+                Time = $"{time_start.ToString(@"hh\:mm")}-{time_end.ToString(@"hh\:mm")}" + $"   {price} ₽";
             }
 
             public IEnumerator GetEnumerator()

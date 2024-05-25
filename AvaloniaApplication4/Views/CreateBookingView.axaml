@@ -11,11 +11,10 @@
 		<vm:CreateBookingViewModel />
 	</UserControl.DataContext>
 	<Border CornerRadius="30" ClipToBounds="True" Background="#161616">
-		<ScrollViewer>
 			<Grid
 				RowDefinitions="*, 2*"
 				ShowGridLines="True">
-				<Image Grid.Row="0" Source="../Assets/prosto.jpg" Stretch="UniformToFill"/>
+				<Image Grid.Row="0" Source="{Binding PhotoPath}" Stretch="UniformToFill"/>
 
 				<!-- Кнопка закрытия в правом верхнем углу -->
 				<Button Grid.Row="0" Content="x" FontSize="30" CornerRadius="270"
@@ -73,6 +72,7 @@
 						Доступные часы:
 					</TextBlock>
 					<ComboBox
+						Width="300"
 						ItemsSource="{Binding Times}"
 						IsVisible="{Binding Visibl}"
                   SelectedItem="{Binding SelectedTime, Mode=TwoWay}"></ComboBox>
@@ -81,7 +81,7 @@
 						IsVisible="{Binding Visibl1}"
 						Margin="0 30 0 0"
 						VerticalAlignment="Center"
-						HorizontalAlignment="Left"
+						HorizontalAlignment="Center"
 						Foreground="#D94D04"
 						FontSize="15"
 						FontStyle="Italic"
@@ -89,7 +89,21 @@
 						LineHeight="30"
 						FontFamily="Gelion"
 						TextAlignment="Left">
-						На этоу дату нет свободных мест.
+						По вашим предпочтениям
+					</TextBlock>
+					<TextBlock
+						IsVisible="{Binding Visibl1}"
+						Margin="0 5 0 0"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Foreground="#D94D04"
+						FontSize="15"
+						FontStyle="Italic"
+						FontWeight="700"
+						LineHeight="30"
+						FontFamily="Gelion"
+						TextAlignment="Left">
+						нет свободных мест.
 					</TextBlock>
 				</StackPanel>
 
@@ -106,7 +120,7 @@
 						CornerRadius="50"
 						Height="60"
 						Width="352"
-					Content="{Binding But}"
+					Content="Забронировать"
 					Command="{Binding BookingCreateCommand}">
 					<Button.Styles>
 						<Style Selector="Button">
@@ -125,6 +139,5 @@
 					</Button.Transitions>
 				</Button>
 			</Grid>
-		</ScrollViewer>
 	</Border>
 </UserControl>
