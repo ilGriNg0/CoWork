@@ -178,8 +178,13 @@
 						MaxLines="1"
 						PasswordChar="{Binding Charac}">
 					</TextBox>
-					<CheckBox
-						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+						<CheckBox
+							IsChecked="{Binding IsChecked, Mode=TwoWay}">
+							<CheckBox.Styles>
+								<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+									<Setter Property="BorderBrush" Value="#D94D04" />
+								</Style>
+							</CheckBox.Styles>
 					</CheckBox>
 						</StackPanel>
 

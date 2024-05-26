@@ -123,6 +123,11 @@
 					</TextBox>
 					<CheckBox
 						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+						<CheckBox.Styles>
+							<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+								<Setter Property="BorderBrush" Value="#D94D04" />
+							</Style>
+						</CheckBox.Styles>
 					</CheckBox>
 				</StackPanel>
 
@@ -229,7 +234,7 @@
 						FontFamily="Source Sans Pro"
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center">
-						Будущие бронирования
+						Текущие бронирования
 					</TextBlock>
 
 					<TextBlock

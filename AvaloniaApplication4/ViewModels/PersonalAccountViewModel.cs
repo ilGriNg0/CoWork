@@ -149,7 +149,7 @@ namespace AvaloniaApplication4.ViewModels
             var con = new NpgsqlConnection(cs);
             con.Open();
            
-            var sql = $"SELECT * FROM main_bookings WHERE id_user_id = '{User.Id}' ORDER BY date;";
+            var sql = $"SELECT * FROM main_bookings WHERE id_user_id = '{User.Id}' ORDER BY date, time_start;";
             var cmd = new NpgsqlCommand(sql, con);
             NpgsqlDataReader rdr = cmd.ExecuteReader();
             var bookings = new List<Booking>();
@@ -157,7 +157,7 @@ namespace AvaloniaApplication4.ViewModels
 
             while (rdr.Read())
             {
-                if (rdr.GetDateTime(7) < DateTimeOffset.Now)
+                if (rdr.GetDateTime(7) < DateTimeOffset.Now.Date || (rdr.GetTimeSpan(6) < DateTime.Now.TimeOfDay && rdr.GetDateTime(7) == DateTime.Now.Date))
                 {
                     bookingsLast.Insert(0, new Booking(rdr.GetDateTime(7), rdr.GetTimeSpan(5), rdr.GetTimeSpan(6), rdr.GetInt32(1), rdr.GetInt64(3)));
                     BookingValuePairs.Add((rdr.GetInt32(0), _book1), rdr.GetInt32(1));
