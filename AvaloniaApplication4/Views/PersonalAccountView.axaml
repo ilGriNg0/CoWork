@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+			 xmlns:local="clr-namespace:AvaloniaApplication4.Models"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
 			 x:Class="AvaloniaApplication4.Views.PersonalAccountView" 
 			 x:DataType="vm:PersonalAccountViewModel">
@@ -367,15 +368,14 @@
 									<Border
 										Background="#D94D04"
 										CornerRadius="50"
-										Height="350"
+										Height="400"
 										Width="350"
-										ClipToBounds="True"
-										PointerPressed="BorderPersonal_PointerPressed">
+										ClipToBounds="True">
 					
 										<Grid ShowGridLines="True">
 											<Grid.RowDefinitions>
 												<RowDefinition Height="3*"/>
-												<RowDefinition Height="*"/>
+												<RowDefinition Height="1.5*"/>
 											</Grid.RowDefinitions>
 											<StackPanel Grid.Row="0">
 												<ItemsControl   HorizontalAlignment="Center" ItemsSource="{Binding B_maps}">
@@ -403,6 +403,7 @@
 												<TextBlock
 													Classes="Info"
 													Text="{Binding Time}"/>
+												<local:StarRatingControl x:Name="starRating" Width="200" Height="35" Rating="{Binding Rating, Mode=TwoWay}" RatingChanged="StarRatingControl_RatingChanged"/>
 											</StackPanel>
 
 											

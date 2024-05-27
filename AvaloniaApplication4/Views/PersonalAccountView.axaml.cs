@@ -5,6 +5,7 @@ using Avalonia.Media;
 using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
 using Npgsql;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
 
@@ -18,6 +19,26 @@ namespace AvaloniaApplication4.Views
         public PersonalAccountView()
         {
             InitializeComponent();
+        }
+
+        private void StarRatingControl_RatingChanged(object? sender, int newRating)
+        {
+            if (sender is StarRatingControl starRatingControl)
+            {
+                var booking = starRatingControl.DataContext as Booking;
+                if (booking != null)
+                {
+                    booking.Rating = newRating;
+
+                    string cs = User.Connect;
+                    var con = new NpgsqlConnection(cs);
+                    con.Open();
+
+                    var sql = $"UPDATE main_bookings SET rating = '{booking.Rating}' WHERE id = '{booking.Id}';";
+                    var cmd = new NpgsqlCommand(sql, con);
+                    NpgsqlDataReader rdr = cmd.ExecuteReader();
+                }
+            }
         }
 
         private void Exit_Click(object source, RoutedEventArgs args)

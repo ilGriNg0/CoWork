@@ -17,6 +17,7 @@ using System.Windows.Input;
 using System.IO;
 using static AvaloniaApplication4.ViewModels.BusinessAccountViewModel;
 using Tmds.DBus.Protocol;
+using System.Runtime.CompilerServices;
 
 namespace AvaloniaApplication4.ViewModels
 {
@@ -159,13 +160,13 @@ namespace AvaloniaApplication4.ViewModels
             {
                 if (rdr.GetDateTime(7) < DateTimeOffset.Now.Date || (rdr.GetTimeSpan(6) < DateTime.Now.TimeOfDay && rdr.GetDateTime(7) == DateTime.Now.Date))
                 {
-                    bookingsLast.Insert(0, new Booking(rdr.GetDateTime(7), rdr.GetTimeSpan(5), rdr.GetTimeSpan(6), rdr.GetInt32(1), rdr.GetInt64(3)));
+                    bookingsLast.Insert(0, new Booking(rdr.GetDateTime(7), rdr.GetTimeSpan(5), rdr.GetTimeSpan(6), rdr.GetInt32(1), rdr.GetInt64(3), rdr.GetInt32(9), rdr.GetInt32(0)));
                     BookingValuePairs.Add((rdr.GetInt32(0), _book1), rdr.GetInt32(1));
                     Visibl2 = false;
                 }
                 else
                 {
-                    bookings.Add(new Booking(rdr.GetDateTime(7), rdr.GetTimeSpan(5), rdr.GetTimeSpan(6), rdr.GetInt32(1), rdr.GetInt64(3)));
+                    bookings.Add(new Booking(rdr.GetDateTime(7), rdr.GetTimeSpan(5), rdr.GetTimeSpan(6), rdr.GetInt32(1), rdr.GetInt64(3), rdr.GetInt32(9), rdr.GetInt32(0)));
                     BookingValuePairs.Add((rdr.GetInt32(0), _book2), rdr.GetInt32(1));
                     Visibl1 = false;
                 }
@@ -370,11 +371,31 @@ namespace AvaloniaApplication4.ViewModels
 
         public partial class Booking : ObservableObject, IEnumerable
         {
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+            public int Id { get; set; }
             public string Name_Cowork { get; set; }
             [ObservableProperty]
             private Bitmap _path_cowork;
             public string? Date { get; set; }
             public string? Time { get; set; }
+            private int _rating;
+            public int Rating 
+            {  
+                get => _rating;
+                set
+                {
+                    if (_rating != value)
+                    {
+                        _rating = value;
+                        OnPropertyChanged();
+                    }
+                } 
+            }
             [ObservableProperty]
             private ObservableCollection<Bitmap> _b_maps = new();
             public int id_coworking { get; set; }
@@ -384,11 +405,13 @@ namespace AvaloniaApplication4.ViewModels
             {
                 Name_Cowork = name;
             }
-            public Booking(DateTime date, TimeSpan time_start, TimeSpan time_end, int id, long price)
+            public Booking(DateTime date, TimeSpan time_start, TimeSpan time_end, int id_c, long price, int rating, int id)
             {
-                id_coworking = id;
+                id_coworking = id_c;
                 Date = date.ToString("dd.MM.yyyy");
                 Time = $"{time_start.ToString(@"hh\:mm")}-{time_end.ToString(@"hh\:mm")}" + $"   {price} ₽";
+                Rating = rating;
+                Id = id;
             }
 
             public IEnumerator GetEnumerator()

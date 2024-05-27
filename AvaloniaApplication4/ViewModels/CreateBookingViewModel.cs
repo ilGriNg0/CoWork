@@ -41,29 +41,15 @@ namespace AvaloniaApplication4.ViewModels
         private List<int> Count = new List<int>();
         private List<long> Price = new List<long>();
         private List<Bitmap> Img = new List<Bitmap>();
-        public CreateBookingViewModel() 
-        {
-            //List<string> hrs = new List<string>();
-            //for (int i = 1; i <= Closed - Open; i++)
-            //{
-            //    hrs.Add(i == 1? $"{i} час" : i < 5? $"{i} часа" : $"{i} часов");
-            //}
-
-            //List<string> tps = new List<string>();
-            //tps.Add("coworking");
-            //tps.Add("place");
-
-            //Types = new ObservableCollection<string>(tps);
-            //SelectedType = Types[0];
-            //Hours = new ObservableCollection<string>(hrs);
-            //SelectedHour = Hours[0];
-        }
+        public CreateBookingViewModel() {}
         public CreateBookingViewModel(int id_с, int open, int closed) 
         {
-            User.Id = 1;
+            //User.Id = 1;
             Id_c = id_с;
             Open = open;
-            Closed = closed;GetServices();
+            Closed = closed;
+
+            GetServices();
 
             List<string> hrs = new List<string>();
             for (int i = 1; i <= Closed - Open; i++)
@@ -72,8 +58,6 @@ namespace AvaloniaApplication4.ViewModels
             }
             Hours = new ObservableCollection<string>(hrs);
             SelectedHour = Hours[0];
-
-            
         }
 
         private void GetServices()
@@ -111,21 +95,20 @@ namespace AvaloniaApplication4.ViewModels
             }
         }
 
-        private string _selectedTyoe = "";
+        private string _selectedType = "";
         public string SelectedType
         {
-            get => _selectedTyoe;
+            get => _selectedType;
             set
             {
-                if (_selectedTyoe != value)
+                if (_selectedType != value)
                 {
-                    if (_selectedTyoe != "")
-                        choise = choise == 0 ? 1 : 0;
-                    _selectedTyoe = value;
+                    choise = Types.IndexOf(value);
+                    _selectedType = value;
                     PhotoPath = Img[choise];
                     OnPropertyChanged(nameof(SelectedType));
-                    if (SelectedType != ""
-                        && SelectedHour != "") GetFreeTimes();
+                    if (SelectedHour != "")
+                        GetFreeTimes();
                 }
             }
         }
@@ -143,8 +126,8 @@ namespace AvaloniaApplication4.ViewModels
                     else
                         _selectedDate = value;
                     OnPropertyChanged(nameof(SelectedDate));
-                    if (SelectedType != ""
-                        && SelectedHour != "") GetFreeTimes();
+                    if (SelectedHour != "" && SelectedType != "")
+                        GetFreeTimes();
                 }
             }
         }
@@ -170,8 +153,8 @@ namespace AvaloniaApplication4.ViewModels
                 {
                     _selectedHour = value;
                     OnPropertyChanged(nameof(SelectedHour));
-                    if (SelectedType != ""
-                        && SelectedHour != "") GetFreeTimes();
+                    if (SelectedType != "")
+                        GetFreeTimes();
                 }
             }
         }
@@ -333,10 +316,7 @@ namespace AvaloniaApplication4.ViewModels
         [RelayCommand]
         public void BookingCreate()
         {
-            if (SelectedType != "" 
-                && SelectedHour != "" 
-                && SelectedTime != ""
-                && Visibl) 
+            if (SelectedTime != "" && Visibl) 
             {
                 var cs = User.Connect;
 
