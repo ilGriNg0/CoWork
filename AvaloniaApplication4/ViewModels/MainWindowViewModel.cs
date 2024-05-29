@@ -70,7 +70,7 @@ namespace AvaloniaApplication4.ViewModels
         public void Navigate(string? pageViewModel)
         {
             string namspc = Namespace();
-            var personalAccountViewModel =  PersonalAccountViewModel.Instance;
+            var personalAccountViewModel =  new PersonalAccountViewModel();
             var businesse = BusinessAccountViewModel.Instance;
           
             Clicked_navigate = personalAccountViewModel.Pressed;
