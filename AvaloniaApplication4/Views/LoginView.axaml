@@ -178,8 +178,13 @@
 						MaxLines="1"
 						PasswordChar="{Binding Charac}">
 					</TextBox>
-					<CheckBox
-						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+						<CheckBox
+							IsChecked="{Binding IsChecked, Mode=TwoWay}">
+							<CheckBox.Styles>
+								<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+									<Setter Property="BorderBrush" Value="#D94D04" />
+								</Style>
+							</CheckBox.Styles>
 					</CheckBox>
 						</StackPanel>
 
@@ -245,6 +250,37 @@
 						</Button.Transitions>
 					</Button>
 
+					<Button
+						Margin="0 5"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						FontSize="18"
+						FontFamily="Gelion"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+		
+						CornerRadius="50"
+						Height="60"
+						Width="352"
+						Click="Add_Click">
+						Войти
+						<Button.Styles>
+							<Style Selector="Button">
+								<Setter Property="Background" Value="#ffffff" />
+								<Setter Property="Foreground" Value="#161616" />
+							</Style>
+							<Style Selector="Button:pointerover /template/ ContentPresenter">
+								<Setter Property="Background" Value="#D94D04" />
+								<Setter Property="Foreground" Value="#ffffff" />
+							</Style>
+						</Button.Styles>
+						<Button.Transitions>
+							<Transitions>
+								<BrushTransition Property="Background" Duration="0:0:0.1"/>
+							</Transitions>
+						</Button.Transitions>
+					</Button>
+
 					<StackPanel
 						Orientation="Horizontal"
 						Spacing="70">
@@ -279,6 +315,7 @@
 				</StackPanel>
 
 			</Grid>
+		<ContentControl Name="ContentContainer" Background="#80000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
 	</Grid>
 </Border>
 </UserControl>

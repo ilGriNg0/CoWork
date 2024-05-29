@@ -1,0 +1,143 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
+			 xmlns:vm="using:AvaloniaApplication4.ViewModels"
+			 Width="450" Height="800"
+             x:Class="AvaloniaApplication4.Views.CreateBookingView"
+			 x:DataType="vm:CreateBookingViewModel">
+	<UserControl.DataContext>
+		<vm:CreateBookingViewModel />
+	</UserControl.DataContext>
+	<Border CornerRadius="30" ClipToBounds="True" Background="#161616">
+			<Grid
+				RowDefinitions="*, 2*"
+				ShowGridLines="True">
+				<Image Grid.Row="0" Source="{Binding PhotoPath}" Stretch="UniformToFill"/>
+
+				<!-- Кнопка закрытия в правом верхнем углу -->
+				<Button Grid.Row="0" Content="x" FontSize="30" CornerRadius="270"
+						HorizontalAlignment="Right" VerticalAlignment="Top" FontStyle="Italic"
+						Margin="5" Background="White" Foreground="Black"
+						Width="50" Height="50" HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center" Click="Exit_Click"/>
+
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
+					<TextBlock
+						Margin="0 20"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						Foreground="#ffffff"
+						FontSize="18"
+						FontFamily="Gelion">
+						Тип брони:
+					</TextBlock>
+					<ComboBox
+						Width="300" ItemsSource="{Binding Types}"
+                  SelectedItem="{Binding SelectedType}"></ComboBox>
+					
+					<TextBlock
+						Margin="0 20"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						Foreground="#ffffff"
+						FontSize="18"
+						FontFamily="Gelion">
+						Дата брони:
+					</TextBlock>
+					<DatePicker DayFormat="ddd dd" SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+					
+					<TextBlock
+						Margin="0 20"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						Foreground="#ffffff"
+						FontSize="18"
+						FontFamily="Gelion">
+						Длительность:
+					</TextBlock>
+					<ComboBox
+						Width="300" ItemsSource="{Binding Hours}"
+                  SelectedItem="{Binding SelectedHour, Mode=TwoWay}"></ComboBox>
+					
+					<TextBlock
+						IsVisible="{Binding Visibl}"
+						Margin="0 20"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Left"
+						Foreground="#ffffff"
+						FontSize="18"
+						FontFamily="Gelion">
+						Доступные часы:
+					</TextBlock>
+					<ComboBox
+						Width="300"
+						ItemsSource="{Binding Times}"
+						IsVisible="{Binding Visibl}"
+                  SelectedItem="{Binding SelectedTime, Mode=TwoWay}"></ComboBox>
+					
+					<TextBlock
+						IsVisible="{Binding Visibl1}"
+						Margin="0 30 0 0"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Foreground="#D94D04"
+						FontSize="15"
+						FontStyle="Italic"
+						FontWeight="700"
+						LineHeight="30"
+						FontFamily="Gelion"
+						TextAlignment="Left">
+						По вашим предпочтениям
+					</TextBlock>
+					<TextBlock
+						IsVisible="{Binding Visibl1}"
+						Margin="0 5 0 0"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Foreground="#D94D04"
+						FontSize="15"
+						FontStyle="Italic"
+						FontWeight="700"
+						LineHeight="30"
+						FontFamily="Gelion"
+						TextAlignment="Left">
+						нет свободных мест.
+					</TextBlock>
+				</StackPanel>
+
+				<Button
+					Grid.Row="1"
+						Margin="0 30"
+						VerticalAlignment="Bottom"
+						HorizontalAlignment="Center"
+						FontSize="18"
+						FontFamily="Gelion"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+		
+						CornerRadius="50"
+						Height="60"
+						Width="352"
+					Content="Забронировать"
+					Command="{Binding BookingCreateCommand}">
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#D94D04" />
+							<Setter Property="Foreground" Value="#ffffff" />
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#ffffff" />
+							<Setter Property="Foreground" Value="#161616" />
+						</Style>
+					</Button.Styles>
+					<Button.Transitions>
+						<Transitions>
+							<BrushTransition Property="Background" Duration="0:0:0.1"/>
+						</Transitions>
+					</Button.Transitions>
+				</Button>
+			</Grid>
+	</Border>
+</UserControl>

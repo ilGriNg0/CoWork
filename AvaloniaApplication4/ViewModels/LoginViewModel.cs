@@ -7,6 +7,7 @@ using MsBox.Avalonia;
 using Npgsql;
 using System;
 using System.Diagnostics.Tracing;
+using Avalonia.Media;
 namespace AvaloniaApplication4.ViewModels
 {
     public partial class LoginViewModel : ViewModelBase
