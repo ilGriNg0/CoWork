@@ -1,6 +1,10 @@
-﻿using Avalonia.Media.Imaging;
+﻿using Avalonia.Controls;
+using Avalonia.Media.Imaging;
+using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +15,7 @@ using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
 
 namespace AvaloniaApplication4.ViewModels
 {
-    public partial class DynamicCardsViewModel:ViewModelBase
+    public partial class DynamicCardsViewModel : ViewModelBase
     {
 
         [ObservableProperty]
@@ -20,7 +24,16 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private ObservableCollection<Bitmap> _photoses = new();
 
-       public DynamicCardsViewModel(Booking bk)
+       
+        [ObservableProperty]
+        private ObservableCollection<mainservs> _serv = new();
+
+        [ObservableProperty]
+        private string? _content;
+
+        [ObservableProperty]
+        private string? _icons;
+        public DynamicCardsViewModel(Booking bk)
         {
             LoadData(bk);
         }
@@ -28,31 +41,72 @@ namespace AvaloniaApplication4.ViewModels
         {
             LoadData(item);
         }
-        public void LoadData(JsonClass item)
+        public void LoadData<T>(T item)
         {
             CardViewModel c_viewModel = new CardViewModel();
-           
-            var items = c_viewModel.Card_Collection.FirstOrDefault(p => p.Id == item.Id);
-        
-            if (items != null )
+            ConnectingBD connecting = new();
+            if (item is JsonClass js)
             {
-                Collection.Add(items);
+                var items = c_viewModel.Card_Collection.FirstOrDefault(p => p.Id == js.Id);
+                connecting.ReadServicesBd();
+                if (items != null)
+                {
+                    Collection.Add(items);
+                }
+                foreach (var item_ph in js.Photos)
+                {
+                    Photoses.Add(item_ph);
+                }
+                foreach (var item3 in connecting.ServicesPairs)
+                {
+                    if (item3.Value.Item1 == js.Id && item3.Value.Item4 != string.Empty)
+                    {
+
+                        Serv.Add(new mainservs {Value1 = item3.Value.Item4, Value2 = item3.Value.Item5}); 
+                    }
+
+
+                }
+            
+                
             }
-            foreach (var item_ph in item.Photos)
-            {
-                Photoses.Add(item_ph);
+                if (item is Booking book)
+                {
+                    var items = c_viewModel.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking);
+                    connecting.ReadServicesBd();
+                    if (items != null)
+                    {
+                        Collection.Add(items);
+                    }
+                    foreach (var item_book in book.B_maps)
+                    {
+                        Photoses.Add(item_book);
+                    }
+                    foreach (var item3 in connecting.ServicesPairs)
+                    {
+                    if (item3.Value.Item1 == book.id_coworking && item3.Value.Item4 != string.Empty)
+                    {
+
+                        Serv.Add(new mainservs { Value1 = item3.Value.Item4, Value2 = item3.Value.Item5 });
+                    }
+
+
+                }
             }
 
-        }
-        public void LoadData(Booking item)
-        {
-            CardViewModel c_viewModel = new CardViewModel();
-            var items = c_viewModel.Card_Collection.FirstOrDefault(p => p.Id == item.id_coworking);
-            if (items != null)
-            {
-                Collection.Add(items);
+
             }
-          
         }
+   public partial class mainservs : ObservableObject
+    {
+        [ObservableProperty]
+        private int _key1;
+        [ObservableProperty]
+        private string? _value1;
+        [ObservableProperty]
+        private string? _value2;
+
+       
     }
 }
+

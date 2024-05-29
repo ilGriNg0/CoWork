@@ -70,7 +70,19 @@ namespace AvaloniaApplication4.ViewModels
             AddBook(Bookings);
 
         }
+        private static PersonalAccountViewModel? _instance;
 
+        public static PersonalAccountViewModel Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new PersonalAccountViewModel();
+                }
+                return _instance;
+            }
+        }
         private bool isregphoto = false;
         public void GetPhoto()
         {
@@ -80,7 +92,7 @@ namespace AvaloniaApplication4.ViewModels
                 var con = new NpgsqlConnection(cs);
                 con.Open();
 
-                var sql = $"SELECT file FROM main_images WHERE id_coworking = '{User.Id}';";
+                var sql = $"SELECT img FROM main_images WHERE id_coworking_id = '{User.Id}';";
 
                 var cmd = new NpgsqlCommand(sql, con);
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
@@ -182,38 +194,10 @@ namespace AvaloniaApplication4.ViewModels
                         book.B_maps.Add(new Bitmap(item.Value));
                     }
                 }
-                //var searchBook = booking.FirstOrDefault(book => item.Key.Item2 == book.id_coworking);
-                //if (searchBook != null)
-                //{
-                //    searchBook.Path_cowork = item.Value;
-                //}
             }
 
         }
 
-        //public async Task ReadBdCompany()
-        //{
-
-        //    //List<object> types = [];
-        //    string connect_host = User.Connect;
-        //    int id = default;
-        //    await using (var connect = new NpgsqlConnection(connect_host))
-        //    {
-        //        connect.Open();
-        //        await using (var command = new NpgsqlCommand("SELECT * FROM main_bookings", connect))
-        //        {
-        //            var reader = command.ExecuteReader();
-        //            while (reader.Read())
-        //            {
-        //                id = reader.GetInt32(1);
-        //                var item = new IdCompany { Id_Company = id };
-        //                idCompanies.Add(item);
-
-        //            }
-        //            reader.Close();
-        //        }
-        //    }
-        //}
         public async void ReadPhotoBd()
         {
             await using (var connect = new NpgsqlConnection(cs))
@@ -236,125 +220,40 @@ namespace AvaloniaApplication4.ViewModels
         public void AddInfo()
         {
 
-            CardViewModel card1ViewModel = new CardViewModel();
+            var card1ViewModel = new CardViewModel();
 
-            foreach (var item in card1ViewModel.PeopleCollection)
+            foreach (var item in card1ViewModel.Card_Collection)
             {
-                switch (item.Id)
+                foreach (var item2 in BookingValuePairs)
                 {
-                    case 1:
-                        foreach (var item2 in BookingValuePairs)
+                    if (item.Id == item2.Value)
+                    {
+                        if (item2.Key.Item2 == _book1)
                         {
-                            if (item.Id == item2.Value)
-                            {
-                                if (item2.Key.Item2 == _book1)
-                                {
 
-                                    foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
-                                    {
-                                        item3.Name_Cowork = item?.Name_cowork;
-                                        //item3.Path_cowork = item.Path_photo;
-                                        item3.B_maps.Add(item.Path_photo);
-                                    }
-                                }
-                                else
+                            foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
+                            {
+                                item3.Name_Cowork = item?.Name_cowork;
+                                foreach (var itm in item.Photos)
                                 {
-                                    foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
-                                    {
-                                        item3.Name_Cowork = item?.Name_cowork;
-                                        //item3.Path_cowork = item.Path_photo;
-                                        item3.B_maps.Add(item.Path_photo);
-                                    }
+                                    item3.B_maps.Add(itm);
                                 }
 
                             }
                         }
-                        break;
-                    case 2:
-                        foreach (var item2 in BookingValuePairs)
+                        else
                         {
-                            if (item.Id == item2.Value)
+                            foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
                             {
-
-                                if (item2.Key.Item2 == _book1)
+                                item3.Name_Cowork = item?.Name_cowork;
+                                foreach (var itm in  item.Photos)
                                 {
-
-                                    foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
-                                    {
-                                        item3.Name_Cowork = item?.Name_cowork;
-                                        //item3.Path_cowork = item.Path_photo;
-                                        item3.B_maps.Add(item.Path_photo);
-                                    }
-                                }
-                                else
-                                {
-                                    foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
-                                    {
-                                        item3.Name_Cowork = item?.Name_cowork;
-                                        //item3.Path_cowork = item.Path_photo;
-                                        item3.B_maps.Add(item.Path_photo);
-                                    }
+                                    item3.B_maps.Add(itm);
                                 }
                             }
                         }
-                        break;
-                    case 3:
-                        foreach (var item2 in BookingValuePairs)
-                        {
-                            if (item.Id == item2.Value)
-                            {
-                                if (item2.Key.Item2 == _book1)
-                                {
 
-                                    foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
-                                    {
-                                        item3.Name_Cowork = item?.Name_cowork;
-                                        //item3.Path_cowork = item.Path_photo;
-                                        item3.B_maps.Add(item.Path_photo);
-                                    }
-                                }
-                                else
-                                {
-                                    foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
-                                    {
-                                        item3.Name_Cowork = item?.Name_cowork;
-                                        //item3.Path_cowork = item.Path_photo;
-                                        item3.B_maps.Add(item.Path_photo);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case 4:
-                        foreach (var item2 in BookingValuePairs)
-                        {
-                            if (item.Id == item2.Value)
-                            {
-                                if (item2.Key.Item2 == _book1)
-                                {
-
-                                    foreach (var item3 in BookingsLast.Where(p => p.id_coworking == item2.Value))
-                                    {
-                                        item3.Name_Cowork = item?.Name_cowork;
-                                        //item3.Path_cowork = item.Path_photo;
-                                        item3.B_maps.Add(item.Path_photo);
-                                    }
-                                }
-                                else
-                                {
-                                    foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
-                                    {
-                                        item3.Name_Cowork = item?.Name_cowork;
-                                        //item3.Path_cowork = item.Path_photo;
-                                        item3.B_maps.Add(item.Path_photo);
-                                    }
-                                }
-                            }
-                        }
-                        break;
-
-                    default:
-                        break;
+                    }
                 }
             }
 
@@ -426,10 +325,10 @@ namespace AvaloniaApplication4.ViewModels
 
                 con.Open();
                 if (isregphoto)
-                    sql = $"UPDATE main_images SET file = '{filepath}' WHERE id_coworking = '{User.Id}';";
+                    sql = $"UPDATE main_images SET img = '{filepath}' WHERE id_coworking_id = '{User.Id}';";
                 else
                 {
-                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filepath}');";
+                    sql = $"INSERT INTO main_images(id_coworking_id, img) VALUES('{User.Id}', '{filepath}');";
                     isregphoto = true;
                 }
 

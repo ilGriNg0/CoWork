@@ -318,7 +318,13 @@
 							ClipToBounds="True"
 							PointerPressed="BorderBusinessPressed">
 							<Grid RowDefinitions="7*,*" >
-								<Image Grid.Row="0"  Source="{Binding Path_photo}" Stretch="UniformToFill"/>
+								<ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Photos}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<Image Source="{Binding}" Stretch="UniformToFill"></Image>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
 								<TextBlock
 									Grid.Row="1"
 									Foreground="White"

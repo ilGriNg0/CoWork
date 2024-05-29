@@ -48,6 +48,8 @@ namespace AvaloniaApplication4.ViewModels
         public string _phone;
         [ObservableProperty]
         public string _password;
+        [ObservableProperty]
+        private static bool _key_boookingPressed;
 
         public ICommand NavigateToAddCommand => new RelayCommand<string>(NavigateToAdd);
 
@@ -58,6 +60,22 @@ namespace AvaloniaApplication4.ViewModels
             var mainwindow = MainWindowViewModel.Instance;
             mainwindow.Navigate(pageViewModel);
 
+        }
+        private static BusinessAccountViewModel? _instance;
+
+        public static BusinessAccountViewModel Instance
+        {
+         get
+            {
+             if(_instance == null)
+                {
+                    _instance = new BusinessAccountViewModel();
+                }
+                return _instance;
+            }
+            
+           
+            
         }
         [ObservableProperty]
         private ObservableCollection<JsonClass> _bookingsBusines = new();
@@ -132,7 +150,7 @@ namespace AvaloniaApplication4.ViewModels
             var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = $"SELECT * FROM main_bookings WHERE id_coworking IN (SELECT id FROM main_coworkingspaces WHERE id_company = '{User.Id}') ORDER BY id_coworking, date_start;";
+            var sql = $"SELECT * FROM main_bookings WHERE id_coworking IN (SELECT id FROM main_coworkingspaces WHERE id_company_id = '{User.Id}') ORDER BY id_coworking, date_start;";
             
             var cmd = new NpgsqlCommand(sql, con);
             NpgsqlDataReader rdr = cmd.ExecuteReader();
@@ -160,33 +178,28 @@ namespace AvaloniaApplication4.ViewModels
         }
         public void InsertBookings()
         {
-            CardViewModel cardViewModel = new CardViewModel();
+           var cardViewModel = new CardViewModel();
           
             foreach (var item in cardViewModel.Card_Collection)
             {
-                    if (item.Id > 4)
-                    {
-                        BookingsBusines.Add(item);
-                        insertPhotoBookings();
-                    }
+              BookingsBusines.Add(item);
+              insertPhotoBookings();
+                    
             }
         }
         public void insertPhotoBookings()
         {
-          CardViewModel cardView = new CardViewModel(); 
             ConnectingBD connectingdb = new ConnectingBD();
+            connectingdb.ReadPhotoBusinessBd();
             foreach (var item in connectingdb.PhotoIDPathBusinessPairs)
             {
-                if(item.Key.Item2 > 4)
-                {
-                   
                     foreach (var item2 in BookingsBusines)
                     {
-                      
-                        item2.Photos.Add(new Bitmap(item.Value));
-                        
-                    }
-                }
+                      if(item.Key.Item2 == item2.Id)
+                        {
+                            item2.Photos.Add(new Bitmap(item.Value));
+                        }  
+                    }    
             }
         }
         public void GetInfo()
@@ -271,10 +284,10 @@ namespace AvaloniaApplication4.ViewModels
 
                 con.Open();
                 if (isregphoto)
-                    sql = $"UPDATE main_images SET file = '{filepath}' WHERE id_coworking = '{User.Id}';";
+                    sql = $"UPDATE main_images SET img = '{filepath}' WHERE id_coworking_id = '{User.Id}';";
                 else
                 {
-                    sql = $"INSERT INTO main_images(id_coworking, file) VALUES('{User.Id}', '{filepath}');";
+                    sql = $"INSERT INTO main_images(id_coworking, img) VALUES('{User.Id}', '{filepath}');";
                     isregphoto = true;
                 }
 

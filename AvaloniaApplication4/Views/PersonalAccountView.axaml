@@ -275,14 +275,11 @@
 												<RowDefinition Height="*"/>
 											</Grid.RowDefinitions>
 											<StackPanel Grid.Row="0">
-												<ItemsControl   HorizontalAlignment="Center" ItemsSource="{Binding B_maps}">
-													<ItemsControl.ItemTemplate>
-														<DataTemplate>
-															<Image ClipToBounds="True" Source="{Binding }" Stretch="UniformToFill"></Image>
-
-														</DataTemplate>
-													</ItemsControl.ItemTemplate>
-												</ItemsControl>
+												<Grid RowDefinitions="*,*" ShowGridLines="True">
+													
+																<Image  ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="UniformToFill"></Image>
+														
+												</Grid>
 												
 												<TextBlock  Text="{Binding Name_Cowork}" Foreground="White"
 												   FontSize="20"
@@ -373,15 +370,7 @@
 												<RowDefinition Height="*"/>
 											</Grid.RowDefinitions>
 											<StackPanel Grid.Row="0">
-												<ItemsControl   HorizontalAlignment="Center" ItemsSource="{Binding B_maps}">
-													<ItemsControl.ItemTemplate>
-														<DataTemplate>
-															<Image ClipToBounds="True" Source="{Binding }" Stretch="UniformToFill"></Image>
-
-														</DataTemplate>
-													</ItemsControl.ItemTemplate>
-												</ItemsControl>
-												
+												<Image  ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="UniformToFill"></Image>
 												<TextBlock  Text="{Binding Name_Cowork}" Foreground="White"
 											   FontSize="25"
 											   FontWeight="DemiBold"

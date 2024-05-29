@@ -42,10 +42,25 @@ public partial class CardViewModel : ViewModelBase
     }
 
     public CardViewModel()
-    {
-        connecting.ReadBd();
+     {
+        connecting.ReadNormalBD();
+        connecting.ReadServicesBd();
         connecting.ReadPhotoBd();
         OnDataLoad();
+    }
+    private static CardViewModel? _instance;
+    public static CardViewModel Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new CardViewModel();
+            }
+            return _instance;
+        }
+
+
     }
     public void Navigate(string? pageViewModel)
     {
@@ -55,64 +70,42 @@ public partial class CardViewModel : ViewModelBase
     public void OnDataLoad()
     {
         Data = connecting.keyValuePairs;
-
-        var photosById = new Dictionary<int, List<string>>();
-
-        foreach (var pair in connecting.PhotoIDPathPairs)
-        {
-            if (!photosById.ContainsKey(pair.Key.Item2))
-            {
-                photosById[pair.Key.Item2] = new List<string>();
-            }
-            photosById[pair.Key.Item2].Add(pair.Value);
-        }
         foreach (var item in Data)
         {
-            //PeopleCollection.AddRange(item.Value.Where(p => p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty));
             var Items = item.Value.Where(p => p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty);
             foreach (var collect in Items)
             {
                 Card_Collection.Add(collect);
-            }
-        }
 
-        foreach (var item in Card_Collection)
+            }
+
+        }
+        foreach (var item in connecting.ServicesPairs)
         {
-            if (photosById.TryGetValue(item.Id, out var photoPaths))
+            foreach (var itemz in Card_Collection)
             {
-                for (int i = 0; i < photoPaths.Count; i++)
+                if (item.Value.Item1 == itemz.Id && itemz.Price_day_cowork == null) 
                 {
-                    if (i < Card_Collection.Count)
-                    {
-                        //Card_Collection[i].Path_photo = new Bitmap(photoPaths[i]);
-                        item.Photos.Add(new Bitmap(photoPaths[i]));
-                    }
+                    itemz.Price_day_cowork = $"От {item.Value.Item2.ToString()} руб/день";
+                
+                }
+                if (item.Key != itemz.Id)
+                {
+                    itemz.Price_meetingroom_cowork = $"От {item.Value.Item2.ToString()} руб/час";
                 }
             }
-            //foreach (var item in Data)
-            //{
-            //    PeopleCollection.AddRange(item.Value.Where(p =>  p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty));
-            //    var Items = item.Value.Where(p =>  p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_metro_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty);
-            //    foreach (var collect in Items)
-            //    {
-            //        Card_Collection.Add(collect);
-            //    }
-            //}
-            //foreach (var item2 in Card_Collection)
-            //{
-            //    foreach (var item3 in connecting.PhotoIDPathPairs)
-            //    {
-            //        if(item2.Id == item3.Key.Item2)
-            //        {
-
-            //            item2.Path_photo = new Bitmap(item3.Value);
-            //        }
-
-            //    }
-            //}
-            //add();
-
         }
+        foreach (var item in connecting.PhotoIDPathPairs)
+        {
+            foreach (var item2 in Card_Collection)
+            {
+                if(item.Key.Item2 == item2.Id)
+                {
+                    item2.Photos.Add(new Bitmap(item.Value));
+                }
+            }
+        }
+
     }
     
 }

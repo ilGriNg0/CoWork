@@ -9,83 +9,165 @@
 			 x:DataType="vm:AddCardViewModel">
 	<ScrollViewer>
 		<Border Background="#1c1c1c" CornerRadius="30">
-			<Grid Margin="10" RowDefinitions="*,*,*" ColumnDefinitions="*,*,*" ShowGridLines="True">
-
-				<Button Background="#cccccc" Command="{Binding AddPhotoCommand}" CommandParameter="" CornerRadius="20"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
-					<TextBlock Text="Добавить фото">
-						<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
-					</TextBlock>
-					
-				</Button>
+			<Grid Margin="10" RowDefinitions="*,*,*,*" ColumnDefinitions="2*,*,*" ShowGridLines="True">
+				<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
+						<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray">
+							<Image ClipToBounds="True" Source="{Binding Photo_Coworking[0]}" Stretch="Uniform"></Image>
+						</Button>
+				</Border>
 				<Border   Grid.Column="1" Grid.Row="0">
 					<Grid RowDefinitions="*,*">
-						<Button Command="{Binding AddPhotoCommand}" CommandParameter="" Background="#cccccc" CornerRadius="20" Grid.Row="0" HorizontalAlignment="Center">
-							<TextBlock Text="Добавить фото">
-								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
-							</TextBlock>
-						</Button>
-						<Button Command="{Binding AddPhotoCommand}" CommandParameter="" Background="#cccccc" CornerRadius="20" Grid.Row="1" HorizontalAlignment="Center">
-							<TextBlock Text="Добавить фото">
-								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
-							</TextBlock>
-						</Button>
+						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
+							<Button  VerticalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray">
+								<Image ClipToBounds="True" Source="{Binding Photo_Coworking[1]}" Stretch="UniformToFill"></Image>
+							</Button>
+						</Border>
+						<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
+							<Button VerticalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray">
+								<Image Source="{Binding Photo_Coworking[2]}" Stretch="UniformToFill"></Image>
+							</Button>
+						</Border>
 					</Grid>
 				</Border>
 				<Border  Grid.Column="2" Grid.Row="0">
 					<Grid RowDefinitions="*,*">
-						<Button Command="{Binding AddPhotoCommand}" CommandParameter="" Background="#cccccc" CornerRadius="20" Grid.Row="0" HorizontalAlignment="Center">
-							<TextBlock Text="Добавить фото">
-								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
+						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
+							<Button VerticalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray">
+								<Image Source="{Binding Photo_Coworking[3]}" Stretch="UniformToFill"></Image>
+							</Button>
+						</Border>
+						<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
+							<Button VerticalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray">
+								<Image Source="{Binding Photo_Coworking[4]}" Stretch="UniformToFill"></Image>
+							</Button>
+						</Border>
+					</Grid>
+				</Border>
+				
+					<StackPanel Grid.Column="0" Grid.Row="1">
+						<Border CornerRadius="30" Background="Black" Margin="5">
+							<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="Название вашего коворкинга" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
+						</Border>
+						<TextBox Margin="5"  CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Name_cowork, Mode=TwoWay}"></TextBox>
+					</StackPanel>
+
+				<StackPanel Grid.Column="1" Grid.Row="1">
+					<Border CornerRadius="30" Background="Black" Margin="5">
+						<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="Адрес вашего коворкинга" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
+					</Border>
+					<TextBox  Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Location_cowork, Mode=TwoWay}"></TextBox>
+				</StackPanel>
+
+				<StackPanel Grid.Column="2" Grid.Row="1">
+					<Border CornerRadius="30" Background="Black" Margin="5">
+						<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="Время работы" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
+					</Border>
+					<Border Background="Black" CornerRadius="15">
+						<Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+							<TextBlock Grid.Row="0" Grid.Column="0" Text="Будние дни" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">	
 							</TextBlock>
-						</Button>
-						<Button Command="{Binding AddPhotoCommand}" CommandParameter="" Background="#cccccc" CornerRadius="20" Grid.Row="1" HorizontalAlignment="Center">
-							<TextBlock Text="Добавить фото">
-								<material:MaterialIcon  Height="20" Width="20" Kind="Camera"/>
+							<TextBox  Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Date_created, Mode=TwoWay}">
+								
+							</TextBox>
+							<TextBlock Grid.Row="1" Grid.Column="0" Text="Выходные дни" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
 							</TextBlock>
-						</Button>
-					</Grid>
-				</Border>
-				<Border Padding="" Grid.Row="1" CornerRadius="30" Grid.ColumnSpan="3" Background="Orange">
-					<Grid RowDefinitions="*,*" ColumnDefinitions="*,3*" ShowGridLines="True">
-						<StackPanel Grid.Column="1" Grid.Row="0">
-							<TextBlock Grid.Column="1" Grid.Row="0" Text="Name cowork"></TextBlock>
-							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Name_cowork, Mode=TwoWay}"></TextBox>
-						</StackPanel>
-						<StackPanel Grid.Column="1" Grid.Row="1">
-							<TextBlock Grid.Column="1" Grid.Row="0" Text="Info cowork"></TextBlock>
-							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Info_cowork, Mode=TwoWay}"></TextBox>
-						</StackPanel>
-					</Grid>
-				</Border>
-				<Border Margin="20" Grid.Row="2" CornerRadius="30"  Background="Orange">
-					<Grid RowDefinitions="*,*,*" ShowGridLines="False">
-						<StackPanel Margin="7" Grid.Column="1" Grid.Row="0">
-							<TextBlock  Grid.Column="1" Grid.Row="0" Text="Бронь на 1 персону cowork"></TextBlock>
-							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_day_cowork, Mode=TwoWay}"></TextBox>
-						</StackPanel>
-						<StackPanel Margin="7" Grid.Column="1" Grid.Row="1">
-							<TextBlock Grid.Column="1" Grid.Row="0" Text="Переговорная цена cowork"></TextBlock>
-							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_meetingroom_cowork, Mode=TwoWay}"></TextBox>
-						</StackPanel>
-						<StackPanel Margin="7" Grid.Column="1" Grid.Row="2">
-							<TextBlock Grid.Column="1" Grid.Row="0" Text="Адрес вашего коворкинга"></TextBlock>
-							<TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Json.Location_cowork, Mode=TwoWay}"></TextBox>
-						</StackPanel>
-					</Grid>
-				</Border>
-				<Border Margin="20" Grid.Row="2" Grid.Column="1" CornerRadius="30"  Background="Orange">
-					<Grid RowDefinitions="*,*,*" ShowGridLines="True">
-						<StackPanel Grid.Row="1">
-							<TextBlock Grid.Column="1" Grid.Row="" Text="Доп услуги cowork"></TextBlock>
-							<TextBox Grid.Column="1" Grid.Row="0"></TextBox>
-						</StackPanel>
-					</Grid>
-				</Border>
-				<StackPanel  Grid.Row="2" Grid.Column="3">
+							<TextBox  Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="1" Text="{Binding Json.Date_created_snst, Mode=TwoWay}"></TextBox>
+							
+						</Grid>
+					</Border>
+					
+				</StackPanel>
+
+				<StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+					<Border Background="Black" CornerRadius="30" Margin="5">
+						<TextBlock Text="Описание вашего коворкинга" FontWeight="UltraBold" FontSize="15" FontFamily="Source Sans Pro"  Foreground="White" HorizontalAlignment="Center"></TextBlock>
+					</Border>
+					<TextBox Margin="5" CornerRadius="30" Height="100" Text="{Binding Json.Info_cowork, Mode=TwoWay}" TextWrapping="Wrap"></TextBox>
+				</StackPanel>
+				<StackPanel Grid.Row="2" Grid.Column="3">
+					<Border Background="Black" CornerRadius="30" Margin="5">
+						<TextBlock Text=" Услуги вашего коворкинга" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+					</Border>
+					<Border Background="Black" Height="170"  CornerRadius="30" Margin="5">
+						<ScrollViewer>
+							<StackPanel>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Высокоскоростной интернет" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Высокоскоростной интернет" >
+										<material:MaterialIcon   Height="20" Width="20" Kind="Wifi"/>
+									</TextBlock>
+								</Button>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Качественный кофе" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Качественный кофе" HorizontalAlignment="Center">
+										<material:MaterialIcon  Height="20" Width="20" Kind="CoffeeOutline"/>
+									</TextBlock>
+								</Button>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Принтер" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Принтер" HorizontalAlignment="Center">
+										<material:MaterialIcon   Height="20" Width="20" Kind="PrinterOutline"/>
+									</TextBlock>
+								</Button>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Шкафчики для вещей" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Шкафчики для вещей" HorizontalAlignment="Center">
+										<material:MaterialIcon   Height="20" Width="20" Kind="Locker"/>
+									</TextBlock>
+								</Button>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Душевые" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Душевые" HorizontalAlignment="Center">
+										<material:MaterialIcon   Height="20" Width="20" Kind="ShowerHead"/>
+									</TextBlock>
+								</Button>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Фрукты и закуски" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Фрукты и закуски" HorizontalAlignment="Center">
+										<material:MaterialIcon   Height="20" Width="20" Kind="FoodAppleOutline"/>
+									</TextBlock>
+								</Button>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Столовая" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Столовая" HorizontalAlignment="Center">
+										<material:MaterialIcon   Height="20" Width="20" Kind="SilverwareForkKnife"/>
+									</TextBlock>
+								</Button>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Парковка" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Парковка" HorizontalAlignment="Center">
+										<material:MaterialIcon   Height="20" Width="20" Kind="Parking"/>
+									</TextBlock>
+								</Button>
+								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Фитнес зона" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
+									<TextBlock Text="Фитнес зона" HorizontalAlignment="Center">
+										<material:MaterialIcon   Height="20" Width="20" Kind="Dumbbell"/>
+									</TextBlock>
+								</Button>
+								
+							</StackPanel>
+						</ScrollViewer>
+						
+					</Border>
+				</StackPanel>
+				<StackPanel  Grid.Row="3" Grid.Column="3" VerticalAlignment="Center">
 					<TextBlock Text="{Binding ErrorMessage}" Foreground="Red"></TextBlock>
-					<Button CornerRadius="20" Command="{Binding SaveCommand}" CommandParameter="" Grid.Row="2" Grid.Column="3" Width="50" Height="30" Background="#cccccc" HorizontalAlignment="Center" Content="Save"></Button>
+					<Button CornerRadius="20" Command="{Binding SaveCommand}" CommandParameter="" Grid.Row="2" Grid.Column="3" Width="50" Height="30" Background="#cccccc" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Save"></Button>
 				</StackPanel>
 				
+				<StackPanel Grid.Row="3" Grid.ColumnSpan="2">
+					<Border  CornerRadius="30" Background="Black" Margin="5">
+						<TextBlock Text="Тарифы" HorizontalAlignment="Center" VerticalAlignment="Center"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" />
+					</Border>
+					<Border Grid.Row="3" Grid.Column="0" Background="Black" Margin="5" CornerRadius="30">
+						<Grid ColumnDefinitions="*,*">
+							<StackPanel Grid.Column="0">
+								
+								<TextBlock Text="Переговорная" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="UltraBold" FontSize="15" FontFamily="Source Sans Pro"  Foreground="White"></TextBlock>
+								<TextBox Watermark="Введите цену" Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_meetingroom_cowork, Mode=TwoWay}"></TextBox>
+								<TextBox Watermark="Введите количество мест" Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Number_of_seats_meeting, Mode=TwoWay}"></TextBox>
+							</StackPanel>
+							<StackPanel Grid.Column="1">
+							
+								<TextBlock Text="Персональное место" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="UltraBold" FontSize="15" FontFamily="Source Sans Pro"  Foreground="White"></TextBlock>
+								<TextBox Watermark="Введите цену" Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_day_cowork, Mode=TwoWay}"></TextBox>
+								<TextBox Watermark="Введите количество мест" Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Number_of_seats_solo, Mode=TwoWay}"></TextBox>
+							</StackPanel>
+						</Grid>
+					</Border>
+				</StackPanel>
 			</Grid>
 		</Border>
 	</ScrollViewer>

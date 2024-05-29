@@ -52,7 +52,7 @@
 			</StackPanel>
 		</SplitView.Pane>
 		<SplitView.Content>
-			<Border CornerRadius="30" Background="#1c1c1c" Margin="15">
+			<Border CornerRadius="30" Background="#1c1c1c" Margin="15" ClipToBounds="True">
 				<ContentControl Content="{Binding Page}" ></ContentControl>
 			</Border>
 		</SplitView.Content>

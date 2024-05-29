@@ -156,6 +156,8 @@ namespace AvaloniaApplication4.Views
 
                 BusinCont.Content = new DynamicCardsView { DataContext = viewModel };
             }
+            BusinessAccountViewModel businessAccountViewModel = new BusinessAccountViewModel();
+            businessAccountViewModel.Key_boookingPressed = true;
         }
     }
 }

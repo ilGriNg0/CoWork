@@ -23,6 +23,8 @@ using Avalonia.Controls;
 using System.Reflection.Metadata.Ecma335;
 using static AvaloniaApplication4.ViewModels.JsonClass;
 using Avalonia.Media;
+using System.Globalization;
+using System.Data;
 
 namespace AvaloniaApplication4.ViewModels
 {
@@ -49,6 +51,7 @@ namespace AvaloniaApplication4.ViewModels
         {
             User.Main = this;
             User.Model = new LoginViewModel();
+        
         }
         [ObservableProperty]
         private SolidColorBrush _color1 = new SolidColorBrush(Color.Parse("#D94D04"));
@@ -56,6 +59,8 @@ namespace AvaloniaApplication4.ViewModels
         private SolidColorBrush _color2 = new SolidColorBrush(Colors.Black);
         [ObservableProperty]
         private static bool _clicked_navigate;
+        [ObservableProperty]
+        private static bool _clicked_business;
         /// <summary>
         /// Рефакторинг #1 :
         ///  Обратить внимание на создание нового экземпляра PersonalAccountViewModel 
@@ -65,26 +70,38 @@ namespace AvaloniaApplication4.ViewModels
         public void Navigate(string? pageViewModel)
         {
             string namspc = Namespace();
-            PersonalAccountViewModel personalAccountViewModel = new();
+            var personalAccountViewModel =  PersonalAccountViewModel.Instance;
+            var businesse = BusinessAccountViewModel.Instance;
+          
             Clicked_navigate = personalAccountViewModel.Pressed;
+            Clicked_business = businesse.Key_boookingPressed;
+            businesse.Key_boookingPressed = false;
+            personalAccountViewModel.Pressed = false;
             Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
-            bool clicked = true;
             if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black && Page == User.Model)
             {
-                
-                if ( Clicked_navigate)
-                { 
+
+                if (Clicked_navigate)
+                {
                     Type viewModelType2 = Type.GetType(namspc + "." + "PersonalAccountViewModel");
                     ViewModelBase viewModel2 = (ViewModelBase)Activator.CreateInstance(viewModelType2);
                     Page = viewModel2;
                     Clicked_navigate = false;
                     personalAccountViewModel.Pressed = false;
                 }
-                    
-                
-               
+                if (Clicked_business)
+                {
+                    Type viewModelType3 = Type.GetType(namspc + "." + "BusinessAccountViewModel");
+                    ViewModelBase viewModel3 = (ViewModelBase)Activator.CreateInstance(viewModelType3);
+                    Page = viewModel3;
+                    Clicked_business = false;
+                    businesse.Key_boookingPressed = false;
+
+                }
+
+
             }
-            else if (pageViewModel == "LoginViewModel")
+            else if (pageViewModel == "LoginViewModel" )
             {
                 if (Color1.Color != Colors.Black)
                 {
@@ -92,8 +109,8 @@ namespace AvaloniaApplication4.ViewModels
                     Color1 = Color2;
                     Color2 = bufer;
                 }
-                    Page = User.Model;
-                
+                Type tp = User.Model.GetType();
+                Page = (ViewModelBase)Activator.CreateInstance(tp);
             }
             else
             {
@@ -106,7 +123,6 @@ namespace AvaloniaApplication4.ViewModels
                 
                 ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
                 Page = viewModel;
-                clicked = true;
               
             }
          
@@ -127,10 +143,6 @@ namespace AvaloniaApplication4.ViewModels
          
 
         }
-        //public MainWindowViewModel()
-        //{
-        //    User.Main = this;
-        //}
     }
    public partial class JsonClass :ObservableObject
     {
@@ -155,6 +167,18 @@ namespace AvaloniaApplication4.ViewModels
         private string? _date_created;
         [ObservableProperty]
         private string? _date_created_snst;
+        [ObservableProperty]
+        private TimeSpan _date_created_dt;
+        [ObservableProperty]
+        private TimeSpan date_created_snst_dt;
+        [ObservableProperty]
+        private int _number_of_seats_solo;
+        [ObservableProperty]
+        private int _number_of_seats_meeting;
+        [ObservableProperty]
+        private int _raiting_count;
+        [ObservableProperty]
+        private int _rating_sum;
         [ObservableProperty]
         private ObservableCollection<Bitmap> _photos = new();
 
