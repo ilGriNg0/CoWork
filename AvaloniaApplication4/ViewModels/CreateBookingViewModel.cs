@@ -229,7 +229,7 @@ namespace AvaloniaApplication4.ViewModels
 
             if (bookings.Count == 0)
             {
-                for (int i = SelectedDate == DateTimeOffset.Now.Date ? DateTime.Now.Hour + 1 : Open; i <= Closed - hours; i++)
+                for (int i = SelectedDate == DateTimeOffset.Now.Date && DateTimeOffset.Now.Hour >= Open ? DateTime.Now.Hour + 1 : Open; i <= Closed - hours; i++)
                 {
                     ft.Add($"{i} - {i + hours}", 1);
                 }
@@ -250,9 +250,9 @@ namespace AvaloniaApplication4.ViewModels
 
                 foreach (var nf in nft)
                 {
-                    if (!((SelectedDate == DateTimeOffset.Now.Date ? DateTime.Now.Hour + 1 - Open : Closed - Open) - nf.Value.Count < Int32.Parse(SelectedHour.Split(" ")[0])))
+                    if (!((SelectedDate == DateTimeOffset.Now.Date && DateTimeOffset.Now.Hour >= Open ? DateTime.Now.Hour + 1 - Open : Closed - Open) - nf.Value.Count < Int32.Parse(SelectedHour.Split(" ")[0])))
                     {
-                        for (int i = SelectedDate == DateTimeOffset.Now.Date ? DateTime.Now.Hour + 1 : Open; i <= Closed - hours; i++)
+                        for (int i = SelectedDate == DateTimeOffset.Now.Date && DateTimeOffset.Now.Hour >= Open ? DateTime.Now.Hour + 1 : Open; i <= Closed - hours; i++)
                         {
                             bool free = true;
                             for (int j = i; j < i + hours; j++)
@@ -279,7 +279,7 @@ namespace AvaloniaApplication4.ViewModels
                             break;
                         }
                     }
-                    for (int i = SelectedDate == DateTimeOffset.Now.Date ? DateTime.Now.Hour + 1 : Open; i <= Closed - hours; i++)
+                    for (int i = SelectedDate == DateTimeOffset.Now.Date && DateTimeOffset.Now.Hour >= Open ? DateTime.Now.Hour + 1 : Open; i <= Closed - hours; i++)
                     {
                         if (!ft.ContainsKey($"{i} - {i + hours}"))
                             ft.Add($"{i} - {i + hours}", choises);
