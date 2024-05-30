@@ -152,12 +152,14 @@ namespace AvaloniaApplication4.ViewModels
             con.Open();
 
             //var sql = $"SELECT * FROM main_bookings WHERE id_coworking_id IN (SELECT id FROM main_coworkingspaces WHERE id_company_id = '{User.Id}') ORDER BY id_coworking_id, date;";
-            var sql = $"SELECT o.id, o.price, o.type, o.time_start, o.time_end, o.date, o.number, o.rating, c.first_name, c.last_name, c.phone_number, p.coworking_name " +
-                $"FROM main_bookings o " +
-                $"JOIN main_users c ON o.id_user_id = c.id " +
-                $"JOIN main_coworkingspaces p ON p.id_company_id = '{User.Id}' " +
-                $"WHERE o.id_coworking_id = '{User.Id}' ORDER BY o.id_coworking_id, o.date;";
-            
+            //var sql = $"SELECT o.id, o.price, o.type, o.time_start, o.time_end, o.date, o.number, o.rating, c.first_name, c.last_name, c.phone_number, p.coworking_name " +
+            //    $"FROM main_bookings o " +
+            //    $"JOIN main_users c ON o.id_user_id = c.id " +
+            //    $"JOIN main_coworkingspaces p ON p.id_company_id = '{User.Id}' " +
+            //    $"WHERE o.id_coworking_id = '{User.Id}' ORDER BY p.coworking_name, o.date;";
+
+            //var sql = $"SELECT o.id, o.price, o.type, o.time_start, o.time_end, o.date, o.number, o.rating, c.first_name, c.last_name, c.phone_number, p.coworking_name\r\nFROM (\r\n    SELECT DISTINCT o.id, o.price, o.type, o.time_start, o.time_end, o.date, o.number, o.rating, o.id_user_id, o.id_coworking_id\r\n    FROM main_bookings o\r\n    WHERE o.id_coworking_id = '{User.Id}'\r\n) o\r\nJOIN main_users c ON o.id_user_id = c.id\r\nJOIN main_coworkingspaces p ON o.id_coworking_id = p.id_company_id\r\nORDER BY o.id_coworking_id, o.date;";
+            var sql = $"SELECT o.id, o.price, o.type, o.time_start, o.time_end, o.date, o.number, o.rating, c.first_name, c.last_name, c.phone_number, p.coworking_name\r\nFROM main_coworkingspaces p\r\nJOIN main_bookings o ON o.id_coworking_id = p.id\r\nJOIN main_users c ON o.id_user_id = c.id\r\nWHERE p.id_company_id = '{User.Id}' ORDER BY p.coworking_name, o.date;";
             var cmd = new NpgsqlCommand(sql, con);
             NpgsqlDataReader rdr = cmd.ExecuteReader();
             var onelist = new List<Booking>();

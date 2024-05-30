@@ -105,6 +105,21 @@
 						TextAlignment="Left">
 						нет свободных мест.
 					</TextBlock>
+					
+					<TextBlock
+						IsVisible="{Binding Visibl2}"
+						Margin="0 30 0 0"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Foreground="#D94D04"
+						FontSize="15"
+						FontStyle="Italic"
+						FontWeight="700"
+						LineHeight="30"
+						FontFamily="Gelion"
+						TextAlignment="Left">
+						Успешное бронирование.
+					</TextBlock>
 				</StackPanel>
 
 				<Button
