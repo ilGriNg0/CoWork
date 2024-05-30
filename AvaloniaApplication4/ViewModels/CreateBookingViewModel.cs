@@ -73,11 +73,14 @@ namespace AvaloniaApplication4.ViewModels
             int i = 0;
             while (rdr.Read())
             {
-                Price.Add(rdr.GetInt64(2));
-                tps.Add($"{rdr.GetString(3)}  {Price[i]} ₽/час");
-                Count.Add(rdr.GetInt32(4));
-                Img.Add(new Bitmap(rdr.GetString(5)));
-                i++;
+                if (rdr.GetInt32(4) != 0)
+                {
+                    Count.Add(rdr.GetInt32(4));
+                    Price.Add(rdr.GetInt64(2));
+                    tps.Add($"{rdr.GetString(3)}  {Price[i]} ₽/час");
+                    Img.Add(new Bitmap(rdr.GetString(5)));
+                    i++;
+                }
             }
             Types = new ObservableCollection<string>(tps);
             SelectedType = Types[0];
