@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Controls.Platform;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
@@ -150,7 +151,12 @@ namespace AvaloniaApplication4.ViewModels
             var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = $"SELECT * FROM main_bookings WHERE id_coworking_id IN (SELECT id FROM main_coworkingspaces WHERE id_company_id = '{User.Id}') ORDER BY id_coworking_id, date;";
+            //var sql = $"SELECT * FROM main_bookings WHERE id_coworking_id IN (SELECT id FROM main_coworkingspaces WHERE id_company_id = '{User.Id}') ORDER BY id_coworking_id, date;";
+            var sql = $"SELECT o.id, o.price, o.type, o.time_start, o.time_end, o.date, o.number, o.rating, c.first_name, c.last_name, c.phone_number, p.coworking_name " +
+                $"FROM main_bookings o " +
+                $"JOIN main_users c ON o.id_user_id = c.id " +
+                $"JOIN main_coworkingspaces p ON p.id_company_id = '{User.Id}' " +
+                $"WHERE o.id_coworking_id = '{User.Id}' ORDER BY o.id_coworking_id, o.date;";
             
             var cmd = new NpgsqlCommand(sql, con);
             NpgsqlDataReader rdr = cmd.ExecuteReader();
@@ -158,17 +164,17 @@ namespace AvaloniaApplication4.ViewModels
             var cowors = new List<string>();
             while (rdr.Read())
             {
-                if (!cowors.Contains(rdr.GetInt32(1).ToString()))
+                if (!cowors.Contains(rdr.GetString(11)))
                 {
                     if (onelist.Count > 0)
                     {
                         _books.Add(new ObservableCollection<Booking>(onelist));
                         onelist = new List<Booking>();
                     }
-                    cowors.Add(rdr.GetInt32(1).ToString());
+                    cowors.Add(rdr.GetString(11));
                 }
-                onelist.Add(new Booking(rdr.GetInt32(0), rdr.GetInt32(1), rdr.GetInt32(2), rdr.GetInt32(3), 
-                    rdr.GetString(4), $"{rdr.GetTimeSpan(5).ToString(@"hh\:mm")}-{rdr.GetTimeSpan(6).ToString(@"hh\:mm")}", rdr.GetDateTime(7), rdr.GetInt32(8)));
+                onelist.Add(new Booking(rdr.GetInt32(0), rdr.GetInt64(1), rdr.GetString(2), $"{rdr.GetTimeSpan(3).ToString(@"hh\:mm")}-{rdr.GetTimeSpan(4).ToString(@"hh\:mm")}",
+                    rdr.GetDateTime(5), rdr.GetInt32(6), rdr.GetInt32(7), rdr.GetString(8), rdr.GetString(9), rdr.GetString(10)));
 
             }
             _books.Add(new ObservableCollection<Booking>(onelist));
@@ -227,25 +233,39 @@ namespace AvaloniaApplication4.ViewModels
         private partial class Booking : ObservableObject
         {
             public int Id { get; set; }
-            public int Id_coworking { get; set; }
-            public int Id_user { get; set; }
-            public int Price { get; set; }
-            public string Type { get; set; }
+            public string Type {  get; set; }
+            public string Date {  get; set; }
             public string Time { get; set; }
-            public DateTime Date {  get; set; }
-            public int Number {  get; set; }
+            public int Number { get; set; }
+            public string Price {  get; set; }
+            public string First {  get; set; }
+            public string Last { get; set; }
+            public string Phone { get; set; }
+            public int Rating { get; set; }
+
+
+            //public int Id_coworking { get; set; }
+            //public int Id_user { get; set; }
+            //public string Price { get; set; }
+            //public string Type { get; set; }
+            //public string Time { get; set; }
+            //public DateTime Date { get; set; }
+            //public int Number {  get; set; }
        
-            public ObservableCollection<Bitmap> Bitmaps { get; set; } = new();
+             
  
 
-            public Booking(int id, int id_coworking, int id_user, int price, string type, string time, DateTime date, int number)
+            public Booking(int id, long price, string type, string time, DateTime date, int number, int rating, string first, string last, string phone)
             {
                 Id = id;
-                Id_coworking = id_coworking;
-                Id_user = id_user;
-                Price = price;
+                Rating = rating;
+                Phone = phone;
+                Number = number;
+                First = first;
+                Last = last;
+                Price = $"{price} ₽";
                 Type = type;
-                Date = date;
+                Date = date.ToString("dd.MM.yyyy");
                 Time = time;
             }
         }
