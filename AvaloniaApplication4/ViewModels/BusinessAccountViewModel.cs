@@ -88,8 +88,8 @@ namespace AvaloniaApplication4.ViewModels
             //GetPhoto();
             GetInfo();
             GetBookings();
-            //connect.ReadPhotoBusinessBd();
-            //InsertBookings();
+            connect.ReadPhotoBusinessBd();
+            InsertBookings();
             ButtonCommand = new Relay1Command(ButtonClick);
         }
 

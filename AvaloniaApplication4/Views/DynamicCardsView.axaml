@@ -86,7 +86,7 @@
 							</Border>
 							<Border Grid.Row="2" Grid.ColumnSpan="2" Background="Black" CornerRadius="15" Margin="5">
 								<ItemsControl Grid.ColumnSpan="2"
-									ItemsSource="{Binding Serv}">
+									ItemsSource="{Binding Benef}">
 									<ItemsControl.ItemsPanel>
 										<ItemsPanelTemplate>
 											<WrapPanel
@@ -109,10 +109,10 @@
 												Margin="5">
 												<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 													<Border Grid.Column="0">
-														<TextBlock Foreground="Black" Text="{Binding Value1}" >
+														<TextBlock Foreground="Black" Text="{Binding Content}" >
 														</TextBlock>
 													</Border>
-													<material:MaterialIcon Grid.Column="1"  Height="20" Width="20" Kind="{Binding Value2}"/>
+													<material:MaterialIcon Grid.Column="1"  Height="20" Width="20" Kind="{Binding Icon}"/>
 												</StackPanel>
 											</Border>
 										</DataTemplate>

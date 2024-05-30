@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using Avalonia.Controls.Platform;
+using AvaloniaApplication4.Views;
 namespace AvaloniaApplication4.ViewModels
 {
     public partial class AddCardViewModel : ViewModelBase
@@ -27,21 +28,16 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string _errorMessage;
         [ObservableProperty]
-        private bool _isVisible1 = true;
-        [ObservableProperty]
-        private bool _isVisible2= true;
-        [ObservableProperty]
-        private bool _isVisible3 = true;
-        [ObservableProperty]
-        private bool _isVisible4 = true;
-        [ObservableProperty]
-        private bool _isVisible5 = true;
+        private string? _path_ph;
         [ObservableProperty]
         private ObservableCollection<Bitmap> _photo_Coworking = new();
+
+        [ObservableProperty]
+         private ObservableCollection<Benefits> _benefitsList = new();
         public ObservableCollection<JsonClass> jsonClasses { get; set; } = new ObservableCollection<JsonClass>();
         public ICommand SaveCommand => new RelayCommand(add_collect);
 
-        public ICommand AddPhotoCommand => new RelayCommand<string>(add_photo);
+        public ICommand AddPhotoCommand => new RelayCommand(add_photo);
 
         public ICommand ChoiceServicesCommand => new RelayCommand<string>(ChoiceServices);
         
@@ -57,6 +53,13 @@ namespace AvaloniaApplication4.ViewModels
            
             int counter = card.Card_Collection.Count+1;
             int cnt = 0;
+            foreach (var items in AddCardView.strings)
+            {
+                Json?.JsonBenefits.Add(items);
+                
+            }
+            AddCardView.strings = new();
+            
             var item = new JsonClass { Id = counter,
                 Info_cowork = Json.Info_cowork,
                 Location_cowork = Json.Location_cowork,
@@ -66,7 +69,8 @@ namespace AvaloniaApplication4.ViewModels
                 Date_created_snst = Json.Date_created_snst,
                 Date_created = Json.Date_created,
                 Number_of_seats_solo = Json.Number_of_seats_solo,
-                Number_of_seats_meeting = Json.Number_of_seats_meeting};
+                Number_of_seats_meeting = Json.Number_of_seats_meeting,
+                 };
 
             if (item.Info_cowork != null && item.Location_cowork != null
                 && item.Name_cowork != null && item.Price_day_cowork != null
@@ -94,7 +98,8 @@ namespace AvaloniaApplication4.ViewModels
             var price2 = int.TryParse(Json.Price_meetingroom_cowork, out var parsedPrice2) ? parsedPrice2 : 0;
             var count1 = Json.Number_of_seats_solo;
             var count2 = Json.Number_of_seats_meeting;
-            
+            string tasl1 = "Рабочее место";
+            string tasl2 = "Переговорная";
             var servicesDict = new Dictionary<string, string>
                 {
                     { "Высокоскоростной интернет", "Wifi" },
@@ -108,11 +113,24 @@ namespace AvaloniaApplication4.ViewModels
                     { "Фитнес зона", "Dumbbell" }
                 };
 
-            if (servicesDict.TryGetValue(collect, out var icon))
-                {
-                  connect?.WriteServicesBd(cnt = card.Card_Collection.Count+1, price1, count1, collect, icon, price2, count2);
-                }
+                //add_photo();
            
+                connect?.WriteServicesBd(cnt = card.Card_Collection.Count + 1, price1, count1, tasl1, tasl2, "Assets\\context.png", price2, count2);
+            
+
+         
+
+            if (servicesDict.TryGetValue(collect, out var icon))
+            {
+                var benefit = new Benefits
+                {
+                    Id_Coworking = card.Card_Collection.Count + 1,
+                    Content = collect,
+                    Icon = icon
+                };
+                BenefitsList.Add(benefit);
+            }
+            connect.WriteBenefitsBd(BenefitsList);
         }
         private readonly Window _target = new();
         public static FilePickerFileType ImageAll { get; } = new("All Images")
@@ -121,7 +139,7 @@ namespace AvaloniaApplication4.ViewModels
             AppleUniformTypeIdentifiers = new[] { "public.image" },
             MimeTypes = new[] { "image/*" }
         };
-        public async void add_photo(string? name_btn) 
+        public async void add_photo() 
         {
             CardViewModel cardView = new();
           
@@ -133,7 +151,8 @@ namespace AvaloniaApplication4.ViewModels
             {
                 var selectedFile = files[0];
                 var filePath = selectedFile.Path.LocalPath;
-                string filepath = AppContext.BaseDirectory + "Assets\\" + Path.GetFileName(filePath);
+                string filepath = "Assets\\" + Path.GetFileName(filePath);
+                Path_ph = filepath;
                 if (!File.Exists(filepath))
                 {
                     File.Copy(filePath, filepath);

@@ -25,8 +25,10 @@ namespace AvaloniaApplication4.ViewModels
         private ObservableCollection<Bitmap> _photoses = new();
 
        
+        //[ObservableProperty]
+        //private ObservableCollection<mainservs> _serv = new();
         [ObservableProperty]
-        private ObservableCollection<mainservs> _serv = new();
+        private ObservableCollection<Benefits> _benef = new();
 
         [ObservableProperty]
         private string? _content;
@@ -45,6 +47,7 @@ namespace AvaloniaApplication4.ViewModels
         {
             CardViewModel c_viewModel = new CardViewModel();
             ConnectingBD connecting = new();
+            List<Benefits> ben = new List<Benefits>();
             if (item is JsonClass js)
             {
                 var items = c_viewModel.Card_Collection.FirstOrDefault(p => p.Id == js.Id);
@@ -57,18 +60,27 @@ namespace AvaloniaApplication4.ViewModels
                 {
                     Photoses.Add(item_ph);
                 }
-                foreach (var item3 in connecting.ServicesPairs)
-                {
-                    if (item3.Value.Item1 == js.Id && item3.Value.Item4 != string.Empty)
+                //foreach (var item3 in connecting.ServicesPairs)
+                //{
+                //    if (item3.Value.Item1 == js.Id && item3.Value.Item4 != string.Empty)
+                //    {
+
+                //        Serv.Add(new mainservs {Value1 = item3.Value.Item4, Value2 = item3.Value.Item5}); 
+                //    }
+                connecting.ReadBenefitsBd();
+                Benef = new ObservableCollection<Benefits>(
+                     connecting.keyValueBenefitsPairs
+                    .SelectMany(kvp => kvp.Value)
+                        .Select(benefit => new Benefits
                     {
+                         Content = benefit.Content,
+                         Icon = benefit.Icon
+                        })
+                    );
 
-                        Serv.Add(new mainservs {Value1 = item3.Value.Item4, Value2 = item3.Value.Item5}); 
-                    }
 
 
-                }
-            
-                
+
             }
                 if (item is Booking book)
                 {
@@ -82,22 +94,43 @@ namespace AvaloniaApplication4.ViewModels
                     {
                         Photoses.Add(item_book);
                     }
-                    foreach (var item3 in connecting.ServicesPairs)
-                    {
-                    if (item3.Value.Item1 == book.id_coworking && item3.Value.Item4 != string.Empty)
-                    {
+                connecting.ReadBenefitsBd();
+                Benef = new ObservableCollection<Benefits>(
+                      connecting.keyValueBenefitsPairs
+                     .SelectMany(kvp => kvp.Value)
+                         .Select(benefit => new Benefits
+                         {
+                             Content = benefit.Content,
+                             Icon = benefit.Icon
+                         })
+                     );
+                //    foreach (var item3 in connecting.ServicesPairs)
+                //    {
+                //    if (item3.Value.Item1 == book.id_coworking && item3.Value.Item4 != string.Empty)
+                //    {
 
-                        Serv.Add(new mainservs { Value1 = item3.Value.Item4, Value2 = item3.Value.Item5 });
-                    }
+                //        Serv.Add(new mainservs { Value1 = item3.Value.Item4, Value2 = item3.Value.Item5 });
+                //    }
 
 
-                }
+                //}
             }
 
 
             }
         }
-   public partial class mainservs : ObservableObject
+    public partial class Benefits : ObservableObject
+    {
+        [ObservableProperty]
+        private int _id_Coworking;
+
+        [ObservableProperty]
+        private string? _content;
+
+        [ObservableProperty]
+        private string? _icon;
+    }
+    public partial class mainservs : ObservableObject
     {
         [ObservableProperty]
         private int _key1;

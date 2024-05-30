@@ -1,4 +1,5 @@
 ﻿using AvaloniaApplication4.ViewModels;
+using Microsoft.VisualBasic;
 using MsBox.Avalonia.Enums;
 using Newtonsoft.Json;
 using Npgsql;
@@ -6,6 +7,7 @@ using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Security;
@@ -18,11 +20,12 @@ namespace AvaloniaApplication4.Models
     {
         string connect_host = User.Connect;
         public Dictionary<int, List<JsonClass>> keyValuePairs { get; set; } = new Dictionary<int, List<JsonClass>>();
+        public Dictionary<int, List<Benefits>> keyValueBenefitsPairs { get; set; } = new Dictionary<int, List<Benefits>>();
         public Dictionary<(int, int), string> PhotoIDPathPairs = new();
         public Dictionary<(int, int), string> PhotoIDPathBusinessPairs = new();
         public Dictionary<int, (int, int, int, string, string)> ServicesPairs = new();
 
-        public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
+        //public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
         public async Task WriteBd(ObservableCollection<JsonClass> collection)
         {
@@ -35,6 +38,44 @@ namespace AvaloniaApplication4.Models
                 {
                     command.Parameters.Add(new NpgsqlParameter("@json", NpgsqlDbType.Json) { Value = json_collect });
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+        public async Task WriteBenefitsBd(ObservableCollection<Benefits> collection)
+        {
+            var json_collect = JsonConvert.SerializeObject(collection);
+            await using (var connect = new NpgsqlConnection(connect_host))
+            {
+                connect.Open();
+                string command_add = "INSERT INTO benefits (bests) VALUES (@json)";
+                await using (var command = new NpgsqlCommand(command_add, connect))
+                {
+                    command.Parameters.Add(new NpgsqlParameter("@json", NpgsqlDbType.Json) { Value = json_collect });
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public async Task ReadBenefitsBd()
+        {
+            string str = string.Empty;
+            int id = default;
+            await using (var connect = new NpgsqlConnection(connect_host))
+            {
+                connect.Open();
+                await using (var command = new NpgsqlCommand("SELECT * FROM benefits", connect))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        id = reader.GetInt32(0);
+                        str = reader.GetString(1);
+                        List<Benefits>? js = JsonConvert.DeserializeObject<List<Benefits>>(str);
+                        keyValueBenefitsPairs.Add(id, js);
+                        //types.AddRange(js);
+                    }
+
+                    reader.Close();
                 }
             }
         }
@@ -83,7 +124,7 @@ namespace AvaloniaApplication4.Models
             await using (var connect = new NpgsqlConnection(connect_host))
             {
                 connect.Open();
-                string command_add = "INSERT INTO main_images (id_coworking_id, img) VALUES (@intValue, @text)";
+                string command_add = "INSERT INTO main_images (id_coworking_id, file) VALUES (@intValue, @text)";
                 await using (var command = new NpgsqlCommand(command_add, connect))
                 {
                     command.Parameters.Add(new NpgsqlParameter("@intValue", NpgsqlDbType.Integer) { Value = id });
@@ -92,43 +133,66 @@ namespace AvaloniaApplication4.Models
                 }
             }
         }
-        public async Task WriteServicesBd(int id, int price1, int count1, string info, string icon, int price2, int count2)
+        public async Task WriteServicesBd(int id, int price1, int count1, string info, string info2, string icon, int price2, int count2)
         {
             await using (var conncet = new NpgsqlConnection(connect_host))
             {
                 conncet.Open();
-                string command_add_serv = "INSERT INTO main_services (id_coworking_id, price, count, type, img) VALUES (@id, @price1, @count1, @info, @icon);" +
-                                          "INSERT INTO main_services (id_coworking_id, price, count, type, img) VALUES (@id, @price2, @count2, '', '')";
+                string command_add_serv = "INSERT INTO main_services (id_coworking_id, price, type, num_of_seats, img) VALUES (@id, @price1, @info, @count1, @icon);" +
+                                          "INSERT INTO main_services (id_coworking_id, price, type, num_of_seats, img) VALUES (@id, @price2, @info2, @count2, @icon)";
                 await using (var command = new NpgsqlCommand(command_add_serv, conncet))
                 {
                     command.Parameters.Add(new NpgsqlParameter("@id", NpgsqlDbType.Integer) { Value = id });
                     command.Parameters.Add(new NpgsqlParameter("@price1", NpgsqlDbType.Integer) { Value = price1 });
                     command.Parameters.Add(new NpgsqlParameter("@count1", NpgsqlDbType.Integer) { Value = count1 });
                     command.Parameters.Add(new NpgsqlParameter("@info", NpgsqlDbType.Varchar) { Value = info });
+                    command.Parameters.Add(new NpgsqlParameter("@info2", NpgsqlDbType.Varchar) { Value = info2 });
                     command.Parameters.Add(new NpgsqlParameter("@icon", NpgsqlDbType.Varchar) { Value = icon });
                     command.Parameters.Add(new NpgsqlParameter("@price2", NpgsqlDbType.Integer) { Value = price2 });
                     command.Parameters.Add(new NpgsqlParameter("@count2", NpgsqlDbType.Integer) { Value = count2 });
-                    command.ExecuteNonQuery();
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                  
                 }
             }
         }
-        public async Task WriteNormalBD(int id_company, string info, string  time_start, string time_end, string name, string address, int rating_ctn, int rating_sum)
+        public async Task WriteNormalBD(int id_company, string info, string date_start, string date_end, string name, string address, int rating_ctn, int rating_sum)
         {
+           
+            //var json_collect2 = JsonConvert.SerializeObject(js);
             await using (var conncet = new NpgsqlConnection(connect_host))
             {
                 conncet.Open();
-                string command_add_serv = "INSERT INTO main_coworkingspaces (id_company_id, description, time_start, time_end, coworking_name, address, rating_count, rating_sum) VALUES (@id_company, @info, @time_start, @time_end, @name, @address, @rating_ctn, @rating_sum);";
+                string command_add_serv = "INSERT INTO main_coworkingspaces (id_company_id, description, date_start, date_end, coworking_name, address, rating_count, rating_sum) VALUES (@id_company, @info, @date_start, @date_end, @name, @address, @rating_ctn, @rating_sum);";
                 await using (var command = new NpgsqlCommand(command_add_serv, conncet))
                 {
                     command.Parameters.Add(new NpgsqlParameter("@id_company", NpgsqlDbType.Integer) { Value = id_company });
                     command.Parameters.Add(new NpgsqlParameter("@info", NpgsqlDbType.Varchar) { Value = info });
-                    command.Parameters.Add(new NpgsqlParameter("@time_start", NpgsqlDbType.Varchar) { Value = time_start });
-                    command.Parameters.Add(new NpgsqlParameter("@time_end", NpgsqlDbType.Varchar) { Value = time_end });
+                    command.Parameters.Add(new NpgsqlParameter("@date_start", NpgsqlDbType.Varchar) { Value = date_start });
+                    command.Parameters.Add(new NpgsqlParameter("@date_end", NpgsqlDbType.Varchar) { Value = date_end });
                     command.Parameters.Add(new NpgsqlParameter("@name", NpgsqlDbType.Varchar) { Value = name });
                     command.Parameters.Add(new NpgsqlParameter("@address", NpgsqlDbType.Varchar) { Value = address });
                     command.Parameters.Add(new NpgsqlParameter("@rating_ctn", NpgsqlDbType.Integer) { Value = rating_ctn });
                     command.Parameters.Add(new NpgsqlParameter("@rating_sum", NpgsqlDbType.Integer) { Value = rating_sum });
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        // Ensure you await the execution of the command
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log or handle the exception as needed
+                        Console.WriteLine($"Error inserting data: {ex.Message}");
+                    }
+                   
                 }
             }
         }
@@ -137,6 +201,7 @@ namespace AvaloniaApplication4.Models
         {
             string str = string.Empty;
             int id = default;
+            List<JsonClass> js = new(); 
             await using (var connect = new NpgsqlConnection(connect_host))
             {
                 connect.Open();
@@ -145,9 +210,22 @@ namespace AvaloniaApplication4.Models
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
+                        id = reader.GetInt32(0);
                         var items = new JsonClass { Id = reader.GetInt32(1), Info_cowork = reader.GetString(2), Date_created = reader.GetString(3), Date_created_snst = reader.GetString(4), Name_cowork = reader.GetString(5), Location_cowork = reader.GetString(6), Raiting_count = reader.GetInt32(7), Rating_sum = reader.GetInt32(8)};
-                        List<JsonClass>? js = [items];
-                        keyValuePairs.Add(id, js);
+
+                        //js.Add(items);
+
+                        if (!keyValuePairs.ContainsKey(id))
+                        {
+                            // If the key does not exist, create a new list for this key
+                            keyValuePairs[id] = new List<JsonClass>();
+                        }
+
+                        // Add the JsonClass item to the list for this key
+                        keyValuePairs[id].Add(items);
+
+
+
                         //types.AddRange(js);
                     }
 
@@ -206,29 +284,30 @@ namespace AvaloniaApplication4.Models
             //var cn = new HomePageViewModel(bd);
             //bd.DataLoaded?.Invoke(keyValuePairs);
         }
-        public async Task ReadBdCompany()
-        {
+        //public async Task ReadBdCompany()
+        //{
            
-            //List<object> types = [];
+        //    //List<object> types = [];
       
-            int id = default;
-            await using (var connect = new NpgsqlConnection(connect_host))
-            {
-                connect.Open();
-                await using (var command = new NpgsqlCommand("SELECT * FROM main_bookings", connect))
-                {
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        id = reader.GetInt32(1);
-                        var item = new IdCompany { Id_Company = id };
-                        idCompanies.Add(item);
+        //    int id = default;
+        //    await using (var connect = new NpgsqlConnection(connect_host))
+        //    {
+        //        connect.Open();
+        //        await using (var command = new NpgsqlCommand("SELECT * FROM main_bookings", connect))
+        //        {
+        //            var reader = command.ExecuteReader();
+        //            while (reader.Read())
+        //            {
+        //                id = reader.GetInt32(1);
+        //                var item = new IdCompany { Id_Company = id };
+        //                idCompanies.Add(item);
                      
-                    }
-                    reader.Close();
-                }
-            }
-        }
+        //            }
+        //            reader.Close();
+        //        }
+        //    }
+        //}
 
     }
+    
 }
