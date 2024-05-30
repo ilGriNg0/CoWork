@@ -180,6 +180,8 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private int _rating_sum;
         [ObservableProperty]
+     static private ObservableCollection<JsonClass>? _jsonBenefits = new();
+        [ObservableProperty]
         private ObservableCollection<Bitmap> _photos = new();
 
         public class ListItemTemplate(Type type)
@@ -193,11 +195,7 @@ namespace AvaloniaApplication4.ViewModels
 
     }
 
-     public partial class IdCompany : ObservableObject
-    {
-        [ObservableProperty]
-        private int _id_Company;
-    }
+    
 
 }
    

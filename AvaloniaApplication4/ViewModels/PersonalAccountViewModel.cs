@@ -58,7 +58,7 @@ namespace AvaloniaApplication4.ViewModels
         private static bool _pressed;
 
 
-        public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
+        //public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
         public string cs = User.Connect;
         public PersonalAccountViewModel()
@@ -74,11 +74,23 @@ namespace AvaloniaApplication4.ViewModels
             AddBook(Bookings);
 
         }
+        private static PersonalAccountViewModel? _instance;
+        public static PersonalAccountViewModel Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new PersonalAccountViewModel();
+                }
+                return _instance;
+            }
+        }
         //public void GetPhoto()
         //{
         //    try
         //    {
-               
+
         //        var con = new NpgsqlConnection(cs);
         //        con.Open();
 

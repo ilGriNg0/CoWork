@@ -87,8 +87,8 @@ namespace AvaloniaApplication4.ViewModels
             //GetPhoto();
             GetInfo();
             GetBookings();
-            //connect.ReadPhotoBusinessBd();
-            //InsertBookings();
+            connect.ReadPhotoBusinessBd();
+            InsertBookings();
             ButtonCommand = new Relay1Command(ButtonClick);
         }
 
@@ -232,7 +232,7 @@ namespace AvaloniaApplication4.ViewModels
             public int Price { get; set; }
             public string Type { get; set; }
             public string Time { get; set; }
-            public DateTime Date { get; set; }
+            public DateTime Date {  get; set; }
             public int Number {  get; set; }
        
             public ObservableCollection<Bitmap> Bitmaps { get; set; } = new();
