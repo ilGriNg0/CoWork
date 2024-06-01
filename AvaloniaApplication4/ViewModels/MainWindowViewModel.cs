@@ -183,6 +183,8 @@ namespace AvaloniaApplication4.ViewModels
      static private ObservableCollection<JsonClass>? _jsonBenefits = new();
         [ObservableProperty]
         private ObservableCollection<Bitmap> _photos = new();
+        [ObservableProperty]
+        private ObservableCollection<Bitmap> _mainphotos = new();
 
         public class ListItemTemplate(Type type)
         {

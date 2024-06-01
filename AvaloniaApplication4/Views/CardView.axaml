@@ -62,7 +62,7 @@
 											ClipToBounds="True"
 											HorizontalAlignment="Center">
 
-									<ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Photos}">
+									<ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Mainphotos}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<Viewbox Stretch="Uniform">

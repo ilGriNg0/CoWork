@@ -1,8 +1,11 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using DynamicData;
+using ReactiveUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +32,8 @@ namespace AvaloniaApplication4.ViewModels
         //private ObservableCollection<mainservs> _serv = new();
         [ObservableProperty]
         private ObservableCollection<Benefits> _benef = new();
+        [ObservableProperty]
+       private List<Benefits> _ben = new List<Benefits>();
 
         [ObservableProperty]
         private string? _content;
@@ -45,13 +50,16 @@ namespace AvaloniaApplication4.ViewModels
         }
         public void LoadData<T>(T item)
         {
-            CardViewModel c_viewModel = new CardViewModel();
+            var myClassType = typeof(CardViewModel);
+            var instance = (CardViewModel)Activator.CreateInstance(myClassType, true);
+            //instance.MyMethod();
+            //CardViewModel c_viewModel = new CardViewModel();
             ConnectingBD connecting = new();
-            List<Benefits> ben = new List<Benefits>();
+
             if (item is JsonClass js)
             {
-                var items = c_viewModel.Card_Collection.FirstOrDefault(p => p.Id == js.Id);
-                connecting.ReadServicesBd();
+                var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == js.Id);
+                connecting.ReadServicesBd(js);
                 if (items != null)
                 {
                     Collection.Add(items);
@@ -66,26 +74,22 @@ namespace AvaloniaApplication4.ViewModels
                 //    {
 
                 //        Serv.Add(new mainservs {Value1 = item3.Value.Item4, Value2 = item3.Value.Item5}); 
-                //    }
-                connecting.ReadBenefitsBd();
-                Benef = new ObservableCollection<Benefits>(
-                     connecting.keyValueBenefitsPairs
-                    .SelectMany(kvp => kvp.Value)
-                        .Select(benefit => new Benefits
+                //    }\
+               
+                connecting.ReadBenefitsBd(js);
+               
+                foreach (var itemz in connecting.keyValueBenefitsPairs)
+                {
+                    foreach (var itemsdf in itemz.Value)
                     {
-                         Content = benefit.Content,
-                         Icon = benefit.Icon
-                        })
-                    );
-
-
-
-
+                        Benef.Add(itemsdf);
+                    }
+                }
             }
                 if (item is Booking book)
                 {
-                    var items = c_viewModel.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking);
-                    connecting.ReadServicesBd();
+                    var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking);
+                    connecting.ReadServicesBd(book);
                     if (items != null)
                     {
                         Collection.Add(items);
@@ -94,16 +98,8 @@ namespace AvaloniaApplication4.ViewModels
                     {
                         Photoses.Add(item_book);
                     }
-                connecting.ReadBenefitsBd();
-                Benef = new ObservableCollection<Benefits>(
-                      connecting.keyValueBenefitsPairs
-                     .SelectMany(kvp => kvp.Value)
-                         .Select(benefit => new Benefits
-                         {
-                             Content = benefit.Content,
-                             Icon = benefit.Icon
-                         })
-                     );
+                        connecting.ReadBenefitsBd(book);
+               
                 //    foreach (var item3 in connecting.ServicesPairs)
                 //    {
                 //    if (item3.Value.Item1 == book.id_coworking && item3.Value.Item4 != string.Empty)

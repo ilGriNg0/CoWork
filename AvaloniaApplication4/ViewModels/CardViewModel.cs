@@ -30,7 +30,7 @@ public partial class CardViewModel : ViewModelBase
 
     [ObservableProperty]
     private ObservableCollection<JsonClass> _card_Collection = new();
-
+    JsonClass json = new();
 
     public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
 
@@ -44,8 +44,8 @@ public partial class CardViewModel : ViewModelBase
     public CardViewModel()
      {
         connecting.ReadNormalBD();
-        connecting.ReadServicesBd();
-        connecting.ReadPhotoBd();
+        connecting.ReadMainWindowServicesBD();
+        connecting.ReadMainPhotoBd();
         OnDataLoad();
     }
     private static CardViewModel? _instance;
@@ -80,16 +80,16 @@ public partial class CardViewModel : ViewModelBase
             }
 
         }
-        foreach (var item in connecting.ServicesPairs)
+        foreach (var item in connecting.MainServicesPairs)
         {
             foreach (var itemz in Card_Collection)
             {
-                if (item.Value.Item1 == itemz.Id && itemz.Price_day_cowork == null) 
+                if (item.Value.Item1 == itemz.Id && item.Value.Item3 == "Рабочее место") 
                 {
                     itemz.Price_day_cowork = $"От {item.Value.Item2.ToString()} руб/день";
                 
                 }
-                if (item.Key != itemz.Id)
+                if (item.Value.Item1 == itemz.Id && item.Value.Item3 == "Переговорная")
                 {
                     itemz.Price_meetingroom_cowork = $"От {item.Value.Item2.ToString()} руб/час";
                 }
@@ -105,7 +105,19 @@ public partial class CardViewModel : ViewModelBase
                 }
             }
         }
+        var addedIds = new HashSet<int>();
 
+        foreach (var item in connecting.PhotoIDPathPairs)
+        {
+            foreach (var item2 in Card_Collection)
+            {
+                if (item.Key.Item2 == item2.Id && !addedIds.Contains(item2.Id))
+                {
+                    item2.Mainphotos.Add(new Bitmap(item.Value));
+                    addedIds.Add(item2.Id); // Добавляем id в множество, чтобы не добавлять дублирующие фотографии
+                }
+            }
+        }
     }
     
 }

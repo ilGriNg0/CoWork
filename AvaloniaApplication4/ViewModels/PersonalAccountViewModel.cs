@@ -268,56 +268,7 @@ namespace AvaloniaApplication4.ViewModels
         }
 
 
-        public partial class Booking : ObservableObject, IEnumerable
-        {
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-            public int Id { get; set; }
-            public string Name_Cowork { get; set; }
-            [ObservableProperty]
-            private Bitmap _path_cowork;
-            public string? Date { get; set; }
-            public string? Time { get; set; }
-            private int _rating;
-            public int Rating 
-            {  
-                get => _rating;
-                set
-                {
-                    if (_rating != value)
-                    {
-                        _rating = value;
-                        OnPropertyChanged();
-                    }
-                } 
-            }
-            [ObservableProperty]
-            private ObservableCollection<Bitmap> _b_maps = new();
-            public int id_coworking { get; set; }
-
-            public Booking() { }
-            public Booking(string name)
-            {
-                Name_Cowork = name;
-            }
-            public Booking(DateTime date, TimeSpan time_start, TimeSpan time_end, int id_c, long price, int rating, int id)
-            {
-                id_coworking = id_c;
-                Date = date.ToString("dd.MM.yyyy");
-                Time = $"{time_start.ToString(@"hh\:mm")}-{time_end.ToString(@"hh\:mm")}" + $"   {price} ₽";
-                Rating = rating;
-                Id = id;
-            }
-
-            public IEnumerator GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
-        }
+        
         public ICommand PhotoClickedCommand => new RelayCommand(add_photo);
 
         private readonly Window _target = new();
@@ -376,5 +327,55 @@ namespace AvaloniaApplication4.ViewModels
             }
         }
 
+    }
+    public partial class Booking : ObservableObject, IEnumerable
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public int Id { get; set; }
+        public string Name_Cowork { get; set; }
+        [ObservableProperty]
+        private Bitmap _path_cowork;
+        public string? Date { get; set; }
+        public string? Time { get; set; }
+        private int _rating;
+        public int Rating
+        {
+            get => _rating;
+            set
+            {
+                if (_rating != value)
+                {
+                    _rating = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        [ObservableProperty]
+        private ObservableCollection<Bitmap> _b_maps = new();
+        public int id_coworking { get; set; }
+
+        public Booking() { }
+        public Booking(string name)
+        {
+            Name_Cowork = name;
+        }
+        public Booking(DateTime date, TimeSpan time_start, TimeSpan time_end, int id_c, long price, int rating, int id)
+        {
+            id_coworking = id_c;
+            Date = date.ToString("dd.MM.yyyy");
+            Time = $"{time_start.ToString(@"hh\:mm")}-{time_end.ToString(@"hh\:mm")}" + $"   {price} ₽";
+            Rating = rating;
+            Id = id;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

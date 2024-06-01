@@ -1,9 +1,11 @@
 ﻿using AvaloniaApplication4.ViewModels;
+using DynamicData;
 using Microsoft.VisualBasic;
 using MsBox.Avalonia.Enums;
 using Newtonsoft.Json;
 using Npgsql;
 using NpgsqlTypes;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,9 +24,10 @@ namespace AvaloniaApplication4.Models
         public Dictionary<int, List<JsonClass>> keyValuePairs { get; set; } = new Dictionary<int, List<JsonClass>>();
         public Dictionary<int, List<Benefits>> keyValueBenefitsPairs { get; set; } = new Dictionary<int, List<Benefits>>();
         public Dictionary<(int, int), string> PhotoIDPathPairs = new();
+        public List<Dictionary<(int, int), string>> MainPhotoIDPathPairs = new();
         public Dictionary<(int, int), string> PhotoIDPathBusinessPairs = new();
         public Dictionary<int, (int, int, int, string, string)> ServicesPairs = new();
-
+        public Dictionary<int, (int, int, string)> MainServicesPairs = new();
         //public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
         public async Task WriteBd(ObservableCollection<JsonClass> collection)
@@ -56,10 +59,10 @@ namespace AvaloniaApplication4.Models
             }
         }
 
-        public async Task ReadBenefitsBd()
+        public async Task ReadBenefitsBd<T>(T items)
         {
             string str = string.Empty;
-            int id = default;
+           
             await using (var connect = new NpgsqlConnection(connect_host))
             {
                 connect.Open();
@@ -68,10 +71,22 @@ namespace AvaloniaApplication4.Models
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        id = reader.GetInt32(0);
+                        int id_BD = reader.GetInt32(0);
                         str = reader.GetString(1);
                         List<Benefits>? js = JsonConvert.DeserializeObject<List<Benefits>>(str);
-                        keyValueBenefitsPairs.Add(id, js);
+                        if (js != null)
+                        {
+                            foreach (var item in js)
+                            {
+                                if (((items is JsonClass json) && json.Id == item.Id_Coworking) || ((items is Booking book) && book.id_coworking == item.Id_Coworking))
+                                {
+                                    keyValueBenefitsPairs.Add(id_BD, js);
+                                }
+                                
+
+                            }
+                        }
+                       
                         //types.AddRange(js);
                     }
 
@@ -80,6 +95,39 @@ namespace AvaloniaApplication4.Models
             }
         }
         public string cs = User.Connect;
+        public async void ReadMainPhotoBd()
+        {
+            await using (var connect = new NpgsqlConnection(cs))
+            {
+                connect.Open();
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_images", connect))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        int id_coworking = reader.GetInt32(1);
+                        string str = reader.GetString(2);
+                        PhotoIDPathPairs.Add((id, id_coworking), str);
+                    }
+                    foreach (var item in PhotoIDPathPairs)
+                    {
+                        // Отфильтровываем элементы, где Item2 не совпадает с текущим item.Key.Item2
+                        var nonMatchingItems = PhotoIDPathPairs
+                            .Where(p => p.Key.Item2 != item.Key.Item2)
+                            .ToDictionary(p => p.Key, p => p.Value);
+
+                        // Добавляем отфильтрованный словарь в целевой список, если он не пуст
+                        if (nonMatchingItems.Count > 0)
+                        {
+                            MainPhotoIDPathPairs.Add(nonMatchingItems);
+                        }
+                    }
+
+                    reader.Close();
+                }
+            }
+        }
         public async void ReadPhotoBd()
         {
             await using (var connect = new NpgsqlConnection(cs))
@@ -221,7 +269,7 @@ namespace AvaloniaApplication4.Models
                             keyValuePairs[id] = new List<JsonClass>();
                         }
 
-                        // Add the JsonClass item to the list for this key
+                
                         keyValuePairs[id].Add(items);
 
 
@@ -234,7 +282,30 @@ namespace AvaloniaApplication4.Models
             }
 
         }
-        public async void ReadServicesBd()
+        public async void ReadMainWindowServicesBD()
+        {
+            await using (var connect = new NpgsqlConnection(cs))
+            {
+                connect.Open();
+                await using (var command = new NpgsqlCommand("SELECT * FROM main_services", connect))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        int id_coworking = reader.GetInt32(1);
+                        int price = reader.GetInt32(2);
+                        string str = reader.GetString(3);
+                        MainServicesPairs.Add(id, (id_coworking, price, str));
+                        
+
+
+                    }
+                    reader.Close();
+                }
+            }
+        }
+        public async void ReadServicesBd<T>(T services)
         {
             await using (var connect = new NpgsqlConnection(cs))
             {
@@ -250,7 +321,10 @@ namespace AvaloniaApplication4.Models
                         int count = reader.GetInt32(4);
                         string str = reader.GetString(3);
                         string icons = reader.GetString(5);
-                        ServicesPairs.Add(id, (id_coworking, price, count, str, icons));
+                        if((services is JsonClass js) && js.Id == id_coworking || ((services is Booking book) && book.id_coworking == id_coworking ))
+                        {
+                            ServicesPairs.Add(id, (id_coworking, price, count, str, icons));
+                        }
                     }
                     reader.Close();
                 }
