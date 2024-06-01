@@ -2,20 +2,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1680"
              xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
 			 xmlns:material="using:Material.Icons.Avalonia"
 			 x:Class="AvaloniaApplication4.Views.AddCardView"
 			 x:DataType="vm:AddCardViewModel">
 	<ScrollViewer>
 		<Border Background="#1c1c1c" CornerRadius="30">
-			<Grid Margin="10" RowDefinitions="*,*,*,*" ColumnDefinitions="2*,*,*" ShowGridLines="True">
-				<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
+			<Grid Margin="10" RowDefinitions="600,*,*,*,*" ShowGridLines="True">
+				
+				<Grid Grid.Row="0" ColumnDefinitions="2*,*,*" ShowGridLines="True">
+				<Border Grid.Column="0" Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
 						<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray">
-							<Image ClipToBounds="True" Source="{Binding Photo_Coworking[0]}" Stretch="Uniform"></Image>
+							<Image ClipToBounds="True" Source="{Binding Photo_Coworking[0]}" Stretch="Fill"></Image>
 						</Button>
 				</Border>
-				<Border   Grid.Column="1" Grid.Row="0">
+				<Border Grid.Column="1" Grid.Row="0">
 					<Grid RowDefinitions="*,*">
 						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
 							<Button  VerticalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray">
@@ -29,7 +31,7 @@
 						</Border>
 					</Grid>
 				</Border>
-				<Border  Grid.Column="2" Grid.Row="0">
+				<Border  Grid.Row="0" Grid.Column="2">
 					<Grid RowDefinitions="*,*">
 						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
 							<Button VerticalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray">
@@ -43,135 +45,409 @@
 						</Border>
 					</Grid>
 				</Border>
-				
-					<StackPanel Grid.Column="0" Grid.Row="1">
-						<Border CornerRadius="30" Background="Black" Margin="5">
-							<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="Название вашего коворкинга" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
-						</Border>
-						<TextBox Margin="5"  CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Name_cowork, Mode=TwoWay}"></TextBox>
+				</Grid>
+
+
+				<StackPanel 
+					Margin="100 40 0 0" 
+					Grid.Row="1" 
+					Orientation="Horizontal" 
+					Spacing="50" 
+					HorizontalAlignment="Left" 
+					VerticalAlignment="Top">
+					<TextBlock
+						Margin="50 15 0 0"
+						HorizontalAlignment="Left"
+						Foreground="White"
+						FontWeight="UltraBold"
+						FontSize="20"
+						FontStyle="Italic"
+						FontFamily="Source Sans Pro">
+						Название коворкинга
+					</TextBlock>
+					<TextBox Margin="-35 0 0 0" 
+							 BorderBrush="#D94D04"
+							 BorderThickness="2"
+							 Width="300" 
+							 FontSize="20" 
+							 Height="50"
+							 MaxLength="50"
+							 CornerRadius="30"  
+							 Grid.Column="1" 
+							 Grid.Row="0"
+							 HorizontalContentAlignment="Left"
+							 VerticalContentAlignment="Center"
+							 Text="{Binding Json.Name_cowork, Mode=TwoWay}">
+					</TextBox>
+
+					<TextBlock
+						Margin="50 15 0 0"
+						HorizontalAlignment="Left"
+						Foreground="White"
+						FontWeight="UltraBold"
+						FontSize="20"
+						FontStyle="Italic"
+						FontFamily="Source Sans Pro">
+						Адрес
+					</TextBlock>
+					<TextBox 
+						Margin="-35 0 0 0" 
+						BorderBrush="#D94D04"
+						BorderThickness="2"
+						Width="300" 
+						FontSize="20" 
+						Height="50"
+						MaxLength="500"
+						Foreground="Black"
+						CornerRadius="30"  
+						Grid.Column="1" 
+						Grid.Row="0" 
+						HorizontalContentAlignment="Left"
+						VerticalContentAlignment="Center"
+						Text="{Binding Json.Location_cowork, Mode=TwoWay}">
+					</TextBox>
+
+					<TextBlock
+						Margin="50 15 0 0"
+						HorizontalAlignment="Left"
+						Foreground="White"
+						FontWeight="UltraBold"
+						FontSize="20"
+						FontStyle="Italic"
+						FontFamily="Source Sans Pro">
+						Рабочие часы
+					</TextBlock>
+					<MaskedTextBox
+						Mask="09:\0\0 -- 09:\0\0"
+						Margin="-35 0 0 0" 
+						BorderBrush="#D94D04"
+						BorderThickness="2"
+						Width="200" 
+						FontSize="20" 
+						Foreground="Black"
+						Height="50"
+						CornerRadius="30"  
+						Grid.Column="1" 
+						Grid.Row="0" 
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						Text="{Binding Json.Date_created, Mode=TwoWay}">
+					</MaskedTextBox>
+				</StackPanel>
+
+				<Grid Grid.Row="2" ColumnDefinitions="*,*">
+					<StackPanel Grid.Column="0">
+						<TextBlock
+						Margin="0 15 0 0"
+						HorizontalAlignment="Center"
+						Foreground="White"
+						FontWeight="UltraBold"
+						FontSize="30"
+						FontStyle="Italic"
+						FontFamily="Source Sans Pro">
+							Описание коворкинга
+						</TextBlock>
+
+						<TextBox
+							Margin="30 30 30 0"
+							CornerRadius="30"
+							FontSize="20"
+							MaxLength="500"
+							BorderBrush="#D94D04"
+							 BorderThickness="2"
+							TextWrapping="Wrap"
+							Foreground="Black"
+							Watermark="Что же отличает вас от других?) Распишите и ждите соискателей..."
+							Text="{Binding Json.Info_cowork, Mode=TwoWay}"
+							Height="200">
+						</TextBox>
 					</StackPanel>
 
-				<StackPanel Grid.Column="1" Grid.Row="1">
-					<Border CornerRadius="30" Background="Black" Margin="5">
-						<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="Адрес вашего коворкинга" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
-					</Border>
-					<TextBox  Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Location_cowork, Mode=TwoWay}"></TextBox>
-				</StackPanel>
+					<StackPanel Grid.Column="1">
+						<TextBlock
+						Margin="0 15 0 0"
+						HorizontalAlignment="Center"
+						Foreground="White"
+						FontWeight="UltraBold"
+						FontSize="30"
+						FontStyle="Italic"
+						FontFamily="Source Sans Pro">
+							Преимущества
+						</TextBlock>
 
-				<StackPanel Grid.Column="2" Grid.Row="1">
-					<Border CornerRadius="30" Background="Black" Margin="5">
-						<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="Время работы" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center"></TextBlock>
-					</Border>
-					<Border Background="Black" CornerRadius="15">
-						<Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
-							<TextBlock Grid.Row="0" Grid.Column="0" Text="Будние дни" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">	
-							</TextBlock>
-							<TextBox  Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Date_created, Mode=TwoWay}">
-								
-							</TextBox>
-							<TextBlock Grid.Row="1" Grid.Column="0" Text="Выходные дни" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
-							</TextBlock>
-							<TextBox  Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="1" Text="{Binding Json.Date_created_snst, Mode=TwoWay}"></TextBox>
-							
-						</Grid>
-					</Border>
-					
-				</StackPanel>
-
-				<StackPanel Grid.Row="2" Grid.ColumnSpan="2">
-					<Border Background="Black" CornerRadius="30" Margin="5">
-						<TextBlock Text="Описание вашего коворкинга" FontWeight="UltraBold" FontSize="15" FontFamily="Source Sans Pro"  Foreground="White" HorizontalAlignment="Center"></TextBlock>
-					</Border>
-					<TextBox Margin="5" CornerRadius="30" Height="100" Text="{Binding Json.Info_cowork, Mode=TwoWay}" TextWrapping="Wrap"></TextBox>
-				</StackPanel>
-				<StackPanel Grid.Row="2" Grid.Column="3">
-					<Border Background="Black" CornerRadius="30" Margin="5">
-						<TextBlock Text=" Услуги вашего коворкинга" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"></TextBlock>
-					</Border>
-					<Border Background="Black" Height="170"  CornerRadius="30" Margin="5">
-						<ScrollViewer>
+						<StackPanel Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="150">
 							<StackPanel>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Высокоскоростной интернет" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Высокоскоростной интернет" >
-										<material:MaterialIcon   Height="20" Width="20" Kind="Wifi"/>
-									</TextBlock>
-								</Button>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Качественный кофе" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Качественный кофе" HorizontalAlignment="Center">
-										<material:MaterialIcon  Height="20" Width="20" Kind="CoffeeOutline"/>
-									</TextBlock>
-								</Button>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Принтер" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Принтер" HorizontalAlignment="Center">
-										<material:MaterialIcon   Height="20" Width="20" Kind="PrinterOutline"/>
-									</TextBlock>
-								</Button>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Шкафчики для вещей" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Шкафчики для вещей" HorizontalAlignment="Center">
-										<material:MaterialIcon   Height="20" Width="20" Kind="Locker"/>
-									</TextBlock>
-								</Button>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Душевые" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Душевые" HorizontalAlignment="Center">
-										<material:MaterialIcon   Height="20" Width="20" Kind="ShowerHead"/>
-									</TextBlock>
-								</Button>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Фрукты и закуски" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Фрукты и закуски" HorizontalAlignment="Center">
-										<material:MaterialIcon   Height="20" Width="20" Kind="FoodAppleOutline"/>
-									</TextBlock>
-								</Button>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Столовая" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Столовая" HorizontalAlignment="Center">
-										<material:MaterialIcon   Height="20" Width="20" Kind="SilverwareForkKnife"/>
-									</TextBlock>
-								</Button>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Парковка" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Парковка" HorizontalAlignment="Center">
-										<material:MaterialIcon   Height="20" Width="20" Kind="Parking"/>
-									</TextBlock>
-								</Button>
-								<Button Command="{Binding ChoiceServicesCommand}" CommandParameter="Фитнес зона" HorizontalAlignment="Center" Width="240" CornerRadius="20" Background="#cccccc" Margin="5">
-									<TextBlock Text="Фитнес зона" HorizontalAlignment="Center">
-										<material:MaterialIcon   Height="20" Width="20" Kind="Dumbbell"/>
-									</TextBlock>
-								</Button>
-								
+								<StackPanel Spacing="10">
+									<StackPanel Orientation="Horizontal">
+										<material:MaterialIcon   Foreground="White" Height="30" Width="30" Kind="Wifi"/>
+										<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="#D94D04" Text="   Высокоскоростной интернет   " HorizontalAlignment="Left"/>
+										<CheckBox
+											IsChecked="{Binding IsChecked, Mode=TwoWay}">
+											<CheckBox.Styles>
+												<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+													<Setter Property="BorderBrush" Value="White" />
+												</Style>
+											</CheckBox.Styles>
+										</CheckBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<material:MaterialIcon  Foreground="White" Height="30" Width="30" Kind="CoffeeOutline"/>
+										<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="#D94D04" Text="   Качественный кофе                  " HorizontalAlignment="Left"/>
+										<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+											<CheckBox.Styles>
+												<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+													<Setter Property="BorderBrush" Value="White" />
+												</Style>
+											</CheckBox.Styles>
+										</CheckBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<material:MaterialIcon   Foreground="White" Height="30" Width="30" Kind="PrinterOutline"/>
+										<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="#D94D04" Text="   Принтер                                     " HorizontalAlignment="Left"/>
+										<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+											<CheckBox.Styles>
+												<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+													<Setter Property="BorderBrush" Value="White" />
+												</Style>
+											</CheckBox.Styles>
+										</CheckBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<material:MaterialIcon   Foreground="White" Height="30" Width="30" Kind="Locker"/>
+										<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="#D94D04" Text="   Шкафчики для вещей               " HorizontalAlignment="Left"/>
+										<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+											<CheckBox.Styles>
+												<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+													<Setter Property="BorderBrush" Value="White" />
+												</Style>
+											</CheckBox.Styles>
+										</CheckBox>
+									</StackPanel>
+									<StackPanel Orientation="Horizontal">
+										<material:MaterialIcon   Foreground="White" Height="30" Width="30" Kind="ShowerHead"/>
+										<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="#D94D04" Text="   Душевые                                    " HorizontalAlignment="Left"/>
+										<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+											<CheckBox.Styles>
+												<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+													<Setter Property="BorderBrush" Value="White" />
+												</Style>
+											</CheckBox.Styles>
+										</CheckBox>
+									</StackPanel>
+								</StackPanel>
 							</StackPanel>
-						</ScrollViewer>
-						
-					</Border>
-				</StackPanel>
-				<StackPanel  Grid.Row="3" Grid.Column="3" VerticalAlignment="Center">
-					<TextBlock Text="{Binding ErrorMessage}" Foreground="Red"></TextBlock>
-					<Button CornerRadius="20" Command="{Binding SaveCommand}" CommandParameter="" Grid.Row="2" Grid.Column="3" Width="50" Height="30" Background="#cccccc" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Save"></Button>
-				</StackPanel>
-				
-				<StackPanel Grid.Row="3" Grid.ColumnSpan="2">
-					<Border  CornerRadius="30" Background="Black" Margin="5">
-						<TextBlock Text="Тарифы" HorizontalAlignment="Center" VerticalAlignment="Center"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" />
-					</Border>
-					<Border Grid.Row="3" Grid.Column="0" Background="Black" Margin="5" CornerRadius="30">
-						<Grid ColumnDefinitions="*,*">
-							<StackPanel Grid.Column="0">
-								
-								<TextBlock Text="Переговорная" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="UltraBold" FontSize="15" FontFamily="Source Sans Pro"  Foreground="White"></TextBlock>
-								<TextBox Watermark="Введите цену" Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_meetingroom_cowork, Mode=TwoWay}"></TextBox>
-								<TextBox Watermark="Введите количество мест" Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Number_of_seats_meeting, Mode=TwoWay}"></TextBox>
-								
+
+							<StackPanel Spacing="10">
+								<StackPanel Orientation="Horizontal">
+									<material:MaterialIcon Foreground="White"  Height="30" Width="30" Kind="FoodAppleOutline"/>
+									<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="#D94D04" Text="   Фрукты и закуски      " HorizontalAlignment="Left"/>
+									<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+										<CheckBox.Styles>
+											<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+												<Setter Property="BorderBrush" Value="White" />
+											</Style>
+										</CheckBox.Styles>
+									</CheckBox>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<material:MaterialIcon  Foreground="White"  Height="30" Width="30" Kind="SilverwareForkKnife"/>
+									<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="#D94D04" Text="   Столовая                    " HorizontalAlignment="Left"/>
+									<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+										<CheckBox.Styles>
+											<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+												<Setter Property="BorderBrush" Value="White" />
+											</Style>
+										</CheckBox.Styles>
+									</CheckBox>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<material:MaterialIcon   Foreground="White" Height="30" Width="30" Kind="Parking"/>
+									<TextBlock FontFamily="Source Sans Pro" FontSize="18" Foreground="#D94D04" Text="   Парковка                        " HorizontalAlignment="Left"/>
+									<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+										<CheckBox.Styles>
+											<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+												<Setter Property="BorderBrush" Value="White" />
+											</Style>
+										</CheckBox.Styles>
+									</CheckBox>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal">
+									<material:MaterialIcon   Foreground="White" Height="30" Width="30" Kind="Dumbbell"/>
+									<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="#D94D04" Text="   Фитнес зона               " HorizontalAlignment="Left"/>
+									<CheckBox
+						IsChecked="{Binding IsChecked, Mode=TwoWay}">
+										<CheckBox.Styles>
+											<Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+												<Setter Property="BorderBrush" Value="White" />
+											</Style>
+										</CheckBox.Styles>
+									</CheckBox>
+								</StackPanel>
 							</StackPanel>
-							<StackPanel Grid.Column="1">
-								<TextBlock Text="Персональное место" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="UltraBold" FontSize="15" FontFamily="Source Sans Pro"  Foreground="White"></TextBlock>
-								<TextBox Watermark="Введите цену" Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Price_day_cowork, Mode=TwoWay}"></TextBox>
-								<TextBox Watermark="Введите количество мест" Margin="5" CornerRadius="30"  Grid.Column="1" Grid.Row="0" Text="{Binding Json.Number_of_seats_solo, Mode=TwoWay}"></TextBox>
-							
+						</StackPanel>
+					</StackPanel>
+				</Grid>
+
+				<StackPanel Grid.Row="3">
+					<TextBlock
+						Margin="0 15 0 0"
+						HorizontalAlignment="Center"
+						Foreground="White"
+						FontWeight="UltraBold"
+						FontSize="30"
+						FontStyle="Italic"
+						FontFamily="Source Sans Pro">
+						Тарифы
+					</TextBlock>
+
+					<ScrollViewer HorizontalScrollBarVisibility="Visible">
+					<StackPanel Orientation="Horizontal" Margin="30 30 30 0" Spacing="30">
+					<Border Background="Black" Width="350" Height="500" CornerRadius="30">
+						<Grid RowDefinitions="2*, 2*, 0.6*" ShowGridLines="True">
+							<Border Grid.Row="0" ClipToBounds="True" Margin="10" CornerRadius="15">
+								<Image Source="/Assets/pict1.jpg" Stretch="Fill"/>
+							</Border>
+							<StackPanel Grid.Row="1">
+								<TextBlock
+									Margin="0 0 0 0"
+									HorizontalAlignment="Center"
+									Foreground="White"
+									FontWeight="UltraBold"
+									FontSize="20"
+									FontStyle="Italic"
+									FontFamily="Source Sans Pro">
+									Название тарифа
+								</TextBlock>
+								<TextBox
+									BorderBrush="#D94D04"
+									BorderThickness="2"
+									FontSize="20"
+									Height="40"
+									Width="300"
+									MaxLength="500"
+									Foreground="Black"
+									CornerRadius="30"
+									Grid.Column="1"
+									Grid.Row="0"
+									HorizontalContentAlignment="Left"
+									VerticalContentAlignment="Center"
+									Text="{Binding Json.Location_cowork, Mode=TwoWay}">
+								</TextBox>
+								
+								<TextBlock
+									Margin="0 0 0 0"
+									HorizontalAlignment="Center"
+									Foreground="White"
+									FontWeight="UltraBold"
+									FontSize="20"
+									FontStyle="Italic"
+									FontFamily="Source Sans Pro">
+									Количество мест
+								</TextBlock>
+								<TextBox
+									BorderBrush="#D94D04"
+									BorderThickness="2"
+									FontSize="20"
+									Height="40"
+									Width="300"
+									MaxLength="500"
+									Foreground="Black"
+									CornerRadius="30"
+									Grid.Column="1"
+									Grid.Row="0"
+									HorizontalContentAlignment="Left"
+									VerticalContentAlignment="Center"
+									Text="{Binding Json.Location_cowork, Mode=TwoWay}">
+								</TextBox>
+								
+								<TextBlock
+									Margin="0 0 0 0"
+									HorizontalAlignment="Center"
+									Foreground="White"
+									FontWeight="UltraBold"
+									FontSize="20"
+									FontStyle="Italic"
+									FontFamily="Source Sans Pro">
+									Стоимость за час
+								</TextBlock>
+								<TextBox
+									BorderBrush="#D94D04"
+									BorderThickness="2"
+									FontSize="20"
+									Height="40"
+									Width="300"
+									MaxLength="500"
+									Foreground="Black"
+									CornerRadius="30"
+									Grid.Column="1"
+									Grid.Row="0"
+									HorizontalContentAlignment="Left"
+									VerticalContentAlignment="Center"
+									Text="{Binding Json.Location_cowork, Mode=TwoWay}">
+								</TextBox>
 							</StackPanel>
+
+							<Button
+								Grid.Row="2"
+								VerticalAlignment="Center"
+								HorizontalAlignment="Center"
+								FontSize="18"
+								HorizontalContentAlignment="Center"
+								VerticalContentAlignment="Center"
+								FontFamily="Gelion"
+								CornerRadius="50"
+								Height="40"
+								Width="300"
+								Margin="0 0 0 0">
+								Добавить
+								<Button.Styles>
+									<Style Selector="Button">
+										<Setter Property="Background" Value="#D94D04" />
+										<Setter Property="Foreground" Value="#ffffff" />
+									</Style>
+									<Style Selector="Button:pointerover /template/ ContentPresenter">
+										<Setter Property="Background" Value="#ffffff" />
+										<Setter Property="Foreground" Value="#161616" />
+									</Style>
+								</Button.Styles>
+							</Button>
 						</Grid>
 					</Border>
-					<Button Name="AddTextBoxButton" Background="Gray" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Добавить текстовое поле" Click="OnAddTextBoxButtonClick"/>
-					
-					<StackPanel Name="TextBoxContainer" Margin="0,10,0,0"/>
+					</StackPanel>
+					</ScrollViewer>
 				</StackPanel>
+
+				<Button
+					Grid.Row="4"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center"
+					FontSize="18"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					FontFamily="Gelion"
+					CornerRadius="50"
+					Height="40"
+					Width="300"
+					Margin="0 30 0 0">
+					Создать коворкинг
+					<Button.Styles>
+						<Style Selector="Button">
+							<Setter Property="Background" Value="#D94D04" />
+							<Setter Property="Foreground" Value="#ffffff" />
+						</Style>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#ffffff" />
+							<Setter Property="Foreground" Value="#161616" />
+						</Style>
+					</Button.Styles>
+				</Button>
 			</Grid>
 		</Border>
 	</ScrollViewer>

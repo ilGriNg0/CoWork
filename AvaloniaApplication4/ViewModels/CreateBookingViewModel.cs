@@ -73,11 +73,14 @@ namespace AvaloniaApplication4.ViewModels
             int i = 0;
             while (rdr.Read())
             {
-                Price.Add(rdr.GetInt64(2));
-                tps.Add($"{rdr.GetString(3)}  {Price[i]} ₽/час");
-                Count.Add(rdr.GetInt32(4));
-                Img.Add(new Bitmap(rdr.GetString(5)));
-                i++;
+                if (rdr.GetInt32(4) != 0)
+                {
+                    Count.Add(rdr.GetInt32(4));
+                    Price.Add(rdr.GetInt64(2));
+                    tps.Add($"{rdr.GetString(3)}  {Price[i]} ₽/час");
+                    Img.Add(new Bitmap(rdr.GetString(5)));
+                    i++;
+                }
             }
             Types = new ObservableCollection<string>(tps);
             SelectedType = Types[0];
@@ -203,6 +206,17 @@ namespace AvaloniaApplication4.ViewModels
             }
         }
 
+        private bool _visibl2 = false;
+        public bool Visibl2
+        {
+            get => _visibl2;
+            set
+            {
+                _visibl2 = value;
+                OnPropertyChanged(nameof(Visibl2));
+            }
+        }
+
         private Dictionary<string, int> ft;
 
         private void GetFreeTimes()
@@ -304,9 +318,11 @@ namespace AvaloniaApplication4.ViewModels
                 SelectedTime = "";
                 Visibl1 = true;
                 Visibl = false;
+                Visibl2 = false;
             }
             else
             {
+                Visibl2 = false;
                 Visibl = true;
                 Visibl1 = false;
                 SelectedTime = Times[0];
@@ -317,7 +333,7 @@ namespace AvaloniaApplication4.ViewModels
         public void BookingCreate()
         {
             if (SelectedTime != "" && Visibl) 
-            {
+            {GetFreeTimes();
                 var cs = User.Connect;
 
                 var con = new NpgsqlConnection(cs);
@@ -327,7 +343,9 @@ namespace AvaloniaApplication4.ViewModels
                     $"'{TimeSpan.FromHours(Int32.Parse(SelectedTime.Split("-")[1]))}', '{SelectedDate}', '{ft[SelectedTime]}', 0);";
                 var cmd = new NpgsqlCommand(sql, con);
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
-            }
+                
+                
+            }Visibl2 = true;
         }
 
         public class Booking

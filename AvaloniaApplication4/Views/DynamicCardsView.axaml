@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
 			 xmlns:material="using:Material.Icons.Avalonia"
 			 x:Class="AvaloniaApplication4.Views.DynamicCardsView"
 			 xmlns:vm="clr-namespace:AvaloniaApplication4.ViewModels"
@@ -10,200 +10,356 @@
 			 x:DataType="vm:DynamicCardsViewModel">
 	
 	<ScrollViewer>
-		<Border Background="#1c1c1c" CornerRadius="15">
-			<Grid ClipToBounds="True" ColumnDefinitions="2*,*,*"
-              RowDefinitions="*,*,*,*" ShowGridLines="True" >
-				<Border Grid.Row="0" Grid.Column="0" ClipToBounds="True" Margin="5" CornerRadius="15">
-					<Image Source="{Binding Photoses[0]}" Stretch="UniformToFill"/>
-				</Border>
-				<!-- Добавляем привязку для первой фотографии -->
-				<Border Grid.Row="0" Grid.Column="1" ClipToBounds="True" Margin="5" CornerRadius="15">
-					<Grid RowDefinitions="*,*">
-						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True" >
-							<Image Source="{Binding Photoses[1]}" Stretch="UniformToFill"/>
-						</Border>
-						<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
-							<Image Source="{Binding Photoses[2]}" Stretch="UniformToFill"/>
-						</Border>
-					</Grid>
-				</Border>
-				<Border Grid.Row="0" Grid.Column="2" ClipToBounds="True" Margin="5" CornerRadius="15">
-					<Grid RowDefinitions="*,*">
-						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True" >
-							<Image Source="{Binding Photoses[3]}" Stretch="UniformToFill"/>
-						</Border>
-						<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
-							<Image Source="{Binding Photoses[4]}" Stretch="UniformToFill"/>
-						</Border>
-					</Grid>
-				</Border>
-			
-					<DockPanel Grid.Row="1" Grid.ColumnSpan="3">
-						<Grid ColumnDefinitions="100, *"
-							  RowDefinitions="*,*,*"
-							  ShowGridLines="False">
-							<Image Grid.Row="0"
-								   Grid.Column="0"
-								   Stretch="UniformToFill"
-								  
-								   Margin="10"/>
-							<Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" CornerRadius="10" Background="#0a0a0a">
-								<Grid RowDefinitions="*,*"
-									  ShowGridLines="True">
-									<ItemsControl Grid.Row="0" HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
-										<ItemsControl.ItemTemplate>
-											<DataTemplate>
-												<TextBlock
-													HorizontalAlignment="Left"
-													Text="{Binding Name_cowork}"
-													Foreground="White"
-													FontSize="20"
-													FontWeight="DemiBold"
-													/>
-												
-											</DataTemplate>
-											</ItemsControl.ItemTemplate>
-									</ItemsControl>
+		<Border Background="#1c1c1c" CornerRadius="30">
+			<Grid ClipToBounds="True"
+              RowDefinitions="600,*,*,*" ShowGridLines="True">
+				
+				<Grid Grid.Row="0" ColumnDefinitions="2*,*,*" ShowGridLines="True">
+					<Border Grid.Row="0" Grid.Column="0" ClipToBounds="True" Margin="5" CornerRadius="15">
+						<Image Source="{Binding Photoses[0]}" Stretch="Fill"/>
+					</Border>
+					<Border Grid.Row="0" Grid.Column="1" ClipToBounds="True" Margin="5" CornerRadius="15">
+						<Grid RowDefinitions="*,*">
+							<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True" >
+								<Image Source="{Binding Photoses[1]}" Stretch="UniformToFill"/>
+							</Border>
+							<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
+								<Image Source="{Binding Photoses[2]}" Stretch="UniformToFill"/>
+							</Border>
+						</Grid>
+					</Border>
+					<Border Grid.Row="0" Grid.Column="2" ClipToBounds="True" Margin="5" CornerRadius="15">
+						<Grid RowDefinitions="*,*">
+							<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True" >
+								<Image Source="{Binding Photoses[3]}" Stretch="UniformToFill"/>
+							</Border>
+							<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
+								<Image Source="{Binding Photoses[4]}" Stretch="UniformToFill"/>
+							</Border>
+						</Grid>
+					</Border>
+				</Grid>
 
-									<ItemsControl Grid.Row="1" HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
-										<ItemsControl.ItemTemplate>
-											<DataTemplate>
-												<TextBlock Grid.Row="1"
-													TextWrapping="Wrap"
-													Foreground="White"
+
+				<Grid Grid.Row="1" ColumnDefinitions="2*, *" ShowGridLines="True" Margin="0 20 0 0">
+					<StackPanel Grid.Column="0" Spacing="10">
+						<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<TextBlock
+										Margin="30 0 0 0"
+										HorizontalAlignment="Left"
+										FontFamily="Source Sans Pro"
+										Text="{Binding Name_cowork}"
+										Foreground="#D94D04"
+										FontSize="35"/>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+
+						
+						<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<TextBlock
+										Margin="30 0 0 0"
+										TextWrapping="Wrap"
+										Foreground="White"
+										FontWeight="UltraBold"
+										FontSize="18"
+										FontFamily="Source Sans Pro"
+										HorizontalAlignment="Left"
+										ClipToBounds="True"
+										Text="{Binding Info_cowork}">
+									</TextBlock>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</StackPanel>
+
+					<StackPanel Grid.Column="1" Spacing="10">
+							<TextBlock
+								Margin="30 0 0 0"
+								HorizontalAlignment="Left"
+								Foreground="#D94D04"
+								FontWeight="UltraBold"
+								FontSize="20"
+								FontStyle="Italic"
+								FontFamily="Source Sans Pro">
+								Адрес:
+							</TextBlock>
+							<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TextBlock
+											Margin="30 0 0 0"
+											TextWrapping="WrapWithOverflow"
+											HorizontalAlignment="Left"
+											Foreground="White"
+											FontWeight="UltraBold"
+											FontSize="18"
+											FontFamily="Source Sans Pro"
+											Text="{Binding Location_cowork}">
+										</TextBlock>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock
+								Margin="30 0 0 0"
+								HorizontalAlignment="Left"
+								Foreground="#D94D04"
+								FontWeight="UltraBold"
+								FontSize="20"
+								FontStyle="Italic"
+								FontFamily="Source Sans Pro">
+								График работы:
+							</TextBlock>
+							<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TextBlock 
+											Margin="30 0 0 0"
+											HorizontalAlignment="Left"
+											FontWeight="UltraBold"
+											FontSize="18" 
+											FontFamily="Source Sans Pro" 
+											Text="{Binding Date_created}" 
+											Foreground="White"/>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+					</StackPanel>
+				</Grid>
+
+				<StackPanel Grid.Row="2" Spacing="10">
+					<TextBlock
+						Margin="30 20 0 0"
+						HorizontalAlignment="Left"
+						Foreground="#D94D04"
+						FontWeight="UltraBold"
+						FontSize="20"
+						FontStyle="Italic"
+						FontFamily="Source Sans Pro">
+						Преимущества:
+					</TextBlock>
+					
+					<!--Удалишь это, как исправишь работу и стили твоего, просто скопируй-->
+					<StackPanel Orientation="Horizontal" Spacing="150" Margin="30 20 0 0">
+						<StackPanel Spacing="10">
+							<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="Высокоскоростной интернет   " HorizontalAlignment="Left">
+								<material:MaterialIcon   Height="30" Width="30" Kind="Wifi"/>
+							</TextBlock>
+							<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="Качественный кофе                  " HorizontalAlignment="Left">
+								<material:MaterialIcon  Height="30" Width="30" Kind="CoffeeOutline"/>
+							</TextBlock>
+							<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="Принтер                                     " HorizontalAlignment="Left">
+								<material:MaterialIcon   Height="30" Width="30" Kind="PrinterOutline"/>
+							</TextBlock>
+							<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="Шкафчики для вещей               " HorizontalAlignment="Left">
+								<material:MaterialIcon   Height="30" Width="30" Kind="Locker"/>
+							</TextBlock>
+							<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="Душевые                                    " HorizontalAlignment="Left">
+								<material:MaterialIcon   Height="30" Width="30" Kind="ShowerHead"/>
+							</TextBlock>
+						</StackPanel>
+						
+					<StackPanel Spacing="10">
+						<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="Фрукты и закуски   " HorizontalAlignment="Left">
+								<material:MaterialIcon   Height="30" Width="30" Kind="FoodAppleOutline"/>
+							</TextBlock>
+						<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="Столовая                 " HorizontalAlignment="Left">
+								<material:MaterialIcon   Height="30" Width="30" Kind="SilverwareForkKnife"/>
+							</TextBlock>
+						<TextBlock FontFamily="Source Sans Pro" FontSize="18" Foreground="White" Text="Парковка                    " HorizontalAlignment="Left">
+								<material:MaterialIcon   Height="30" Width="30" Kind="Parking"/>
+							</TextBlock>
+						<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="Фитнес зона            " HorizontalAlignment="Left">
+								<material:MaterialIcon   Height="30" Width="30" Kind="Dumbbell"/>
+							</TextBlock>
+					</StackPanel>
+					</StackPanel>
+					<!--Конец-->
+					
+					<ItemsControl ItemsSource="{Binding Benef}">
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel
+									Orientation="Horizontal"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center">
+								</WrapPanel>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border
+									Width="225"
+									Height="20"
+									Background="AliceBlue"
+									CornerRadius="15"
+									ClipToBounds="True"
+									Margin="5">
+									<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+										<Border Grid.Column="0">
+											<TextBlock Foreground="Black" Text="{Binding Content}" >
+											</TextBlock>
+										</Border>
+										<material:MaterialIcon Grid.Column="1"  Height="20" Width="20" Kind="{Binding Icon}"/>
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</StackPanel>
+
+
+				<StackPanel Grid.Row="3" Spacing="10">
+					<TextBlock
+						Margin="30 20 0 0"
+						HorizontalAlignment="Left"
+						Foreground="#D94D04"
+						FontWeight="UltraBold"
+						FontSize="20"
+						FontStyle="Italic"
+						FontFamily="Source Sans Pro">
+						Услуги:
+					</TextBlock>
+
+					<ScrollViewer HorizontalScrollBarVisibility="Visible">
+					<StackPanel Orientation="Horizontal" Margin="30 20 0 30" Spacing="30">
+						<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border Width="350"  Height="350" Background="Black" CornerRadius="15" Margin="5">
+										<Grid RowDefinitions="2*,*,*" ShowGridLines="True">
+											<Border Grid.Row="0" ClipToBounds="True" Margin="5" CornerRadius="15">
+												<Image Source="/Assets/pict1.jpg" Stretch="Fill"/>
+											</Border>
+											<StackPanel Margin="15 5 0 0" Grid.Row="1" Spacing="5">
+												<TextBlock 
+													FontWeight="UltraBold" 
+													FontSize="18" 
+													FontFamily="Source Sans Pro"  
+													Foreground="White" Text="Персональное место" 
+													HorizontalAlignment="Left" 
+													VerticalAlignment="Center"/>
+												<TextBlock
 													FontWeight="UltraBold"
 													FontSize="13"
 													FontFamily="Source Sans Pro"
-													HorizontalAlignment="Center"
-													ClipToBounds="True"
-													Text="{Binding Info_cowork}">
-												</TextBlock>
-
-											</DataTemplate>
-										</ItemsControl.ItemTemplate>
-									</ItemsControl>
-								</Grid>
-							</Border>
-							<Border Grid.Row="2" Grid.ColumnSpan="2" Background="Black" CornerRadius="15" Margin="5">
-								<ItemsControl Grid.ColumnSpan="2"
-									ItemsSource="{Binding Benef}">
-									<ItemsControl.ItemsPanel>
-										<ItemsPanelTemplate>
-											<WrapPanel
-												Orientation="Horizontal"
-												HorizontalAlignment="Center"
+													Foreground="White"
+													Text="Вывод количества мест"
+													HorizontalAlignment="Left"
+													VerticalAlignment="Center"/>
+												<TextBlock 
+													FontWeight="UltraBold" 
+													FontSize="13" 
+													FontFamily="Source Sans Pro"  
+													Foreground="White" 
+													Text="{Binding Price_day_cowork}" 
+													HorizontalAlignment="Left" 
+													VerticalAlignment="Center"/>
+											</StackPanel>
+											<Button
+												Grid.Row="2"
 												VerticalAlignment="Center"
-												>
-											</WrapPanel>
+												HorizontalAlignment="Center"
+												FontSize="18"
+												HorizontalContentAlignment="Center"
+												VerticalContentAlignment="Center"
+												FontFamily="Gelion"
+												CornerRadius="50"
+												Height="40"
+												Width="250"
+												Margin="0 0 0 0">
+												Забронировать
+												<Button.Styles>
+													<Style Selector="Button">
+														<Setter Property="Background" Value="#D94D04" />
+														<Setter Property="Foreground" Value="#ffffff" />
+													</Style>
+													<Style Selector="Button:pointerover /template/ ContentPresenter">
+														<Setter Property="Background" Value="#ffffff" />
+														<Setter Property="Foreground" Value="#161616" />
+													</Style>
+												</Button.Styles>
+											</Button>
+										</Grid>
 
-										</ItemsPanelTemplate>
-									</ItemsControl.ItemsPanel>
-									<ItemsControl.ItemTemplate>
-										<DataTemplate>
-											<Border
-												Width="225"
-												Height="20"
-												Background="AliceBlue"
-												CornerRadius="15"
-												ClipToBounds="True"
-												Margin="5">
-												<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-													<Border Grid.Column="0">
-														<TextBlock Foreground="Black" Text="{Binding Content}" >
-														</TextBlock>
-													</Border>
-													<material:MaterialIcon Grid.Column="1"  Height="20" Width="20" Kind="{Binding Icon}"/>
-												</StackPanel>
-											</Border>
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
 
-							</Border>
-							
-						</Grid>
-					</DockPanel>
-				<StackPanel Grid.Row="2">
-					<Border Background="Black" CornerRadius="15" Margin="5">
-						<TextBlock Text="Тарифы" HorizontalAlignment="Center" FontSize="13" FontFamily="Source Sans Pro" FontWeight="UltraBold" Foreground="White"></TextBlock>
-					</Border>
-					<ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Border Width="390"  Height="150" Background="Black" CornerRadius="15" Margin="5">
-									<Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*" ShowGridLines="True">
-										<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="Персональное место" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
-										<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="{Binding Price_day_cowork}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-										<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="Переговорная" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
-										<TextBlock FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White" Text="{Binding Price_meetingroom_cowork}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
-										<Button Grid.Row="2" Grid.Column="0" Background="Gray" HorizontalAlignment="Center">
-											<TextBlock Text="Забронировать" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White"></TextBlock>
-										</Button>
-										<Button Grid.Row="2" Grid.Column="1" Background="Gray" HorizontalAlignment="Center">
-											<TextBlock Text="Забронировать" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"  Foreground="White"/>
-										</Button>
-									</Grid>
-									
-								</Border>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
-				</StackPanel>
-
-				<StackPanel  Grid.Row="2" Grid.Column="1">
-					<Border Background="Black" CornerRadius="15" Margin="5">
-						<TextBlock Text="Время работы" HorizontalAlignment="Center" Foreground="White" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"></TextBlock>						
-					</Border>
-					<ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Border Width="200"  Background="Black" CornerRadius="15" Margin="5">
-									<Grid RowDefinitions="*,*,*,*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="False">
-										<TextBlock Grid.Row="1" Grid.Column="0" Text="ПН" HorizontalAlignment="Center" Foreground="White" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"/>
-										<TextBlock Grid.Row="1" Grid.Column="1"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro" Text="{Binding Date_created}" Foreground="White"/>
-										<TextBlock Grid.Row="2" Grid.Column="0" Text="ВТ" HorizontalAlignment="Center" Foreground="White"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"/>
-										<TextBlock Grid.Row="2" Grid.Column="1"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro" Text="{Binding Date_created}" Foreground="White"/>
-										<TextBlock Grid.Row="3" Grid.Column="0" Text="СР" HorizontalAlignment="Center" Foreground="White" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"/>
-										<TextBlock Grid.Row="3" Grid.Column="1"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro" Text="{Binding Date_created}" Foreground="White"/>
-										<TextBlock Grid.Row="4" Grid.Column="0" Text="ЧТ" HorizontalAlignment="Center" Foreground="White" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"/>
-										<TextBlock Grid.Row="4" Grid.Column="1"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro" Text="{Binding Date_created}" Foreground="White"/>
-										<TextBlock Grid.Row="5" Grid.Column="0" Text="ПТ" HorizontalAlignment="Center" Foreground="White" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"/>
-										<TextBlock Grid.Row="5" Grid.Column="1"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro" Text="{Binding Date_created}" Foreground="White"/>
-										<TextBlock Grid.Row="6" Grid.Column="0" Text="СБ" HorizontalAlignment="Center" Foreground="White" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"/>
-										<TextBlock Grid.Row="6" Grid.Column="1"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro" Text="{Binding Date_created}" Foreground="White"/>
-										<TextBlock Grid.Row="7" Grid.Column="0" Text="ВС" HorizontalAlignment="Center" Foreground="White" FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro"/>
-										<TextBlock Grid.Row="7" Grid.Column="1"  FontWeight="UltraBold" FontSize="13" FontFamily="Source Sans Pro" Text="{Binding Date_created}" Foreground="White"/>
-									</Grid>
-								</Border>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
-				</StackPanel>
-				
-					<StackPanel Grid.Row="2" Grid.Column="2">
-						<Border Background="Black" CornerRadius="15" Margin="5">
-							<TextBlock Text="Расположение коворкинга"
-									   HorizontalAlignment="Center"
-									   Foreground="White"
-									   FontWeight="UltraBold"
-									   FontSize="13"
-									   FontFamily="Source Sans Pro"></TextBlock>
-						</Border>
-						<ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Collection}">
+						<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<Border Background="Black" CornerRadius="15">
-										<TextBlock TextWrapping="WrapWithOverflow"
-												   Foreground="White"
-												   FontWeight="UltraBold"
-												   FontSize="13"
-											       FontFamily="Source Sans Pro"
-												   Text="{Binding Location_cowork}"></TextBlock>
+									<Border Width="350"  Height="350" Background="Black" CornerRadius="15" Margin="5">
+										<Grid RowDefinitions="2*,*,*" ShowGridLines="True">
+											<Border Grid.Row="0" ClipToBounds="True" Margin="5" CornerRadius="15">
+												<Image Source="/Assets/pict1.jpg" Stretch="Fill"/>
+											</Border>
+											<StackPanel Margin="15 5 0 0" Grid.Row="1" Spacing="5">
+												<TextBlock 
+													FontWeight="UltraBold" 
+													FontSize="18" 
+													FontFamily="Source Sans Pro"  
+													Foreground="White" 
+													Text="Переговорная" 
+													HorizontalAlignment="Left" 
+													VerticalAlignment="Center"/>
+												<TextBlock
+													FontWeight="UltraBold"
+													FontSize="13"
+													FontFamily="Source Sans Pro"
+													Foreground="White"
+													Text="Вывод количества мест"
+													HorizontalAlignment="Left"
+													VerticalAlignment="Center"/>
+												<TextBlock 
+													FontWeight="UltraBold" 
+													FontSize="13" 
+													FontFamily="Source Sans Pro" 
+													Foreground="White" 
+													Text="{Binding Price_meetingroom_cowork}" 
+													HorizontalAlignment="Left" 
+													VerticalAlignment="Center"/>
+											</StackPanel>
+											<Button
+												Grid.Row="2"
+												VerticalAlignment="Center"
+												HorizontalAlignment="Center"
+												FontSize="18"
+												HorizontalContentAlignment="Center"
+												VerticalContentAlignment="Center"
+												FontFamily="Gelion"
+												CornerRadius="50"
+												Height="40"
+												Width="250"
+												Margin="0 0 0 0">
+												Забронировать
+												<Button.Styles>
+													<Style Selector="Button">
+														<Setter Property="Background" Value="#D94D04" />
+														<Setter Property="Foreground" Value="#ffffff" />
+													</Style>
+													<Style Selector="Button:pointerover /template/ ContentPresenter">
+														<Setter Property="Background" Value="#ffffff" />
+														<Setter Property="Foreground" Value="#161616" />
+													</Style>
+												</Button.Styles>
+											</Button>
+										</Grid>
+
 									</Border>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 						</ItemsControl>
 					</StackPanel>
+					</ScrollViewer>
+				</StackPanel>
+					
 				
 			</Grid>
 		</Border>

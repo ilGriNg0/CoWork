@@ -31,7 +31,7 @@ public partial class AddCardView : UserControl
    
     private void OnRemoveTextBoxButtonClick(object? sender, RoutedEventArgs e)
     {
-        RemoveLastTextBox();
+        //RemoveLastTextBox();
     }
     public string Text { get; set; }
     private void AddTextBox()
@@ -67,7 +67,7 @@ public partial class AddCardView : UserControl
         stackPanel.Children.Add(textBox);
         stackPanel.Children.Add(deleteButton);
 
-        TextBoxContainer.Children.Add(stackPanel);
+        //TextBoxContainer.Children.Add(stackPanel);
     }
     public void link(string txt)
 {
@@ -79,29 +79,29 @@ public partial class AddCardView : UserControl
         }
     }
 
-    private void RemoveLastTextBox()
-    {
-        if (TextBoxContainer.Children.Count > 0)
-        {
-            var lastChild = TextBoxContainer.Children[TextBoxContainer.Children.Count - 1];
-            if (lastChild is StackPanel stackPanel && stackPanel.Children.Count > 0)
-            {
-                // Отписываемся от события, чтобы избежать утечек памяти
-                var deleteButton = stackPanel.Children[1] as Button;
-                if (deleteButton != null)
-                {
-                    deleteButton.Click -= OnDeleteButtonClick;
-                }
-                TextBoxContainer.Children.Remove(lastChild);
-            }
-        }
-    }
+    //private void RemoveLastTextBox()
+    //{
+    //    if (TextBoxContainer.Children.Count > 0)
+    //    {
+    //        var lastChild = TextBoxContainer.Children[TextBoxContainer.Children.Count - 1];
+    //        if (lastChild is StackPanel stackPanel && stackPanel.Children.Count > 0)
+    //        {
+    //            // Отписываемся от события, чтобы избежать утечек памяти
+    //            var deleteButton = stackPanel.Children[1] as Button;
+    //            if (deleteButton != null)
+    //            {
+    //                deleteButton.Click -= OnDeleteButtonClick;
+    //            }
+    //            TextBoxContainer.Children.Remove(lastChild);
+    //        }
+    //    }
+    //}
 
     private void OnDeleteButtonClick(object? sender, RoutedEventArgs e)
     {
         if (sender is Button button && button.Tag is StackPanel stackPanel)
         {
-            TextBoxContainer.Children.Remove(stackPanel);
+            //TextBoxContainer.Children.Remove(stackPanel);
         }
     }
 }
