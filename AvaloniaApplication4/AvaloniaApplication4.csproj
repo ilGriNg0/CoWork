@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <None Remove="Assets\er.ico" />
+    <None Remove="Assets\pict1.jpg" />
   </ItemGroup>
 
 	<ItemGroup>
