@@ -218,7 +218,7 @@
 									FontFamily="Gelion"
 									CornerRadius="50"
 									Height="40"
-									Width="100"
+									
 									Content="{Binding}"
 									Command="{Binding DataContext.ButtonCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"
 									CommandParameter="{Binding}">

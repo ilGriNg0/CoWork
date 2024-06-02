@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -329,11 +330,15 @@ namespace AvaloniaApplication4.ViewModels
             }
         }
 
+        [ObservableProperty]
+        private string _textSuccess = "Успешное бронирование.";
+        [ObservableProperty]
+        private string _buttonText = "Забронировать";
         [RelayCommand]
         public void BookingCreate()
         {
             if (SelectedTime != "" && Visibl) 
-            {GetFreeTimes();
+            {
                 var cs = User.Connect;
 
                 var con = new NpgsqlConnection(cs);
@@ -343,9 +348,18 @@ namespace AvaloniaApplication4.ViewModels
                     $"'{TimeSpan.FromHours(Int32.Parse(SelectedTime.Split("-")[1]))}', '{SelectedDate}', '{ft[SelectedTime]}', 0);";
                 var cmd = new NpgsqlCommand(sql, con);
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
-                
-                
-            }Visibl2 = true;
+                TextSuccess = $"Успешное бронирование \nна {SelectedDate.Date.ToString().Split(" ")[0]} в {SelectedTime}.";
+                GetFreeTimes();
+                ButtonText = "Продолжить бронирование";
+                Visibl = false;
+                Visibl2 = true;
+            }
+            else
+            {
+                ButtonText = "Забронировать";
+                Visibl = true;
+                Visibl2 = false;
+            }
         }
 
         public class Booking
