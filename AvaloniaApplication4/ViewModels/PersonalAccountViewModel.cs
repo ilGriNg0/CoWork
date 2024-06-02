@@ -63,10 +63,7 @@ namespace AvaloniaApplication4.ViewModels
         public string cs = User.Connect;
         public PersonalAccountViewModel()
         {
-            //GetPhoto();
             GetInfo();
-            //ReadBdCompany();
-            //ReadPhotoBd();
             GetBookings();
 
             AddInfo();
@@ -86,41 +83,6 @@ namespace AvaloniaApplication4.ViewModels
                 return _instance;
             }
         }
-        //public void GetPhoto()
-        //{
-        //    try
-        //    {
-
-        //        var con = new NpgsqlConnection(cs);
-        //        con.Open();
-
-        //        var sql = $"SELECT img FROM main_users WHERE id = '{User.Id}';";
-
-        //        var cmd = new NpgsqlCommand(sql, con);
-        //        NpgsqlDataReader rdr = cmd.ExecuteReader();
-        //        while(rdr.Read())
-        //        {
-        //            PhotoPath = new Bitmap(rdr.GetString(0));
-        //        }
-
-        //        while (rdr.Read())
-        //        {
-        //            isregphoto = true;
-        //            if (File.Exists(rdr.GetString(0)))
-        //                PhotoPath = new Bitmap(rdr.GetString(0));
-        //            else goto _L1;
-        //            return;
-        //        }
-        //    _L1: string filepath = AppContext.BaseDirectory + "Assets\\nophotop1.png";
-        //        if (!File.Exists(filepath))
-        //        {
-        //            Directory.CreateDirectory(filepath.Replace("\\nophotop1.png", ""));
-        //            File.Copy(filepath.Replace("\\bin\\Debug\\net8.0", ""), filepath);
-        //        }
-        //        PhotoPath = new Bitmap(filepath);
-        //    }
-        //    catch (Exception) { }
-        //}
 
         public void GetInfo()
         {
@@ -186,7 +148,6 @@ namespace AvaloniaApplication4.ViewModels
 
             Bookings = new ObservableCollection<Booking>(bookings);
             BookingsLast = new ObservableCollection<Booking>(bookingsLast);
-            //AddBook(Bookings);
 
             rdr.Close();
             con.Close();

@@ -1,14 +1,17 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.OpenGL;
+using Avalonia.VisualTree;
 using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
 using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
 
@@ -24,11 +27,24 @@ namespace AvaloniaApplication4.Views
         {
             InitializeComponent();
         }
-
         private void Exit_Click(object source, RoutedEventArgs args)
         {
             User.Model = new LoginViewModel();
             User.Main.Page = User.Model;
+        }
+
+        private Button LastButton = null;
+        private void Choise_Click(object source, RoutedEventArgs args)
+        {
+            var but = (Button)source;
+            if (LastButton != null)
+            {
+                LastButton.Background = oldbrush;
+                LastButton.Foreground = lastbrush;
+            }
+            but.Background = SolidColorBrush.Parse("#D94D04");
+            but.Foreground = oldbrush;
+            LastButton = but;
         }
 
         private void Change_PointerPressed(object sender, PointerPressedEventArgs e)
