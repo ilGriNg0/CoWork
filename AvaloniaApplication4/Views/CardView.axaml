@@ -12,29 +12,53 @@
     <Grid ColumnDefinitions="*,*,*"
           RowDefinitions="*,*,*,*" ShowGridLines="False">
 		<DockPanel Grid.Row="0" Grid.ColumnSpan="3">
-			<TextBlock
-				FontFamily="Source Sans Pro"
-				FontSize="25"
-				Foreground="White"
-				FontWeight="600"
-				LineHeight="32"
+			<StackPanel 
+				Orientation="Horizontal" 
+				Spacing="13" 
+				DockPanel.Dock="Bottom"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Center"
-				Margin="10"
-				DockPanel.Dock="Bottom">
-				Coworking Spaces
-			</TextBlock>
+				Margin="0 0 0 55">
+				<TextBlock
+					FontFamily="Source Sans Pro"
+					FontSize="30"
+					Foreground="White"
+					FontWeight="600"
+					LineHeight="45">
+					Коворкинги
+				</TextBlock>
+				<TextBlock
+					FontFamily="Source Sans Pro"
+					FontSize="30"
+					Foreground="#D94D04"
+					FontWeight="600"
+					LineHeight="45">
+					Санкт-Петербурга
+				</TextBlock>
+			</StackPanel>
 			<TextBlock
 				FontFamily="Source Sans Pro"
 				FontSize="32"
 				Foreground="White"
 				FontWeight="700"
 				LineHeight="38"
-				Margin="10 0 0 0"
+				Margin="10 30 30 0"
 				ClipToBounds="True"
 				HorizontalAlignment="Right"
 				DockPanel.Dock="Top">
 				CoWork
+			</TextBlock>
+			<TextBlock
+				DockPanel.Dock="Top"
+				HorizontalAlignment="Right"
+				Foreground="#ffffff"
+				Margin="0 0 30 0"
+				FontSize="15"
+				FontWeight="700"
+				TextAlignment="Center"
+				LetterSpacing="0"
+				FontFamily="Gelion">
+				Explore Spaces
 			</TextBlock>
 		</DockPanel>
 			<WrapPanel Orientation="Horizontal" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="3">
@@ -48,11 +72,10 @@
 						<DataTemplate>
 							<Border
 								 Background="#A5A5A5"
-								 BoxShadow="4 4 4 0 Gray"
 								 CornerRadius="15"
-		  					     Width="300"
-								 Height="200"
-								 Margin="10 0 10 10"
+		  					     Width="500"
+								 Height="300"
+								 Margin="40 0 10 40"
 				
 								 PointerPressed="Border_PointerPressed">
 								<Grid  ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*" ShowGridLines="False">

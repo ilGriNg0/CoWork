@@ -315,7 +315,7 @@
 				</StackPanel>
 
 			</Grid>
-		<ContentControl Name="ContentContainer" Background="#80000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
+		<ContentControl Name="ContentContainer" HorizontalAlignment="Center" VerticalAlignment="Center" />
 	</Grid>
 </Border>
 </UserControl>

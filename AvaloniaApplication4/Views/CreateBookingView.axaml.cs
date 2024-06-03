@@ -1,5 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
 
