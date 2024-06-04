@@ -51,7 +51,7 @@
 				<StackPanel 
 					Margin="100 40 0 0" 
 					Grid.Row="1" 
-					Orientation="Vertical" 
+					Orientation="Horizontal" 
 					Spacing="50" 
 					HorizontalAlignment="Left" 
 					VerticalAlignment="Top">
@@ -71,7 +71,7 @@
 							 Width="300" 
 							 FontSize="20" 
 							 Height="50"
-							 MaxLength="50"
+							 MaxLength="30"
 							 CornerRadius="30"  
 							 Grid.Column="1" 
 							 Grid.Row="0"
@@ -97,7 +97,7 @@
 						Width="300" 
 						FontSize="20" 
 						Height="50"
-						MaxLength="500"
+						MaxLength="30"
 						Foreground="Black"
 						CornerRadius="30"  
 						Grid.Column="1" 
@@ -175,7 +175,7 @@
 							Преимущества
 						</TextBlock>
 
-						<StackPanel Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Spacing="150">
+						<StackPanel Margin="0 30 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="150">
 							<StackPanel>
 								<StackPanel Spacing="10">
 									<StackPanel Orientation="Horizontal">

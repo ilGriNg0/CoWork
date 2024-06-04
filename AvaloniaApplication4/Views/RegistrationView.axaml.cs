@@ -42,8 +42,14 @@ namespace AvaloniaApplication4.Views
         public RegistrationView()
         {
             InitializeComponent();
+            this.Loaded += this.OnLoaded;
         }
 
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            person = 127;
+            business = 31;
+        }
         private void HasAccount_PointerPressed(object sender, PointerPressedEventArgs e)
         {
             User.Model = new LoginViewModel();
@@ -112,7 +118,7 @@ namespace AvaloniaApplication4.Views
                     if (textBox.Text == null || textBox.Text.Length < 8) { textBox.BorderBrush = newbrush; person = SetBit(person, 5, 1); }
                         else { textBox.BorderBrush = lastbrush; person = SetBit(person, 5, 0); }
                     if (this.GetControl<TextBox>("Password2per").Text != null && !textBox.Text.Equals(this.GetControl<TextBox>("Password2per").Text)) { this.GetControl<TextBox>("Password2per").BorderBrush = newbrush; person = SetBit(person, 6, 1); }
-                        else { this.GetControl<TextBox>("Password2per").BorderBrush = lastbrush; person = SetBit(person, 6, 0); }
+                        else if (this.GetControl<TextBox>("Password2per").Text != null) { this.GetControl<TextBox>("Password2per").BorderBrush = lastbrush; person = SetBit(person, 6, 0); }
                     break;
 
                 case "Password2per":
@@ -140,7 +146,7 @@ namespace AvaloniaApplication4.Views
                     if (textBox.Text == null || textBox.Text.Length < 8) { textBox.BorderBrush = newbrush; business = SetBit(business, 3, 1); }
                         else { textBox.BorderBrush = lastbrush; business = SetBit(business, 3, 0); }
                     if (this.GetControl<TextBox>("Password2bus").Text != null && !textBox.Text.Equals(this.GetControl<TextBox>("Password2bus").Text)) { this.GetControl<TextBox>("Password2bus").BorderBrush = newbrush; business = SetBit(business, 4, 1); }
-                        else { this.GetControl<TextBox>("Password2bus").BorderBrush = lastbrush; business = SetBit(business, 4, 0); }
+                        else if (this.GetControl<TextBox>("Password2bus").Text != null) { this.GetControl<TextBox>("Password2bus").BorderBrush = lastbrush; business = SetBit(business, 4, 0); }
                     break;
 
                 case "Password2bus":

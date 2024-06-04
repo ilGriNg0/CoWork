@@ -229,7 +229,7 @@ namespace AvaloniaApplication4.Models
             await using (var connect = new NpgsqlConnection(connect_host))
             {
                 connect.Open();
-                string command_add = "INSERT INTO main_images (id_coworking_id, file) VALUES (@intValue, @text)";
+                string command_add = "INSERT INTO main_images (id_coworking_id, img) VALUES (@intValue, @text)";
                 await using (var command = new NpgsqlCommand(command_add, connect))
                 {
                    

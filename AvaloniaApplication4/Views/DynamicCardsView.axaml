@@ -151,12 +151,12 @@
 						<ItemsControl  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Benef}">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
-									<WrapPanel Orientation="Horizontal" ItemWidth="340"/>
+									<WrapPanel Margin="30 20 0 0" Orientation="Horizontal" ItemWidth="340"/>
 								</ItemsPanelTemplate>
 							</ItemsControl.ItemsPanel>
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
-									<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="200">
+									<StackPanel Margin="0 0 0 10" Orientation="Horizontal" HorizontalAlignment="Left" Width="200">
 										<TextBlock FontFamily="Source Sans Pro" FontSize="20" Foreground="White" Text="{Binding Content}" />
 										<material:MaterialIcon Height="30" Width="30" Margin="15 0 0 0" Foreground="White" Kind="{Binding Icon}"/>
 									</StackPanel>
