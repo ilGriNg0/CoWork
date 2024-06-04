@@ -76,7 +76,22 @@ namespace AvaloniaApplication4.ViewModels
 
 
         }
-        public CreateBookingViewModel() {}
+        public CreateBookingViewModel() 
+        {
+            Id_c = DynamicCardsViewModel.BackupDatajs.Id;
+            Open = Int32.Parse(DynamicCardsViewModel.BackupDatajs.Date_created.Split("--")[0].Split(":")[0]);
+            Closed = Int32.Parse(DynamicCardsViewModel.BackupDatajs.Date_created.Split("--")[1].Split(":")[0]);
+
+            GetServices();
+
+            List<string> hrs = new List<string>();
+            for (int i = 1; i <= Closed - Open; i++)
+            {
+                hrs.Add(i > 4 ? $"{i} часов" : i < 5 ? $"{i} часа" : $"{i} час");
+            }
+            Hours = new ObservableCollection<string>(hrs);
+            SelectedHour = Hours[0];
+        }
         public CreateBookingViewModel(int id_с, int open, int closed) 
         {
             //User.Id = 1;
