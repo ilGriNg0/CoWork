@@ -1,9 +1,11 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Npgsql;
 using System;
 using System.Diagnostics;
@@ -170,11 +172,16 @@ namespace AvaloniaApplication4.Views
         }
         private void BorderPersonal_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
-            if (sender is Image img && img.Parent.Parent.Parent.Parent is Border bord && bord.DataContext is Booking js)
-            //if (sender is Border bord && bord.DataContext is Booking js)
+            if (sender is Image img && img.Parent.Parent.Parent.Parent is Border bord && bord.DataContext is Booking js) 
             {
                 var viewModel = new DynamicCardsViewModel(js);
               
+                Cont.Content = new DynamicCardsView { DataContext = viewModel };
+            }
+            else if (sender is Border bord1 && bord1.DataContext is Booking js1)
+            {
+                var viewModel = new DynamicCardsViewModel(js1);
+
                 Cont.Content = new DynamicCardsView { DataContext = viewModel };
             }
 
