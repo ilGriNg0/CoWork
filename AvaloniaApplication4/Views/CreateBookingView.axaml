@@ -21,7 +21,7 @@
 						HorizontalAlignment="Right" VerticalAlignment="Top" FontStyle="Italic"
 						Margin="5" Background="White" Foreground="Black"
 						Width="50" Height="50" HorizontalContentAlignment="Center"
-						VerticalContentAlignment="Center" Click="Exit_Click"/>
+						VerticalContentAlignment="Center" Command="{Binding NavigateCommand}" CommandParameter="DynamicCardsViewModel"/>
 
 				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
 					<TextBlock

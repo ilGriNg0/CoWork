@@ -25,24 +25,59 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private JsonClass _json = new();
 
+        //[ObservableProperty]
+        //private TariffElements _tariffElementss = new();
+
         [ObservableProperty]
         private string _errorMessage;
+        
         [ObservableProperty]
         private string? _path_ph;
+        
+        [ObservableProperty]
+        private bool _visible  = false;
+        
         [ObservableProperty]
         private ObservableCollection<Bitmap> _photo_Coworking = new();
+        
+        [ObservableProperty]
+        private ObservableCollection<Bitmap> _photo_Services = new();
 
         [ObservableProperty]
          private ObservableCollection<Benefits> _benefitsList = new();
+
+        //[ObservableProperty]
+        //private ObservableCollection<TextBoxElements> _textBoxes = new();
+
+        [ObservableProperty]
+        private ObservableCollection<TariffElements>_borders = new();
+
+        [ObservableProperty]
+        private List<JsonClass> _servicesList = new();
+
+        [ObservableProperty]
+        ObservableCollection<string> _strings = new ObservableCollection<string>();
+
         public ObservableCollection<JsonClass> jsonClasses { get; set; } = new ObservableCollection<JsonClass>();
         public ICommand SaveCommand => new RelayCommand(add_collect);
 
         public ICommand AddPhotoCommand => new RelayCommand(add_photo);
+        public ICommand AddPhotoServicesCommand => new RelayCommand(add_photoServices);
 
-        public ICommand ChoiceServicesCommand => new RelayCommand<string>(ChoiceServices);
-        
-        public AddCardViewModel() { }
+        public ICommand ChoiceServicesCommand => new RelayCommand(ChoiceServices);
+
+        public ICommand ChoiceBenefitsCommand => new RelayCommand<string>(AddYourBenefits);
+
+        public ICommand AddTextBoxesCommand => new RelayCommand(AddTextBox);
+
+        public ICommand DeleteTextBoxesCommand => new RelayCommand(DeleteTextBox);
+        public AddCardViewModel()
+        {
+          
+        }
         ConnectingBD connect = new();
+      
+       
         public async void add_collect()
         {
           
@@ -53,12 +88,7 @@ namespace AvaloniaApplication4.ViewModels
            
             int counter = card.Card_Collection.Count+1;
             int cnt = 0;
-            foreach (var items in AddCardView.strings)
-            {
-                Json?.JsonBenefits.Add(items);
-                
-            }
-            AddCardView.strings = new();
+           
             
             var item = new JsonClass { Id = counter,
                 Info_cowork = Json.Info_cowork,
@@ -66,7 +96,7 @@ namespace AvaloniaApplication4.ViewModels
                 Name_cowork = Json.Name_cowork,
                 Price_day_cowork = price_day,
                 Price_meetingroom_cowork = price_meeting,
-                Date_created_snst = Json.Date_created_snst,
+                Date_created_snst = Json.Date_created,
                 Date_created = Json.Date_created,
                 Number_of_seats_solo = Json.Number_of_seats_solo,
                 Number_of_seats_meeting = Json.Number_of_seats_meeting,
@@ -82,7 +112,12 @@ namespace AvaloniaApplication4.ViewModels
                 card.Card_Collection.Add(jsonClasses);
                 businesse.BookingsBusines.Add(jsonClasses);
                 businesse.InsertBookings();
-                
+                await connect.WriteBusinessBd(Strings, card.Card_Collection.Count);
+                connect.WriteBenefitsBd(BenefitsList);
+                connect.WriteServicesBd(card.Card_Collection.Count, ServicesList);
+                var main = MainWindowViewModel.Instance;
+                main.Navigate("BusinessAccountViewModel");
+
             }
             else
             {
@@ -90,17 +125,11 @@ namespace AvaloniaApplication4.ViewModels
             }
 
         }
-        public  async void ChoiceServices(string collect)
+        public async void AddYourBenefits(string info)
         {
-           CardViewModel card = new CardViewModel();
-            int cnt;
-            var price1 = int.TryParse(Json.Price_day_cowork, out var parsedPrice1) ? parsedPrice1 : 0;
-            var price2 = int.TryParse(Json.Price_meetingroom_cowork, out var parsedPrice2) ? parsedPrice2 : 0;
-            var count1 = Json.Number_of_seats_solo;
-            var count2 = Json.Number_of_seats_meeting;
-            string tasl1 = "Рабочее место";
-            string tasl2 = "Переговорная";
-            var servicesDict = new Dictionary<string, string>
+            var myClassType = typeof(CardViewModel);
+            var instance = (CardViewModel)Activator.CreateInstance(myClassType, true);
+            var BenefitsDict = new Dictionary<string, string>
                 {
                     { "Высокоскоростной интернет", "Wifi" },
                     { "Качественный кофе", "CoffeeOutline" },
@@ -113,24 +142,34 @@ namespace AvaloniaApplication4.ViewModels
                     { "Фитнес зона", "Dumbbell" }
                 };
 
-                //add_photo();
-           
-                connect?.WriteServicesBd(cnt = card.Card_Collection.Count + 1, price1, count1, tasl1, tasl2, "Assets\\context.png", price2, count2);
-            
-
-         
-
-            if (servicesDict.TryGetValue(collect, out var icon))
+            if (BenefitsDict.TryGetValue(info, out var icon))
             {
                 var benefit = new Benefits
                 {
-                    Id_Coworking = card.Card_Collection.Count + 1,
-                    Content = collect,
+                    Id_Coworking = instance.Card_Collection.Count + 1,
+                    Content = info,
                     Icon = icon
                 };
                 BenefitsList.Add(benefit);
             }
-            connect.WriteBenefitsBd(BenefitsList);
+            
+
+        }
+        public  void ChoiceServices()
+        {
+          
+          foreach ( var item in Borders )
+           {
+               if( !ServicesList.Any(x => x.Tariffs == item.Tarif && x.Tariffs_price == item.Tarif_price))
+                {
+                    ServicesList.Add(new JsonClass { Tariffs = item.Tarif, Tariffs_price = item.Tarif_price, Number_of_seats_solo = item.Tarif_count, Pserv =  Path_ph});
+                }
+              
+              
+            }
+           
+         
+            //connect?.WriteServicesBd(cnt = card.Card_Collection.Count + 1, price1, count1, tasl1, tasl2, "Assets\\context.png", price2, count2);
         }
         private readonly Window _target = new();
         public static FilePickerFileType ImageAll { get; } = new("All Images")
@@ -139,9 +178,10 @@ namespace AvaloniaApplication4.ViewModels
             AppleUniformTypeIdentifiers = new[] { "public.image" },
             MimeTypes = new[] { "image/*" }
         };
+
         public async void add_photo() 
         {
-            CardViewModel cardView = new();
+           
           
             var files = await _target.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
             {
@@ -152,18 +192,62 @@ namespace AvaloniaApplication4.ViewModels
                 var selectedFile = files[0];
                 var filePath = selectedFile.Path.LocalPath;
                 string filepath = "Assets\\" + Path.GetFileName(filePath);
+                if (!File.Exists(filepath))
+                {
+                    File.Copy(filePath, filepath);
+                }
+                
+                Strings.Add(filepath);
+                Photo_Coworking.Add(new Bitmap(filePath));
+            }
+           
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+               
+        }
+        public async void add_photoServices()
+        {
+            
+
+            var files = await _target.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+            {
+                FileTypeFilter = new[] { ImageAll, FilePickerFileTypes.TextPlain }
+            });
+            if (files != null)
+            {
+                var selectedFile = files[0];
+                var filePath = selectedFile.Path.LocalPath;
+                string filepath = "Assets\\" + Path.GetFileName(filePath);
                 Path_ph = filepath;
                 if (!File.Exists(filepath))
                 {
                     File.Copy(filePath, filepath);
                 }
-               await connect.WriteBusinessBd(filepath, cardView.Card_Collection.Count + 1);
-                Photo_Coworking.Add(new Bitmap(filePath));
-             
+                Photo_Services.Add(new Bitmap(filePath));
             }
-               
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
         }
-        
+        public void AddTextBox()
+        {
+            Borders.Add(new TariffElements());
+            Visible = true;
+        }
+
+        public void DeleteTextBox()
+        {
+            if (Borders.Count >= 1 && ServicesList.Count >= 1)
+            {  
+                Borders.RemoveAt(Borders.Count - 1);
+                ServicesList.RemoveAt(ServicesList.Count - 1);
+
+            }
+            
+            Visible = false;
+
+        }
     }
     
+
 }

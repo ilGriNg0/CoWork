@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
@@ -18,12 +19,14 @@ namespace AvaloniaApplication4.Views
         }
         private void Border_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
-          
+           
+
             if (sender is Border bord && bord.DataContext is JsonClass js)
             {
                 var viewModel = new DynamicCardsViewModel(js);
                 ContentControl.Content = new DynamicCardsView {DataContext = viewModel };
             }
+
         }
     }
             

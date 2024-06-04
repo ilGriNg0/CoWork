@@ -75,7 +75,7 @@ public partial class AddCardView : UserControl
         {
             var its = new JsonClass { Info_cowork = Text };
             strings.Add(its);
-         
+
         }
     }
 
@@ -104,4 +104,5 @@ public partial class AddCardView : UserControl
             //TextBoxContainer.Children.Remove(stackPanel);
         }
     }
+    
 }

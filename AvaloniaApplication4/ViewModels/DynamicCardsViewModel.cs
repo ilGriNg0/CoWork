@@ -3,6 +3,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using AvaloniaApplication4.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DynamicData;
 using ReactiveUI;
@@ -12,8 +13,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
 
 namespace AvaloniaApplication4.ViewModels
@@ -27,7 +30,11 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private ObservableCollection<Bitmap> _photoses = new();
 
-       
+        [ObservableProperty]
+        private ObservableCollection<TariffElements>  _tariffElem = new();  
+
+        [ObservableProperty]
+        private static bool _isreguser = false;
         //[ObservableProperty]
         //private ObservableCollection<mainservs> _serv = new();
         [ObservableProperty]
@@ -40,6 +47,39 @@ namespace AvaloniaApplication4.ViewModels
 
         [ObservableProperty]
         private string? _icons;
+
+        [ObservableProperty]
+        private string? _message;
+
+        public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
+        public string Namespace()
+        {
+            Type tp = typeof(MainWindowViewModel);
+            string? yNameSpc = tp.Namespace;
+            return yNameSpc;
+        }
+        public void Navigate(string? pageViewModel)
+        {
+            var instance = (LoginViewModel)Activator.CreateInstance(typeof(LoginViewModel), true);
+            var instanceBs = (BusinessAccountViewModel)Activator.CreateInstance(typeof(BusinessAccountViewModel), true);
+            bool reg = instance.IsReg;
+            var main = MainWindowViewModel.Instance;
+            if (reg)
+            {
+                main.Page = (ViewModelBase)Activator.CreateInstance(Type.GetType(Namespace() + "." + pageViewModel)); ;
+            }
+            else if(instanceBs.KeyBusin)
+            {
+                Message = "Оформление бронирования невозможно. Вы зарегистрированы как бизнес-аккаунт";
+            }
+            else
+            {
+                main.Page = (ViewModelBase)Activator.CreateInstance(typeof(LoginViewModel));
+            }
+            
+          
+        }
+        public DynamicCardsViewModel() { }
         public DynamicCardsViewModel(Booking bk)
         {
             LoadData(bk);
@@ -47,49 +87,100 @@ namespace AvaloniaApplication4.ViewModels
         public DynamicCardsViewModel(JsonClass item)
         {
             LoadData(item);
+
         }
         public void LoadData<T>(T item)
         {
-            var myClassType = typeof(CardViewModel);
-            var instance = (CardViewModel)Activator.CreateInstance(myClassType, true);
-            //instance.MyMethod();
-            //CardViewModel c_viewModel = new CardViewModel();
+            var instance = (CardViewModel)Activator.CreateInstance(typeof(CardViewModel), true);
             ConnectingBD connecting = new();
 
             if (item is JsonClass js)
             {
                 var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == js.Id);
                 connecting.ReadServicesBd(js);
-                if (items != null)
+                JsonClass jsonClass = DynamicCardsViewModel.BackupDatajs;
+               
+                if (js.Equals(jsonClass))
                 {
-                    Collection.Add(items);
-                }
-                foreach (var item_ph in js.Photos)
-                {
-                    Photoses.Add(item_ph);
-                }
-                //foreach (var item3 in connecting.ServicesPairs)
-                //{
-                //    if (item3.Value.Item1 == js.Id && item3.Value.Item4 != string.Empty)
-                //    {
+                    jsonClass = js;
+                    Collection.Add(jsonClass);
+                    Photoses.Add(js.Photos);
+                    connecting.ReadBenefitsBd(js);
 
-                //        Serv.Add(new mainservs {Value1 = item3.Value.Item4, Value2 = item3.Value.Item5}); 
-                //    }\
-               
-                connecting.ReadBenefitsBd(js);
-               
-                foreach (var itemz in connecting.keyValueBenefitsPairs)
-                {
-                    foreach (var itemsdf in itemz.Value)
+                    foreach (var itemz in connecting.keyValueBenefitsPairs)
                     {
-                        Benef.Add(itemsdf);
+                        foreach (var itemsdf in itemz.Value)
+                        {
+                            Benef.Add(itemsdf);
+                        }
+                    }
+                    foreach (var item_serv in connecting.ServicesPairs)
+                    {
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
                     }
                 }
+                else
+                {
+                    if (items != null)
+                    {
+                        Collection.Add(items);
+                    }
+                    foreach (var item_ph in js.Photos)
+                    {
+                        Photoses.Add(item_ph);
+
+                    }
+                    //js.Photos.Clear();
+                    connecting.ReadBenefitsBd(js);
+
+                    foreach (var itemz in connecting.keyValueBenefitsPairs)
+                    {
+                        foreach (var itemsdf in itemz.Value)
+                        {
+                            Benef.Add(itemsdf);
+                        }
+                    }
+
+                    foreach (var item_serv in connecting.ServicesPairs)
+                    {
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                    }
+                }
+               
+               
+                SaveDatajs(js);
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
                 if (item is Booking book)
                 {
-                    var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking);
+                Booking bookClass = DynamicCardsViewModel.BacupDatabk;
+                var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking);
+
+                if (item.Equals(bookClass))
+                {
+
+                    book = bookClass;
+                    Collection.Add(items);
+                    Photoses.Add(book.B_maps);
+                    connecting.ReadBenefitsBd(book);
+                    foreach (var itemz in connecting.keyValueBenefitsPairs)
+                    {
+                        foreach (var itemsdf in itemz.Value)
+                        {
+                            Benef.Add(itemsdf);
+                        }
+                    }
+                    foreach (var item_serv in connecting.ServicesPairs)
+                    {
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                    }
+                }
+                else 
+                {
+                    //var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking);
                     connecting.ReadServicesBd(book);
+
                     if (items != null)
                     {
                         Collection.Add(items);
@@ -98,23 +189,52 @@ namespace AvaloniaApplication4.ViewModels
                     {
                         Photoses.Add(item_book);
                     }
-                        connecting.ReadBenefitsBd(book);
-               
-                //    foreach (var item3 in connecting.ServicesPairs)
-                //    {
-                //    if (item3.Value.Item1 == book.id_coworking && item3.Value.Item4 != string.Empty)
-                //    {
+                    connecting.ReadBenefitsBd(book);
 
-                //        Serv.Add(new mainservs { Value1 = item3.Value.Item4, Value2 = item3.Value.Item5 });
-                //    }
-
-
+                    foreach (var itemz in connecting.keyValueBenefitsPairs)
+                    {
+                        foreach (var itemsdf in itemz.Value)
+                        {
+                            Benef.Add(itemsdf);
+                        }
+                    }
+                    foreach (var item_serv in connecting.ServicesPairs)
+                    {
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                    }
+                }
+                    
+                SaveDatabk(book);
+                //GC.Collect();
+                //GC.WaitForPendingFinalizers();
                 //}
             }
 
 
             }
+    
+
+        private static JsonClass? _backupDatajs;
+
+        public static JsonClass BackupDatajs
+        {
+            get => _backupDatajs;
+            set => _backupDatajs = value;
         }
+
+        public void SaveDatajs(JsonClass data_js) => BackupDatajs = data_js;
+
+
+        private static Booking? _bacupDatabk;
+
+        public static Booking BacupDatabk
+        {
+            get => _bacupDatabk;
+            set => _bacupDatabk = value;
+        }
+
+        public void SaveDatabk(Booking data_bk) => BacupDatabk = data_bk;
+    }
     public partial class Benefits : ObservableObject
     {
         [ObservableProperty]
@@ -126,16 +246,6 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string? _icon;
     }
-    public partial class mainservs : ObservableObject
-    {
-        [ObservableProperty]
-        private int _key1;
-        [ObservableProperty]
-        private string? _value1;
-        [ObservableProperty]
-        private string? _value2;
 
-       
-    }
 }
 

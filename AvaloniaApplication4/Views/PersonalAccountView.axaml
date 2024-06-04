@@ -271,8 +271,8 @@
 									<Border
 										Background="#D94D04"
 										CornerRadius="50"
-										Height="350"
-										Width="350"
+										Height="450"
+										Width="450"
 										ClipToBounds="True"
 										PointerPressed="BorderPersonal_PointerPressed">
 										<Grid ShowGridLines="False">
@@ -283,20 +283,23 @@
 											<StackPanel Grid.Row="0">
 												<Grid RowDefinitions="*,*" ShowGridLines="True">
 													
-																<Image  ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="UniformToFill"></Image>
-														
-												</Grid>
-												
-												<TextBlock  Text="{Binding Name_Cowork}" Foreground="White"
-												   FontSize="20"
+												<Image Grid.Row="0"  ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="UniformToFill"></Image>
+												<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}"  Foreground="White"
+												   FontSize="45"
 												   FontWeight="DemiBold"
-												   HorizontalAlignment="Center" ></TextBlock>
+												   VerticalAlignment="Bottom"
+												   HorizontalAlignment="Left" >
+													<TextBlock.Effect>
+														<DropShadowDirectionEffect ShadowDepth="15" Color="Black" Opacity="30" Direction="20"/>
+													</TextBlock.Effect>
+												</TextBlock>	
+												</Grid>
 											</StackPanel>
 											
 											<!-- Первая половина с текстовыми полями -->
 											<StackPanel Grid.Row="1">
 												<TextBlock
-													Margin="0 5 0 0"
+													Margin="0 15 0 0"
 													Foreground="#ffffff"
 													Classes="Info"
 													Text="{Binding Date}"/>
@@ -365,27 +368,37 @@
 									<Border
 										Background="#D94D04"
 										CornerRadius="50"
-										Height="400"
-										Width="350"
-										ClipToBounds="True">
+										Height="450"
+										Width="450"
+										ClipToBounds="True"
+										PointerPressed="BorderPersonal_PointerPressed"
+										>
 					
-										<Grid ShowGridLines="True">
+										<Grid ShowGridLines="False">
 											<Grid.RowDefinitions>
 												<RowDefinition Height="3*"/>
 												<RowDefinition Height="1.5*"/>
 											</Grid.RowDefinitions>
 											<StackPanel Grid.Row="0">
-												<Image  ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="UniformToFill"></Image>
-												<TextBlock  Text="{Binding Name_Cowork}" Foreground="White"
-											   FontSize="25"
-											   FontWeight="DemiBold"
-											   HorizontalAlignment="Center" ></TextBlock>
+												<Grid RowDefinitions="*,*" ShowGridLines="False">
+													<Image Grid.Row="0" ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="UniformToFill"></Image>
+													<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}" Foreground="White"
+													   FontSize="45"
+													   FontWeight="DemiBold"
+													   VerticalAlignment="Bottom"
+													   HorizontalAlignment="Left">
+														<TextBlock.Effect>
+															<DropShadowDirectionEffect ShadowDepth="15" Color="Black" Opacity="30" Direction="20"/>
+														</TextBlock.Effect>
+													</TextBlock>
+												</Grid>
+												
 											</StackPanel>
 											
 											<!-- Первая половина с текстовыми полями -->
 											<StackPanel Grid.Row="1">
 												<TextBlock
-													Margin="0 5 0 0"
+													Margin="0 15 0 0"
 													Foreground="#ffffff"
 													Classes="Info"
 													Text="{Binding Date}"/>

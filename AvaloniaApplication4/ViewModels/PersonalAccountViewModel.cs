@@ -54,13 +54,27 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         public string _date;
 
-        [ObservableProperty]
-        private static bool _pressed;
+        //[ObservableProperty]
+        //private static bool _pressed;
 
+        private static bool _pressed;
+        public static bool Pressed
+        {
+            get
+            {
+                if (_pressed == null)
+                {
+                    _pressed = false;
+                }
+                return _pressed;
+            }
+            set => _pressed = value;
+        }
 
         //public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
         public string cs = User.Connect;
+    
         public PersonalAccountViewModel()
         {
             //GetPhoto();
@@ -68,24 +82,24 @@ namespace AvaloniaApplication4.ViewModels
             //ReadBdCompany();
             //ReadPhotoBd();
             GetBookings();
-
+           
             AddInfo();
             AddBook(BookingsLast);
             AddBook(Bookings);
 
         }
-        private static PersonalAccountViewModel? _instance;
-        public static PersonalAccountViewModel Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new PersonalAccountViewModel();
-                }
-                return _instance;
-            }
-        }
+        //private static PersonalAccountViewModel? _instance;
+        //public static PersonalAccountViewModel Instance
+        //{
+        //    get
+        //    {
+        //        if (_instance == null)
+        //        {
+        //            _instance = new PersonalAccountViewModel();
+        //        }
+        //        return _instance;
+        //    }
+        //}
         //public void GetPhoto()
         //{
         //    try
@@ -228,9 +242,9 @@ namespace AvaloniaApplication4.ViewModels
         public void AddInfo()
         {
 
-            var card1ViewModel = new CardViewModel();
-
-            foreach (var item in card1ViewModel.Card_Collection)
+            //var card1ViewModel = new CardViewModel();
+            var instancecard = (CardViewModel)Activator.CreateInstance(typeof(CardViewModel), true);
+            foreach (var item in instancecard.Card_Collection)
             {
                 foreach (var item2 in BookingValuePairs)
                 {
@@ -248,6 +262,7 @@ namespace AvaloniaApplication4.ViewModels
                                 }
 
                             }
+                           
                         }
                         else
                         {
@@ -328,7 +343,7 @@ namespace AvaloniaApplication4.ViewModels
         }
 
     }
-    public partial class Booking : ObservableObject, IEnumerable
+    public partial class Booking : ObservableObject
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -373,9 +388,6 @@ namespace AvaloniaApplication4.ViewModels
             Id = id;
         }
 
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

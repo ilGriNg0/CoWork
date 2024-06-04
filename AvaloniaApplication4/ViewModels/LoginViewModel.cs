@@ -15,6 +15,8 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         public char _charac = '#';
         private bool _isChecked = true;
+        [ObservableProperty]
+        private static bool _isReg = false;
         
         public bool IsChecked
         {

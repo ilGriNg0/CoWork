@@ -29,6 +29,8 @@ namespace AvaloniaApplication4.Views
         {
             User.Model = new LoginViewModel();
             User.Main.Page = User.Model;
+            var instance_busin = (BusinessAccountViewModel)Activator.CreateInstance(typeof(BusinessAccountViewModel), true);
+            instance_busin.KeyBusin = false;
         }
 
         private void Change_PointerPressed(object sender, PointerPressedEventArgs e)
@@ -156,8 +158,8 @@ namespace AvaloniaApplication4.Views
 
                 BusinCont.Content = new DynamicCardsView { DataContext = viewModel };
             }
-            BusinessAccountViewModel businessAccountViewModel = new BusinessAccountViewModel();
-            businessAccountViewModel.Key_boookingPressed = true;
+
+            BusinessAccountViewModel.Key_boookingPressed = true;
         }
     }
 }

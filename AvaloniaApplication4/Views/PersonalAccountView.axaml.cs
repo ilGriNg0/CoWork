@@ -5,6 +5,7 @@ using Avalonia.Media;
 using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
 using Npgsql;
+using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
@@ -45,6 +46,9 @@ namespace AvaloniaApplication4.Views
         {
             User.Model = new LoginViewModel();
             User.Main.Page = User.Model;
+            var myClassType = typeof(LoginViewModel);
+            var instance = (LoginViewModel)Activator.CreateInstance(myClassType, true);
+            instance.IsReg = false;
         }
 
         private void Change_PointerPressed(object sender, PointerPressedEventArgs e)
@@ -173,11 +177,11 @@ namespace AvaloniaApplication4.Views
               
                 Cont.Content = new DynamicCardsView { DataContext = viewModel };
             }
-            PersonalAccountViewModel personalAccountViewModel = new();
+
+            PersonalAccountViewModel.Pressed = true;
+            
            
-                personalAccountViewModel.Pressed = true;
-            
-            
+
         }
     }
 }

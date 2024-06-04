@@ -1,4 +1,7 @@
-﻿using AvaloniaApplication4.ViewModels;
+﻿using Avalonia.Controls.Shapes;
+using Avalonia.Media.Imaging;
+using Avalonia.Threading;
+using AvaloniaApplication4.ViewModels;
 using DynamicData;
 using Microsoft.VisualBasic;
 using MsBox.Avalonia.Enums;
@@ -11,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
@@ -28,6 +32,7 @@ namespace AvaloniaApplication4.Models
         public Dictionary<(int, int), string> PhotoIDPathBusinessPairs = new();
         public Dictionary<int, (int, int, int, string, string)> ServicesPairs = new();
         public Dictionary<int, (int, int, string)> MainServicesPairs = new();
+        public ObservableCollection<Bitmap> Images { get; } = new();
         //public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
         public async Task WriteBd(ObservableCollection<JsonClass> collection)
@@ -95,39 +100,90 @@ namespace AvaloniaApplication4.Models
             }
         }
         public string cs = User.Connect;
-        public async void ReadMainPhotoBd()
+        public async Task ReadMainPhotoBd()
         {
             await using (var connect = new NpgsqlConnection(cs))
             {
-                connect.Open();
+                await connect.OpenAsync();
                 await using (var command = new NpgsqlCommand("SELECT * FROM main_images", connect))
                 {
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
+                    try
                     {
-                        int id = reader.GetInt32(0);
-                        int id_coworking = reader.GetInt32(1);
-                        string str = reader.GetString(2);
-                        PhotoIDPathPairs.Add((id, id_coworking), str);
-                    }
-                    foreach (var item in PhotoIDPathPairs)
-                    {
-                        // Отфильтровываем элементы, где Item2 не совпадает с текущим item.Key.Item2
-                        var nonMatchingItems = PhotoIDPathPairs
-                            .Where(p => p.Key.Item2 != item.Key.Item2)
-                            .ToDictionary(p => p.Key, p => p.Value);
-
-                        // Добавляем отфильтрованный словарь в целевой список, если он не пуст
-                        if (nonMatchingItems.Count > 0)
+                        var reader = command.ExecuteReader();
+                        while (await reader.ReadAsync())
                         {
-                            MainPhotoIDPathPairs.Add(nonMatchingItems);
-                        }
-                    }
+                            int id = reader.GetInt32(0);
+                            int id_coworking = reader.GetInt32(1);
+                            string str = reader.GetString(2);
+                            //byte[] buf = new byte[reader.FieldCount];
 
-                    reader.Close();
+                            PhotoIDPathPairs.Add((id, id_coworking), str);
+                        }
+                        reader.Close();
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                  
+                  
+                    //foreach (var item in PhotoIDPathPairs)
+                    //{
+                    //    // Отфильтровываем элементы, где Item2 не совпадает с текущим item.Key.Item2
+                    //    var nonMatchingItems = PhotoIDPathPairs
+                    //        .Where(p => p.Key.Item2 != item.Key.Item2)
+                    //        .ToDictionary(p => p.Key, p => p.Value);
+
+                    //    // Добавляем отфильтрованный словарь в целевой список, если он не пуст
+                    //    if (nonMatchingItems.Count > 0)
+                    //    {
+                    //        MainPhotoIDPathPairs.Add(nonMatchingItems);
+                    //    }
+                    //}
+
+                    
                 }
             }
         }
+        //public async Task LoadImagesAsync()
+        //{
+        //    await ReadMainPhotoBd();
+        //    object  images = new object();
+        //    // Обработка изображений в отдельном потоке
+        //    await Task.Run(async () =>
+        //    {
+        //        var tasks = PhotoIDPathPairs.Select(async kvp =>
+        //        {
+        //            var imagePath = kvp.Value;
+
+        //            // Загружаем изображение асинхронно и конвертируем в Bitmap
+        //            var imageData = await LoadImageDataFromPathAsync(imagePath);
+        //            if (imageData != null)
+        //            {
+        //                using (var ms = new MemoryStream(imageData))
+        //                {
+        //                    var bitmap = new Bitmap(ms);
+        //                    await Dispatcher.UIThread.InvokeAsync(() => Images.Add(bitmap));
+        //                }
+        //            }
+        //        });
+
+        //        await Task.WhenAll(tasks);
+        //    });
+        //}
+        //private async Task<byte[]> LoadImageDataFromPathAsync(string path)
+        //{
+        //    if (File.Exists(path))
+        //    {
+        //        return await File.ReadAllBytesAsync(path);
+        //    }
+        //    else
+        //    {
+        //        throw new FileNotFoundException("Файл не найден", path);
+        //    }
+        //}
+
         public async void ReadPhotoBd()
         {
             await using (var connect = new NpgsqlConnection(cs))
@@ -141,6 +197,7 @@ namespace AvaloniaApplication4.Models
                         int id = reader.GetInt32(0);
                         int id_coworking = reader.GetInt32(1);
                         string str = reader.GetString(2);
+                      
                         PhotoIDPathPairs.Add((id, id_coworking), str);
                     }
                     reader.Close();
@@ -166,42 +223,52 @@ namespace AvaloniaApplication4.Models
                 }
             }
         }
-        public async Task WriteBusinessBd(string path, int id)
+        public async Task WriteBusinessBd(ObservableCollection<string> bitmaps_path, int id)
         {
 
             await using (var connect = new NpgsqlConnection(connect_host))
             {
                 connect.Open();
-                string command_add = "INSERT INTO main_images (id_coworking_id, img) VALUES (@intValue, @text)";
+                string command_add = "INSERT INTO main_images (id_coworking_id, file) VALUES (@intValue, @text)";
                 await using (var command = new NpgsqlCommand(command_add, connect))
                 {
-                    command.Parameters.Add(new NpgsqlParameter("@intValue", NpgsqlDbType.Integer) { Value = id });
-                    command.Parameters.Add(new NpgsqlParameter("@text", NpgsqlDbType.Text) { Value = path });
-                    command.ExecuteNonQuery();
+                   
+                    foreach (var item in bitmaps_path)
+                    {
+                        command.Parameters.Clear();
+                        command.Parameters.Add(new NpgsqlParameter("@intValue", NpgsqlDbType.Integer) { Value = id });
+                        command.Parameters.Add(new NpgsqlParameter("@text", NpgsqlDbType.Text) { Value = item });
+                        command.ExecuteNonQuery();
+                    }
+                  
                 }
             }
         }
-        public async Task WriteServicesBd(int id, int price1, int count1, string info, string info2, string icon, int price2, int count2)
+        public async Task WriteServicesBd(int id, List<JsonClass> js)
         {
             await using (var conncet = new NpgsqlConnection(connect_host))
             {
                 conncet.Open();
-                string command_add_serv = "INSERT INTO main_services (id_coworking_id, price, type, num_of_seats, img) VALUES (@id, @price1, @info, @count1, @icon);" +
-                                          "INSERT INTO main_services (id_coworking_id, price, type, num_of_seats, img) VALUES (@id, @price2, @info2, @count2, @icon)";
+                string command_add_serv = "INSERT INTO main_services (id_coworking_id, price, type, num_of_seats, img) VALUES (@id, @price1, @info, @count1, @icon);";
+                                         
                 await using (var command = new NpgsqlCommand(command_add_serv, conncet))
                 {
-                    command.Parameters.Add(new NpgsqlParameter("@id", NpgsqlDbType.Integer) { Value = id });
-                    command.Parameters.Add(new NpgsqlParameter("@price1", NpgsqlDbType.Integer) { Value = price1 });
-                    command.Parameters.Add(new NpgsqlParameter("@count1", NpgsqlDbType.Integer) { Value = count1 });
-                    command.Parameters.Add(new NpgsqlParameter("@info", NpgsqlDbType.Varchar) { Value = info });
-                    command.Parameters.Add(new NpgsqlParameter("@info2", NpgsqlDbType.Varchar) { Value = info2 });
-                    command.Parameters.Add(new NpgsqlParameter("@icon", NpgsqlDbType.Varchar) { Value = icon });
-                    command.Parameters.Add(new NpgsqlParameter("@price2", NpgsqlDbType.Integer) { Value = price2 });
-                    command.Parameters.Add(new NpgsqlParameter("@count2", NpgsqlDbType.Integer) { Value = count2 });
+                    foreach (var item in js)
+                    {
+                        command.Parameters.Clear(); 
+                        command.Parameters.Add(new NpgsqlParameter("@id", NpgsqlDbType.Integer) { Value = id });
+                        command.Parameters.Add(new NpgsqlParameter("@price1", NpgsqlDbType.Integer) { Value = item.Tariffs_price });
+                        command.Parameters.Add(new NpgsqlParameter("@count1", NpgsqlDbType.Integer) { Value = item.Number_of_seats_solo });
+                        command.Parameters.Add(new NpgsqlParameter("@info", NpgsqlDbType.Varchar) { Value = item.Tariffs });
+                        command.Parameters.Add(new NpgsqlParameter("@icon", NpgsqlDbType.Varchar) { Value = item.Pserv });
+                        command.ExecuteNonQuery();
+
+                    }
+                   
 
                     try
                     {
-                        command.ExecuteNonQuery();
+                       
                     }
                     catch (Exception)
                     {
@@ -383,5 +450,6 @@ namespace AvaloniaApplication4.Models
         //}
 
     }
+
     
 }

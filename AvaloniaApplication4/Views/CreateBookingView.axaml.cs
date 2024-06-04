@@ -19,5 +19,9 @@ namespace AvaloniaApplication4.Views
                 parent.Content = null; // Убираем содержимое при закрытии
             }
         }
+
+        private void Binding(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+        }
     }
 }

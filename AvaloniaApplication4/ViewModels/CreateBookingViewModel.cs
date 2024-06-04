@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
 
 namespace AvaloniaApplication4.ViewModels
@@ -41,6 +42,39 @@ namespace AvaloniaApplication4.ViewModels
         private List<int> Count = new List<int>();
         private List<long> Price = new List<long>();
         private List<Bitmap> Img = new List<Bitmap>();
+        public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
+        public string Namespace()
+        {
+            Type tp = typeof(MainWindowViewModel);
+            string? yNameSpc = tp.Namespace;
+            return yNameSpc;
+        }
+        public void Navigate(string? pageViewModel)
+        {
+            var main = MainWindowViewModel.Instance;
+            Type viewModelType3 = Type.GetType(Namespace() + "." + pageViewModel);
+
+            ViewModelBase viewModel3 = (ViewModelBase)Activator.CreateInstance(viewModelType3);
+            JsonClass backupData = DynamicCardsViewModel.BackupDatajs;
+            var backupDatabk = DynamicCardsViewModel.BacupDatabk;
+            ViewModelBase viewModel;
+         
+            if (backupData!= null && viewModelType3 == typeof( DynamicCardsViewModel))
+            {
+                viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType3, backupData);
+
+                main.Page = viewModel;
+            }
+            else
+            {
+                viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType3, backupDatabk);
+
+                main.Page = viewModel;
+            }
+          
+
+
+        }
         public CreateBookingViewModel() {}
         public CreateBookingViewModel(int id_с, int open, int closed) 
         {

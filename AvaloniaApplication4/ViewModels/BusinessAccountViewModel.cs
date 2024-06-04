@@ -50,7 +50,7 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         public string _password;
         [ObservableProperty]
-        private static bool _key_boookingPressed;
+        private static bool _keyBusin;
 
         public ICommand NavigateToAddCommand => new RelayCommand<string>(NavigateToAdd);
 
@@ -60,6 +60,23 @@ namespace AvaloniaApplication4.ViewModels
     
             var mainwindow = MainWindowViewModel.Instance;
             mainwindow.Navigate(pageViewModel);
+
+        }
+        private static bool _key_boookingPressed;
+
+        public static bool Key_boookingPressed
+        {
+            get
+            {
+                if (_key_boookingPressed == null)
+                {
+                    _key_boookingPressed = false;
+                }
+                return _key_boookingPressed;
+            }
+            set => _key_boookingPressed = value;
+
+
 
         }
         private static BusinessAccountViewModel? _instance;
@@ -187,9 +204,11 @@ namespace AvaloniaApplication4.ViewModels
         }
         public void InsertBookings()
         {
-           var cardViewModel = new CardViewModel();
-          
-            foreach (var item in cardViewModel.Card_Collection)
+           //var cardViewModel = new CardViewModel();
+            var instanceBs = (CardViewModel)Activator.CreateInstance(typeof(CardViewModel), true);
+            //var method = typeof(AddCardViewModel).GetMethod("OnDataLoad");
+            //method.Invoke(instanceBs, parameters: null);
+            foreach (var item in instanceBs.Card_Collection)
             {
               BookingsBusines.Add(item);
               insertPhotoBookings();
@@ -210,6 +229,8 @@ namespace AvaloniaApplication4.ViewModels
                         }  
                     }    
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         public void GetInfo()
         {

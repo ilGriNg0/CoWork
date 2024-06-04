@@ -69,33 +69,26 @@ namespace AvaloniaApplication4.ViewModels
         /// <param name="Navigate"></param>
         public void Navigate(string? pageViewModel)
         {
-            string namspc = Namespace();
-            var personalAccountViewModel =  new PersonalAccountViewModel();
-            var businesse = BusinessAccountViewModel.Instance;
-          
-            Clicked_navigate = personalAccountViewModel.Pressed;
-            Clicked_business = businesse.Key_boookingPressed;
-            businesse.Key_boookingPressed = false;
-            personalAccountViewModel.Pressed = false;
-            Type viewModelType = Type.GetType(namspc + "." + pageViewModel);
+            
+            Clicked_navigate = PersonalAccountViewModel.Pressed;
+            Clicked_business = BusinessAccountViewModel.Key_boookingPressed;
+            BusinessAccountViewModel.Key_boookingPressed = false;
+            PersonalAccountViewModel.Pressed = false;
+            Type viewModelType = Type.GetType(Namespace() + "." + pageViewModel);
             if (pageViewModel == "LoginViewModel" && Color1.Color == Colors.Black && Page == User.Model)
             {
 
                 if (Clicked_navigate)
                 {
-                    Type viewModelType2 = Type.GetType(namspc + "." + "PersonalAccountViewModel");
-                    ViewModelBase viewModel2 = (ViewModelBase)Activator.CreateInstance(viewModelType2);
-                    Page = viewModel2;
+                    Page = (ViewModelBase)Activator.CreateInstance(Type.GetType(Namespace() + "." + "PersonalAccountViewModel")); ;
                     Clicked_navigate = false;
-                    personalAccountViewModel.Pressed = false;
+                    PersonalAccountViewModel.Pressed = false;
                 }
                 if (Clicked_business)
                 {
-                    Type viewModelType3 = Type.GetType(namspc + "." + "BusinessAccountViewModel");
-                    ViewModelBase viewModel3 = (ViewModelBase)Activator.CreateInstance(viewModelType3);
-                    Page = viewModel3;
+                    Page = (ViewModelBase)Activator.CreateInstance(Type.GetType(Namespace() + "." + "BusinessAccountViewModel")); ;
                     Clicked_business = false;
-                    businesse.Key_boookingPressed = false;
+                    BusinessAccountViewModel.Key_boookingPressed = false;
 
                 }
 
@@ -109,8 +102,7 @@ namespace AvaloniaApplication4.ViewModels
                     Color1 = Color2;
                     Color2 = bufer;
                 }
-                Type tp = User.Model.GetType();
-                Page = (ViewModelBase)Activator.CreateInstance(tp);
+                Page = (ViewModelBase)Activator.CreateInstance(User.Model.GetType());
             }
             else
             {
@@ -121,8 +113,7 @@ namespace AvaloniaApplication4.ViewModels
                     Color2 = bufer;
                 }
                 
-                ViewModelBase viewModel = (ViewModelBase)Activator.CreateInstance(viewModelType);
-                Page = viewModel;
+                Page = (ViewModelBase)Activator.CreateInstance(viewModelType);
               
             }
          
@@ -180,24 +171,40 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private int _rating_sum;
         [ObservableProperty]
+        private string? _tariffs;
+        [ObservableProperty]
+        private int _tariffs_price;
+        [ObservableProperty]
      static private ObservableCollection<JsonClass>? _jsonBenefits = new();
         [ObservableProperty]
         private ObservableCollection<Bitmap> _photos = new();
         [ObservableProperty]
         private ObservableCollection<Bitmap> _mainphotos = new();
+        [ObservableProperty]
+        private string? _pserv;
 
         public class ListItemTemplate(Type type)
         {
             public object Instance { get; } = Activator.CreateInstance(type);
             public string Label { get; } = type.Name.Replace("ViewModel", "");
             public Type ModelType { get; } = type;
-            //    MainWindow mnWindow = new();
         }
 
 
     }
+    public partial class TariffElements : ObservableObject
+    {
+        [ObservableProperty]
+        private string? _tarif;
 
-    
+        [ObservableProperty]
+        private int _tarif_price;
+
+        [ObservableProperty]
+        private int _tarif_count;
+    }
+
+
 
 }
    

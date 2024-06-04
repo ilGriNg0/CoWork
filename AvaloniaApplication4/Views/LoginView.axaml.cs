@@ -54,6 +54,8 @@ namespace AvaloniaApplication4.Views
                 sql = $"SELECT count(*) FROM main_businesses WHERE email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                 cmd = new NpgsqlCommand(sql, con);
                 version = cmd.ExecuteScalar();
+                var instance_busin = (BusinessAccountViewModel)Activator.CreateInstance(typeof(BusinessAccountViewModel), true);
+                instance_busin.KeyBusin = true;
                 if (version.ToString() == "1")
                 {
                     sql = $"SELECT id FROM main_businesses WHERE password = '{this.GetControl<TextBox>("Passwordlog").Text}' AND email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
@@ -83,7 +85,10 @@ namespace AvaloniaApplication4.Views
                 sql = $"SELECT id FROM main_users WHERE password = '{this.GetControl<TextBox>("Passwordlog").Text}' AND email = '{this.GetControl<TextBox>("Emaillog").Text.ToLower()}';";
                 cmd = new NpgsqlCommand(sql, con);
                 NpgsqlDataReader rdr = cmd.ExecuteReader();
-                while(rdr.Read())
+                var myClassType = typeof(LoginViewModel);
+                var instance = (LoginViewModel)Activator.CreateInstance(myClassType, true);
+                instance.IsReg = true;
+                while (rdr.Read())
                 {
                     this.GetControl<TextBlock>("Error1log").IsVisible = false;
                     this.GetControl<TextBlock>("Error2log").IsVisible = false;
@@ -95,8 +100,10 @@ namespace AvaloniaApplication4.Views
                 }
                 this.GetControl<TextBlock>("Error2log").IsVisible = true;
                 this.GetControl<TextBlock>("Error1log").IsVisible = false;
+               
             }
             con.Close();
+           
         }
     }
 }
