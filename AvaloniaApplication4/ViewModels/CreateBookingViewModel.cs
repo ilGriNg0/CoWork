@@ -387,6 +387,7 @@ namespace AvaloniaApplication4.ViewModels
                 ButtonText = "Продолжить бронирование";
                 Visibl = false;
                 Visibl2 = true;
+                User.Model = new PersonalAccountViewModel();
             }
             else
             {

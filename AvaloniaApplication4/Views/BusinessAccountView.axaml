@@ -326,7 +326,7 @@
 								<ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Photos}">
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
-										<Image Source="{Binding}" Stretch="UniformToFill"></Image>
+										<Image Source="{Binding}" Stretch="Fill"></Image>
 									</DataTemplate>
 								</ItemsControl.ItemTemplate>
 							</ItemsControl>
@@ -335,6 +335,7 @@
 									Foreground="White"
 									FontSize="25"
 									FontWeight="DemiBold"
+									TextWrapping="Wrap"
 									VerticalAlignment="Center"
 									HorizontalAlignment="Center"
 									Text="{Binding Name_cowork}"/>

@@ -271,7 +271,7 @@
 									<Border
 										Background="#D94D04"
 										CornerRadius="50"
-										Height="450"
+										Height="380"
 										Width="450"
 										ClipToBounds="True"
 										PointerPressed="BorderPersonal_PointerPressed">
@@ -281,13 +281,14 @@
 												<RowDefinition Height="*"/>
 											</Grid.RowDefinitions>
 											<StackPanel Grid.Row="0">
-												<Grid RowDefinitions="*,*" ShowGridLines="True">
+												<Grid RowDefinitions="*" ShowGridLines="False">
 													
 												<Image Grid.Row="0"  ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="UniformToFill"></Image>
 												<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}"  Foreground="White"
 												   FontSize="45"
 												   FontWeight="DemiBold"
 												   VerticalAlignment="Bottom"
+												TextWrapping="Wrap"
 												   HorizontalAlignment="Left" >
 													<TextBlock.Effect>
 														<DropShadowDirectionEffect ShadowDepth="15" Color="Black" Opacity="30" Direction="20"/>
@@ -297,9 +298,9 @@
 											</StackPanel>
 											
 											<!-- Первая половина с текстовыми полями -->
-											<StackPanel Grid.Row="1">
+											<StackPanel Grid.Row="1" Margin="0 0 0 10">
 												<TextBlock
-													Margin="0 15 0 0"
+													Margin="0 25 0 0"
 													Foreground="#ffffff"
 													Classes="Info"
 													Text="{Binding Date}"/>
@@ -368,7 +369,7 @@
 									<Border
 										Background="#D94D04"
 										CornerRadius="50"
-										Height="450"
+										Height="430"
 										Width="450"
 										ClipToBounds="True"
 										PointerPressed="BorderPersonal_PointerPressed"
@@ -381,11 +382,12 @@
 											</Grid.RowDefinitions>
 											<StackPanel Grid.Row="0">
 												<Grid RowDefinitions="*,*" ShowGridLines="False">
-													<Image Grid.Row="0" ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="UniformToFill"></Image>
+													<Image Grid.Row="0" ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="Fill"></Image>
 													<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}" Foreground="White"
 													   FontSize="45"
 													   FontWeight="DemiBold"
 													   VerticalAlignment="Bottom"
+													   TextWrapping="Wrap"
 													   HorizontalAlignment="Left">
 														<TextBlock.Effect>
 															<DropShadowDirectionEffect ShadowDepth="15" Color="Black" Opacity="30" Direction="20"/>
