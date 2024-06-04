@@ -14,7 +14,7 @@
 			<Grid ClipToBounds="True"
               RowDefinitions="600,*,*,*" ShowGridLines="True">
 				
-				<Grid Grid.Row="0" ColumnDefinitions="2*,*,*" ShowGridLines="True">
+				<Grid Grid.Row="0" ColumnDefinitions="2*,*,*" ShowGridLines="False">
 					<Border Grid.Row="0" Grid.Column="0" ClipToBounds="True" Margin="5" CornerRadius="15">
 						<Image Source="{Binding Photoses[0]}" Stretch="Fill"/>
 					</Border>
@@ -41,7 +41,7 @@
 				</Grid>
 
 
-				<Grid Grid.Row="1" ColumnDefinitions="2*, *" ShowGridLines="True" Margin="0 20 0 0">
+				<Grid Grid.Row="1" ColumnDefinitions="2*, *" ShowGridLines="False" Margin="0 20 0 0">
 					<StackPanel Grid.Column="0" Spacing="10">
 						<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
 							<ItemsControl.ItemTemplate>
@@ -119,7 +119,7 @@
 								<ItemsControl.ItemTemplate>
 									<DataTemplate>
 										<TextBlock 
-											Margin="30 0 0 0"
+											Margin="30 0 0 30"
 											HorizontalAlignment="Left"
 											FontWeight="UltraBold"
 											FontSize="18" 
@@ -133,7 +133,7 @@
 				</Grid>
 
 				<StackPanel Grid.Row="2" Spacing="10">
-					<Grid RowDefinitions="*,*" ColumnDefinitions="1.5*,*" ShowGridLines="True">
+					<Grid RowDefinitions="*,*" ColumnDefinitions="1.5*,*" ShowGridLines="False">
 						<TextBlock
 						Grid.Row="0"
 						Margin="30 20 0 0"
@@ -151,7 +151,7 @@
 						<ItemsControl  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Benef}">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
-									<WrapPanel Margin="30 20 0 0" Orientation="Horizontal" ItemWidth="340"/>
+									<WrapPanel Margin="30 20 0 30" Orientation="Horizontal" ItemWidth="340"/>
 								</ItemsPanelTemplate>
 							</ItemsControl.ItemsPanel>
 							<ItemsControl.ItemTemplate>
@@ -193,7 +193,7 @@
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
 									<Border Width="350"  Height="500" Background="Black" CornerRadius="15" Margin="5">
-										<Grid RowDefinitions="2*,*,*" ShowGridLines="True">
+										<Grid RowDefinitions="2*,*,*" ShowGridLines="False">
 											<Border Grid.Row="0" ClipToBounds="True" Margin="5" CornerRadius="15">
 												<Image Source="{Binding Photoses[0]}" Stretch="Fill"/>
 											</Border>
@@ -202,7 +202,7 @@
 													FontWeight="UltraBold" 
 													FontSize="20" 
 													FontFamily="Source Sans Pro"  
-													Foreground="White" 
+													Foreground="#D94D04" 
 													Text="Тариф" 
 													HorizontalAlignment="Left" 
 													VerticalAlignment="Center"/>
@@ -214,11 +214,13 @@
 													Text="{Binding Tarif}"
 													HorizontalAlignment="Left"
 													VerticalAlignment="Center"/>
+												<StackPanel Orientation="Horizontal" Spacing="30">
+												<StackPanel>
 												<TextBlock
 													FontWeight="UltraBold"
 													FontSize="20"
 													FontFamily="Source Sans Pro"
-													Foreground="White"
+													Foreground="#D94D04"
 													Text="Количество мест"
 													HorizontalAlignment="Left"
 													VerticalAlignment="Center"/>
@@ -229,23 +231,24 @@
 													Foreground="White" 
 													Text="{Binding Tarif_count}" 
 													HorizontalAlignment="Left" 
-													VerticalAlignment="Center"/>
+													VerticalAlignment="Center"/></StackPanel>
+												<StackPanel>
 												<TextBlock
 													FontWeight="UltraBold"
 													FontSize="20"
 													FontFamily="Source Sans Pro"
 													Foreground="White"
-													Text="Цена"
+													Text="Цена за час"
 													HorizontalAlignment="Left"
 													VerticalAlignment="Center"/>
 												<TextBlock
 													FontWeight="UltraBold"
 													FontSize="18"
 													FontFamily="Source Sans Pro"
-													Foreground="White"
+													Foreground="#D94D04"
 													Text="{Binding Tarif_price}"
 													HorizontalAlignment="Left"
-													VerticalAlignment="Center"/>
+													VerticalAlignment="Center"/></StackPanel></StackPanel>
 											</StackPanel>
 											<Button
 												Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
