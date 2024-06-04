@@ -170,8 +170,8 @@ namespace AvaloniaApplication4.Views
         }
         private void BorderPersonal_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
-
-            if (sender is Border bord && bord.DataContext is Booking js)
+            if (sender is Image img && img.Parent.Parent.Parent.Parent is Border bord && bord.DataContext is Booking js)
+            //if (sender is Border bord && bord.DataContext is Booking js)
             {
                 var viewModel = new DynamicCardsViewModel(js);
               

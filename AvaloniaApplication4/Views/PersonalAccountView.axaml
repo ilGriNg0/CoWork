@@ -372,7 +372,7 @@
 										Height="430"
 										Width="450"
 										ClipToBounds="True"
-										PointerPressed="BorderPersonal_PointerPressed"
+										
 										>
 					
 										<Grid ShowGridLines="False">
@@ -382,7 +382,8 @@
 											</Grid.RowDefinitions>
 											<StackPanel Grid.Row="0">
 												<Grid RowDefinitions="*,*" ShowGridLines="False">
-													<Image Grid.Row="0" ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="Fill"></Image>
+													<Image PointerPressed="BorderPersonal_PointerPressed"
+														Grid.Row="0" ClipToBounds="True" Source="{Binding  B_maps[0]}" Stretch="Fill"></Image>
 													<TextBlock Grid.Row="0" Text="{Binding Name_Cowork}" Foreground="White"
 													   FontSize="45"
 													   FontWeight="DemiBold"
