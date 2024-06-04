@@ -173,6 +173,7 @@ namespace AvaloniaApplication4.Views
                 var viewModel = new DynamicCardsViewModel(js);
 
                 BusinCont.Content = new DynamicCardsView { DataContext = viewModel };
+                this.GetControl<ScrollViewer>("Scroll").ScrollToHome();
             }
 
             BusinessAccountViewModel.Key_boookingPressed = true;

@@ -7,7 +7,7 @@
 			 xmlns:material="using:Material.Icons.Avalonia"
 			 x:Class="AvaloniaApplication4.Views.AddCardView"
 			 x:DataType="vm:AddCardViewModel">
-	<ScrollViewer>
+	<ScrollViewer x:Name="Scroll">
 		<Border Background="#1c1c1c" CornerRadius="30">
 			<Grid Margin="10" RowDefinitions="600,*,*,*,*" ShowGridLines="True">
 				

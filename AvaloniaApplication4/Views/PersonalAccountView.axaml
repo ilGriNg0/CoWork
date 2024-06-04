@@ -9,7 +9,7 @@
 			 x:DataType="vm:PersonalAccountViewModel">
 
 	<Border CornerRadius="30" ClipToBounds="True" >
-		<ScrollViewer>
+		<ScrollViewer x:Name="Scroll">
 	<Grid
 		ColumnDefinitions="2*, 3*"
 		ShowGridLines="False">

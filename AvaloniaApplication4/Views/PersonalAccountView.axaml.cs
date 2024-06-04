@@ -184,7 +184,7 @@ namespace AvaloniaApplication4.Views
 
                 Cont.Content = new DynamicCardsView { DataContext = viewModel };
             }
-
+            this.GetControl<ScrollViewer>("Scroll").ScrollToHome();
             PersonalAccountViewModel.Pressed = true;
             
            

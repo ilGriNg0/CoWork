@@ -9,7 +9,7 @@
 			 x:DataType="vm:BusinessAccountViewModel"
 			>
 <Border CornerRadius="30" ClipToBounds="True">	
-	<ScrollViewer>
+	<ScrollViewer x:Name="Scroll">
 	<Grid
 		RowDefinitions="*, *"
 		ShowGridLines="False">

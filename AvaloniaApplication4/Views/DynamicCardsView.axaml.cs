@@ -9,5 +9,6 @@ public partial class DynamicCardsView : UserControl
     public DynamicCardsView()
     {
         InitializeComponent();
+        this.GetControl<ScrollViewer>("Scroll").ScrollToHome();
     }
 }

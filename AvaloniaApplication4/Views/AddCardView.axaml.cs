@@ -18,6 +18,7 @@ public partial class AddCardView : UserControl
     public AddCardView()
     {
         InitializeComponent();
+        this.GetControl<ScrollViewer>("Scroll").ScrollToHome();
         //link(Text);
     }
   static public ObservableCollection<JsonClass> strings { get; set; } = new();

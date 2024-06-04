@@ -9,7 +9,7 @@
 			xmlns:local="clr-namespace:AvaloniaApplication4.Models"
 			 x:DataType="vm:DynamicCardsViewModel">
 	
-	<ScrollViewer>
+	<ScrollViewer x:Name="Scroll">
 		<Border Background="#1c1c1c" CornerRadius="30">
 			<Grid ClipToBounds="True"
               RowDefinitions="600,*,*,*" ShowGridLines="True">
