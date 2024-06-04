@@ -117,8 +117,8 @@
 						FontWeight="700"
 						LineHeight="30"
 						FontFamily="Gelion"
-						TextAlignment="Left">
-						Успешное бронирование.
+						TextAlignment="Left"
+						Text="{Binding TextSuccess}">
 					</TextBlock>
 				</StackPanel>
 
@@ -135,7 +135,7 @@
 						CornerRadius="50"
 						Height="60"
 						Width="352"
-					Content="Забронировать"
+					Content="{Binding ButtonText}"
 					Command="{Binding BookingCreateCommand}">
 					<Button.Styles>
 						<Style Selector="Button">
