@@ -27,13 +27,14 @@ namespace AvaloniaApplication4.Models
                     InvalidateVisual();
                 }
             }
+            private int lastRating;
 
             public event EventHandler<int>? RatingChanged;
             private static void OnRatingChanged(object sender)
             {
                 if (sender is StarRatingControl control)
                 {
-                    control.RatingChanged?.Invoke(control, control.Rating);
+                    control.RatingChanged?.Invoke(control, control.lastRating);
                 }
             }
 
@@ -46,6 +47,7 @@ namespace AvaloniaApplication4.Models
             {
                 var point = e.GetCurrentPoint(this);
                 int newRating = (int)(point.Position.X / (Bounds.Width / 5)) + 1;
+                lastRating = Rating;
                 Rating = newRating;
             }
 

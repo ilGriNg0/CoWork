@@ -46,13 +46,28 @@
 						<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding Collection}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate>
+									<StackPanel Orientation="Horizontal">
 									<TextBlock
-										Margin="30 0 0 0"
+										Margin="30 0 40 0"
 										HorizontalAlignment="Left"
 										FontFamily="Source Sans Pro"
 										Text="{Binding Name_cowork}"
 										Foreground="#D94D04"
 										FontSize="35"/>
+										
+										<TextBlock 
+											Margin="0 0 10 0"
+											FontFamily="Source Sans Pro"
+											Foreground="White"
+											FontWeight="600"
+											TextWrapping="Wrap"
+											HorizontalAlignment="Left"
+											FontSize="35"
+											Text="{Binding  Rating_cowork}">
+										</TextBlock>
+
+										<material:MaterialIcon Height="40" Width="40" Foreground="#D94D04" HorizontalAlignment="Left" Kind="Star"/>
+									</StackPanel>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 						</ItemsControl>

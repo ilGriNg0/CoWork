@@ -31,7 +31,7 @@ public partial class CardViewModel : ViewModelBase
     private List<JsonClass> _peopleCollection = new();
 
     [ObservableProperty]
-    private ObservableCollection<JsonClass> _card_Collection = new();
+    public static ObservableCollection<JsonClass> _card_Collection = new();
     JsonClass json = new();
 
     public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
@@ -45,6 +45,7 @@ public partial class CardViewModel : ViewModelBase
 
     public CardViewModel()
      {
+        Card_Collection = new();
        connecting.ReadNormalBD();
        connecting.ReadMainWindowServicesBD();
        connecting.ReadMainPhotoBd();
@@ -88,6 +89,8 @@ public partial class CardViewModel : ViewModelBase
                 var Items = item.Value.Where(p => p.Name_cowork != string.Empty && p.Info_cowork != string.Empty && p.Location_cowork != string.Empty && p.Price_day_cowork != string.Empty && p.Price_meetingroom_cowork != string.Empty);
                 foreach (var collect in Items)
                 {
+                    if (collect.Raiting_count != 0)
+                        collect.Rating_cowork = Math.Round((double) collect.Rating_sum / collect.Raiting_count, 1);
                     Card_Collection.Add(collect);
 
                 }
