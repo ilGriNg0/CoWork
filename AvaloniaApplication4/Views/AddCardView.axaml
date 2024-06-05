@@ -13,19 +13,19 @@
 				
 				<Grid Grid.Row="0" ColumnDefinitions="2*,*,*" ShowGridLines="True">
 				<Border Grid.Column="0" Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
-						<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray" Height="600" Width="600">
+						<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="0" Background="Gray" Height="605" Width="605">
 							<Image ClipToBounds="True" Source="{Binding Photo_Coworking[0]}" Stretch="Fill"></Image>
 						</Button>
 				</Border>
 				<Border Grid.Column="1" Grid.Row="0">
 					<Grid RowDefinitions="*,*">
 						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
-							<Button  VerticalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray" Height="350" Width="470">
+							<Button  VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="1" Background="Gray" Height="350" Width="300">
 								<Image ClipToBounds="True" HorizontalAlignment="Center" Source="{Binding Photo_Coworking[1]}" Stretch="Fill"></Image>
 							</Button>
 						</Border>
 						<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
-							<Button VerticalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray" Height="350" Width="470">
+							<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="2" Background="Gray" Height="350" Width="300">
 								<Image  ClipToBounds="True" HorizontalAlignment="Center" Source="{Binding Photo_Coworking[2]}" Stretch="Fill"></Image>
 							</Button>
 						</Border>
@@ -34,12 +34,12 @@
 				<Border  Grid.Row="0" Grid.Column="2">
 					<Grid RowDefinitions="*,*">
 						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
-							<Button VerticalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray" Height="350" Width="470">
+							<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="3" Background="Gray" Height="350" Width="300">
 								<Image ClipToBounds="True" Source="{Binding Photo_Coworking[3]}" Stretch="Fill"></Image>
 							</Button>
 						</Border>
 						<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
-							<Button VerticalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="" Background="Gray" Height="350" Width="470">
+							<Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="4" Background="Gray" Height="350" Width="300">
 								<Image ClipToBounds="True" Source="{Binding Photo_Coworking[4]}" Stretch="Fill"></Image>
 							</Button>
 						</Border>
@@ -357,10 +357,8 @@
 									<Border Margin="10" Background="Black" Width="350" Height="500" CornerRadius="30">
 										<Grid RowDefinitions="2*, 2*, 0.6*" ShowGridLines="True">
 											<Border Grid.Row="0" ClipToBounds="True" Margin="30 30 30 0" CornerRadius="15">
-												<Button Command="{Binding DataContext.AddPhotoServicesCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}}"  CornerRadius="15" Background="Beige" >
-													<Image Source="{Binding Photo_Services[0]}" Stretch="Fill"/>
-												</Button>
 												
+													<Image Source="{Binding PhTest}" Stretch="Fill" />
 											</Border>
 											<StackPanel Grid.Row="1">
 												
@@ -388,7 +386,7 @@
 																HorizontalContentAlignment="Left"
 																VerticalContentAlignment="Center"
 																Margin="0 5 0 0"
-																Text="{Binding  Tarif, Mode=TwoWay}"/>
+																Text="{Binding Tariffs, Mode=TwoWay}"/>
 
 												<TextBlock
 															Margin="0 0 0 0"
@@ -414,7 +412,7 @@
 														HorizontalContentAlignment="Left"
 														VerticalContentAlignment="Center"
 														Margin="0 5 0 0"
-														Text="{Binding Tarif_count, Mode=TwoWay}"/>
+														Text="{Binding Tariffs_count, Mode=TwoWay}"/>
 													   <TextBlock
 															Margin="0 0 0 0"
 															HorizontalAlignment="Center"
@@ -440,64 +438,13 @@
 																HorizontalContentAlignment="Left"
 																VerticalContentAlignment="Center"
 																Margin="0 5 0 0"
-																Text="{Binding Tarif_price, Mode=TwoWay}"/>
+																Text="{Binding Tariffs_price, Mode=TwoWay}"/>
 														
-													<Button
-														VerticalAlignment="Center"
-														HorizontalAlignment="Center"
-														FontSize="18"
-														HorizontalContentAlignment="Center"
-														VerticalContentAlignment="Center"
-														FontFamily="Gelion"
-														CornerRadius="50"
-														Height="40"
-														Width="300"
-														IsEnabled="{Binding Visible}"
-														Margin="0 5 0 0"
-														Content="Удалить"
-														Command="{Binding DataContext.DeleteTextBoxesCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}}"
-														CommandParameter=""
-	>
-													<Button.Styles>
-														<Style Selector="Button">
-															<Setter Property="Background" Value="#D94D04" />
-															<Setter Property="Foreground" Value="#ffffff" />
-														</Style>
-														<Style Selector="Button:pointerover /template/ ContentPresenter">
-															<Setter Property="Background" Value="#ffffff" />
-															<Setter Property="Foreground" Value="#161616" />
-														</Style>
-													</Button.Styles>
-												</Button>
+													
 										
 											</StackPanel>
 
-											<Button
-												Grid.Row="2"
-												VerticalAlignment="Center"
-												HorizontalAlignment="Center"
-												FontSize="18"
-												HorizontalContentAlignment="Center"
-												VerticalContentAlignment="Center"
-													
-												Command="{Binding DataContext.ChoiceServicesCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter=""
-												FontFamily="Gelion"
-												CornerRadius="50"
-												Height="40"
-												Width="300"
-												Margin="0 0 0 0">
-												Добавить
-												<Button.Styles>
-													<Style Selector="Button">
-														<Setter Property="Background" Value="#D94D04" />
-														<Setter Property="Foreground" Value="#ffffff" />
-													</Style>
-													<Style Selector="Button:pointerover /template/ ContentPresenter">
-														<Setter Property="Background" Value="#ffffff" />
-														<Setter Property="Foreground" Value="#161616" />
-													</Style>
-												</Button.Styles>
-											</Button>
+											
 										</Grid>
 									</Border>
 								</DataTemplate>

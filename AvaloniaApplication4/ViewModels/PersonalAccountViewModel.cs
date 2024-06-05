@@ -229,6 +229,7 @@ namespace AvaloniaApplication4.ViewModels
                         {
                             foreach (var item3 in Bookings.Where(p => p.id_coworking == item2.Value))
                             {
+                                
                                 item3.Name_Cowork = item?.Name_cowork;
                                 foreach (var itm in  item.Photos)
                                 {

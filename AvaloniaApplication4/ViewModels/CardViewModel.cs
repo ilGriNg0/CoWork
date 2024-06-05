@@ -93,21 +93,21 @@ public partial class CardViewModel : ViewModelBase
                 }
 
             }
-            foreach (var item in connecting.MainServicesPairs)
-            {
-                foreach (var itemz in Card_Collection)
-                {
-                    if (item.Value.Item1 == itemz.Id && item.Value.Item3 == "Рабочее место")
-                    {
-                        itemz.Price_day_cowork = $"От {item.Value.Item2.ToString()} руб/день";
+            //foreach (var item in connecting.MainServicesPairs)
+            //{
+            //    foreach (var itemz in Card_Collection)
+            //    {
+            //        if (item.Value.Item1 == itemz.Id && item.Value.Item3 == "Рабочее место")
+            //        {
+            //            itemz.Price_day_cowork = $"От {item.Value.Item2.ToString()} руб/день";
 
-                    }
-                    if (item.Value.Item1 == itemz.Id && item.Value.Item3 == "Переговорная")
-                    {
-                        itemz.Price_meetingroom_cowork = $"От {item.Value.Item2.ToString()} руб/час";
-                    }
-                }
-            }
+            //        }
+            //        if (item.Value.Item1 == itemz.Id && item.Value.Item3 == "Переговорная")
+            //        {
+            //            itemz.Price_meetingroom_cowork = $"От {item.Value.Item2.ToString()} руб/час";
+            //        }
+            //    }
+            //}
             foreach (var item in connecting.PhotoIDPathPairs)
             {
                 foreach (var item2 in Card_Collection)
@@ -118,19 +118,19 @@ public partial class CardViewModel : ViewModelBase
                     }
                 }
             }
-            var addedIds = new HashSet<int>();
+        var addedIds = new HashSet<int>();
 
-            foreach (var item in connecting.PhotoIDPathPairs)
+        foreach (var item in connecting.PhotoIDPathPairs)
+        {
+            foreach (var item2 in Card_Collection)
             {
-                foreach (var item2 in Card_Collection)
+                if (item.Key.Item2 == item2.Id )
                 {
-                    if (item.Key.Item2 == item2.Id && !addedIds.Contains(item2.Id))
-                    {
-                        item2.Mainphotos.Add(new Bitmap(item.Value));
-                        addedIds.Add(item2.Id); // Добавляем id в множество, чтобы не добавлять дублирующие фотографии
-                    }
+                    item2.Mainphotos.Add(new Bitmap(item.Value));
+                 // Добавляем id в множество, чтобы не добавлять дублирующие фотографии
                 }
             }
+        }
         GC.Collect();
         GC.WaitForPendingFinalizers();
 

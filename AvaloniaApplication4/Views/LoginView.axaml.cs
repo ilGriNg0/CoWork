@@ -66,7 +66,8 @@ namespace AvaloniaApplication4.Views
                         this.GetControl<TextBlock>("Error1log").IsVisible = false;
                         this.GetControl<TextBlock>("Error2log").IsVisible = false;
 
-                        User.Id = rdr.GetInt64(0);
+                        User.Id = rdr.GetInt64(0); 
+                        BusinessAccountViewModel.IdBusinUser = (int)User.Id;
                         User.Model = new BusinessAccountViewModel();
                         User.Main.Page = User.Model;
                         return;

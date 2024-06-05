@@ -32,6 +32,7 @@ namespace AvaloniaApplication4.Models
         public Dictionary<(int, int), string> PhotoIDPathBusinessPairs = new();
         public Dictionary<int, (int, int, int, string, string)> ServicesPairs = new();
         public Dictionary<int, (int, int, string)> MainServicesPairs = new();
+        public List<int> BusinnessIdUsers = new();
         public ObservableCollection<Bitmap> Images { get; } = new();
         //public ObservableCollection<IdCompany> idCompanies { get; set; } = new ObservableCollection<IdCompany>();
 
@@ -83,12 +84,11 @@ namespace AvaloniaApplication4.Models
                         {
                             foreach (var item in js)
                             {
-                                if (((items is JsonClass json) && json.Id == item.Id_Coworking) || ((items is Booking book) && book.id_coworking == item.Id_Coworking))
+                                if (((items is JsonClass json) && json.Id == item.Id_Coworking ) || ((items is Booking book) && book.id_coworking == item.Id_Coworking))
                                 {
                                     keyValueBenefitsPairs.Add(id_BD, js);
                                 }
                                 
-
                             }
                         }
                        
@@ -223,6 +223,28 @@ namespace AvaloniaApplication4.Models
                 }
             }
         }
+
+        public async void ReadBusinessId(int idbsn)
+        {
+
+            await using (var connect = new NpgsqlConnection(cs))
+            {
+                connect.Open();
+                await using(var command = new NpgsqlCommand("SELECT * FROM main_businesses",connect))
+                {
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        if (id == idbsn)
+                        {
+                            BusinnessIdUsers.Add(id);
+                        } 
+                        
+                    }    
+                }
+            }
+        }
         public async Task WriteBusinessBd(ObservableCollection<string> bitmaps_path, int id)
         {
 
@@ -244,7 +266,7 @@ namespace AvaloniaApplication4.Models
                 }
             }
         }
-        public async Task WriteServicesBd(int id, List<JsonClass> js)
+        public async Task WriteServicesBd(int id, ObservableCollection<JsonClass> js)
         {
             await using (var conncet = new NpgsqlConnection(connect_host))
             {
@@ -258,35 +280,27 @@ namespace AvaloniaApplication4.Models
                         command.Parameters.Clear(); 
                         command.Parameters.Add(new NpgsqlParameter("@id", NpgsqlDbType.Integer) { Value = id });
                         command.Parameters.Add(new NpgsqlParameter("@price1", NpgsqlDbType.Integer) { Value = item.Tariffs_price });
-                        command.Parameters.Add(new NpgsqlParameter("@count1", NpgsqlDbType.Integer) { Value = item.Number_of_seats_solo });
+                        command.Parameters.Add(new NpgsqlParameter("@count1", NpgsqlDbType.Integer) { Value = item.Tariffs_count });
                         command.Parameters.Add(new NpgsqlParameter("@info", NpgsqlDbType.Varchar) { Value = item.Tariffs });
-                        command.Parameters.Add(new NpgsqlParameter("@icon", NpgsqlDbType.Varchar) { Value = item.Pserv });
+                        command.Parameters.Add(new NpgsqlParameter("@icon", NpgsqlDbType.Varchar) { Value = "sdfsdf" });
                         command.ExecuteNonQuery();
 
                     }
                    
 
-                    try
-                    {
-                       
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
+                  
                   
                 }
             }
         }
-        public async Task WriteNormalBD(int id_company, string info, string date_start, string date_end, string name, string address, int rating_ctn, int rating_sum)
+        public async Task WriteNormalBD(int id_company, string info, string date_start, string date_end, string name, string address, int rating_ctn, int rating_sum, int businid)
         {
            
             //var json_collect2 = JsonConvert.SerializeObject(js);
             await using (var conncet = new NpgsqlConnection(connect_host))
             {
                 conncet.Open();
-                string command_add_serv = "INSERT INTO main_coworkingspaces (id_company_id, description, date_start, date_end, coworking_name, address, rating_count, rating_sum) VALUES (@id_company, @info, @date_start, @date_end, @name, @address, @rating_ctn, @rating_sum);";
+                string command_add_serv = "INSERT INTO main_coworkingspaces (id_company_id, description, date_start, date_end, coworking_name, address, rating_count, rating_sum, busin_id) VALUES (@id_company, @info, @date_start, @date_end, @name, @address, @rating_ctn, @rating_sum, @businid);";
                 await using (var command = new NpgsqlCommand(command_add_serv, conncet))
                 {
                     command.Parameters.Add(new NpgsqlParameter("@id_company", NpgsqlDbType.Integer) { Value = id_company });
@@ -297,6 +311,7 @@ namespace AvaloniaApplication4.Models
                     command.Parameters.Add(new NpgsqlParameter("@address", NpgsqlDbType.Varchar) { Value = address });
                     command.Parameters.Add(new NpgsqlParameter("@rating_ctn", NpgsqlDbType.Integer) { Value = rating_ctn });
                     command.Parameters.Add(new NpgsqlParameter("@rating_sum", NpgsqlDbType.Integer) { Value = rating_sum });
+                    command.Parameters.Add(new NpgsqlParameter("@businid", NpgsqlDbType.Integer) { Value = businid });
                     try
                     {
                         // Ensure you await the execution of the command
@@ -326,7 +341,7 @@ namespace AvaloniaApplication4.Models
                     while (reader.Read())
                     {
                         id = reader.GetInt32(0);
-                        var items = new JsonClass { Id = reader.GetInt32(1), Info_cowork = reader.GetString(2), Date_created = reader.GetString(3), Date_created_snst = reader.GetString(4), Name_cowork = reader.GetString(5), Location_cowork = reader.GetString(6), Raiting_count = reader.GetInt32(7), Rating_sum = reader.GetInt32(8)};
+                        var items = new JsonClass { Id = reader.GetInt32(1), Info_cowork = reader.GetString(2), Date_created = reader.GetString(3), Date_created_snst = reader.GetString(4), Name_cowork = reader.GetString(5), Location_cowork = reader.GetString(6), Raiting_count = reader.GetInt32(7), Rating_sum = reader.GetInt32(8), Id_busin = reader.GetInt32(9)};
 
                         //js.Add(items);
 

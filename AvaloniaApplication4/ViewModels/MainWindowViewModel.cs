@@ -175,6 +175,10 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private int _tariffs_price;
         [ObservableProperty]
+        private int _tariffs_count;
+        [ObservableProperty]
+        private  int _id_busin;
+        [ObservableProperty]
      static private ObservableCollection<JsonClass>? _jsonBenefits = new();
         [ObservableProperty]
         private ObservableCollection<Bitmap> _photos = new();
@@ -202,6 +206,9 @@ namespace AvaloniaApplication4.ViewModels
 
         [ObservableProperty]
         private int _tarif_count;
+
+        [ObservableProperty]
+        private string? _tarif_ph;
     }
 
 

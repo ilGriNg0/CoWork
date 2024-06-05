@@ -16,6 +16,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.IO;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.Intrinsics.Arm;
 using System.Windows.Input;
 using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
@@ -52,7 +54,9 @@ namespace AvaloniaApplication4.ViewModels
         public string _password;
         [ObservableProperty]
         private static bool _keyBusin;
-
+        [ObservableProperty]
+        private ObservableCollection<JsonClass> _businesses= new(); 
+        
         public ICommand NavigateToAddCommand => new RelayCommand<string>(NavigateToAdd);
 
         
@@ -63,6 +67,23 @@ namespace AvaloniaApplication4.ViewModels
             mainwindow.Navigate(pageViewModel);
 
         }
+
+        private static int _idBusinUser;
+
+        public static int IdBusinUser
+        {
+            get 
+            {
+                if (_idBusinUser == null)
+                {
+                    _idBusinUser = 0;
+                    
+                }
+                return _idBusinUser;
+            }
+            set { _idBusinUser = value; }
+        }
+
         private static bool _key_boookingPressed;
 
         public static bool Key_boookingPressed
@@ -97,7 +118,7 @@ namespace AvaloniaApplication4.ViewModels
             
         }
         [ObservableProperty]
-        private ObservableCollection<JsonClass> _bookingsBusines = new();
+        private Dictionary<int, ObservableCollection<JsonClass>> _bookingsBusines = new();
         public ObservableCollection<string> Coworkings { get; set; }
         public ICommand ButtonCommand { get; }
         ConnectingBD connect = new();
@@ -137,7 +158,7 @@ namespace AvaloniaApplication4.ViewModels
             var con = new NpgsqlConnection(cs);
             con.Open();
 
-            var sql = $"SELECT o.id, o.price, o.type, o.time_start, o.time_end, o.date, o.number, o.rating, c.first_name, c.last_name, c.phone_number, p.coworking_name\r\nFROM main_coworkingspaces p\r\nJOIN main_bookings o ON o.id_coworking_id = p.id\r\nJOIN main_users c ON o.id_user_id = c.id\r\nWHERE p.id_company_id = '{User.Id}' ORDER BY p.coworking_name, o.date;";
+            var sql = $"SELECT o.id, o.price, o.type, o.time_start, o.time_end, o.date, o.number, o.rating, c.first_name, c.last_name, c.phone_number, p.coworking_name\r\nFROM main_coworkingspaces p\r\nJOIN main_bookings o ON o.id_coworking_id = p.id\r\nJOIN main_users c ON o.id_user_id = c.id\r\nWHERE p.busin_id = '{User.Id}' ORDER BY p.coworking_name, o.date;";
             var cmd = new NpgsqlCommand(sql, con);
             NpgsqlDataReader rdr = cmd.ExecuteReader();
             var onelist = new List<Booking>();
@@ -165,16 +186,117 @@ namespace AvaloniaApplication4.ViewModels
         }
         public void InsertBookings()
         {
-           //var cardViewModel = new CardViewModel();
-            var instanceBs = (CardViewModel)Activator.CreateInstance(typeof(CardViewModel), true);
+            //var cardViewModel = new CardViewModel();
+            var instanceBs = CardViewModel.Instance;
+            if(IdBusinUser != 0)
+            {
+                foreach (var item in instanceBs.Card_Collection)
+                {
+                    if (item.Id_busin== IdBusinUser)
+                    {
+                        Businesses.Add(item);
+                        insertPhotoBookings();
+                    }
+                }
+
+            }
+            
             //var method = typeof(AddCardViewModel).GetMethod("OnDataLoad");
             //method.Invoke(instanceBs, parameters: null);
-            foreach (var item in instanceBs.Card_Collection)
-            {
-              BookingsBusines.Add(item);
-              insertPhotoBookings();
-                    
-            }
+            //if(IdBusinUser != 0)
+            //{
+            //    connect.ReadBusinessId(IdBusinUser);
+            //    foreach (var item in instanceBs.Card_Collection)
+            //    {
+            //        foreach (var itemid in connect.BusinnessIdUsers)
+            //        {
+            //            if (item.Id == itemid)
+            //            {
+            //                BookingsBusines.Add(item);
+            //                insertPhotoBookings();
+            //            }
+            //        }
+            //    }
+            //}
+            //if(IdBusinUser != 0)
+            //{
+            //    foreach (var itm in instanceBs.Card_Collection)
+            //    {
+            //        if (!BookingsBusines.ContainsKey(itm.Id))  
+            //        {
+            //            BookingsBusines[itm.Id] = new ObservableCollection<JsonClass>();
+            //        }
+
+            //        // Check if the item is already in the collection
+            //        if (BookingsBusines[itm.Id].Any(x => IdBusinUser == itm.Id))
+            //        {
+            //            BookingsBusines[itm.Id].Add(itm);
+            //        }
+            //    }
+            //}
+            
+            //connect.ReadBusinessId(IdBusinUser);
+            //if (IdBusinUser != 0)
+            //{
+            //     foreach (var itm in instanceBs.Card_Collection)
+            //{
+            //    if (!BookingsBusines.ContainsKey(itm.Id))
+            //    {
+            //        BookingsBusines[itm.Id] = new ObservableCollection<JsonClass>();
+            //    }
+
+            //    // Check if the item is already in the collection
+            //    if (!BookingsBusines[itm.Id].Any(x => x.Id == itm.Id))
+            //    {
+            //        BookingsBusines[itm.Id].Add(itm);
+            //    }
+            //}
+            //}
+           
+
+            //if (IdBusinUser != 0)
+            //{
+            //    foreach (var itemz in instanceBs.Card_Collection)
+            //    {
+            //        if (BookingsBusines.ContainsKey(IdBusinUser))
+            //        {
+            //            foreach (var booking in BookingsBusines[IdBusinUser])
+            //            {
+            //                if (!Businesses.Any(x => x.Id == booking.Id))
+            //                {
+            //                    Businesses.Add(booking);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //foreach (var itm in instanceBs.Card_Collection)
+            //{
+            //    if (!BookingsBusines.ContainsKey(itm.Id))
+            //    {
+            //        BookingsBusines[itm.Id] = new ObservableCollection<JsonClass>();
+            //    }
+
+            //    // Предположим, что нужно преобразовать Card в JsonClass
+            //    //var jsonClassItem = new JsonClass { Id = itm.Id };
+            //    BookingsBusines[itm.Id].Add(itm);
+            //}
+
+            //// Шаг 2: Если IdBusinUser не равен 0, добавляем данные в Businesses
+            //if (IdBusinUser != 0)
+            //{
+            //    foreach (var itemz in instanceBs.Card_Collection)
+            //    {
+            //        if (BookingsBusines.ContainsKey(itemz.Id))
+            //        {
+            //            foreach (var booking in BookingsBusines[itemz.Id])
+            //            {
+            //                Businesses.Add(booking);
+            //            }
+            //        }
+            //    }
+            //}
+
         }
         public void insertPhotoBookings()
         {
@@ -182,7 +304,7 @@ namespace AvaloniaApplication4.ViewModels
             connectingdb.ReadPhotoBusinessBd();
             foreach (var item in connectingdb.PhotoIDPathBusinessPairs)
             {
-                    foreach (var item2 in BookingsBusines)
+                    foreach (var item2 in Businesses)
                     {
                       if(item.Key.Item2 == item2.Id)
                         {

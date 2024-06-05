@@ -301,7 +301,7 @@
 				</Button>
 			</Border>
 			<ItemsControl
-				ItemsSource="{Binding  BookingsBusines}">
+				ItemsSource="{Binding  Businesses}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<StackPanel

@@ -51,6 +51,9 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string? _message;
 
+        [ObservableProperty]
+        private bool _isOn = true;
+
         public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
         public string Namespace()
         {
@@ -66,10 +69,13 @@ namespace AvaloniaApplication4.ViewModels
             var main = MainWindowViewModel.Instance;
             if (reg)
             {
-                main.Page = (ViewModelBase)Activator.CreateInstance(Type.GetType(Namespace() + "." + pageViewModel)); ;
+                main.Page = (ViewModelBase)Activator.CreateInstance(Type.GetType(Namespace() + "." + pageViewModel)); 
+
+
             }
             else if(instanceBs.KeyBusin)
             {
+                IsOn = false;
                 Message = "Оформление бронирования невозможно. Вы зарегистрированы как бизнес-аккаунт";
             }
             else
@@ -96,7 +102,7 @@ namespace AvaloniaApplication4.ViewModels
 
             if (item is JsonClass js)
             {
-                var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == js.Id);
+                var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == js.Id && p.Name_cowork == js.Name_cowork);
                 connecting.ReadServicesBd(js);
                 JsonClass jsonClass = DynamicCardsViewModel.BackupDatajs;
                
@@ -155,7 +161,7 @@ namespace AvaloniaApplication4.ViewModels
                 if (item is Booking book)
                 {
                 Booking bookClass = DynamicCardsViewModel.BacupDatabk;
-                var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking);
+                var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking && p.Name_cowork == book.Name_Cowork);
 
                 if (item.Equals(bookClass))
                 {

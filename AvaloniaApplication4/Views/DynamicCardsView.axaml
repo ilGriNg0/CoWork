@@ -179,7 +179,11 @@
 						FontFamily="Source Sans Pro">
 						Услуги:
 					</TextBlock>
-
+					<TextBlock Text="{Binding Message , Mode=TwoWay}"
+																		   FontWeight="UltraBold"
+																			FontSize="18"
+																			FontFamily="Source Sans Pro"
+																			Foreground="White"/>
 					<ScrollViewer HorizontalScrollBarVisibility="Visible">
 					<StackPanel Orientation="Horizontal" Margin="30 20 0 30" Spacing="30">
 						
@@ -247,6 +251,7 @@
 													HorizontalAlignment="Left"
 													VerticalAlignment="Center"/>
 											</StackPanel>
+											
 											<Button
 												Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
 												CommandParameter="CreateBookingViewModel"
@@ -256,7 +261,7 @@
 												FontSize="18"
 												HorizontalContentAlignment="Center"
 												VerticalContentAlignment="Center"
-												
+												IsEnabled="{Binding IsOn, Mode=TwoWay}"
 												FontFamily="Gelion"
 												CornerRadius="50"
 												Height="40"
