@@ -13,20 +13,20 @@
 				
 				<Grid Grid.Row="0" ColumnDefinitions="2*,*,*" ShowGridLines="False">
 				<Border Grid.Column="0" Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
-						<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="0" Background="Gray" Height="605" Width="605">
+						<Button VerticalAlignment="Center" CornerRadius="15" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="0" Background="Gray">
 							<Image ClipToBounds="True" Source="{Binding Photo_Coworking[0]}" Stretch="Fill"></Image>
 						</Button>
 				</Border>
 				<Border Grid.Column="1" Grid.Row="0">
 					<Grid RowDefinitions="*,*">
 						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
-							<Button  VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="1" Background="Gray" Height="350" Width="300">
-								<Image ClipToBounds="True" HorizontalAlignment="Center" Source="{Binding Photo_Coworking[1]}" Stretch="Fill"></Image>
+							<Button  VerticalAlignment="Center" CornerRadius="15" HorizontalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="1" Background="Gray">
+								<Image ClipToBounds="True" HorizontalAlignment="Center" Source="{Binding Photo_Coworking[1]}" Stretch="UniformToFill"></Image>
 							</Button>
 						</Border>
 						<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
-							<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="2" Background="Gray" Height="350" Width="300">
-								<Image  ClipToBounds="True" HorizontalAlignment="Center" Source="{Binding Photo_Coworking[2]}" Stretch="Fill"></Image>
+							<Button VerticalAlignment="Center" CornerRadius="15" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="2" Background="Gray">
+								<Image  ClipToBounds="True" HorizontalAlignment="Center" Source="{Binding Photo_Coworking[2]}" Stretch="UniformToFill"></Image>
 							</Button>
 						</Border>
 					</Grid>
@@ -34,13 +34,13 @@
 				<Border  Grid.Row="0" Grid.Column="2">
 					<Grid RowDefinitions="*,*">
 						<Border Grid.Row="0" CornerRadius="15" Margin="5" ClipToBounds="True">
-							<Button VerticalAlignment="Center" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="3" Background="Gray" Height="350" Width="300">
-								<Image ClipToBounds="True" Source="{Binding Photo_Coworking[3]}" Stretch="Fill"></Image>
+							<Button VerticalAlignment="Center" CornerRadius="15" HorizontalAlignment="Center"  Command="{Binding AddPhotoCommand}" CommandParameter="3" Background="Gray">
+								<Image ClipToBounds="True" Source="{Binding Photo_Coworking[3]}" Stretch="UniformToFill"></Image>
 							</Button>
 						</Border>
 						<Border Grid.Row="1" CornerRadius="15" Margin="5" ClipToBounds="True" >
-							<Button VerticalAlignment="Center" HorizontalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="4" Background="Gray" Height="350" Width="300">
-								<Image ClipToBounds="True" Source="{Binding Photo_Coworking[4]}" Stretch="Fill"></Image>
+							<Button VerticalAlignment="Center" CornerRadius="15" HorizontalAlignment="Center" Command="{Binding AddPhotoCommand}" CommandParameter="4" Background="Gray">
+								<Image ClipToBounds="True" Source="{Binding Photo_Coworking[4]}" Stretch="UniformToFill"></Image>
 							</Button>
 						</Border>
 					</Grid>
