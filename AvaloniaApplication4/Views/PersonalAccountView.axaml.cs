@@ -1,11 +1,15 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Documents;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using AvaloniaApplication4.Models;
 using AvaloniaApplication4.ViewModels;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Npgsql;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using static AvaloniaApplication4.ViewModels.PersonalAccountViewModel;
@@ -22,20 +26,35 @@ namespace AvaloniaApplication4.Views
             InitializeComponent();
         }
 
-        private void StarRatingControl_RatingChanged(object? sender, int newRating)
+        private void StarRatingControl_RatingChanged(object? sender, int lastRating)
         {
             if (sender is StarRatingControl starRatingControl)
             {
                 var booking = starRatingControl.DataContext as Booking;
                 if (booking != null)
                 {
-                    booking.Rating = newRating;
-
+                    List<JsonClass> jsons = new List<JsonClass>(CardViewModel._card_Collection);
+                    JsonClass needjson = jsons[0];
+                    foreach(var item in jsons)
+                    {
+                        if (item.Id == booking.id_coworking)
+                        {
+                            needjson = item;
+                            break;
+                        }
+                    }
+                    if (lastRating == 0)
+                    {
+                        needjson.Raiting_count++;
+                    }
+                    needjson.Rating_sum += (booking.Rating - lastRating);
+                    needjson.Rating_cowork = Math.Round((double)needjson.Rating_sum / needjson.Raiting_count, 1);
+                    //CardViewModel._card_Collection = new ObservableCollection<JsonClass>(jsons);
                     string cs = User.Connect;
                     var con = new NpgsqlConnection(cs);
                     con.Open();
 
-                    var sql = $"UPDATE main_bookings SET rating = '{booking.Rating}' WHERE id = '{booking.Id}';";
+                    var sql = $"UPDATE main_bookings SET rating = '{booking.Rating}' WHERE id = '{booking.Id}'; UPDATE main_coworkingspaces SET rating_count = '{needjson.Raiting_count}', rating_sum = '{needjson.Rating_sum}' WHERE id = '{booking.id_coworking}';";
                     var cmd = new NpgsqlCommand(sql, con);
                     NpgsqlDataReader rdr = cmd.ExecuteReader();
                 }
@@ -170,14 +189,19 @@ namespace AvaloniaApplication4.Views
         }
         private void BorderPersonal_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
-
-            if (sender is Border bord && bord.DataContext is Booking js)
+            if (sender is Image img && img.Parent.Parent.Parent.Parent is Border bord && bord.DataContext is Booking js) 
             {
                 var viewModel = new DynamicCardsViewModel(js);
               
                 Cont.Content = new DynamicCardsView { DataContext = viewModel };
             }
+            else if (sender is Border bord1 && bord1.DataContext is Booking js1)
+            {
+                var viewModel = new DynamicCardsViewModel(js1);
 
+                Cont.Content = new DynamicCardsView { DataContext = viewModel };
+            }
+            this.GetControl<ScrollViewer>("Scroll").ScrollToHome();
             PersonalAccountViewModel.Pressed = true;
             
            

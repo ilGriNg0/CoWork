@@ -19,12 +19,6 @@ namespace AvaloniaApplication4.Views
             InitializeComponent();
         }
 
-        public async void Add_Click(object source, RoutedEventArgs args)
-        {
-            var create = new CreateBookingViewModel(1, 9, 23);
-            ContentContainer.Content = create;
-        }
-
         private void Forgot_PointerPressed(object sender, PointerPressedEventArgs e)
         {
             return;

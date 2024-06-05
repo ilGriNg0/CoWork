@@ -142,6 +142,8 @@ namespace AvaloniaApplication4.ViewModels
 
         [ObservableProperty]
         private string? _name_cowork;
+        [ObservableProperty]
+        private double _rating_cowork = 0;
 
         [ObservableProperty]
 
@@ -206,6 +208,9 @@ namespace AvaloniaApplication4.ViewModels
 
         [ObservableProperty]
         private int _tarif_count;
+
+        [ObservableProperty]
+        private int _tarif_id;
 
         [ObservableProperty]
         private string? _tarif_ph;

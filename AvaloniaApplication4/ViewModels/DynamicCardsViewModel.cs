@@ -120,9 +120,10 @@ namespace AvaloniaApplication4.ViewModels
                             Benef.Add(itemsdf);
                         }
                     }
+                    int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 , Tarif_id = i++,});
                     }
                 }
                 else
@@ -147,9 +148,10 @@ namespace AvaloniaApplication4.ViewModels
                         }
                     }
 
+                    int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2, Tarif_id = i++ });
                     }
                 }
                
@@ -158,8 +160,8 @@ namespace AvaloniaApplication4.ViewModels
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             }
-                if (item is Booking book)
-                {
+            if (item is Booking book)
+            {
                 Booking bookClass = DynamicCardsViewModel.BacupDatabk;
                 var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking && p.Name_cowork == book.Name_Cowork);
 
@@ -177,12 +179,13 @@ namespace AvaloniaApplication4.ViewModels
                             Benef.Add(itemsdf);
                         }
                     }
+                    int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2, Tarif_id = i++ });
                     }
                 }
-                else 
+                else
                 {
                     //var items = instance?.Card_Collection.FirstOrDefault(p => p.Id == book.id_coworking);
                     connecting.ReadServicesBd(book);
@@ -204,18 +207,18 @@ namespace AvaloniaApplication4.ViewModels
                             Benef.Add(itemsdf);
                         }
                     }
+                    int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 , Tarif_id = i++ });
                     }
                 }
-                    
+
                 SaveDatabk(book);
                 //GC.Collect();
                 //GC.WaitForPendingFinalizers();
                 //}
             }
-
 
             }
     
