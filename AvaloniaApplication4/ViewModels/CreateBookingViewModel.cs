@@ -35,7 +35,7 @@ namespace AvaloniaApplication4.ViewModels
                 }
             }
         }
-        private int choise;
+        public static int choise = 0;
         private int Id_c = 1;
         private int Open = 9;
         private int Closed = 23;
@@ -133,8 +133,8 @@ namespace AvaloniaApplication4.ViewModels
                 }
             }
             Types = new ObservableCollection<string>(tps);
-            SelectedType = Types[0];
-            PhotoPath = Img[0];
+            SelectedType = Types[choise];
+            PhotoPath = Img[choise];
         }
 
         private ObservableCollection<string> _types;

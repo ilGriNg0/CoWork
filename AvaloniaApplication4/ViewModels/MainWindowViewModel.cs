@@ -204,6 +204,9 @@ namespace AvaloniaApplication4.ViewModels
 
         [ObservableProperty]
         private int _tarif_count;
+
+        [ObservableProperty]
+        private int _tarif_id;
     }
 
 

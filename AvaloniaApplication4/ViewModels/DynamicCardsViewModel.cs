@@ -114,9 +114,10 @@ namespace AvaloniaApplication4.ViewModels
                             Benef.Add(itemsdf);
                         }
                     }
+                    int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 , Tarif_id = i++,});
                     }
                 }
                 else
@@ -141,9 +142,10 @@ namespace AvaloniaApplication4.ViewModels
                         }
                     }
 
+                    int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2, Tarif_id = i++ });
                     }
                 }
                
@@ -171,9 +173,10 @@ namespace AvaloniaApplication4.ViewModels
                             Benef.Add(itemsdf);
                         }
                     }
+                    int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2, Tarif_id = i++ });
                     }
                 }
                 else
@@ -198,9 +201,10 @@ namespace AvaloniaApplication4.ViewModels
                             Benef.Add(itemsdf);
                         }
                     }
+                    int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 , Tarif_id = i++ });
                     }
                 }
 

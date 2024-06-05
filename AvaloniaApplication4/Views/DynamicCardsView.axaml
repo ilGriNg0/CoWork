@@ -274,7 +274,7 @@
 												FontSize="18"
 												HorizontalContentAlignment="Center"
 												VerticalContentAlignment="Center"
-												
+												Click="SelectedBook_Click"
 												FontFamily="Gelion"
 												CornerRadius="50"
 												Height="40"
