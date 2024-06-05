@@ -195,10 +195,10 @@
 						Услуги:
 					</TextBlock>
 					<TextBlock Text="{Binding Message , Mode=TwoWay}"
-																		   FontWeight="UltraBold"
-																			FontSize="18"
-																			FontFamily="Source Sans Pro"
-																			Foreground="White"/>
+						FontWeight="UltraBold"
+						FontSize="18"
+						FontFamily="Source Sans Pro"
+						Foreground="White"/>
 					<ScrollViewer HorizontalScrollBarVisibility="Visible">
 					<StackPanel Orientation="Horizontal" Margin="30 20 0 30" Spacing="30">
 						
@@ -214,7 +214,7 @@
 									<Border Width="350"  Height="500" Background="Black" CornerRadius="15" Margin="5">
 										<Grid RowDefinitions="2*,*,*" ShowGridLines="False">
 											<Border Grid.Row="0" ClipToBounds="True" Margin="5" CornerRadius="15">
-												<Image Source="{Binding Photoses[0]}" Stretch="Fill"/>
+												<Image Source="{Binding Tarif_img}" Stretch="Fill"/>
 											</Border>
 											<StackPanel Margin="15 5 0 0" Grid.Row="1" Spacing="5" >
 												<TextBlock 
@@ -279,7 +279,7 @@
 												FontSize="18"
 												HorizontalContentAlignment="Center"
 												VerticalContentAlignment="Center"
-												IsEnabled="{Binding IsOn, Mode=TwoWay}"
+												IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
 												FontFamily="Gelion"
 												CornerRadius="50"
 												Height="40"

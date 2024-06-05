@@ -51,7 +51,7 @@
 				<StackPanel 
 					Margin="100 40 0 30" 
 					Grid.Row="1" 
-					Orientation="Horizontal" 
+					Orientation="Vertical" 
 					Spacing="50" 
 					HorizontalAlignment="Left" 
 					VerticalAlignment="Top">
@@ -179,7 +179,7 @@
 							Преимущества
 						</TextBlock>
 
-						<StackPanel Margin="0 30 0 30" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="150">
+						<StackPanel Margin="0 30 0 30" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Spacing="150">
 							<StackPanel>
 								<StackPanel Spacing="10">
 									<StackPanel Orientation="Horizontal">

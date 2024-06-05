@@ -162,7 +162,7 @@ namespace AvaloniaApplication4.ViewModels
                 businesse.InsertBookings();
                 await connect.WriteBusinessBd(Strings, card.Card_Collection.Count);
                 connect.WriteBenefitsBd(BenefitsList);
-                connect.WriteServicesBd(card.Card_Collection.Count, Borders);
+                connect.WriteServicesBd(card.Card_Collection.Count, Borders, Strings);
               
                 var main = MainWindowViewModel.Instance;
                 //main.Navigate("BusinessAccountViewModel");

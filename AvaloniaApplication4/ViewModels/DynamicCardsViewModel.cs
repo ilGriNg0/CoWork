@@ -51,8 +51,8 @@ namespace AvaloniaApplication4.ViewModels
         [ObservableProperty]
         private string? _message;
 
-        [ObservableProperty]
-        private bool _isOn = true;
+        //[ObservableProperty]
+        //private static bool _isOn = true;
 
         public ICommand NavigateCommand => new RelayCommand<string>(Navigate);
         public string Namespace()
@@ -75,7 +75,11 @@ namespace AvaloniaApplication4.ViewModels
             }
             else if(instanceBs.KeyBusin)
             {
-                IsOn = false;
+                //TariffElements._isEnabled = false;
+                foreach (var item in TariffElem)
+                {
+                    item.IsEnabled = false;
+                }
                 Message = "Оформление бронирования невозможно. Вы зарегистрированы как бизнес-аккаунт";
             }
             else
@@ -123,7 +127,7 @@ namespace AvaloniaApplication4.ViewModels
                     int i = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 , Tarif_id = i++,});
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 , Tarif_id = i++, Tarif_img = new Bitmap(item_serv.Value.Item5)});
                     }
                 }
                 else

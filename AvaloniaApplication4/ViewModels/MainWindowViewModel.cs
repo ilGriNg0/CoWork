@@ -214,6 +214,16 @@ namespace AvaloniaApplication4.ViewModels
 
         [ObservableProperty]
         private string? _tarif_ph;
+
+        [ObservableProperty]
+        public bool _isEnabled = true;
+
+        [ObservableProperty]
+        private  Bitmap? _tarif_img;
+
+
+        
+
     }
 
 

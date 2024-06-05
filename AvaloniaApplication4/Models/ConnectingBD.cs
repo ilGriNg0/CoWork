@@ -251,7 +251,7 @@ namespace AvaloniaApplication4.Models
             await using (var connect = new NpgsqlConnection(connect_host))
             {
                 connect.Open();
-                string command_add = "INSERT INTO main_images (id_coworking_id, img) VALUES (@intValue, @text)";
+                string command_add = "INSERT INTO main_images (id_coworking_id, file) VALUES (@intValue, @text)";
                 await using (var command = new NpgsqlCommand(command_add, connect))
                 {
                    
@@ -266,7 +266,7 @@ namespace AvaloniaApplication4.Models
                 }
             }
         }
-        public async Task WriteServicesBd(int id, ObservableCollection<JsonClass> js)
+        public async Task WriteServicesBd(int id, ObservableCollection<JsonClass> js, ObservableCollection<string> ph)
         {
             await using (var conncet = new NpgsqlConnection(connect_host))
             {
@@ -275,14 +275,20 @@ namespace AvaloniaApplication4.Models
                                          
                 await using (var command = new NpgsqlCommand(command_add_serv, conncet))
                 {
+                    int i = 0;
+
                     foreach (var item in js)
                     {
+                        if(i == 5)
+                        {
+                            i = 0;
+                        }
                         command.Parameters.Clear(); 
                         command.Parameters.Add(new NpgsqlParameter("@id", NpgsqlDbType.Integer) { Value = id });
                         command.Parameters.Add(new NpgsqlParameter("@price1", NpgsqlDbType.Integer) { Value = item.Tariffs_price });
                         command.Parameters.Add(new NpgsqlParameter("@count1", NpgsqlDbType.Integer) { Value = item.Tariffs_count });
                         command.Parameters.Add(new NpgsqlParameter("@info", NpgsqlDbType.Varchar) { Value = item.Tariffs });
-                        command.Parameters.Add(new NpgsqlParameter("@icon", NpgsqlDbType.Varchar) { Value = "sdfsdf" });
+                        command.Parameters.Add(new NpgsqlParameter("@icon", NpgsqlDbType.Varchar) { Value = ph[i++] });
                         command.ExecuteNonQuery();
 
                     }
@@ -337,29 +343,40 @@ namespace AvaloniaApplication4.Models
                 connect.Open();
                 await using (var command = new NpgsqlCommand("SELECT * FROM main_coworkingspaces", connect))
                 {
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
+                    try
                     {
-                        id = reader.GetInt32(0);
-                        var items = new JsonClass { Id = reader.GetInt32(1), Info_cowork = reader.GetString(2), Date_created = reader.GetString(3), Date_created_snst = reader.GetString(4), Name_cowork = reader.GetString(5), Location_cowork = reader.GetString(6), Raiting_count = reader.GetInt32(7), Rating_sum = reader.GetInt32(8), Id_busin = reader.GetInt32(9)};
-
-                        //js.Add(items);
-
-                        if (!keyValuePairs.ContainsKey(id))
+                        var reader = command.ExecuteReader();
+                        while (reader.Read())
                         {
-                            // If the key does not exist, create a new list for this key
-                            keyValuePairs[id] = new List<JsonClass>();
+                            id = reader.GetInt32(0);
+                            var items = new JsonClass { Id = reader.GetInt32(1), Info_cowork = reader.GetString(2), Date_created = reader.GetString(3), Date_created_snst = reader.GetString(4), Name_cowork = reader.GetString(5), Location_cowork = reader.GetString(6), Raiting_count = reader.GetInt32(7), Rating_sum = reader.GetInt32(8), Id_busin = reader.GetInt32(9) };
+
+                            //js.Add(items);
+
+                            if (!keyValuePairs.ContainsKey(id))
+                            {
+                                // If the key does not exist, create a new list for this key
+                                keyValuePairs[id] = new List<JsonClass>();
+                            }
+
+
+                            keyValuePairs[id].Add(items);
+
+
+
+                            //types.AddRange(js);
                         }
-
-                
-                        keyValuePairs[id].Add(items);
-
-
-
-                        //types.AddRange(js);
+                        reader.Close();
                     }
+                    catch (Exception)
+                    {
 
-                    reader.Close();
+                        throw;
+                    }
+                    
+                  
+
+                    
                 }
             }
 
