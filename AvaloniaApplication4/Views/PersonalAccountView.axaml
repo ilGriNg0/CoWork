@@ -399,7 +399,7 @@
 											</StackPanel>
 											
 											<!-- Первая половина с текстовыми полями -->
-											<StackPanel Grid.Row="1" Margin="0 22 0 0">
+											<StackPanel Grid.Row="1">
 												<TextBlock
 													Margin="0 15 0 0"
 													Foreground="#ffffff"

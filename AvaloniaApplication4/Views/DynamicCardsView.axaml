@@ -196,13 +196,13 @@
 					</TextBlock>
 					<TextBlock Text="{Binding Message , Mode=TwoWay}"
 						FontWeight="UltraBold"
+							   Margin="30 10 0 0"
 						FontSize="18"
 						FontFamily="Source Sans Pro"
 						Foreground="White"/>
+					
 					<ScrollViewer HorizontalScrollBarVisibility="Visible">
 					<StackPanel Orientation="Horizontal" Margin="30 20 0 30" Spacing="30">
-						
-
 						<ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding TariffElem}">
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
@@ -280,6 +280,7 @@
 												HorizontalContentAlignment="Center"
 												VerticalContentAlignment="Center"
 												IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+												Click="SelectedBook_Click"
 												FontFamily="Gelion"
 												CornerRadius="50"
 												Height="40"

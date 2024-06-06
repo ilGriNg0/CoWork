@@ -152,10 +152,10 @@ namespace AvaloniaApplication4.ViewModels
                         }
                     }
 
-                    int i = 0;
+                    int j = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2, Tarif_id = i++ });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2, Tarif_id = j++, Tarif_img = new Bitmap(item_serv.Value.Item5) });
                     }
                 }
                
@@ -183,10 +183,10 @@ namespace AvaloniaApplication4.ViewModels
                             Benef.Add(itemsdf);
                         }
                     }
-                    int i = 0;
+                    int z = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2, Tarif_id = i++ });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2, Tarif_id = z++, Tarif_img = new Bitmap(item_serv.Value.Item5) });
                     }
                 }
                 else
@@ -211,10 +211,10 @@ namespace AvaloniaApplication4.ViewModels
                             Benef.Add(itemsdf);
                         }
                     }
-                    int i = 0;
+                    int x = 0;
                     foreach (var item_serv in connecting.ServicesPairs)
                     {
-                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 , Tarif_id = i++ });
+                        TariffElem.Add(new TariffElements { Tarif = item_serv.Value.Item4, Tarif_count = item_serv.Value.Item3, Tarif_price = item_serv.Value.Item2 , Tarif_id = x++, Tarif_img = new Bitmap(item_serv.Value.Item5) });
                     }
                 }
 

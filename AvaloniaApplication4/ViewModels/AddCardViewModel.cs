@@ -96,15 +96,15 @@ namespace AvaloniaApplication4.ViewModels
         public ICommand DeleteTextBoxesCommand => new RelayCommand(DeleteTextBox);
         public AddCardViewModel()
         {
-            
+
             Photo_Coworking =
-               [
-                ph1 = new Bitmap("C:\\Users\\arabc\\source\\repos\\AvaloniaApplication4\\AvaloniaApplication4\\Assets\\pict1.jpg"),
-                ph2 = new Bitmap("C:\\Users\\arabc\\source\\repos\\AvaloniaApplication4\\AvaloniaApplication4\\Assets\\pict1.jpg"),
-                ph3 = new Bitmap("C:\\Users\\arabc\\source\\repos\\AvaloniaApplication4\\AvaloniaApplication4\\Assets\\pict1.jpg"),
-                ph4 = new Bitmap("C:\\Users\\arabc\\source\\repos\\AvaloniaApplication4\\AvaloniaApplication4\\Assets\\pict1.jpg"),
-                ph5 = new Bitmap("C:\\Users\\arabc\\source\\repos\\AvaloniaApplication4\\AvaloniaApplication4\\Assets\\pict1.jpg"),
-               ];
+   [
+    ph1 = new Bitmap("C:\\Users\\igora\\source\\repos\\CoWork\\апр\\AvaloniaApplication4\\Assets\\pict1.jpg"),
+    ph2 = new Bitmap("C:\\Users\\igora\\source\\repos\\CoWork\\апр\\AvaloniaApplication4\\Assets\\pict1.jpg"),
+    ph3 = new Bitmap("C:\\Users\\igora\\source\\repos\\CoWork\\апр\\AvaloniaApplication4\\Assets\\pict1.jpg"),
+    ph4 = new Bitmap("C:\\Users\\igora\\source\\repos\\CoWork\\апр\\AvaloniaApplication4\\Assets\\pict1.jpg"),
+    ph5 = new Bitmap("C:\\Users\\igora\\source\\repos\\CoWork\\апр\\AvaloniaApplication4\\Assets\\pict1.jpg"),
+   ];
         }
         ConnectingBD connect = new();
       
